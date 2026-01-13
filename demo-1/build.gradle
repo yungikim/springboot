@@ -1,0 +1,51 @@
+plugins {
+	id 'java'
+	id 'war'
+	id 'org.springframework.boot' version '3.2.11'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.kmslab'
+version = '0.0.1-SNAPSHOT'
+description = 'Demo project for Spring Boot'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// Web & Tomcat
+    implementation 'org.springframework.boot:spring-boot-starter-web' // webmvc 대신 web 사용 권장
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    
+    // MongoDB (핵심)
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    
+    // [중요] 구버전 MongoDB 서버(4.0)와 통신하기 위해 드라이버 버전을 낮춤
+    implementation 'org.mongodb:mongodb-driver-sync:4.11.1'
+    implementation 'org.mongodb:mongodb-driver-core:4.11.1'
+    implementation 'org.mongodb:bson:4.11.1'
+
+    // Mustache & JSP/JSTL
+    implementation 'org.springframework.boot:spring-boot-starter-mustache'
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:2.0.0'
+    
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
