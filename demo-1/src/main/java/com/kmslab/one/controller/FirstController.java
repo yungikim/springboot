@@ -24,6 +24,8 @@ public class FirstController {
 		return "goodbye";
 	}
 	
+	
+	
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	@GetMapping("/api/{collectionName}")
