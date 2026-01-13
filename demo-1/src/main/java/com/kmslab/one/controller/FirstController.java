@@ -25,7 +25,6 @@ public class FirstController {
 	}
 	
 	
-	
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	@GetMapping("/api/{collectionName}")
