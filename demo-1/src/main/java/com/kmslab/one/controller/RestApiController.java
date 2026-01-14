@@ -52,5 +52,5 @@ public class RestApiController {
 		String jsonQuery = "{'bun' : "+key+"}";		
 		BasicQuery query = new BasicQuery(jsonQuery);		
 		return testTemplate.find(query, Map.class, "data");
-	}	
+	}
 }
