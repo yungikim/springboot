@@ -26,4 +26,11 @@ public class MongoConfig {
 		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "GPT");
 		return new MongoTemplate(factory);
 	}
+	
+	@Bean(name="userdb")
+	public MongoTemplate UserdbTemplate() {
+		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "im_org_info");
+		return new MongoTemplate(factory);
+	}
+	
 }

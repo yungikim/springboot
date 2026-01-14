@@ -533,7 +533,17 @@ gapcommon.prototype = {
 		gap.removeCookie(c_name);
 		var exdate=new Date();
 		exdate.setDate(exdate.getDate() + exdays);
-		var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString()) + "; path=/; domain=kmslab.com;";		
+		
+		var domain = "";
+		if (location.hostname !== "localhost"){
+			domain = "; domain=kmslab.com";
+		}
+		//var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString()) + "; path=/; domain=kmslab.com;";		
+		
+		var c_value = escape(value) + 
+		                  ((exdays==null) ? "" : "; expires="+exdate.toUTCString()) + 
+		                  "; path=/" + domain + ";"; // domain 변수 적용
+		
 		document.cookie=c_name + "=" + c_value;
 	},	
 	
