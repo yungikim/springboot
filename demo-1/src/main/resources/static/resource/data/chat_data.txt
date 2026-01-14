@@ -1,0 +1,58 @@
+[
+	{
+		"type": "personal",
+		"name": "정유리",
+		"msg": "마지막으로 이거만 수정 부탁드려요^^",
+		"date": "2024-05-14 16:30",
+		"img": "../resource/images/chat_emp00.png",
+		"unread_count": 2
+	},
+	{
+		"type": "personal",
+		"name": "박현",
+		"msg": "최종컨펌 부탁드립니다~",
+		"date": "2024-05-14 9:52",
+		"img": "../resource/images/chat_emp01.png",
+		"unread_count": 5
+	},
+	{
+		"type": "personal",
+		"name": "김하늘",
+		"msg": "요청하신 자료 보내드렸습니다.",
+		"date": "2024-05-11 14:30",
+		"img": "../resource/images/chat_emp02.png",
+		"unread_count": 0
+	},
+	{
+		"type": "personal",
+		"name": "김둘리",
+		"msg": "넵",
+		"date": "2024-05-04 11:09",
+		"img": "../resource/images/chat_emp03.png",
+		"unread_count": 0
+	},
+	{
+		"type": "personal",
+		"name": "강하나",
+		"msg": "감사합니다^^",
+		"date": "2024-05-01 14:47",
+		"img": "../resource/images/chat_emp04.png",
+		"unread_count": 0
+	},
+	{
+		"type": "group",
+		"name": "정유리, 박현",
+		"msg": "넵^^",
+		"date": "2024-05-01 14:47",
+		"img": "../resource/images/chat_emp00.png, ../resource/images/chat_emp01.png",
+		"unread_count": 8
+	},
+	{
+		"type": "group",
+		"name": "김하늘, 박현, 강하나, 김둘리",
+		"msg": "보내주신 자료 잘 받았습니다.^^",
+		"date": "2024-05-01 14:47",
+		"img": "../resource/images/chat_emp02.png, ../resource/images/chat_emp01.png, ../resource/images/chat_emp04.png, ../resource/images/chat_emp03.png",
+		"unread_count": 2
+	}
+]

@@ -1,0 +1,27 @@
+[
+	{
+		"title": "11 o'clock customer meeting",
+		"checked": "false",
+		"key": "checkbox1"
+	},
+	{
+		"title": "Draft-related reference meeting",
+		"checked": "true",
+		"key": "checkbox2"
+	},
+	{
+		"title": "Write minutes related to customer meetings",
+		"checked": "false",
+		"key": "checkbox3"
+	},
+	{
+		"title": "Renewal-related development team meeting",
+		"checked": "false",
+		"key": "checkbox4"
+	},
+	{
+		"title": "Main draft production",
+		"checked": "false",
+		"key": "checkbox5"
+	}
+]

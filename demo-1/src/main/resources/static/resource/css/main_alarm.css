@@ -1,0 +1,1291 @@
+/*********** 메인화면 채팅 S ***********/
+.quick_alarm ul {
+	list-style: none;
+}
+.quick_alarm * {
+	/*font-family: 'Noto Sans KR';*/
+}
+/* 알림창 버튼 */
+.btn-quick-alarm-wrap {
+	visibility: hidden;
+	position: fixed;
+	opacity: 0;
+	z-index: 8000;
+    bottom: 30px;
+    right: 30px;
+	border-radius: 10px;
+	transform: translateY(30px);
+	transition: transform 0.3s ease, box-shadow 0.3s ease, bottom 0.2s ease, right 0.2s ease;
+}
+.btn-quick-alarm-wrap.home {
+	bottom: 100px;
+	right: 383px;
+}
+.btn-quick-alarm-wrap.show {
+	visibility: visible;
+	opacity: 1;
+	transform: translateY(0);
+}
+.btn-quick-alarm {
+	position: relative;
+	overflow: hidden;
+	width: 56px;
+	min-width: 56px;
+	height: 56px;
+	text-indent: -5000px;
+	/* border-radius: 10px; */
+	border-radius: 50px;
+	background: #46A6FF;
+	/* background-image: linear-gradient(135deg, #4678e9 0%, #ed58ee 70%); */
+	box-shadow: 0px 0px 8px 0px #46A6FFA6;	
+	transition: all 0.3s ease;
+}
+.btn-quick-alarm-wrap:not(.show-layer) .btn-quick-alarm.opacity {
+	opacity: 0.3;
+}
+.btn-quick-alarm:hover {
+	box-shadow: 7px 7px 16px grey;
+	transform: scale(1.05);
+	opacity: 1 !important;
+}
+.btn-quick-alarm:before {
+	display: block;
+	position: absolute;
+	content: '';
+/* 	width: 41px;
+	height: 35px; */
+	width: 32px;
+    height: 32px;
+	top: 50%;
+	left: 50%;
+	/* transform: translate(-50%, -50%); */
+	transform: translate(-50%, calc(-50% + 2px));
+	/* background: url(../../resource/images/icon/ico_lnb_chat.png) no-repeat; */
+	background: url(../../resource/images/common/ico_floating.svg) center center / cover no-repeat;
+	/* filter: invert(1); */
+	transition: all 0.2s ease;
+}
+.btn-quick-alarm:after {
+	display: block;
+	position: absolute;
+	content: '';
+	width: 23px;
+	height: 23px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) translateY(50px);
+	background: url(../../resource/images/message/ico_quickmessage_close.png) no-repeat;
+	transition: all 0.2s ease;
+}
+.btn-quick-alarm-wrap.show-layer .btn-quick-alarm:before {
+	transform: translate(-50%, -50%) translateY(-50px);
+}
+.btn-quick-alarm-wrap.show-layer .btn-quick-alarm:after {
+	transform: translate(-50%, -50%);
+}
+.quick-alarm-cnt {
+	visibility: hidden;
+	cursor: default;
+	opacity: 0;
+	position: absolute;
+	min-width: 24px;
+	min-height: 24px;
+	top: -10px;
+    right: -15px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    padding: 1px 6px;
+    color: #fff;
+    background-color: #ff1010;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+}
+.btn-quick-alarm-wrap.has-cnt .quick-alarm-cnt {
+	visibility: visible;
+	right: -6px;
+	opacity: 1;
+}
+
+/* 알림창 공통 Layout */
+.quick_alarm_wr {
+	position: absolute;
+	z-index: 10000;
+	overflow: hidden;
+	width: 375px;
+	height: 650px;
+	max-height: calc(100vh - 184px);
+	bottom: 65px;
+	right: 0;
+	border-radius: 22px;
+	box-shadow: 0px 2px 21.6px 5.4px rgba(0, 0, 0, 0.2);
+	transform: scale(0);
+	transform-origin: right bottom;
+	transition: width 200ms ease 0s, height 200ms ease 0s, max-height 200ms ease 0s, transform 300ms cubic-bezier(0, 1.2, 1, 1) 0s, opacity 83ms ease-out 0s;
+}
+.quick_alarm_wr.show {
+	transform: scale(1);
+}
+.quick_alarm_wr.expand {
+	width: 750px;
+	height: calc(100vh - 184px);
+}
+.quick_alarm_wr.expand .top-tit button.ico-tit.scale::before{
+	background: url(../../resource/images/message/btn_scale_d.png);
+}
+
+.quick_alarm p.tit {
+	height: 20px;
+	font-size: 15.5px;
+	font-weight: 700;
+	line-height: 1;
+	text-align: left;
+	color: #333;
+}
+
+.quick_alarm p.tit span {
+	font-size: 13px;
+	font-weight: 300;
+	color: #777;
+	text-align: left;
+}
+
+.quick_alarm {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	/*
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	background-image: linear-gradient(180deg, #fafafa 84%, #e8e8e8 100%);
+	*/
+	background: #fff;
+}
+
+.quick_alarm .top-tit {
+	display: block;
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+	height: 65px;
+	flex: 0 0 auto;
+	background-image : linear-gradient(135deg, #4678e9 0%, #ed58ee 70%);
+	transition: all 0.2s ease;
+}
+
+.quick_alarm .top-tit.room {
+	height: 65px;
+}
+
+.quick_alarm .top-tit>p {
+	margin: 0 auto;
+	width: 170px;
+	height: 65px;
+	padding: 22px 15px 20px;
+	text-align: center;
+	transition: all 0.2s ease;
+}
+.quick_alarm_wr.expand .quick_alarm .top-tit>p {
+	width: 550px;	
+}
+.quick_alarm .top-tit>p>span.menutit {
+	margin: 0 auto;
+	height: 25px;
+	font-size: 17px;
+	font-weight: 700;
+	line-height: 1;
+	text-align: center;
+	color: #fff;
+    width: 100%;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.quick_alarm .top-tit>p>span.tit {
+	margin: 0 auto;
+	height: 25px;
+	font-size: 15px;
+	font-weight: 500;
+	line-height: 1;
+	text-align: center;
+	color: #fff;
+	border-bottom: 1.5px solid #fff;
+}
+
+.quick_alarm .top-tit>p>span.tit:hover {
+	opacity: .8;
+	cursor: pointer;
+}
+
+.quick_alarm .top-tit .r_btn_wr {
+	display: flex;
+	position: absolute;
+	top: 16px;
+	right: 15px;
+}
+
+.quick_alarm .top-tit .l_btn_wr {
+	position: absolute;
+	top: 16px;
+	left: 5px;
+}
+
+/* 알림창 공통 BTN */
+.quick_alarm .top-tit button.ico-tit {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 35px;
+	height: 35px;
+	border-radius: 6px;
+	background: rgba(255, 255, 255, 0.2);
+	transition: all .1s ease-in-out;
+	margin-left: 5px;
+}
+
+.quick_alarm .top-tit button.ico-tit:not(:last-child) {
+	/*margin-right: 5px;*/
+}
+
+.quick_alarm .top-tit button.ico-tit::before {
+	display: inline-block;
+	width: 19px;
+	height: 19px;
+	content: '';
+}
+.quick_alarm_wr.list-page .quick_alarm .top-tit button.ico-tit.mem_list {
+	/*width: 0;*/
+	display: none;
+	
+}
+/* 채팅화면에서는 검색 버튼 숨김 */
+.quick_alarm_wr:not(.list-page) .quick_alarm .top-tit button.ico-tit.chat_search,
+.quick_alarm_wr:not(.list-page) .quick_alarm .top-tit button.ico-tit.buddy_search {
+	display: none;
+}
+.quick_alarm_wr.buddylist .quick_alarm .top-tit button.ico-tit.chat_search,
+.quick_alarm_wr:not(.buddylist) .quick_alarm .top-tit button.ico-tit.buddy_search {
+	display: none;
+}
+
+/* BTN - 창 확대 축소, 멤버 리스트 */
+.quick_alarm .top-tit button.ico-tit.scale::before {
+	background: url(../../resource/images/message/btn_scale_u.png);
+}
+
+.quick_alarm .top-tit button.ico-tit.scale.on::before {
+	margin: 0;
+	background: url(../../resource/images/message/btn_scale_d.png);
+}
+.quick_alarm .top-tit button.ico-tit.chat_search::before,
+.quick_alarm .top-tit button.ico-tit.buddy_search::before {
+	background: url(../../resource/images/icon_search_white.png) center no-repeat
+}
+.quick_alarm .top-tit button.ico-tit.mem_list::before {
+	margin: 0;
+	background: url(../../resource/images/message/btn_q_mem.png);
+}
+
+.quick_alarm .top-tit button.ico-tit.left,
+.quick_alarm .top-tit button.ico-tit:hover.left {
+	background: rgba(255, 255, 255, 0);
+	margin: 0;
+}
+
+.quick_alarm .top-tit button.ico-tit.left::before {
+	content: '';
+	width: 18px;
+	height: 18px;
+	opacity: 1;
+	background: url(../../resource/images/message/btn_prev_arrow.png);
+	transform: rotate(180deg);
+}
+
+.quick_alarm .top-tit button.ico-tit.left:hover::before {
+	opacity: 0.7;
+}
+.quick_alarm_wr.list-page .ico-tit.left {	
+	display: none;
+}
+
+.quick_alarm .top-tit button.ico-tit:hover {
+	background: rgba(255, 255, 255, 0.35);
+	transition: all .1s ease-in-out;
+}
+
+.quick_alarm .alarmlist_wr,
+.quick_alarm .qbd_wr {
+	padding: 15px 2px 0 15px;
+	flex: 1 1 auto;
+	height: calc(100% - 130px);
+    /*overflow-y: auto;*/
+    transform: translateX(-100%);
+    transition: all 0.2s ease;
+}
+.quick_alarm .qbd_wr {
+	padding: 0;
+	overflow: auto;
+}
+
+.quick_alarm .chatroom_wr {
+	position: absolute;
+	width: 375px;
+	height: 535px;
+	left: 50%;
+	transform: translateX(-50%);
+	top: 65px;
+	line-height: 1;
+	padding: 0 15px;
+}
+
+.quick_alarm .alarmchat_wr {
+    position: absolute;
+    top: 65px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 65px);
+    transform: translateX(0);
+    transition: all 0.2s ease;
+}
+.quick_alarm .alarmmenu_wr {
+    position: absolute;
+    top: 65px;
+    right: 0;
+	z-index: 200;
+	padding: 5px 7px 5px 10px;
+	max-width: 350px;
+    width: calc(100% - 60px);
+    height: calc(100% - 115px);
+    background: #fff;
+	transform: translateX(100%);
+	transition: all 0.3s ease;
+	border-bottom: 1px solid #eaeaea;
+}
+
+.quick_alarm_wr.list-page .alarmlist_wr,
+.quick_alarm_wr.list-page .qbd_wr {
+	transform: translateX(0);
+}
+
+.quick_alarm_wr.list-page .alarmchat_wr {
+	transform: translateX(100%);
+}
+.quick_alarm_wr.chat-menu .alarmmenu_wr {
+	transform: translateX(0);
+}
+.quick_alarm_wr.chat-search .quick_alarm .top-tit button.ico-tit.chat_search::before,
+.quick_alarm_wr.buddy-search .quick_alarm .top-tit button.ico-tit.buddy_search::before {
+	background: url(../../resource/images/message/btn_q_close.png);
+}
+.quick_alarm_wr.chat-menu .quick_alarm .top-tit button.ico-tit.mem_list::before {
+	background: url(../../resource/images/message/btn_q_close.png);
+}
+
+.alarm-dim {
+	visibility: hidden;
+	position: absolute;
+	top: 65px;
+	width: 100%;
+	height: calc(100% - 115px);
+	background: rgba(0,0,0,0.5);
+	opacity: 0;
+	z-index: 100;
+	transition: all 0.3s ease;
+}
+.alarm-dim.show {
+	visibility: visible;
+	opacity: 1;
+}
+
+/* 업무방 영역 */
+/* 업무방 : 개설된 업무방 채팅방 없음 */
+.quick_alarm .alarmlist_wr .alarmlist_bg {
+	width: 100%;
+	height: 100%;
+	/* border: 1px solid #e8e8e8; */
+	/* background-color: #ffffff; */
+	border-radius: 10px;
+}
+
+.quick_alarm .alarmlist_wr .alarmlist_bg div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	flex-direction: column;
+	padding-bottom: 80px;
+	padding-right: 13px;
+}
+
+.quick_alarm .alarmlist_wr .alarmlist_bg div>p.tit {
+	text-align: center;
+}
+
+.quick_alarm .alarmlist_wr .alarmlist_bg div>p.tit>span {
+	display: block;
+	margin-top: 7px;
+	line-height: 1;
+}
+
+.quick_alarm .alarmlist_wr .work::before {
+	content: '';
+	margin-bottom: 18px;
+	width: 85px;
+	height: 80px;
+	background: url(../../resource/images/message/ico_b_work.png);
+}
+
+.quick_alarm .alarmlist_wr .chat::before {
+	content: '';
+	margin-bottom: 23px;
+	width: 85px;
+	height: 80px;
+	background: url(../../resource/images/message/ico_b_chat.png);
+}
+
+/* 알림창 공통 : 업무/채팅방 리스트 */
+.q_request_card,
+.q_chatroom_list {
+	position: relative;
+	width: 100%;
+	height: auto;
+	margin-bottom: 5px;
+	padding: 16px 16px 16px 20px;
+	background: #fff;
+	border-radius: 10px;
+	border: 1px solid #e8e8e8;
+	cursor: pointer;
+	transition: all .1s ease-in-out;
+}
+
+.q_chatroom_list {
+	padding: 12px 16px 12px 16px;
+}
+
+/*
+.q_request_card:last-child,
+.q_chatroom_list:last-child {
+	margin-bottom: 30px;
+}
+*/
+.q_request_card:hover,
+.q_chatroom_list:hover {
+	border: 1px solid #ee7158;
+	transition: all .1s ease-in-out;
+}
+
+.q_request_card .q_team_mem,
+.q_chatroom_list .q_team_mem {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	width: 100%;
+	height: auto;
+	margin-top: 8px;
+}
+
+.q_chatroom_list .q_team_mem {
+	margin-top: 0;
+}
+
+.q_request_card .alarm-num,
+.q_chatroom_list .alarm-num,
+.q_chatroom_list .chat-mem-num {
+	display: inline-block;
+	width: auto;
+	height: 17px;
+	margin-right: 5px;
+	padding: 0 5px;
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 16px;
+	color: #fff;
+	border-radius: 6px;
+}
+
+.quick_alarm .q_chatroom_list .alarm-num {
+	position: absolute;
+	bottom: 15px;
+}
+
+.q_request_card .alarm-num,
+.q_chatroom_list .alarm-num {
+	right: 15px;
+	bottom: 12px;
+	background-color: #e41a12;
+}
+
+.q_chatroom_list .chat-mem-num {
+	background-color: #eb9988;
+}
+
+.alarmlist_wr .photo-wrap {
+	width: auto;
+	margin-right: 15px;
+}
+
+.alarmlist_wr .q_user-info {
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: row;
+	width: 100%;
+	height: auto;
+	/* margin-right: 15px; */
+}
+
+.alarmlist_wr .team-img,
+.alarmlist_wr .mem-img {
+	border-radius: 50%;
+	width: 33px;
+	height: 33px;
+	overflow: visible;
+	cursor: pointer;
+	background-color: #eee;
+}
+
+.q_request_card .q_team_mem p {
+	text-align: left;
+	display: block;
+}
+
+.quick_alarm_wr .q_name_wr {
+	flex-grow: 1;
+	max-width: calc(100% - 60px);
+}
+.quick_alarm_wr p.mem-name {
+	display: flex;
+	height: 15px;
+	margin-bottom: 5px;
+	margin-right: 0;
+	align-items: center;
+}
+
+.quick_alarm_wr p.mem-name .name {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    color: #333;
+    flex: 1 1 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-right: 5px;
+}
+.quick_alarm_wr p.mem-name .date {
+    font-size: 12px;
+	font-weight: 300;
+	color: #777;
+	text-align: left;
+	line-height: 1.2;
+	flex: 0 0 auto;
+	white-space: nowrap;
+}
+
+
+.quick_alarm_wr .team-level,
+.quick_alarm_wr .team-name,
+.quick_alarm_wr .q_chatroom_list .chat-msg {
+	display: inline-block;
+	width: auto;
+	height: 15px;
+	font-size: 12px;
+	font-weight: 300;
+	line-height: 1;
+	color: #666;
+}
+
+.quick_alarm_wr .q_chatroom_list .chat-msg {
+	width: 100%;
+	height: auto;
+	max-height: 30px;
+	/* margin-top: 3px; */
+	padding-right: 35px;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	line-height: 16px;
+}
+
+.quick_alarm_wr .team-level::after {
+	margin: 0 8px;
+	font-size: 5px;
+	font-weight: 200;
+	color: #aaa;
+	content: '|';
+}
+
+/* 알림창 공통 하단 메뉴 리스트 */
+.quick_alarm .bot {
+	position: absolute;
+	padding: 0;
+	width: 100%;
+	min-height: 50px;
+	height: auto;
+	bottom: 0;
+	border-top: none;
+	background-color: #fff;
+}
+
+.quick_alarm .quick_alarm_menu {
+	width: 100%;
+	height: 65px;
+	background-color: #f8f8f8;
+}
+
+.quick_alarm .quick_alarm_menu ul {
+	width: 100%;
+	height: 70px;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.quick_alarm .quick_alarm_menu ul li {
+	position: relative;
+	display: inline-block;
+	width: 115px;
+	height: 100%;
+	padding-top: 36px;
+	font-size: 13px;
+	text-align: center;
+	color: rgba(0, 0, 0, .4);
+	cursor: pointer;
+}
+
+.quick_alarm .quick_alarm_menu ul li::before {
+	position: absolute;
+	content: '';
+	width: 23px;
+	height: 21px;
+	top: 13px;
+	left: 50%;
+	transform: translateX(-50%);
+	transition: all .2s ease-in-out;
+	background-position-y: 0;
+}
+
+.quick_alarm .quick_alarm_menu ul li.q_work::before {
+	background: url(../../resource/images/message/ico_q_work.png);
+}
+
+.quick_alarm .quick_alarm_menu ul li.q_chat::before {
+	background: url(../../resource/images/message/ico_q_chat.png);
+}
+
+.quick_alarm .quick_alarm_menu ul li.q_buddy::before {
+	background: url(../../resource/images/message/ico_q_group.png);
+}
+
+.quick_alarm .quick_alarm_menu ul li.q_kgpt::before {
+	background: url(../../resource/images/message/ico_q_kgpt.png);
+}
+
+.quick_alarm .quick_alarm_menu ul li:hover,
+.quick_alarm .quick_alarm_menu ul li.on {
+	/*border-top: 2px solid #ee7158;*/
+	transition: all .2s ease-in-out;
+	color: rgba(0, 0, 0, 1);
+}
+
+.quick_alarm .quick_alarm_menu ul li.q_work:hover::before,
+.quick_alarm .quick_alarm_menu ul li.q_chat:hover::before,
+.quick_alarm .quick_alarm_menu ul li.q_buddy:hover::before,
+.quick_alarm .quick_alarm_menu ul li.q_kgpt:hover::before {
+	transition: all .2s ease-in-out;
+	background-position-y: -21px;
+}
+
+.quick_alarm .quick_alarm_menu ul li.q_work.on::before,
+.quick_alarm .quick_alarm_menu ul li.q_chat.on::before,
+.quick_alarm .quick_alarm_menu ul li.q_buddy.on::before,
+.quick_alarm .quick_alarm_menu ul li.q_kgpt.on::before {
+	transition: all .2s ease-in-out;
+	background-position-y: -21px;
+}
+
+/* 알림창 공통 입력창 */
+.quick_inputarea {
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+	min-height: 50px;
+	background-color: #fff;
+}
+
+.quick_inputarea textarea {
+    padding: 12px 50px;
+    width: 100%;
+    height: 40px;
+    color: #333;
+    border: none;
+    background: #fff;
+    min-height: 40px;
+    z-index: 1000;
+    max-height: 200px;
+    overflow: hidden;
+    border-top: 1px solid #e8e8e8;
+    resize: none;
+}
+
+.quick_kgpt_inputarea textarea {
+    padding: 12px 25px;
+    width: 100%;
+    height: 40px;
+    color: #333;
+    border: none;
+    background: #fff;
+    min-height: 40px;
+    z-index: 1000;
+    max-height: 200px;
+    overflow: hidden;
+    border-top: 1px solid #e8e8e8;
+    resize: none;
+}
+
+.quick_inputarea textarea::placeholder {
+	font-size: 14px;
+	color: #999;
+}
+
+.quick_inputarea button {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	bottom: 10px;
+	opacity: .7;
+	z-index: 1010;
+}
+
+.quick_kgpt_inputarea button {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	bottom: 10px;
+	opacity: .7;
+	z-index: 1010;
+}
+
+.quick_inputarea button:hover {
+	opacity: 1;
+}
+
+.quick_kgpt_inputarea button:hover {
+	opacity: 1;
+}
+
+.quick_inputarea button.ico-input-file {
+	left: 10px;
+	background: url(../../resource/images/common/sprite_img.png) no-repeat -455px -261px;
+	transition: all 0.2s ease;
+}
+
+.quick_inputarea button.ico-input-send {
+	right: 20px;
+	background: url(../../resource/images/common/sprite_img.png) no-repeat -412px -80px;
+}
+
+.quick_kgpt_inputarea button.ico-input-send {
+	right: 20px;
+	background: url(../../resource/images/common/sprite_img.png) no-repeat -412px -80px;
+}
+
+.quick_kgpt_inputarea button.ico-input-mic {
+	right: 50px;
+	background: url(../../resource/images/mic.svg) center center / cover no-repeat;
+}
+
+.quick-alarm .user {
+    border-radius: 50%;
+    height: 100%;
+}
+
+
+.quick_alarm .chat-area {
+	padding-top: 5px;
+	padding-right: 0;
+	padding-bottom: 5px;
+	height: calc(100% - 50px);
+	background: #f7f7f7;
+}
+.quick_alarm .show-notice .chat-area {
+	padding-top: 40px;
+}
+.quick_alarm .chat-area .me {
+	padding-right: 10px;
+	margin-bottom: 20px;
+}
+.quick_alarm .chat-area .me .name,
+.quick_alarm .chat-area .me .user {
+	display: none;
+}
+.quick_alarm .chat-area .you {
+	padding-left: 45px;
+	margin-bottom: 20px;
+}
+.quick_alarm .chat-area .user-thumb {
+	width: 33px;
+	height: 33px;	
+}
+.quick_alarm .alarmchat_wr .date:after {
+    left: 8px;
+    right: 8px;
+}
+
+
+.quick_alarm .chat-area .talk {
+    max-width: 90%;
+    width: calc(100% - 30px);
+    min-width: 160px;
+}
+.quick_alarm .chat-area .me .talk {
+    direction: rtl;
+}
+.quick_alarm .chat-area .wrap-message {
+	max-width: calc(100% - 70px);
+}
+.quick_alarm .chat-area .ucnt {
+    padding: 0.5px 5px !important;
+    font-family: 'Quicksand';
+    margin-right: 0;
+    border-radius: 25px;
+    min-width: 19px;
+    font-size: 12px;
+    text-align: center;
+}
+.quick_alarm .chat-area .me .img .time {
+	padding-left: 0 !important;
+}
+.quick_alarm .chat-area .img-content {
+	max-width: 100%;
+}
+.quick_alarm .chat-area .btn-chat-more {
+	bottom: 2px;
+}
+.quick_alarm .chat-area .time {
+	padding-right: 4px;
+}
+
+.quick_alarm .chat-area .img-content ul {
+	height: 60px;
+}
+.quick_alarm .chat-area .img-size {
+	padding-top: 3px;
+}
+/*
+.quick_alarm .chat-attach {
+	transform: translateY(3px);
+}
+*/
+.quick_alarm .chat-attach dl {
+	direction: ltr;
+}
+.quick_alarm .chat-attach dt {
+	font-size: 13px;
+}
+.quick_alarm .chat-attach div {
+	max-width: none;
+}
+.quick_alarm .alarmchat_wr .date span {
+	color: #666;
+	font-weight: normal;
+}
+.quick_alarm .img-content2 {
+	margin-top: 5px;
+}
+.quick_alarm .mCSB_container.mCS_no_scrollbar_y.mCS_y_hidden {
+	margin-right: 15px;
+}
+
+
+.chat-menu-wr {
+	font-size: 14px;
+	height: 100%;
+	overflow: auto;
+}
+.chat-menu-wr .chat-menu-title {
+    padding: 10px;
+    font-weight: bold;
+    position: sticky;
+    z-index: 10;
+    background: #fff;
+    top: 0;
+}
+.chat-menu-wr .chat-menu-title span {
+	color: #0000ff;	
+}
+.chat-menu-wr .chat-member-list {
+	padding-right: 7px; 
+}
+.chat-menu-wr .chat-member-list li {
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	border: 1px solid #fff;
+	border-radius: 12px;
+	transition: border 0.2s ease;
+}
+.chat-menu-wr .chat-member-list li .q_user-info {
+	color: #666;
+	font-size: 12px;
+}
+.chat-menu-wr .chat-member-list li:hover {
+	border: 1px solid #ee7158;
+}
+.chat-menu-wr .chat-member-list li .biz_check {
+	flex: 0 0 auto;
+}
+.alarmmenu_wr .photo-wrap {
+	width: auto;
+	margin-right: 10px;
+}
+.chat-menu-wr .chat-member-list li .status {
+	position: absolute;
+    border-radius: 50%;
+    width: 6px;
+    height: 6px;
+    top: auto;
+    left: auto;
+    bottom: 2px;
+    right: 0px;
+    border: 2px solid #fff;
+    box-sizing: content-box;
+}
+
+/*********** 메인화면 채팅 E ***********/
+
+
+/*************** 답장화면 S ***************/
+.bot .reply-chat-wrap {
+	border-radius: 0;
+}
+.bot .reply-chat-wrap .reply-chat-inner .btn-wrap {
+    width: 30px;
+}
+.bot .ico-reply {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: -100%;
+    left: 18px;
+    transition: all 0.2s ease;
+}
+.bot.show-reply .ico-reply {
+	top: 13px;
+}
+.bot.show-reply .quick_inputarea button.ico-input-file {
+	bottom: -100%;	
+}
+/*************** 답장화면 E ***************/
+
+
+
+/************* 버디리스트 S *************/
+.bot-menu {
+	display: none;
+	/*
+	visibility: hidden;
+	bottom: -100%;
+	*/
+}
+
+.quick_alarm_wr.list-page .bot-menu,
+.quick_alarm_wr.mem-page .bot-menu {
+	display: block;
+	/*
+	visibility: visible;
+	bottom: 0;
+	*/
+}
+.quick_alarm_wr.list-page .bot-menu {
+	border-top: 1px solid #eee;
+}
+.qbd-page {
+	display: flex;
+	flex-direction: column;
+}
+.buddy-empty-wr {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.buddy-empty-wr span {
+	color: #5e5e5e;
+	margin-top: 10px;
+}
+.buddy-empty-wr button {
+	border-radius: 10px;
+	margin-top: 30px;
+	padding: 10px 30px;
+	color: #fff;
+	background: #ee7158;
+}
+.qfavo-list {
+	display: flex;
+	/*justify-content: space-between;*/
+	flex: 0 0 auto;
+	width: 100%;
+	padding: 15px;
+}
+.qfavo-list .qbd-mem-img {
+	cursor: pointer;
+	display: inline-block;
+	margin-right: 15px;
+}
+.qbuddy-list {
+	flex: 1 1 auto;
+	width: 100%;
+}
+.qbuddy-list .qbuddy-section {
+	/*border-top: 1px solid #efefef;*/
+}
+.qbuddy-list .qbuddy-tit-wr {
+    position: sticky;
+    top: 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	cursor: pointer;
+	padding: 0 10px;
+	background: #f3f5fd;
+    z-index: 10;
+}
+.qbuddy-list .qbuddy-tit-inner {
+    display: flex;
+    align-items: center;
+}
+.qbuddy-list.qbuddy-search-list .qbuddy-tit-wr {
+	cursor: default;
+}
+.qbuddy-list .qbuddy-group-tit {
+	font-size: 14px;
+	font-weight: 700;
+	/*color: #7b7b7b;*/
+	margin-left: 3px;
+	padding: 10px 0;
+	width: 100%;
+}
+
+.qbuddy-section.qbd-collapse ul {
+    display: none;
+}
+
+.qbuddy-list .qbuddy-group-fold {
+	flex: 0 0 auto;
+	width: 20px;
+	height: 20px;
+	background-position: -288px 0;
+	background-image: url(../../resource/images/sprite.png?open&ver=2.6);
+	background-repeat: no-repeat;
+	transform: translateY(1px) rotate(-90deg);
+	transition: transform 0.2s ease;
+	filter: invert(1);
+}
+.qbuddy-list .qbuddy-section.qbd-collapse .qbuddy-group-fold {
+	transform: translateY(1px) rotate(90deg);
+}
+.qbuddy-list .qbuddy-tit-wr:hover .qbuddy-group-fold {
+	/*background-position: -308px 0;*/
+} 
+.qbd-mem-wr {
+	position: relative;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	padding: 10px 15px;
+	transition: background 0.2s ease;
+	/*margin-top: 14px;*/
+}
+.qbd-mem-wr:hover {
+	background: #efefef;
+}
+.qbd-mem-img {
+	position: relative;
+	flex: 0 0 auto;
+	background-repeat: no-repeat;
+	background-position: center top;
+	background-size: cover;
+	border-radius: 50%;
+	width: 45px;
+	height: 45px;
+	transition: all 0.2s ease;
+}
+.qbd-mem-img:hover {
+	border-radius: 10px;
+}
+.qbuddy-section .qbd-mem-wr:last-child {
+	/*margin-bottom: 14px;*/
+}
+.qbd-mem-stat {
+    width: 8px;
+    height: 8px;
+    bottom: 0;
+    right: 0;
+    background: #b3b3b3;
+    border: 2px solid #fff !important;
+    box-sizing: content-box !important;
+    position: absolute;
+    border-radius: 50%;
+    overflow: visible;
+}
+.qbd-mem-name-wr {
+	margin-left: 12px;
+	padding-right: 5px;
+	width: calc(100% - 73px);
+	user-select: none;
+}
+.qbd-mem-name {
+	font-size: 15px;
+	/*font-weight: 700;*/
+	color: #333;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.qbd-mem-dept {
+    color: #7b7b7b;
+    font-size: 13px;
+    overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.qbd-mem-remove {
+	display: none;
+    flex: 0 0 auto;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    background: #4f4d56;
+    border-radius: 50%;
+}
+.qbd-mem-wr:hover .qbd-mem-remove {
+	display: block;
+}
+.qbd-mem-remove span {
+	position: absolute;
+    width: 8px;
+    height: 2px;
+    background: #fff;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.qbd-mem-remove:hover {
+	background: #ff3c3c;
+}
+/*
+ * 기능 숨기기 용
+.bot-menu {
+	display: none;
+}
+.quick_alarm .alarmlist_wr {
+	height: calc(100% - 75px);
+}
+*/
+/************* 버디리스트 E *************/ 
+
+/************* 검색기능 S *************/
+.quick_alarm_wr.chat-search:not(.buddylist) .top-tit,
+.quick_alarm_wr.buddy-search.buddylist .top-tit {
+	height: 115px;
+}
+.quick_alarm_wr .top-tit .txt-search-wr {
+	position: relative;
+	padding: 0 15px;
+}
+.quick_alarm_wr .top-tit .txt-search {
+    color: #333;
+    background: #fff;
+    border-radius: 6px;
+    height: 35px;
+    padding: 0 35px 0 15px;
+}
+.quick_alarm_wr.chat-search:not(.buddylist) .top-tit .txt-search-wr.txt-buddy-search,
+.quick_alarm_wr.buddy-search.buddylist .top-tit .txt-search-wr.txt-chat-search {
+	display: none;	
+}
+
+.quick_alarm_wr .top-tit .txt-search-wr .search-ico {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 19px;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 35px;
+    border-radius: 8px;
+    background: url(../../resource/images/common/sprite_header.png) no-repeat -18px 1px;
+    filter: invert(0.6);
+    margin: 0;
+}
+.quick_alarm_wr .top-tit .txt-search-wr .search-ico:hover {
+	filter: invert(1);
+}
+.quick_alarm_wr .top-tit .txt-search-wr .org-ico {
+	cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    margin: 0;
+    width: 36px;
+    height: 35px;
+    border-radius: 8px;
+    background: url(../../resource/images/icon_org.png) center no-repeat;
+    filter: invert(0.5);
+    transform: translateY(-50%);
+}
+.quick_alarm_wr .top-tit .txt-search-wr .org-ico:hover {
+	filter: invert(1);
+}
+
+.quick_alarm_wr.chat-search .quick_alarm .alarmlist_wr,
+.quick_alarm_wr.buddy-search .quick_alarm .qbd_wr {
+	height: calc(100% - 180px);
+}
+.btn-search-chat {
+    padding: 5px 10px;
+    background: #9e9e9e;
+    border-radius: 6px;
+    color: #fff;
+    margin-left: 10px;
+    font-size: 14px;
+    flex: 0 0 auto;
+    transition: all 0.2s ease;
+}
+.btn-search-chat:hover {
+	background: #4e4e4e;
+}
+.qbuddy-section:not(.search) .qbuddy-tit-wr:hover .btn-search-chat {
+	display: block !important;
+}
+
+/************* 검색기능 E *************/
+
+
+
+/************* 공지기능 S *************/
+#alarm_notice {
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    transition: all 0.3s ease;
+}
+.alarm-noti-wr {
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	border-radius: 12px;
+}
+/************* 공지기능 E *************/

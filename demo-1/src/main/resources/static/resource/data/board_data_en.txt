@@ -1,0 +1,42 @@
+[
+	{
+		"title": "May Family Month Event",
+		"date": "2024.5.2",
+		"category": "notification"
+	},
+	{
+		"title": "2023 year-end tax settlement information",
+		"date": "2024.4.27",
+		"category": "notification"
+	},
+	{
+		"title": "Notification of year-end tax settlement results in 2023",
+		"date": "2024.4.21",
+		"category": "holiday"
+	},
+	{
+		"title": "Personnel Order No. 2024-6",
+		"date": "2024.3.28",
+		"category": "manual"
+	},
+	{
+		"title": "2023 year-end tax settlement information",
+		"date": "2024.3.13",
+		"category": "notification"
+	},
+	{
+		"title": "Personnel Order No. 2024-5",
+		"date": "2024.2.26",
+		"category": "notification"
+	},
+	{
+		"title": "Personnel Order No. 2024-4",
+		"date": "2024.2.8",
+		"category": "notification"
+	},
+	{
+		"title": "Survey on January Workshop",
+		"date": "2024.1.15",
+		"category": "manual"
+	}
+]

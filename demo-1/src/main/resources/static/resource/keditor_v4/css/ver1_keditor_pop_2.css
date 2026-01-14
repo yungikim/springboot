@@ -1,0 +1,58 @@
+html{width:100%;height:100%;}
+body,body *{margin:0;padding:0;font-family:'맑은 고딕','Malgun Gothic','Segoe UI';box-sizing:border-box;}
+body{text-align:center;width:100%;height:100%;}
+a{text-decoration:none;}
+ul,li{list-style:none;}
+.popup{width:100%;height:100%;}
+h1{font-size:20px;color:#202020;text-align:left;margin-bottom:12px;}
+.btn{border:0;cursor:pointer;overflow:hidden;}
+.btn_close{width:20px;height:20px;background:url(/keditor/keditor.nsf/ver1_btn_close.gif) no-repeat;position:absolute;top:30px;right:20px;z-index:-5000px;line-height:5;}
+#dis table {width:100%;border-top:2px solid #383838;text-align:center;border-collapse:collapse;}
+#dis th{border-bottom:1px solid #383838;height:40px;box-sizing:content-box}
+#dis th a{color:#666;}
+.btn_up,.btn_down{width:8px;height:16px;overflow:hidden;text-indent:-5000px;line-height:5;display:inline-block;vertical-align:middle;cursor:pointer;}
+.btn_up{background:url(/keditor/keditor.nsf/ver1_btn_up.gif) no-repeat;}
+.btn_down{background:url(/keditor/keditor.nsf/ver1_btn_down.gif) no-repeat;}
+#dis td {height:42px;border-bottom:1px solid #dddddd;font-size:14px;color:#666;}
+#dis td a{color:#666;}
+#dis td a:hover{text-decoration:underline;color:#202020 !important;}
+.t_subject{text-align:left;}
+.t_size{text-align:right;}
+table img{vertical-align:middle;}
+.btm{margin-top:20px;width:100%;position:relative;}
+.paging li{display:inline-block;font-size:14px;color:#202020;padding:0 11px;vertical-align:middle;}
+.paging li a{color:#999}
+.p_prev,.p_next{width:22px;height:16px;overflow:hidden;background:red;padding:0 !important;text-indent:-5000px;cursor:pointer;line-height:5;}
+.p_prev{background:url(/keditor/keditor.nsf/ver1_btn_prev.gif) no-repeat center center;}
+.p_next{background:url(/keditor/keditor.nsf/ver1_btn_next.gif) no-repeat center center;}
+.btn_del{width:73px;height:30px;line-height:30px;border:1px solid #999;color:#333;display:inline-block;font-size:14px;position:absolute;right:80;top:-11px;}
+.btn_del:hover{background:#6fd9e2;color:#fff;border:1px solid #6fd9e2;}
+//.btn_write{width:73px;height:30px;line-height:30px;border:1px solid #999;color:#333;display:inline-block;font-size:14px;position:absolute;right:0;top:-11px;}
+.btn_write{width:73px;height:30px;line-height:30px;border:1px;display:inline-block;font-size:14px;position:absolute;right:0;top:-11px;}
+.btn_write{background:#333;border:1px solid #333;color:#fff;}
+.btn_write:hover{background:#6fd9e2;color:#fff;border:1px solid #6fd9e2;}
+/*** 작성 ***/
+.t_write{width:100%;border-top:2px solid #383838;text-align:left;border-collapse:collapse;}
+.t_write th{border-bottom:1px solid #ddd;text-align:left;padding-left:12px;height:40px;font-size:14px;}
+.t_write td{border-bottom:1px solid #ddd;height:40px;box-sizing:content-box;}
+.txt{height:30px;border:1px solid #dddddd;}
+.txt_name{width:235px;}
+.txt_subject{width:100%;}
+.edt{margin-top:5px;margin-bottom:35px;}
+.btn_confirm,.btn_close1{width:88px;height:38px;line-height:38px;font-size:15px;margin:0 2px;}
+.btn_confirm{background:#333;border:1px solid #333;color:#fff;}
+.btn_close1{background:#fff;border:1px solid #999;}
+.btn_confirm:hover,.btn_close1:hover{background:#6fd9e2;color:#fff;border:1px solid #6fd9e2;}
+/*** 조회 ***/
+#dispbody {min-height: 250px; border-bottom: 1px solid #d7d7d7;}
+.view h1{margin-bottom:9px;width: calc(100% - 50px);}
+.info{margin-left:18px;font-size:14px;color:#666;overflow:auto;}
+.info li{float:left;display:inline;font-size:14px;padding-right:15px;margin-right:14px;}
+.i_name{background:url(/keditor/keditor.nsf/bg_bar.gif) no-repeat right center;}
+.view_contents{border-top:2px solid #383838;margin-top:18px;padding-top:25px;border-bottom:1px solid #ddd;height: calc(100% - 106px);overflow:auto;}
+.view .btm{text-align:right;margin-top:9px;}
+.btn_list,.btn_mod,.btn_del{width:73px;height:30px;line-height:30px;border:1px solid #999;color:#333;display:inline-block;font-size:14px;text-align:center;}
+.btn_list:hover,.btn_mod:hover,.btn_del:hover{background:#6fd9e2;color:#fff;border:1px solid #6fd9e2;}
+.btn_list{position:absolute;left:0;top:0;l}
+.cls_message_box_td {padding:20px 20px 20px 20px;background-color:white;border:2px solid #BAD4D4;}
+.dialog_content {text-align:left;}

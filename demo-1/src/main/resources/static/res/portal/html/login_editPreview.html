@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html xml:lang="ko" lang="ko">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<meta name="format-detection" content="telephone=no, address=no, email=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<title>...</title>
+	<link rel="apple-touch-icon-precomposed" href="../img/favicomImg.png" />  
+	<link rel="shortcut icon" href="../img/favicomImg.ico" />
+	<link rel="icon" type="image/x-icon" href="../img/favicomImg.ico" />
+
+	<link rel="stylesheet" type="text/css" href="/res/portal/css/portal.css" />
+	<link type="text/css" rel="stylesheet" href="/res/core/jquery/jquery-ui/jquery-ui.css" />
+	<link type="text/css" rel="stylesheet" href="/res/core/jquery/qtip/jquery.qtip.css" />
+	<link rel="stylesheet" type="text/css" href="/res/core/jquery/customscroll/jquery.scroll.css">
+	
+	<script type="text/javascript" src="/res/core/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/qtip/jquery.qtip.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/customscroll/jquery.scroll.js"></script>
+	<script type="text/javascript" src="/res/core/newep.js"></script>
+	<script type="text/javascript" src="/res/portal/js/portal_common.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			//셀렉트박스
+			$ep.wait(function() {
+				$ep.ui.select("#login_sel",{});
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<div id="wrap">
+		<!-- header -->
+		<div id="header">
+			<div class="header_area">
+				<h1><a href="">AMOREPACIFIC</a></h1>
+			</div>
+		</div>
+		<!-- //header -->
+		<!-- contents -->
+		<div id="content_area">
+			<div class="containerWrapper">
+				<div class="component-container myPageLayout">
+					<div class="login_container">
+						<!-- 탭영역 -->
+						<ul class="tab_type04">
+							<li class="active"><a href="">타입01</a></li>
+							<li><a href="">타입02</a></li>
+							<li><a href="">타입03</a></li>
+						</ul>
+						<!-- //탭영역 -->
+						<div class="img_area"><img src="/res/portal/img/login_img01.jpg" alt="" /></div>
+						<!-- 로그인 영역 -->
+						<div class="login_area">
+							<div>
+								<input type="text" name="" id="" placeholder="ID" />
+								<input type="password" name="" id="" placeholder="PASSWORD" />
+								<button type="button" class="common_btn01 btnH" style="width:100%;">Log in</button>
+							</div>
+							<div>
+								<span class="fl"><input type="checkbox" name="" id="" /><label for="">Remember my ID</label></span>
+								<span class="fr">
+									<select name="" id="login_sel">
+										<option value="">한국어</option>
+										<option value="">옵션 둘</option>
+										<option value="">옵션 셋</option>
+									</select>
+								</span>
+								<span class="fclear"></span>
+							</div>
+							<div class="link_option">
+								<span><a href="">Prerequisite</a></span>
+								<span><a href="">AP WAY Screen Saver</a></span>
+							</div>
+						</div>
+						<!-- //로그인 영역 -->
+
+						<!-- 랜덤내용 영역 -->
+						<div class="src_area">
+							<div id="1">
+								<p class="s_tit"><span class="eng">Our Vacation</span> 우리의 소명</p>
+								<div class="fl">
+									<p><img src="/res/portal/img/login_img02.jpg" alt="" /></p>
+									<p>
+										<em>아모레퍼시픽그룹의 존재이유이자, 궁극의 지향점 입니다. 전 세계 Asian Beauty Creator들은 아름 다움으로 세상을 변화시키기 위해 존재합니다.</em><br /><br />
+										우리는, 자연과 인간에 대한 아시아의 깊은 지혜를 바탕으로, 누구도 밟아보지 못한 혁신적인 美의 영역에 도전한다.<br /><br />
+									</p>
+								</div>
+								<p class="fr">
+									세계 곳곳에서 일하고 있는 아모레퍼시픽 사람들의 다양성을 존중하고, 일을 통해 자아를 실현할 수 있도록 서로 돕는 <br /><br />
+									내면과 외면이 조화를 이루는 진정한 美를 창조하여, 아름 답고 건강하게 살고자 하는 인류의 영원한 꿈을 실현한다.<br /><br />
+									그런 우리는 세계인들에게<br />
+									<span class="c_type01">‘Asian Beauty Creator’</span>로 기억될 것이다.
+								</p>
+								<div class="fclear"></div>
+							</div>
+
+							<!-- <div id="2">
+								<p class="s_tit"><span class="eng">Our Value</span> 우리의 가치</p>
+								<div class="fl">
+									<p><span class="login_bg bg01"></span> 나만이 옳은 것이 아니라,‘남도 나와 같이 옳다’는 생각입니다.</p><br /><br />
+									<p><span class="login_bg bg02"></span> 나를 열어, 나를 바꾸는 것입니다.</p><br /><br />
+									<p><span class="login_bg bg03"></span> 고객과 물리적, 심리적으로 언제나 ‘가까운 자리’에 있음 입니다.</p><br /><br />
+								</div>
+								<div class="fr">
+									<p><span class="login_bg bg04"></span> 어떤 일이든, ‘나의 일, 내 가족의 일’처럼 진정으로 함입니다.</p><br /><br />
+									<p><span class="login_bg bg05"></span> 현재에 안주하지 않으려는 마음입니다.</p>
+								</div>
+								<div class="fclear"></div>
+							</div> -->
+
+							<!-- <div id="3">
+								<p class="s_tit"><span class="eng">Our Credo</span> 우리의 믿음</p>
+								<div class="fl">
+									<p><img src="/res/portal/img/login_img03.jpg" alt="" /></p>
+									<p>
+										<em>전 세계 Asian Beauty Creator들이 한마음, 한뜻으로 부르는 마음의 노래입니다. 왜 일을 하고 있으며, 무엇을 위해 일을 하고, 어떻게 일을 할지를 선언하는 문장입니다.</em><br /><br />
+										나는 믿는다. 고객이 모든 일의 최우선임을 고객의 곁이 언제나 나의 자리임을 믿는다. 정직과 윤리가 나의 가치를 높이고 나눔으로써 더 풍요로울 수 있음을 믿는다.<br /><br />
+									</p>
+								</div>
+								<p class="fr">
+									나는 무엇을 위해 일하는가. 나로 인해 더 아름답고 건강해질 인류를 위해, 나로 인해 더 행복해질 나의 가족을 위해, 성스러운 임무를 수행하고 있는 나의 동료들을 위해, 그리고 회사와 더불어 성장하는 나의 미래를 위해<br /><br />
+									나는 도전한다. 실패를 두려워하지 않고 세계를 무대로 행동 한다. 나는 창조한다. 아무도 가보지 않은 美의 바다에 최초의 물결을 일으킨다. 나는 혁신, 또 혁신한다. 오늘도 마음을 열고 끊임없이 변화해가는 나는,<br /><br />
+									Asian Beauty Creator, <span class="my"></span> 이다.
+								</p>
+								<div class="fclear"></div>
+							</div> -->
+						</div>
+						<!-- //랜덤내용 영역 -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- //contents -->
+		
+		<!-- footer -->
+		<div id="footer">
+			<div class="copyright">AAMOREPACIFIC GROUP. ALL RIGHTS RESERVED.</div>
+		</div>
+		<!-- //footer -->
+	</div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+[			
+	{
+		"work_type": "ref_task",
+		"persons": [
+						{	
+							"manager": "홍길동",
+							"list": [
+								{	
+									"name": "데이터 보안 강화 [2024-05-05]",
+									"comment": 0,
+									"state": "wait",
+									"state_ko": "대기",
+									"manager": "./resource/images/chat_emp03.png",
+									"start_date": "2024-05-29",
+									"deadline_date": "2025-04-10",
+									"priority": "high",
+									"priority_ko": "높음",
+									"progress_rate": "30%",
+									"file": 5
+								},
+								{
+									"name": "빈 페이지 대응 [2024-05-15]",
+									"comment": 1,
+									"state": "wait",
+									"state_ko": "대기",
+									"manager": "./resource/images/chat_emp01.png",
+									"start_date": "2024-05-15",
+									"deadline_date": "2025-04-11",
+									"priority": "medium",
+									"priority_ko": "보통",
+									"progress_rate": "20%",
+									"file": 1
+								},
+								{
+									"name": "업무방 생성 고도화 [2024-05-07]",
+									"comment": 3,
+									"state": "wait",
+									"state_ko": "대기",
+									"manager": "./resource/images/chat_emp00.png",
+									"start_date": "2024-05-07",
+									"deadline_date": "2024-06-14",
+									"priority": "medium",
+									"priority_ko": "보통",
+									"progress_rate": "50%",
+									"file": 0
+								},
+								{
+									"name": "스팸메일 고도화 보고 [2024-05-01]",
+									"comment": 1,
+									"state": "progress",
+									"state_ko": "진행중",
+									"manager": "./resource/images/chat_emp02.png",
+									"start_date": "2024-05-21",
+									"deadline_date": "2024-06-12",
+									"priority": "emergency",
+									"priority_ko": "긴급",
+									"progress_rate": "30%",
+									"file": 1
+								},
+								{
+									"name": "업무방 생성 고도화 [2024-05-01]",
+									"comment": 3,
+									"state": "progress",
+									"state_ko": "진행중",
+									"manager": "./resource/images/user_img.png",
+									"start_date": "2024-05-01",
+									"deadline_date": "2024-06-14",
+									"priority": "high",
+									"priority_ko": "높음",
+									"progress_rate": "80%",
+									"file": 0
+								}
+							]
+						}
+					]		
+			
+		}
+]

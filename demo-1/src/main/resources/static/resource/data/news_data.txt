@@ -1,0 +1,37 @@
+[
+            {
+                "img": "../resource/images/news_banner/generative_ai.png",
+                "title": "Generative AI",
+                "desc": "The model provided by K-GPT is \nin Closed GPT format."
+            },
+            {
+                "img": "../resource/images/news_banner/archiving.png",
+                "title": "Archiving",
+                "desc": "Reliably store and manage data through deduplication, compression, etc."
+            },
+            {
+                "img": "../resource/images/news_banner/cooperation_solution.png",
+                "title": "Collaboration Support",
+                "desc": "Collaboration features for quick communication in a web environment."
+            },
+            {
+                "img": "../resource/images/news_banner/file_upload.png",
+                "title": "File Upload",
+                "desc": "Multilingual support components enabling reliable file management."
+            },
+            {
+                "img": "../resource/images/news_banner/editor.png",
+                "title": "Web Editor",
+                "desc": "A web component solution that works perfectly on all web browsers based on HTML5."
+            },
+            {
+                "img": "../resource/images/news_banner/mobile.png",
+                "title": "Mobile App",
+                "desc": "A next-generation mobile solution with minimized maintenance costs."
+            },
+            {
+                "img": "../resource/images/news_banner/messenger.png",
+                "title": "Messenger",
+                "desc": " A corporate messenger built on an Instant Messaging engine."
+            }
+]

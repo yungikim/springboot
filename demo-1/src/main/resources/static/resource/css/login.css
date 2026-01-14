@@ -1,0 +1,603 @@
+@charset "UTF-8";
+@import "./font.css";
+
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+html, body, body * {
+    box-sizing: border-box;
+    font-family: "Pretendard";
+}
+button {
+	padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+ul, li {
+    list-style-type: none;
+}
+
+::-webkit-scrollbar	{
+	width: 5.5px;
+	height: 5.5px;
+   	border-radius: 15px;
+    background: rgba(0, 0, 0, 0.05);
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+::-webkit-scrollbar-thumb:hover {
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.55);
+    cursor: pointer;
+}
+
+/* 왼쪽 배경 영역 */
+
+.wrap {
+	height: 100%;
+}
+#loginContainer {
+	position: relative;
+	display: flex;
+	height: 100%;
+	padding: 100px 14.5%;
+    background: #F5F5F5;
+}
+#login_bg_wrap {
+	position: relative;
+	width: 50%;
+	padding: 60px;
+	border: 1px solid #C9C9C9;
+	border-width: 1px 0 1px 1px;
+	border-radius: 32px 0 0 32px;
+	background: #fff;
+}
+#login_bg_wrap .bg_info_wrap {
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+#login_bg_wrap .bg_swiper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+#login_bg_wrap .bg_swiper .swiper-wrapper {
+	height: 100%;
+}
+
+/*** 로그인 배경 슬라이드 ***/
+#login_bg_swiper .swiper-slide {
+}
+
+.flex {
+	display: flex;
+}
+.flex_col {
+	display: flex;
+	flex-direction: column;
+}
+
+#login_bg_swiper .swiper-slide .bg_wrap {
+	justify-content: center;
+    align-items: center;
+    gap: 42px;
+    height: 100%;
+	overflow: hidden;
+    cursor: grab;
+}
+#login_bg_swiper .swiper-slide .slide_img {
+	width: 100%;
+	height: 100%;
+	width: 468px;
+    height: 360px;
+	background: center center / cover no-repeat;
+}
+#login_bg_swiper .swiper-slide .slide_img.bg01 {
+	background-image: url("../images/login/login_bg01.png");
+}
+#login_bg_swiper .swiper-slide .slide_img.bg02 {
+	background-image: url("../images/login/login_bg02.png");
+}
+#login_bg_swiper .swiper-slide .slide_img.bg03 {
+	background-image: url("../images/login/login_bg03.png");
+}
+#login_bg_swiper .swiper-slide .slide_img.bg04 {
+	background-image: url("../images/login/login_bg04.png");
+}
+#login_bg_swiper .swiper-slide .slide_img.bg05 {
+	background-image: url("../images/login/login_bg05.png");
+}
+#login_bg_swiper .swiper-slide .slide_img.bg06 {
+	background-image: url("../images/login/login_bg06.png");
+}
+
+
+#login_bg_swiper .swiper-slide .bg_title_wrap {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 24px;
+}
+#login_bg_swiper .swiper-slide .bg_title span{
+	line-height: 100%;
+	color: #09112F;
+	font-size: 46px;
+	font-weight: 700;
+}
+#login_bg_swiper .swiper-slide .bg_title .initial {
+	color: #46A6FF;	
+}
+#login_bg_swiper .swiper-slide .bg_desc {
+	line-height: 150%;
+    white-space: pre-line;
+	word-break: keep-all;
+    text-align: center;
+    color: #09112F;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+#login_bg_swiper .swiper-pagination {
+	position: static;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+#login_bg_swiper .swiper-pagination .swiper-pagination-bullet {
+    width: 16px;
+    min-width: 16px;
+    height: 16px;
+    margin: 0;
+    background: #DAEDFF;
+    color: #DAEDFF;
+    opacity: 1;
+    transition: 0.2s;
+}
+
+#login_bg_swiper .swiper-pagination .swiper-pagination-bullet:hover {
+    transform: scale(1.1);
+}
+
+#login_bg_swiper .swiper-pagination .swiper-pagination-bullet-active {
+    width: 36px;
+    min-width: 36px;
+    border-radius: 50px;
+    color: #2F54EB;
+    background: #46A6FF;
+    opacity: 1;
+}
+
+/*** 로그인 배경 슬라이드 ***/
+
+#login_box_wrap {
+	position: relative;
+    display: flex;
+    flex-direction: column;
+	justify-content: center;
+    align-items: center;
+    flex: 1;
+	gap: 24px;
+	border: 1px solid #C9C9C9;
+	border-width: 1px 1px 1px 0;
+	border-radius: 0 32px 32px 0;
+	background: #fff;
+}
+
+#login_box_wrap .login_content {
+	display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+	align-items: center;
+	gap: 50px;
+	width: 100%;
+	padding: 80px;
+}
+#login_box_wrap .login_content .inner {
+	display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+	align-items: center;
+    gap: 64px;
+	width: fit-content;
+}
+
+#login_box_wrap .title_wrap {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+    gap: 18px;
+    letter-spacing: -0.01em;
+}
+
+#login_box_wrap .title {
+    line-height: 100%;
+	color: #919191;
+	font-size: 24px;
+    font-weight: 700;
+	text-align: center;
+}
+#login_box_wrap .logo_wrap {
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+	gap: 20px;
+}
+#login_box_wrap .logo {}
+#login_box_wrap .title_desc {
+    line-height: 100%;
+	text-align: center;
+	color: #929292;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+#login_box_wrap .login_form_wrap {
+    display: flex;
+    flex-direction: column;
+	align-items: center;
+    flex: 1;
+    gap: 40px;
+	width: 120%;
+}
+
+#login_box_wrap .login_form {
+	display: flex;
+	flex-direction: column;
+    justify-content: center;
+	gap: 16px;
+	width: 100%;
+}
+#login_box_wrap .login_input_box {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+
+/**** 로그인 아이디/PW 입력창 아이콘 ****/
+
+/*** 좌측 아이콘 ***/
+#login_box_wrap .login_id_ico {
+    position: absolute;
+    left: 0;
+    top: 50%;
+	width: 24px;
+	min-width: 24px;
+	height: 24px;
+	background: url("../images/mobile/login/ico-people.png") center center / cover no-repeat;
+	transform: translate(16px, -50%);
+	transition: 0.2s;
+	pointer-events: none;
+}
+
+#login_box_wrap .login_pw_ico {
+	position: absolute;
+    left: 0;
+    top: 50%;
+	width: 24px;
+	min-width: 24px;
+	height: 24px;
+	background: url("../images/mobile/login/ico-password.png") center center / cover no-repeat;
+	transform: translate(16px, -50%);
+	transition: 0.2s;
+	pointer-events: none;
+}
+/*** 좌측 아이콘 ***/
+
+/*** 입력한 아이디/비밀번호 버튼 영역 ***/
+#login_box_wrap .input_in_btn_wrap {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transform: translate(-16px, -50%);
+}
+#login_box_wrap .input_in_btn_wrap button:active {
+	filter: brightness(0.8);
+}
+#login_box_wrap .input_in_btn_wrap .btn_input_empty {
+	display: none;
+	width: 24px;
+    min-width: 24px;
+    height: 24px;
+    background: url(../images/mobile/login/ico-cancel-fill.png) center center / cover no-repeat;
+    transition: 0.2s;
+}
+
+#login_box_wrap .input_in_btn_wrap .btn_toggle_pw_visible {
+	display: none;
+	width: 24px;
+    min-width: 24px;
+    height: 24px;
+    background: url(../images/mobile/login/ico-visible-off.png) center center / cover no-repeat;
+    transform: translateY(1px);
+    outline: none;
+    transition: 0.2s;
+}
+#login_box_wrap .input_in_btn_wrap .btn_input_empty:hover,
+#login_box_wrap .input_in_btn_wrap .btn_toggle_pw_visible:hover {
+	filter: brightness(0.6);
+}
+
+
+#login_box_wrap .input_in_btn_wrap .btn_toggle_pw_visible.on {
+    background-image: url(../images/mobile/login/ico-visible-on.png);
+	transform: translateY(0px);
+}
+
+/*** 입력한 아이디/비밀번호 버튼 영역 ***/
+
+/**** 로그인 아이디/PW 입력창 아이콘 ****/
+
+
+#login_box_wrap .login_input {
+	width: 100%;
+	height: 56px;
+	line-height: 100%;
+	padding: 12px 74px 12px 48px;
+	border: 1px solid #C9C9C9;
+	border-radius: 8px;
+	background: #fff;
+	color: #121212;
+    font-size: 16px;
+    font-weight: 500;
+	outline: 0;
+	transition: 0.2s;
+}
+
+#login_box_wrap .login_input:-webkit-autofill {
+    animation-name: autofillStart;
+    animation-duration: 0.01s;
+    animation-iteration-count: 1;
+}
+@keyframes autofillStart {
+    from {}
+    to {}
+}
+
+#login_box_wrap .login_input::placeholder {
+	background: #fff;
+	color:#C0CCCC;
+	font-weight: 400;
+}
+/* #login_box_wrap .login_input::-webkit-input-placeholder { color:#C0CCCC; }
+#login_box_wrap .login_input:-ms-input-placeholder { color:#C0CCCC; } */
+
+/** 입력창 포커스 됐을 떄 **/
+#login_box_wrap .login_input:focus-visible {
+	border-color: #46A6FF;
+}
+
+#login_box_wrap .login_btn_wrap {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	width: 100%;
+}
+#login_box_wrap .login_btn_box {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 20px;
+}
+
+#login_box_wrap .auto_login_chkbox_wrap {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	user-select: none;
+	cursor: pointer;
+}
+
+#login_box_wrap input[type='checkbox'] {
+	display: none;
+}
+#login_box_wrap input[type='checkbox']+label {
+	height: 20px;
+}
+#login_box_wrap input[type='checkbox']+label:before {
+	width: 20px;
+	min-width: 20px;
+    height: 20px;
+    display: inline-block;
+    content: "";
+    background: url("../images/mobile/login/chkbox.png") center center / cover no-repeat;
+    transition: 0.1s background;
+    cursor: pointer;
+}
+
+#login_box_wrap .auto_login_chkbox_wrap:hover input[type='checkbox']+label {
+	filter: brightness(0.9);
+}
+
+#login_box_wrap .auto_login_chkbox_wrap:active input[type='checkbox']+label {
+	filter: brightness(0.8);
+}
+#login_box_wrap input[type='checkbox']:checked+label:before {
+	background: url("../images/mobile/login/chkbox_checked.png") center center / cover no-repeat;
+}
+
+#login_box_wrap .auto_login_chkbox_wrap .chkbox_title {
+	line-height: 100%;
+	color: #ADADAD;
+	font-size: 14px;
+	font-weight: 500;
+	transition: 0.2s;
+}
+#login_box_wrap .auto_login_chkbox_wrap:hover .chkbox_title {
+    color: #898989;	
+}
+
+#login_box_wrap .login_btn {
+	width: 100%;
+	height: 56px;
+	border-radius: 10px;
+	background: #F5F5F5;
+	color: #C9C9C9;
+    font-size: 20px;
+    font-weight: 700;
+	transition: 0.2s;
+	outline: 0;
+}
+#login_box_wrap .login_btn.active {
+	background: #46A6FF;
+	color: #fff;
+}
+
+#login_box_wrap .login_btn:active {
+	background: #2f91ed;
+	color: #fff;
+}
+
+/* 로그인 페이지 언어 셀렉트메뉴 */
+
+#language_selectmenu-button,
+#language_selectmenu-menu {
+	width: auto;
+	border-radius: 4px;
+	background-color: #fff;
+}
+
+/* 셀렉트메뉴 */
+#language_selectmenu-button {
+	display: flex;
+    flex-direction: row-reverse;
+	justify-content: space-between;
+	align-items: center;
+	width: 76px;
+	line-height: 100%;
+	padding: 8px 6px 8px 26px;
+	border-color: #D9D9D9;
+	border-radius: 4px;
+	background: url("../images/mobile/login/ico-lang.png") 6px 8px / 16px 16px no-repeat;
+	color: #ADADAD;
+	font-size: 14px;
+	font-weight: 500;
+	outline: 0;
+}
+#language_selectmenu-button .ui-selectmenu-text {
+	margin: 0 4px 0 0;
+}
+#language_selectmenu-button:active {
+	background-color: #eee;
+}
+
+/* 셀렉트메뉴 옵션 */
+#language_selectmenu-menu {
+	margin-top: -1px;
+	padding: 6px;
+	text-align: center;
+	color: #ADADAD;
+}
+
+#language_selectmenu-menu .ui-menu-item-wrapper {
+	margin: 0;
+	padding: 6px 0;
+	border: 0;
+	border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+#language_selectmenu-menu .ui-menu-item-wrapper:active {
+	background: #46A6FF;
+	color: #fff;
+}
+
+/* 셀렉트메뉴 option */
+.ui-state-active, 
+.ui-widget-content .ui-state-active, 
+.ui-widget-header .ui-state-active {
+	border-color: #fff;
+	background: #fff;
+	color: #ADADAD;
+}
+
+#language_selectmenu-button .ui-icon-triangle-1-s {
+	width: 16px;
+	height: 16px;
+	background: url("../images/login/keyboard_arrow_down.svg") center center / cover no-repeat;
+	transition: 0.2s;
+}
+
+#language_selectmenu-button[aria-expanded=true] .ui-icon-triangle-1-s {
+	transform: rotate(180deg);
+}
+
+
+/**** 로그인 실패 시 안내 문구 ****/
+
+#login_box_wrap .login_fail {
+    line-height: 150%;
+    color: #FF3532;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: pre-line;
+}
+/** 로그인 성공 시 문구 색상 변경 **/
+#login_box_wrap .login_fail.success {
+	color: #46A6FF;
+}
+
+/* 셀렉트메뉴 */
+#selectmenu_language-button {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 4px;
+    width: fit-content;
+    margin: 0;
+    padding-left: 20px;
+    padding-right: 0;
+    border: 0;
+    background: url("../img/language_ico.png") 0 8px no-repeat;
+    color: #222222;
+    outline: 0;
+}
+#selectmenu_language-button .ui-selectmenu-text {
+    margin: 0;
+    padding-right: 2px;
+}
+#selectmenu_language-button .ui-icon-triangle-1-s {
+    background: url("../img/ico-caret-down.png") center center / cover no-repeat;
+    transform: rotate(-180deg);
+    transition: 0.2s;
+}
+#selectmenu_language-button[aria-expanded=true] .ui-icon-triangle-1-s {
+    transform: rotate(0deg);
+}
+#selectmenu_language-menu {
+    margin-top: 6px;
+    border: 1px solid #D9D9D9;
+    border-radius: 4px;
+}
+
+#selectmenu_language-menu .ui-state-active {
+    border-color: #fff;
+    background: #fff;
+    color: #2F54EB;
+}
+#selectmenu_language-menu .ui-menu-item-wrapper {
+    padding: 8px 12px;
+    text-align: center;
+}
+
+#login_box_wrap .copywriter {
+	line-height: 100%;
+	color: #C9C9C9;
+	font-size: 16px;
+	font-weight: 400;
+	text-align: center;
+}

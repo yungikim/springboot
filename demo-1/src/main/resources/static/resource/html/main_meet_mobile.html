@@ -1,0 +1,123 @@
+
+<style>
+	body {overflow-y:auto; overflow-x : hidden;}
+	section {padding : 0 0 0 3px}
+	
+	
+	
+	
+	.mCSB_inside>.mCSB_container{
+		margin-right:15px;
+	}
+	.highlight{background:#ffc000;color:#202020;}
+	
+	.md-bottom-grid.mbsc-ms-c {
+	    border: 0;
+	}
+	
+	.md-content-scroll .mbsc-fr-c {
+        height: 330px;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .md-content-scroll .mbsc-popup {
+        filter: blur(8px);
+    }
+ 	
+ 	.mu_mobile .gathering {
+ 		padding-top: 0;
+ 	}
+ 	
+ 	.mu_mobile .meeting .gather.desc {
+ 		margin-left: 50px;
+ 	}
+ 	
+ 	.mu_mobile .meeting .gather.tit {
+ 		margin-left: 50px;
+    	margin-right: 18px;
+ 	}
+ 	.meet-block-layer {
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+ 	    width: 100%;
+	    height: 100%;
+ 	    z-index: 90;
+ 	    background: rgba(0,0,0,0.2);
+    }
+	.mo_popup {
+		transition: all 0.3s ease;
+	}
+	.mo_popup.hide {
+		bottom: -100%;
+	}
+</style>
+
+
+<body>
+<div id="dis"></div>
+
+<!-- 이미지 미리보기 -->
+<div class="wrap preview" id='preview_img' data="_layer" style="display:none">
+<!--<h1 id='preview_title'></h1>
+	<button class="ico btn-close" id='img_close_btn'>닫기</button>  -->
+
+	<div class="preview-contents" style="text-align:center;">
+		<span><img id='preview_img_src' style='max-width:99%' src="" alt="" /></span>
+	</div>
+</div>
+
+<!-- 동영상 미리보기 -->
+<div class="wrap preview" id='preview_video' data="_layer" style="display:none">
+<!--<h1 id='video_title'></h1>
+	<button class="ico btn-close" id='video_close_btn'>닫기</button>  -->
+	
+	<div class="preview-contents">
+		<span><video id='video_play_div_mp4' class="video"  style='width:100%;height:100%' controls=''></video></span>
+	</div>
+</div>
+
+<!-- Block UI -->
+<div id="blockui" class="blockui" style="display:none;">
+	<iframe style="width:100%;height:100%;border:0"></iframe>
+</div>
+
+
+</body>
+<script language="javascript">
+	$LAB.script(cdbpath+"/js/main/main_bodyM.js?open?ver="+jsversion).script(cdbpath+"/js/main/main_meetingM.js?open?ver="+jsversion).wait(function(){
+		gBodyM = new gBodyM();
+		gBodyM.init();
+		
+		gMetM = new gBodyMeetingM();
+		gMetM.init();
+
+		//URL을 특정한 케이스로 치고 들어올때 해당 페이지로 바로 이동하는 함수
+		gMetM.changePage();
+	});
+</script>
+
+<div id="vertical" class="mbsc-cloak" style="display:none">
+	<ul id="listview" class="mbsc-cloak">
+		<li data='0'><img src="img/temp.png" /><h3 id='li0'></h3></li>
+		<li data='1'><img src="img/wait.png" /><h3 id='li1'></h3></li>
+		<li data='2'><img src="img/continue.png" /><h3 id='li2'></h3></li>
+		<li data='3'><img src="img/complete.png" /><h3 id='li3'></h3></li>
+		<li data='4' id='s_archive'><img src="img/complete.png" /><h3 id='li4'></h3></li>
+	</ul>
+</div>
+
+<div id="list" class="mbsc-cloak" style="display:none">
+    <ul id="action_list">
+        <li data-role="list-divider" >Actions</li>
+        <li data-icon="copy" data='1' id='t01'></li>
+        <li data-icon="pencil" data='2' id='t02'></li>
+        <li data-icon="remove2" data='3' id='t03'></li>
+    </ul>
+</div>
+
+<div id="memberlist" class="mbsc-cloak" style="display:none;">
+	<ul id="members" class="mbsc-cloak">	
+	</ul>
+</div>

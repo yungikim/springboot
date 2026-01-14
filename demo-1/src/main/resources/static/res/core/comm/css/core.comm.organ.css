@@ -1,0 +1,169 @@
+@CHARSET "UTF-8";
+
+.ep-organ-wrap {width:100%; height:100%;overflow:hidden;position:relative;}
+
+/* left 영역*/
+.ep-organ-wrap .ep-organ-left {	position:relative;	display:inline-block;	width:100%;	height:100%;float:left; }
+.ep-organ-wrap .ep-organ-left.multiple {width:320px;}
+
+
+.ep-organ-wrap .ep-organ-tabs {	position:absolute;	top:2px;	bottom: 0px;	left:0px;	right:0px; }
+.ep-organ-wrap .ep-organ-tabs .ui-tabs-nav
+,.ep-organ-wrap .ep-organ-tabs .ui-widget-content 
+	{border-bottom-right-radius : 0px;	border-bottom-left-radius : 0px;	border-top-right-radius :0px;	border-top-left-radius:0px;}
+.ep-organ-wrap .ep-organ-tabs .ui-widget-content {	position:absolute;	overflow:hidden;	top:35px;	right: 0px;	bottom: 0px;	left: 0px;}
+.ep-organ-wrap .ep-organ-tabs .ui-tabs-panel {
+	padding: .2em;
+	margin-top : 6px;
+}
+
+/* organ tab */
+.ep-organ-wrap .tab-wrap {
+	height:100%;
+	overflow:hidden;
+	position:relative;
+}
+ 
+
+/* search bar*/
+.ep-organ-wrap .ep-organ-tabs .tab-wrap .srch-wrap 
+{
+	position:absolute;
+	top: 0px;
+	left:0px;
+	right:0px;
+}
+
+
+.ep-organ-tabs .tab-wrap.organ-tab .srch-wrap .comp-select {
+	margin-right:6px;
+}
+.ep-organ-tabs .tab-wrap.pubgroup-tab .srch-wrap .comp-select {
+	position:absolute;left:0px;right:0px;
+}
+
+.ep-organ-wrap .ep-organ-tabs .tab-wrap .srch-wrap .organ-search {
+	position:absolute;
+	left:198px;right:0px;	
+}
+/* organ-tree */ 
+.ep-organ-wrap .ep-organ-tabs .tab-wrap .ep-organ-tab-tree 
+{overflow: auto;border:1px solid #d6d6d6;top: 36px;bottom: 0px;right: 0px;left: 0px;position: absolute;}
+.ep-organ-wrap .ep-organ-tabs .tab-wrap .ep-organ-tab-tree.hasmessage
+{bottom:46px;} 
+.ep-organ-wrap .ep-organ-tabs .tab-wrap .ep-organ-tab-tree-message 
+{border:1px solid #d6d6d6;height:44px;bottom: 0px;right: 0px;left: 0px;position: absolute;box-sizing:border-box;padding:4px;color:#8ba8d2;display:none;}
+/* 중간 button 영역*/
+.ep-organ-wrap .organ-middle {
+	position:relative;	
+	display:inline-block;
+	overflow:hidden;
+	width : 120px;
+	height : 100%;	
+	float:left;
+}
+.ep-organ-wrap .organ-middle-outer {
+	position:absolute;	top:2px;	bottom:1px;	left:0px;	right:0px;
+	vertical-align: middle;
+}
+
+/*멀티 선택*/
+.ep-organ-wrap .organ-multiple-btn-wrap {
+	margin-top: 140px;
+	text-align:center;
+}
+/* 메일 버튼 */
+.ep-organ-wrap .organ-mail-btn-wrap {
+	text-align:center;
+	margin-top:73px;
+}
+.ep-organ-wrap .organ-mail-btn-other
+,.ep-organ-wrap .organ-multiple-btn-other
+{
+	text-align:center;
+	margin-top:130px;
+}
+
+.ep-organ-wrap .organ-mail-btn {
+	width : 60px;
+	margin-top:6px;
+}
+
+.ep-organ-wrap .organ-mail-btn.organ-detail {background-color: #f5f5f5 }
+
+/* 오른쪽 grid 영역*/
+.ep-organ-wrap .organ-right {
+	position:absolute;
+	display:inline-block;
+	overflow:hidden;
+	left : 440px;
+	right:0px;
+	top:0px;
+	bottom:0px;	
+}
+
+.ep-organ-wrap .organ-right-outer {
+	position:absolute;	
+	top:2px;	
+	bottom:3px;	
+	left:0px;	
+	right:0px;
+}
+.ep-organ-wrap .organ-right-outer .organ-mail-header
+,.ep-organ-wrap .organ-right-outer .organ-multiple-header  
+{line-height:34px;vertical-align : middle}
+
+.ep-organ-wrap .organ-right-outer .organ-mail-header .organ-mail-result-title
+,.ep-organ-wrap .organ-right-outer .organ-multiple-header .organ-multiple-result-title 
+{font-size:16px;font-weight:bold;}
+
+.ep-organ-wrap .organ-right-outer .organ-mail-header .organ-mail-result-btn
+,.ep-organ-wrap .organ-right-outer .organ-multiple-header .organ-multiple-result-btn
+ {float:right;margin:0px;}
+ 
+.ep-organ-wrap .organ-right-outer .organ-mail-result 
+,.ep-organ-wrap .organ-right-outer .organ-multiple-result {
+	position:absolute;
+	border:1px solid #d6d6d6;
+	top:35px;
+	bottom:0px;	right:0px;left:0px;
+	overflow:auto;
+	height:auto;
+}
+
+
+/* mail-result only */
+.fancytree-node.mailroot {font-weight : bold;}
+ 
+
+/* organ search result */
+.ep-organ-search.ep-widget.ep-epgrid {
+	position:absolute;
+	top:36px;
+	bottom : 0px;
+	left:0px;
+	right:0px;
+	height:auto;
+}
+
+.ep-organ-tab-search  {
+	position: absolute;
+	top: 36px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	background:#fff;
+	display:none;
+}
+.search-header {vertical-align: middle;line-height: 35px;}
+.search-header .ep-organ-search-resultcount {font-weight:bold;}
+.search-header .ep-organ-search-resultcount span {color:#8ca9d3;}
+.search-header .ep-organ-search-btnclose {float : right;}
+.ep-organ-search .ep-epgrid-data-div {overflow-x:hidden;overflow-y:auto;}
+
+.ep-organ-wrap .ep-organ-tabs .tab-wrap .ep-organ-tab-grid {overflow: auto;border:1px solid #d6d6d6;top: 36px;bottom: 0px;right: 0px;left: 0px;position: absolute; height:auto;}
+.ep-organ-wrap .ep-organ-tabs .tab-wrap.peraddr-tab .srch-wrap .organ-search {left:0px;padding-right:30px;padding-left:10px;}
+/* .ep-organ-wrap .ep-organ-tabs .tab-wrap.peraddr-tab .srch-wrap .organ-search input {width:100%;padding:0px;} */
+.ep-organ-wrap .ep-organ-tabs .tab-wrap.pergroup-tab .ep-organ-tab-tree {top:0px;}
+
+

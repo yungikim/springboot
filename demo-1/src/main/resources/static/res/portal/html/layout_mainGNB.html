@@ -1,0 +1,440 @@
+﻿<!DOCTYPE html>
+<html xml:lang="ko" lang="ko">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<meta name="format-detection" content="telephone=no, address=no, email=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<title>...</title>
+	<link rel="apple-touch-icon-precomposed" href="../img/favicomImg.png" />  
+	<link rel="shortcut icon" href="../img/favicomImg.ico" />
+	<link rel="icon" type="image/x-icon" href="../img/favicomImg.ico" />
+
+	<link rel="stylesheet" type="text/css" href="/res/portal/css/portal.css" />
+	<link type="text/css" rel="stylesheet" href="/res/core/jquery/jquery-ui/jquery-ui.css" />
+	<link type="text/css" rel="stylesheet" href="/res/core/jquery/qtip/jquery.qtip.css" />
+	<link rel="stylesheet" type="text/css" href="/res/core/jquery/customscroll/jquery.scroll.css">
+	
+	<script type="text/javascript" src="/res/core/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/qtip/jquery.qtip.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/customscroll/jquery.scroll.js"></script>
+	<script type="text/javascript" src="/res/core/newep.js"></script>
+	<script type="text/javascript" src="/res/portal/js/portal_common.js"></script>
+	<!-- <script type="text/javascript" src="/res/portal/js/owl.carousel.js"></script> -->
+	<!--[if lt IE 9]>
+		<script type="text/javascript" src="/res/portal/js/HTML5forIE.js"></script>
+		<script type="text/javascript" src="/res/portal/js/respond.min.js"></script>
+	<![endif]-->
+	<!-- <script> 
+		$(document).ready(function(){
+			$("button.h_search").click(function(){
+				$("#search_resultArea").show("");
+			});
+		});
+	</script> -->
+	<script type="text/javascript">
+		//레이어 팝업 열기
+		function openLayer(IdName, tpos, lpos){
+			var pop = document.getElementById(IdName);
+			pop.style.display = "block";
+			pop.style.top = tpos + "px";
+			pop.style.left = lpos + "px";
+		}
+
+		//레이어 팝업 닫기
+		function closeLayer(IdName){
+			var pop = document.getElementById(IdName);
+			pop.style.display = "none";
+		}
+	</script>
+</head>
+
+<body>
+	<div id="wrap">
+		<!-- header -->
+		<div id="header">
+			<div class="header_area">
+				<h1><a href="">AMOREPACIFIC</a></h1>
+				<div class="info_area">
+					<div class="fl">
+						<span class="btn ico_sitemap" title="사이트맵"><a href="" onclick="openLayer('popLayer_wrap',{top:60, left:0});return false;"></a></span>
+						<span class="btn ico_search" title="검색"></span>
+					</div>
+					<div class="fr">
+						<!-- 20150310 알림 버튼 추가 -->
+						<div class="header_layer">
+							<span class="btn ico_notice" title="알림">
+								<em class="count_info wid-none"><strong>N</strong></em><!-- 알림 숫자가 N일 경우 wid-none클래스 추가 -->
+							</span>
+							<!-- 알림 layerPop 추후 디자인 적용
+							<div class="header_layerWrap tip01">
+								<div class="header_layerContent"></div>
+								<div class="btn_footArea">
+									<span class="fl btn_t01"><a href="">알림 이동</a></span>
+									<span class="fr btn_t02"><a href="">닫기 X</a></span>
+								</div>
+							</div>
+							-->
+						</div>
+						<!-- //20150310 알림 버튼 추가 -->
+
+						<div class="header_layer">
+							<span class="btn ico_mail" title="메일"><em class="count_info"><strong>99</strong></em></span>
+							<!-- 메일확인 layerPop -->
+							<div class="header_layerWrap tip01">
+								<div class="header_layerContent">
+									<h2>읽지 않은 메일 <em>12</em>건</h2>
+									<ul class="list_board011 tf_border">
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="fl writer">000사내커뮤니케이션팀</span>
+													<span class="fr date">AM 09:45</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[상주투입인력] 교육확인서 동의 요합니다.합니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="fl writer">000사내커뮤니케이션팀</span>
+													<span class="fr date">AM 09:45</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[상주투입인력] 교육확인서 동의 요합니다.합니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="fl writer">000사내커뮤니케이션팀</span>
+													<span class="fr date">AM 09:45</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[상주투입인력] 교육확인서 동의 요합니다.합니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="fl writer">000사내커뮤니케이션팀</span>
+													<span class="fr date">AM 09:45</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[상주투입인력] 교육확인서 동의 요합니다.합니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="btn_footArea">
+									<span class="fl btn_t01"><a href="">메일함 이동</a></span>
+									<span class="fr btn_t02"><a href="">닫기 X</a></span>
+								</div>
+							</div>
+							<!-- //메일확인 layerPop -->
+						</div>
+
+						<div class="header_layer">
+							<span class="btn ico_schedule" title="일정" class="header_layer"></span>
+							<!-- 금주일정확인 layerPop --> 
+							<div class="header_layerWrap tip02">
+								<div class="header_layerContent">
+									<h2>금중의 일정 <em>12</em>건</h2>
+									<ul class="list_board011 tf_border">
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="date">AM 09:45 ~ Am1 11:00</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[상주투입인력] 교육확인서 동의 요합니다.합니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="date">AM 09:45 ~ Am1 11:00</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[회의] NEW EP 프로토타입 설계화면입니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="date">AM 09:45 ~ Am1 11:00</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[회의] NEW EP 프로토타입 설계화면입니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="date">AM 09:45 ~ Am1 11:00</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[회의] NEW EP 프로토타입 설계화면입니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="btn_footArea">
+									<span class="fl btn_t01"><a href="">일정관리 이동</a></span>
+									<span class="fr btn_t02"><a href="">닫기 X</a></span>
+								</div>
+							</div>
+							<!-- //금주일정확인 layerPop -->
+						</div>
+
+						<div class="header_layer">
+							<span class="btn ico_works" title="업무" class="header_layer"></span>
+							<!-- 결재대기문서확인 layerPop -->
+							<div class="header_layerWrap tip03">
+								<div class="header_layerContent">
+									<h2>결재대기 문서 <em>12</em>건</h2>
+									<ul class="list_board011 tf_border">
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="writer">Diana Peters</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[상주투입인력] 교육확인서 동의 요합니다.합니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="writer">Diana Peters</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[회의] NEW EP 프로토타입 설계화면입니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="writer">Diana Peters</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[회의] NEW EP 프로토타입 설계화면입니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="writer">Diana Peters</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[회의] NEW EP 프로토타입 설계화면입니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="btn_footArea">
+									<span class="fl btn_t01"><a href="">전자결재 이동</a></span>
+									<span class="fr btn_t02"><a href="">닫기 X</a></span>
+								</div>
+							</div>
+							<!-- //결재대기문서확인 layerPop -->
+						</div>
+
+						<!-- 20150310 쉐어박스 버튼 추가 -->
+						<div class="header_layer">
+							<span class="btn ico_sharebox" title="알림"><em class="count_info"><strong>99</strong></em></span>
+						</div>
+						<!-- //20150310 쉐어박스 버튼 추가 -->
+
+						<!-- 20150319 게시판 바로가기 버튼 추가 -->
+						<div class="header_layer">
+							<span class="btn ico_post" title="게시판"></span>
+						</div>
+						<!-- //20150319 게시판 바로가기 버튼 추가 -->
+
+						<div class="header_layer">
+							<span>
+								<span class="user_thum">
+									<span class="thum_border"></span>
+									<img src="/res/portal/img/img01.png" alt="" />
+								</span>
+								<span class="btn ico_arrowview" title="개인설정"></span>
+							</span>
+							<!-- 개인설정 -->
+							<div class="header_layerWrap tip04">
+								<div class="header_layerContent">
+									<ul class="p_list_type01">
+										<li><a href="" class="tbold"><span class="btn bult_setting"></span> 환경설정</a></li>
+										<li><a href="" class="tbold"><span class="btn bult_logout"></span> 로그아웃</a></li>
+										<li><a href="" class="tbold"><span class="btn bult_default"></span> 일반리스트</a></li>
+									</ul>
+								</div>
+							</div>
+							<!-- //개인설정 -->
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- sitemap -->
+		 <div id="popLayer_wrap" style="display:view;">
+			<span class="btn ico_close" title="닫기"><!-- <a href="" onclick="closeLayer('popLayer_wrap')"></a> --></span>
+			<div class="fclear"></div>
+			<div class="pop_content view_scroll">
+				<ul class="sitemap">
+					<li>
+						<p class="title"><a href="">MY APPS</a><p>
+						<ul class="map_list">
+							<li><a href="">E-mail</a></li>
+							<li><a href="">일정관리</a></li>
+							<li><a href="">작업관리</a></li>
+							<li><a href="">연락처</a></li>
+							<li><a href="">ABC² 자동로그인</a></li>
+							<li><a href="">환경설정</a></li>
+							<li><a href="">개인정보변경</a></li>
+							<li><a href="">Smart Campus</a></li>
+							<li><a href="">웰빙센터</a></li>
+							<li><a href="">인사아라</a></li>
+						</ul>
+					</li>
+					<li>
+						<p class="title"><a href="">WORKPLACE</a><p>
+						<ul class="map_list">
+							<!-- SAP 팁메뉴 추가 20150319 -->
+							<li class="tip-wrap active"><!-- active 클래스 추가시 tip-menu-area 출력 -->
+								<a href="">SAP 메뉴</a>
+								<div class="tip-menu-area">
+									<span class="tip-arrow"></span>
+									<div class="inner">
+										<ul>
+											<li><a href="#">SAP 즐겨찾기</a></li>
+											<li><a href="#">영업공통</a></li>
+											<li><a href="#">BW</a></li>
+											<li><a href="#">Self_ERP 비밀번호 초기화/담김해제</a></li>
+											<li><a href="#">SAP 즐겨찾기</a></li>
+											<li><a href="#">영업공통</a></li>
+											<li><a href="#">BW</a></li>
+											<li><a href="#">Self_ERP 비밀번호 초기화/잠김해제</a></li>
+											<li><a href="#">SAP 즐겨찾기</a></li>
+											<li><a href="#">영업공통</a></li>
+											<li><a href="#">BW</a></li>
+											<li><a href="#">Self_ERP 비밀번호 초기화/잠김해제</a></li>
+											<li><a href="#">SAP 즐겨찾기</a></li>
+											<li><a href="#">영업공통</a></li>
+											<li><a href="#">BW</a></li>
+										</ul>
+									</div>
+									<span class="bt-ly-close" title=""></span>
+								</div>
+							</li>
+							<!-- //SAP 팁메뉴 추가 20150319 -->
+							<li><a href="">전자결재(해외출장시스템)</a></li>
+							<li><a href="">회의관리</a></li>
+							<li><a href="">Sametime Meeting</a></li>
+							<li><a href="">Self Survey</a></li>
+							<li><a href="">APS(간접구매통합시스템)</a></li>
+							<li><a href="">PM</a></li>
+							<li><a href="">BSC</a></li>
+							<li><a href="">권한별 메뉴</a></li>
+						</ul>
+					</li>
+					<li>
+						<p class="title"><a href="">ONE AP</a><p>
+						<ul class="map_list">
+							<li><a href="">Connect AP</a></li>
+							<li><a href="">게시판</a></li>
+							<li><a href="">노조게시판</a></li>
+							<li><a href="">나눔터</a></li>
+							<li><a href="">어린이집</a></li>
+							<li><a href="">AP 人<span class="ico_blank"></span><!-- 20150310 새창 아이콘 추가 --></a></li>
+							<li><a href="">New Square<span class="ico_blank"></span><!-- 20150310 새창 아이콘 추가 --></a></li>
+							<li><a href="">사회공헌포탈</a></li>
+							<li><a href="">그룹감사실</a></li>
+							<li><a href="">뉴스클리핑</a></li>
+							<li><a href="">경영Insight</a></li>
+							<li><a href="">Career Market<span class="ico_blank"></span><!-- 20150310 새창 아이콘 추가 --></a></li>
+						</ul>
+					</li>
+					<li>
+						<p class="title"><a href="">SUPPORT</a>
+						<ul class="map_list">
+							<li><a href="">지원 Service</a></li>
+							<li><a href="">세무 Service</a></li>
+							<li><a href="">지식재산 Service</a></li>
+							<li><a href="">데스크탑클라우드</a></li>
+							<li><a href="">기업자료관리</a></li>
+							<li><a href="">내부회계관리</a></li>
+							<li><a href="">정보시스템도우미</a></li>
+							<li><a href="">공정거래도우미</a></li>
+							<li><a href="">수상기록</a></li>
+							<li><a href="">EuroMonitor</a></li>
+							<li><a href="">사규집</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- //sitemap -->
+		<!-- //header -->
+
+		<!-- contents -->
+		<div id="content_area">
+			<div class="containerWrapper">
+				<div class="component-container myPageLayout">
+					내용이 위치합니다.<br/><br/>
+					내용이 위치합니다.<br/><br/>
+					내용이 위치합니다.<br/><br/>
+					내용이 위치합니다.<br/><br/>
+					내용이 위치합니다.<br/><br/>
+					내용이 위치합니다.<br/><br/>
+					내용이 위치합니다.<br/><br/>
+					내용이 위치합니다.<br/><br/>
+					내용이 위치합니다.<br/><br/>
+				</div>
+			</div>
+		</div>
+		<!-- //contents -->
+
+		<!-- 포틀릿편집-개인화 -->
+		<div class="portlet_btn"><span class="btn ico_portletOpen" title="포틀릿편집-개인화"></span></div>
+		
+		<!-- footer -->
+		<div id="footer">
+			<div class="copyright">AMOREPACIFIC CORPORATION. ALL RIGHT RESERVED.</div>
+		</div>
+		<!-- //footer -->
+	</div>
+	<script type="text/javascript">
+		$(function() {ux_portal.initSitemap();});
+	</script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<div class="frm_wrap frm_page_scroll">
+	<div class="formpage ">
+		<form class="">			
+			<fieldset class="search">
+				<legend>search</legend>
+				<table class="table-form">
+				<colgroup><col width="150px" /><col /></colgroup>
+				<tr>
+					<th class="first">placeholder</th>
+					<td><input type="text" name="exam_1"></td>
+				</tr>
+				<tr>
+					<th class="first">inline width 200px</th>
+					<td><input type="text" name="exam_2" style="width:200px"></td>
+				</tr>
+				<tr>
+					<th class="first">select width 200px</th>
+					<td><input type="text" name="exam_3"></td>
+				</tr>
+				<tr>
+					<th class="first">width 100%</th>
+					<td><input type="text" name="exam_4"></td>
+				</tr>
+				<tr>
+					<th class="first">select and input width 100%</th>
+					<td><input type="text" name="exam_5"></td>
+				</tr>
+				</table>
+				<span class="source">source</span>
+				<pre id="src"></pre>
+<script id="script">
+$ep
+.wait(function() {
+	var _select =  {
+		items : [
+				  {id : "1" , text : "하나"},{id : "2" , text : "둘"}
+				  ,{id : "3" , text : "셋"},{id : "4" , text : "넷"}
+				  ,{id : "5" , text : "다섯"}
+				]
+				,width : "100"
+			}
+	$ep.ui.input("fieldset.search [name=exam_1]", {	icon : "search"		,placeholder : "placeholder"});
+	$ep.ui.input("fieldset.search [name=exam_2]", {	icon : "search"});
+	$ep.ui.input("fieldset.search [name=exam_3]", {	icon : "search",width : 200 , select : _select});
+	$ep.ui.input("fieldset.search [name=exam_4]", {	icon : "search",width : "100%"});
+	$ep.ui.input("fieldset.search [name=exam_5]", {	icon : "search",width : "100%"
+		,select : _select	
+	});
+});
+</script>
+			</fieldset>
+			<fieldset class="datepicker">
+				<legend>datepicker</legend>
+				<table class="table-form">
+				<colgroup><col width="150px" /><col /></colgroup>
+				<tr>
+					<th>placeholder</th>
+					<td><input type="text" name="exam_1"></td>
+				</tr>
+				<tr>
+					<th>inline width 200px</th>
+					<td><input type="text" name="exam_2" style="width:200px"></td>
+				</tr>
+				<tr>
+					<th>options width 200px</th>
+					<td><input type="text" name="exam_3"></td>
+				</tr>
+				<tr>
+					<th class="first">width 100%</th>
+					<td><input type="text" name="exam_4"></td>
+				</tr>
+				<tr>
+					<th class="first">select and input width 100%</th>
+					<td><input type="text" name="exam_5"></td>
+				</tr>
+				</table>
+				<span class="source">source</span>
+				<pre id="src"></pre>
+<script id="script">
+$ep
+.wait(function() {
+	$ep.ui.input("fieldset.datepicker [name=exam_1]", {	icon : "datepicker",placeholder : "placeholder",datepicker : {}});
+	$ep.ui.input("fieldset.datepicker [name=exam_2]", {	icon : "datepicker",datepicker : {
+		onSelect : function(strdate,ui) {
+			alert(strdate);
+		}
+	}});
+	$ep.ui.input("fieldset.datepicker [name=exam_3]", {	icon : "datepicker",datepicker : {},width : 200});
+	$ep.ui.input("fieldset.datepicker [name=exam_4]", {	icon : "datepicker",datepicker : {},width : "100%"});
+	$ep.ui.input("fieldset.datepicker [name=exam_5]", {	icon : "datepicker"
+		,width : "100%"
+		,datepicker : {}
+		,select : {
+			items : [
+			  {id : "1" , text : "하나"},{id : "2" , text : "둘"}
+			  ,{id : "3" , text : "셋"},{id : "4" , text : "넷"}
+			  ,{id : "5" , text : "다섯"}
+			]
+			,width : "100"
+		}	
+	});
+});
+</script>
+			</fieldset>
+			<fieldset class="disable_enable">
+				<legend>disable/enable</legend>
+				<table class="table-form">
+				<colgroup><col width="150px" /><col /><col width="150px"/></colgroup>
+				<tr>
+					<th class="first">datepicker</th>
+					<td><input type="text" name="exam_1"></td>
+					<td><span class="button" id="enable" /> <span class="button" id="disable" /></td>
+				</tr>
+				<tr>
+					<th class="first">select/datepicker</th>
+					<td><input type="text" name="exam_2"></td>
+					<td><span class="button" id="enable" /> <span class="button" id="disable" /></td>
+				</tr>
+				<tr>
+					<th class="first">search</th>
+					<td><input type="text" name="exam_3"></td>
+					<td><span class="button" id="enable" /> <span class="button" id="disable" /></td>
+				</tr>
+				<tr>
+					<th class="first">select / search</th>
+					<td><input type="text" name="exam_4"></td>
+					<td><span class="button" id="enable" /> <span class="button" id="disable" /></td>
+				</tr>
+				<tr>
+					<th class="first">select</th>
+					<td><select name="exam_5">
+						<option value="1">하나
+						<option value="2">둘
+						<option value="3">셋
+						<option value="4">넷
+					</select></td>
+					<td><span class="button" id="enable" /> <span class="button" id="disable" /></td>
+				</tr>
+				</table>
+				<span class="source">source</span>
+				<pre id="src"></pre>
+<script id="script">
+$ep
+.wait(function() {
+	$ep.ui.input("fieldset.disable_enable [name=exam_1]", {	icon : "datepicker",placeholder : "placeholder",datepicker : {},width : "100%"});
+	$ep.ui.input("fieldset.disable_enable [name=exam_2]", {	icon : "datepicker"
+		,width : "100%"
+		,datepicker : {}
+		,select : {
+			items : [
+			  {id : "1" , text : "하나"},{id : "2" , text : "둘"}
+			  ,{id : "3" , text : "셋"},{id : "4" , text : "넷"}
+			  ,{id : "5" , text : "다섯"}
+			]
+			,width : "100"
+		}	
+	});
+	$ep.ui.input("fieldset.disable_enable [name=exam_3]", {	icon : "search",width : "100%"});
+	$ep.ui.input("fieldset.disable_enable [name=exam_4]", {	icon : "search",width : "100%"
+		,select : {
+			items : [
+			  {id : "1" , text : "하나"},{id : "2" , text : "둘"}
+			  ,{id : "3" , text : "셋"},{id : "4" , text : "넷"}
+			  ,{id : "5" , text : "다섯"}
+			]
+			,width : "100"
+		}	
+	});
+	$ep.ui.select("fieldset.disable_enable [name=exam_5]", {width: 250});
+	
+	$("fieldset.disable_enable .button").each(function() {
+		$(this).epbutton({
+			text : $(this).attr("id")
+			,click : function(e,id,o) {
+				var $tr = $(e.target).closest("tr");
+				var _h = $tr.find(".ep-widget.ep-epinput input");
+				if(_h.size() > 0) {
+					id == "disable" ? $ep.ui.input(_h).disable() : $ep.ui.input(_h).enable();
+					return;
+				}
+				var _h = $tr.find(".ep-widget.ep-epselect select");
+				if(_h.size() > 0) {
+					id == "disable" ? $ep.ui.select(_h).disable() : $ep.ui.select(_h).enable();
+					return;
+				}
+			}
+		});
+	});
+});
+</script>
+			</fieldset>
+		</form>
+		
+	</div>
+</div>
+<script>
+(function(){
+	$("fieldset .source").on("click", function(e) {
+		var _fieldset = $(e.target).closest("fieldset")
+			,_src = $("#src",_fieldset);
+		if($(e.target).hasClass("open")) {_src.empty();$(e.target).removeClass("open");return;}
+		_src.html($("script",_fieldset).html().replace(/</g,"&lt;").replace(/>/g,"&gt;"));
+		$(e.target).addClass("open");
+	});
+})();
+</script> 
+ 

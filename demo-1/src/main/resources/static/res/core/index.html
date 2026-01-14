@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DSW</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=10" />
+	<link rel="stylesheet" type="text/css" href="/res/core/jquery/jquery-ui/jquery-ui.css?_ver=1" />
+	<!-- <script type="text/javascript" src="http://devapnstpr01.amorepacific.com:9080/stwebclient/latest/dojo.blue/dojo/dojo.js?_ver=2"></script> -->
+	<!-- <script type="text/javascript" src="http://apwucproxy.amorepacific.com:9080/stwebclient/latest/dojo.blue/dojo/dojo.js?_ver=2"></script> -->
+	<script type="text/javascript">
+		var stproxyConfig = {
+			//server: "http://devapnstpr01.amorepacific.com:9080",
+			/* server : "http://apwucproxy.amorepacific.com:9080", */ // Replace with the appropriate server & port
+			tunnelURI: "https://" + location.hostname + "/res/core/comm/html/stproxy/tunnel.html",	// The url of the openAjax Tunnel which must be on the same server as this file
+			tokenLogin: true,								// We want to not display the login UI
+			isConnectClient: false							// Don't go through the Connect Client
+		};
+		var djConfig = { parseOnLoad: true,isDebug: false};
+	</script>
+	<!-- <script type="text/javascript" src="http://apwucproxy.amorepacific.com:9080/stwebclient/latest/stbaseapi/baseComps.js?noHub=false"></script> -->
+ 	<!-- <script type="text/javascript" src="http://devapnstpr01.amorepacific.com:9080/stwebclient/latest/stbaseapi/baseComps.js?noHub=false"></script>  -->
+	<script type="text/javascript" src="/res/core/jquery/jquery.min.js?_ver=1"></script>
+	<script type="text/javascript" src="/res/core/jquery/jquery-ui/jquery-ui.min.js?_ver=1"></script>
+	<script type="text/javascript" src="/res/core/newep.js?_ver=1"></script>	
+</head> 
+<body>
+<div id="wrap">
+	<div id="ep_body">
+		<div id="ep_content_navigator"></div>
+		<div id="ep_content_body"></div>
+	</div>
+</div>
+<script>
+$ep
+.wait(function() {
+	//alert("�뜑�씠�긽 �궗�슜�븯硫� �븞�릺�뒗 �럹�씠吏� �엯�땲�떎.");
+	//return;
+	$ep.ui.initLNBLayout(); 
+	if(typeof stproxy !== "undefined") {
+		$ep.util.abc.vitalize();
+		if(!stproxy.isLoggedIn) {
+			stproxy.login.loginByToken(null, stproxy.awareness.AVAILABLE, null, function(){}, function(){});
+		}
+	};
+	var _uri = $.CURI(),_appcode = _uri.getParam("_appcode") || "",	_comcode = _uri.getParam("_comcode") ;
+	if(!_appcode) {_appcode = _uri.getParam("appcode") || "comm.prototype"}
+	if(_comcode) {$ep.user.companycode(_comcode);} else {_comcode = $ep.user.companycode();} 
+	$ep.ui.loadApp(_comcode,_appcode);
+	
+});</script> 
+</body>
+</html> 

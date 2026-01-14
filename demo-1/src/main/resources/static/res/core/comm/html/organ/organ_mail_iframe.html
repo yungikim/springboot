@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>new EP</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<link rel="stylesheet" type="text/css" href="/res/core/jquery/jquery-ui/jquery-ui.css" />
+	<script type="text/javascript" src="/res/core/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/jquery-ui/jquery-ui.min.js"></script>	
+	<script type="text/javascript" src="/res/core/newep.js"></script>	
+</head>
+<body>
+<div id="wrap">
+<script type="text/javascript" language="javascript">
+$ep
+.wait(function() {
+	
+	var _organ = $ep.ui.organ({});
+	/*
+	* this.toData(data).string() 
+	* 결과 패턴 변경은 아래 두함수 참조
+	*/ 
+	//_organ.setResultPattern("D","mtype^notesid^orgname^eorgname");
+	//_organ.setResultPattern("P","mtype^notesid^orgname^eorgname");
+	
+	_organ.mailSelect( 
+		{
+			expandTree :"1^00012018^00072551^00020397" 
+			,display : "all"
+			,activetab : "tab1"
+			,position: [0,0]
+			,draggable : false
+			,modal : false
+			,select : "all"
+			,server : "devaphqapp"  //대표서버명  
+			,close : function(e) {
+				// epdialog close event
+				//debugger;
+			}
+
+			,treeItemRender : function(data) {
+				if(data.type == "D" && data.orgcode == "") {
+					data["unselectable"] = true;
+					data["hideCheckbox"] = true;
+				}
+			}
+	
+			/* 기본값 : patternstring, Array Object, function() {}  3가지 유형 지원...  */
+			/* ,dataset : [
+			     {mtype : "to",type : "P", notesid : "notesid",orgname : "OrgName", eorgname : "eOrgName"}
+				,{mtype : "cc",type : "P", notesid : "ccnotesid",orgname : "OrgName2", eorgname : "eOrgName2"}
+			] */
+			//,dataset : ["to^notesid^orgname^eOrgName"] 
+			//,dataset : "P^ygcho^조영길^Young-gil Cho^정보전략팀^Business Information Technology Strategy Team^00020397^CN=C452864 조영길/O=pacific/C=KR^ko,P^loverabbit^박소영^Park So Young^정보전략팀^Business Information Technology Strategy Team^00020397^CN=AP490377 박소영/O=pacific/C=KR^ko"
+			,resultItemExpression : function(data) {
+				return {
+					title : data.notesid.replace(/\w+\=/g,"")
+					,tooltip : data.notesid.replace(/\w+\=/g,"")
+				} ;
+			}
+	},function(data) {
+		$ep.log("data",data);
+		$ep.log("data String",this.toData(data).string());
+	});	
+});
+</script>
+</div>
+</body>
+</html>

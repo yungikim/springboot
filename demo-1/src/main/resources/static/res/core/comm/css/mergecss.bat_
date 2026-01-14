@@ -1,0 +1,8 @@
+@echo OFF
+@del core.comm.all.css
+@type core.comm.base.css >> core.comm.all.css
+@type core.comm.content.css >> core.comm.all.css
+@type core.comm.plugin.css >> core.comm.all.css
+@type core.comm.organ.css >> core.comm.all.css
+@type ..\..\jquery\qtip\jquery.qtip.css >> core.comm.all.css
+@type ..\..\jquery\fancytree\amore\ui.fancytree.css >> core.comm.all.css

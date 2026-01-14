@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html xml:lang="ko" lang="ko">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Web Standard Guide</title>
+	<link type="text/css" rel="stylesheet" href="/res/core/jquery/jquery-ui/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="/res/core/jquery/customscroll/jquery.scroll.css">
+	<link rel="stylesheet" type="text/css" href="wsg.css" />
+	<link rel="stylesheet" type="text/css" href="/res/portal/css/portal.css" />
+	
+	<script type="text/javascript" src="/res/core/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/customscroll/jquery.scroll.js"></script>
+	<script type="text/javascript" src="/res/core/newep.js"></script>
+	<script type="text/javascript" src="/res/portal/js/portal_common.js"></script>
+	
+	<script type="text/javascript">
+		jQuery(function(){
+			var totalCount = $('.state').size();
+			var successCount = 0;
+			$('.state').each(function(){
+				if($(this).text() == '완료') {
+					successCount += 1;
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id="wsg_wrap">
+		<h2>.thum_board01 <span>_메인포틀릿/이미지게시판_마크업형식table</span></h2>
+		<table class="thum_board01">
+			<tr>
+				<td>
+					<a href="">
+						<span class="thum_img"><img src="/res/portal/img/img02.png" alt="" /></span>
+						<span class="subject">제 2화, 부산국제영화제(BIFF)의 모든 것제 2화, 부산국제영화제(BIFF)의 모든 것</span>
+						<span class="date">Oct 2, 2014</span>
+					</a>
+				</td>
+				<td class="blank"></td>
+				<td>
+					<a href="">
+						<span class="thum_img"><img src="/res/portal/img/img02.png" alt="" /></span>
+						<span class="subject">제 2화, 부산국제영화제(BIFF)의 모든 것</span>
+						<span class="date">Oct 2, 2014</span>
+					</a>
+				</td>
+			</tr>
+		</table>
+		<!------------------------------------------------------------------------------------------------------>
+		<h2>.list_board01 <span>_메인포틀릿</span></h2>
+		<ul class="list_board01">
+			<li>
+				<a href="">
+					<span class="fl user_thum">
+						<span class="thum_border"></span>
+						<img src="/res/portal/img/img01.png" alt="" />
+					</span>
+				</a>
+				<span class="fl write">
+					<span class="fl writer"><a href="">000사내커뮤니케이션팀</a></span>
+					<span class="fr date">AM 09:45</span>
+					<span class="fclear"></span>
+					<span class="subject">
+						<a href="">
+							<span class="btn ico_fileAdd" title="파일첨부"></span>
+							<span class="txt">[NSN] 에뛰드, ‘일의 의미 찾기 - My Way’ 워크숍 진행 & APG, 외국인 워크숍 진행 & APG, 외국인</span>
+						</a>
+					</span>
+					<span class="fr btn ico_importantSel" title="중요"></span>
+				</span>
+				<span class="fclear"></span>
+			</li>
+			<li>
+				<a href="">
+					<span class="fl user_thum">
+						<span class="thum_border"></span>
+						<img src="/res/portal/img/img01.png" alt="" />
+					</span>
+				</a>
+				<span class="fl write">
+					<span class="fl writer"><a href="">000사내커뮤니케이션팀</a></span>
+					<span class="fr date">AM 09:45</span>
+					<span class="fclear"></span>
+					<span class="subject">
+						<a href="">
+							<span class="txt">[NSN] 에뛰드, ‘일의 의미 찾기 - My Way’ 워크숍 진행 & APG, 외국인 워크숍 진행 & APG, 외국인</span>
+						</a>
+					</span>
+					<span class="fr btn ico_important" title="중요"></span>
+				</span>
+				<span class="fclear"></span>
+			</li>
+		</ul>
+		<!------------------------------------------------------------------------------------------------------>
+		<h2>.list_board01 <span>_메인포틀릿</span></h2>
+		<ul class="list_board01">
+			<li>
+				<span class="fl write2">
+					<span class="fl writer"><a href="">Diane Peters</a></span>
+					<span class="fr date">2014.09.15</span>
+					<span class="fclear"></span>
+					<span class="subject">
+						<a href="">
+							<span class="txt">신규사업팀 홍길동 8월 휴가 결재</span>
+						</a>
+					</span>
+				</span>
+				<span class="fclear"></span>
+			</li>
+			<li>
+				<span class="fl write2">
+					<span class="fl writer"><a href="">Diane Peters</a></span>
+					<span class="fr date">2014.09.15</span>
+					<span class="fclear"></span>
+					<span class="subject">
+						<a href="">
+							<span class="txt">신규사업팀 홍길동 8월 휴가 결재</span>
+						</a>
+					</span>
+				</span>
+				<span class="fclear"></span>
+			</li>
+		</ul>
+		<!------------------------------------------------------------------------------------------------------>
+		<h2>.list_board011 <span>_상단레이어팝업에 적용</span></h2>
+		<ul class="list_board011">
+			<li>
+				<a href="">
+					<span class="write2">
+						<span class="fl writer">000사내커뮤니케이션팀</span>
+						<span class="fr date">AM 09:45</span>
+						<span class="fclear"></span>
+						<span class="subject">
+							<span class="txt">[상주투입인력] 교육확인서 동의 요합니다.합니다.</a>
+						</span>
+					</span>
+				</a>
+			</li>
+			<li>
+				<a href="">
+					<span class="write2">
+						<span class="fl writer">000사내커뮤니케이션팀</span>
+						<span class="fr date">AM 09:45</span>
+						<span class="fclear"></span>
+						<span class="subject">
+							<span class="txt">[상주투입인력] 교육확인서 동의 요합니다.합니다.</a>
+						</span>
+					</span>
+				</a>
+			</li>
+		</ul>
+		<!------------------------------------------------------------------------------------------------------>
+		<h2>.list_board02 <span>_메인포틀릿</span></h2>
+		<ul class="list_board02">
+			<li>
+				<a href="">
+					<span class="fl subject">[핵심직무역량] AP Logical[핵심직무역량] AP Logical[핵심직무역량] AP Logical</span>
+					<span class="fr date">2014.09.15</span>
+					<span class="fclear"></span>
+					<span class="src site">동관 6층 회의실 506호</span>
+					<span class="src member_cap">인재교육팀(APG, 사용중지), 김휘찬</span>
+					<span class="src member">신청인원 : <strong>0 / 40</strong>명</span>
+				</a>
+			</li>
+			<li>
+				<a href="">
+					<span class="fl subject">[핵심직무역량] AP Logical[핵심직무역량] AP Logical[핵심직무역량] AP Logical</span>
+					<span class="fr date">2014.09.15</span>
+					<span class="fclear"></span>
+					<span class="src site">동관 6층 회의실 506호</span>
+					<span class="src member_cap">인재교육팀(APG, 사용중지), 김휘찬</span>
+					<span class="src member">신청인원 : <strong>0 / 40</strong>명</span>
+				</a>
+			</li>
+		</ul>
+		<!------------------------------------------------------------------------------------------------------>
+		<h2>.list_board03 <span>_메인포틀릿</span></h2>
+		<ul class="list_board03">
+			<li>
+				<span class="subject"><a href="">2014 서울 빛초롱축제 응원합니다.2014 서울 빛초롱축제 응원합니다.</a></span>
+				<span class="date">2014-00-00</span>
+			</li>
+			<li>
+				<span class="subject"><a href="">그린사이클, 공병수거 캠페인</a></span>
+				<span class="date">2014-00-00</span>
+			</li>
+			<li>
+				<span class="subject"><a href="">2014 서울 빛초롱축제 응원합니다.2014 서울 빛초롱축제 응원합니다.</a></span>
+				<span class="date">2014-00-00</span>
+			</li>
+		</ul>
+		<!------------------------------------------------------------------------------------------------------>
+		<h2>.list_board04 <span>_메인포틀릿</span></h2>
+		<ul class="list_board04 btop3 bbottom2">
+			<li>
+				<a href="">
+					<span class="subject">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+					<span class="date">2014-00-00</span>
+				</a>
+			</li>
+			<li>
+				<a href="">
+					<span class="subject">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+					<span class="date">2014-00-00</span>
+				</a>
+			</li>
+			<li>
+				<a href="">
+					<span class="subject">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+					<span class="date">2014-00-00</span>
+				</a>
+			</li>
+			<li>
+				<a href="">
+					<span class="subject">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+					<span class="date">2014-00-00</span>
+				</a>
+			</li>
+		</ul>
+
+		<!------------------------------------------------------------------------------------------------------>
+		<h2>.inline_board <span>_메인포틀릿/하단알림및공지</span></h2>
+		<div class="inline_board bbottom3">
+			<span class="fl title">마감임박 과정 <em>(15)</em></span>
+			<span class="fl subject"><a href="">※ 교육 시작일 D-30 과정 목록입니다 교육 시작일 D-30 과정 목록입니다</a></span>
+			<button type="button" class="fr btype01">더보기 ></button>
+		</div>
+		<!------------------------------------------------------------------------------------------------------>
+		<h2>.webzine_type02 <span>_메인포틀릿</span></h2>
+		<ul class="webzine_type02">
+			<li>
+				<div class="fl"><a href=""><img src="/res/portal/img/img051.png" alt="" /></a></div>
+				<div class="fr">
+					<span class="subject"><a href="">칠곡 효성 실버타운 어른신들을 찾아뵈었습니다칠곡 효성 실버타운 어른신들을 찾아뵈었습니다</a></span>
+					<span class="date">2014-00-00</span>
+					<span class="src">어르신들께 저희들이 직접 만든 만두를 드시게 했더니 정말 맛있다고 좋아하셨고... 덕분에 활동처에서도 
+					감사의 메시지를 보내주셨습니다.</span>
+				</div>
+				<div class="fclear"></div>
+			</li>
+			<li>
+				<div class="fl"><a href=""><img src="/res/portal/img/img052.png" alt="" /></a></div>
+				<div class="fr">
+					<span class="subject"><a href="">칠곡 효성 실버타운 어른신들을 찾아뵈었습니다칠곡 효성 실버타운 어른신들을 찾아뵈었습니다</a></span>
+					<span class="date">2014-00-00</span>
+					<span class="src">어르신들께 저희들이 직접 만든 만두를 드시게 했더니 정말 맛있다고 좋아하셨고... 덕분에 활동처에서도 
+					감사의 메시지를 보내주셨습니다.덕분에 활동처에서도 
+					감사의 메시지를 보내주셨습니다.</span>
+				</div>
+				<div class="fclear"></div>
+			</li>
+		</ul>
+		<!------------------------------------------------------------------------------------------------------>
+		<h2>.result_list_type01 <span>_검색결과목록</span></h2>
+		<ul class="result_list_type01">
+			<li>
+				<div class="photo">
+					<span class="user_thum02">
+						<span class="thum_border02"></span>
+						<img src="/res/portal/img/img01.png" alt="">
+					</span>
+				</div>
+				<div class="info">
+					<span class="name_ko">홍길동</span>
+					<span class="name_eng">Gil-Dong-Hong</span>
+					<span class="mail">amore@amorepacific.com</span>
+					<span class="phone">02-1234-1234 / 010-1234-1345</span>
+					<span class="group">정보전략팀 / AMOREPACIFIC</span>
+					<span class="state">
+						<span class="icon mailC" title="메일"></span>
+						<span class="icon pc_onLine" title="온라인"></span>
+						<span class="icon tel_callPossible" title="통화가능"></span>
+					</span>
+				</div>
+				<div class="fclear"></div>
+			</li>
+			<li>
+				<div class="photo">
+					<span class="user_thum02">
+						<span class="thum_border02"></span>
+						<img src="/res/portal/img/img01.png" alt="">
+					</span>
+				</div>
+				<div class="info">
+					<span class="name_ko">홍길동</span>
+					<span class="name_eng">Gil-Dong-Hong</span>
+					<span class="mail">amore@amorepacific.com</span>
+					<span class="phone">02-1234-1234 / 010-1234-1345</span>
+					<span class="group">정보전략팀 / AMOREPACIFIC</span>
+					<span class="state">
+						<span class="icon mailC" title="메일"></span>
+						<span class="icon pc_onLine" title="온라인"></span>
+						<span class="icon tel_callPossible" title="통화가능"></span>
+					</span>
+				</div>
+				<div class="fclear"></div>
+			</li>
+			<li>
+				<div class="photo">
+					<span class="portlet_icon newsSquare2"></span>
+				</div>
+				<div class="info">
+					<span class="btn ico_home"></span> > Work Place > 전자결재 > 출장관리
+				</div>
+				<div class="fclear"></div>
+			</li>
+			<li>
+				<div class="photo">
+					<span class="portlet_icon newsSquare2"></span>
+				</div>
+				<div class="info">
+					<span class="btn ico_home"></span> > Work Place > 전자결재 > 출장관리
+				</div>
+				<div class="fclear"></div>
+			</li>
+		</ul>
+		<!------------------------------------------------------------------------------------------------------>
+		<h2>.p_list_type01 <span>_상단팝업적용/보더없음</span></h2>
+		<ul class="p_list_type01">
+			<li><a href="" class="tbold"><span class="btn bult_setting"></span> 환경설정</a></li>
+			<li><a href="" class="tbold"><span class="btn bult_logout"></span> 로그아웃</a></li>
+		</ul>
+		
+	</div>
+</body>
+</html>

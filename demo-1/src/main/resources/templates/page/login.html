@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>K-Portal 로그인</title>
+
+<link rel="icon" th:href="@{/resource/images/favicon.ico}" type="image/x-icon">
+<link rel="stylesheet" th:href="@{/resource/css/jquery-ui.css(ver=${cssVer})}">
+<link rel="stylesheet" th:href="@{/resource/css/mobiscroll.jquery.min.css(ver=${cssVer})}">
+<link rel="stylesheet" th:href="@{/resource/css/swiper-bundle.min.css(ver=${cssVer})}">
+<link rel="stylesheet" th:href="@{/resource/css/login.css(ver=${cssVer})}">
+<link rel="stylesheet" th:href="@{/resource/css/login_res.css(ver=${cssVer})}">
+
+<script th:src="@{/resource/js/common/jquery.min.js(ver=${jsVer})}"></script>
+<script th:src="@{/resource/js/common/jquery-ui.js(ver=${jsVer})}"></script>
+<script th:src="@{/resource/js/common/swiper-bundle.min.js(ver=${jsVer})}"></script>
+<script type="text/javascript" th:src="@{/resource/js/common/LAB.js(ver=${jsVer})}"></script>
+
+
+<script>
+	var root_path = /*[[@{/}]]*/ '';
+</script>
+	
+</head>
+<body>
+	<div class='wrap'>
+		<div id='loginContainer' class='login_container'>
+		
+	    	<div id='login_bg_wrap'>
+	    		<div class='bg_info_wrap'>
+	    			<div id='login_bg_swiper' class="swiper bg_swiper">
+					  <div class="swiper-wrapper">
+					    <div class="swiper-slide">
+					    	<div class='flex_col bg_wrap'>
+					
+								
+								
+								
+								<div class='slide_img bg01'></div>
+								<div class='bg_title_wrap'>
+									<div class='bg_title'><span class='initial'>K</span><span>nowledge</span></div>
+									<div class='bg_desc'>최신 IT 서비스를 통해 고객이 지식을 효과적으로
+									공유하고 전달할 수 있도록 지원합니다.</div>
+								</div>
+					    	</div>
+						</div>
+						<div class="swiper-slide">
+					    	<div class='flex_col bg_wrap'>
+								<div class='slide_img bg02'></div>
+								<div class='bg_title_wrap'>
+									<div class='bg_title'><span class='initial'>M</span><span>eticulousness</span></div>
+									<div class='bg_desc'>디테일에 집중하여 높은 품질의 제품을 제공하고
+									고객의 효율성을 높입니다.</div>
+								</div>
+					    	</div>
+						</div>
+						<div class="swiper-slide">
+					    	<div class='flex_col bg_wrap'>
+								<div class='slide_img bg03'></div>
+								<div class='bg_title_wrap'>
+									<div class='bg_title'><span class='initial'>S</span><span>pecialty</span></div>
+									<div class='bg_desc'>전문성을 바탕으로 고객의 문제를 해결하며,
+									지속적인 성장을 추구합니다.</div>
+								</div>
+					    	</div>
+						</div>
+						<div class="swiper-slide">
+					    	<div class='flex_col bg_wrap'>
+								<div class='slide_img bg04'></div>
+								<div class='bg_title_wrap'>
+									<div class='bg_title'><span class='initial'>L</span><span>everage</span></div>
+									<div class='bg_desc'>창의력과 혁신으로 사회에 긍정적인 영향을 미치는
+									경쟁력 있는 기업을 지향합니다.</div>
+								</div>
+					    	</div>
+						</div>
+						<div class="swiper-slide">
+					    	<div class='flex_col bg_wrap'>
+								<div class='slide_img bg05'></div>
+								<div class='bg_title_wrap'>
+									<div class='bg_title'><span class='initial'>A</span><span>ttitude</span></div>
+									<div class='bg_desc'>긍정적이고 적극적인 태도로 고객과 동료에게
+									관심을 기울이며 성장합니다.</div>
+								</div>
+					    	</div>
+						</div>
+						<div class="swiper-slide">
+					    	<div class='flex_col bg_wrap'>
+								<div class='slide_img bg06'></div>
+								<div class='bg_title_wrap'>
+									<div class='bg_title'><span class='initial'>B</span><span>usiness</span></div>
+									<div class='bg_desc'>고객의 목표를 달성함으로써 지속 가능한
+									성장을 추구합니다.</div>
+								</div>
+					    	</div>
+						</div>
+					  </div>
+					  <div class="swiper-pagination"></div>
+					</div>
+	    		</div>
+	    	</div>
+	    	<div id='login_box_wrap'>
+	    		<div class='login_content'>
+	    			<div class='inner'>
+			    		<div class='title_wrap'>
+			    			<div class='title'>Unlock Your Team Performance</div>
+			    			<div class='logo_wrap'>
+								<img class='logo' th:src="@{/resource/images/login/login_logo.svg}">
+				    			<div class='title_desc'>KMSLAB NETWORK</div>
+			    			</div>
+			    		</div>
+			    		<div class='login_form_wrap'>
+				    		<div id='loginForm' class='login_form'>
+				    			<div class='login_input_box'>
+				    				<div class='login_id_ico'></div>
+				    				<input type='text' tabindex="1" id='input_login_id' class='login_input' placeholder='메일주소 또는 메일 아이디' spellcheck='false' autocomplete='off'>
+				    				<div class='input_in_btn_wrap'>
+					    				<button type='button' id='btn_id_empty' class='btn_input_empty'></button>
+				    				</div>
+				    			</div>
+				    			<div class='login_input_box'>
+				    				<div class='login_pw_ico'></div>
+				   					<input type='password' tabindex="2" id='input_login_pw' class='login_input' placeholder='비밀번호' spellcheck='false' autocomplete='off'>
+				   					<div class='input_in_btn_wrap'>
+				   						<button type='button' id='toggle_pw_visible' class='btn_toggle_pw_visible'></button>
+					    				<button type='button' id='btn_pw_empty' class='btn_input_empty'></button>
+				    				</div>
+				    			</div>
+					    		<div id='login_util_wrap' class='login_btn_wrap'>
+					    			<div class='login_btn_box'>
+					    				<label for='chkbox_auto_login' class='auto_login_chkbox_wrap'>
+						    				<input type='checkbox' id='chkbox_auto_login'><label for='chkbox_auto_login' class='chkbox_label'></label>
+						    				<span class='chkbox_title'>자동로그인</span>
+					    				</label>
+					    				<select name="language_selectmenu" id="language_selectmenu">
+											<option value="ko">KR</option>
+											<option value="en">EN</option>
+											<option value="zh">CN</option>
+										</select>
+									</div>
+					    		</div>
+				    		</div>
+							<button type='button' tabindex="3" id='btn_login' class='login_btn'><span>로그인</span></button>
+			    		</div>
+		    		</div>
+		    		<div class='copywriter'>ⓒ 2025 all rights reserved</div>
+	    		</div>
+	    		
+	    	</div>
+    	</div>
+	</div>
+</body>
+<script>
+(function(loader){
+	var cp = /*[[@{/}]]*/ '';
+	var queue = loader 
+	.script(cp + "/resource/js/main/apcommon.js?open");
+
+	queue.wait(function(){
+		gap = new gapcommon();
+		
+		// 저장된 쿠키 언어 설정
+		var _lang = gap.getCookie("language");
+		if (_lang != undefined){
+			if (_lang == "") _lang = "ko";
+			$('#language_selectmenu').val(_lang);
+			$('#language_selectmenu-button span').text($("#language_selectmenu option[value='" + _lang +"']").text());
+            $('#language_selectmenu').selectmenu('refresh', true);
+		}
+	});
+	
+})($LAB);
+</script>
+<script th:src="@{/resource/js/login/login.js(ver=${jsVer})}"></script>
+<script>
+	$("#language_selectmenu").selectmenu();
+</script>
+</html>

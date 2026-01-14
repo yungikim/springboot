@@ -1,0 +1,229 @@
+/*
+ * qTip2 - Pretty powerful tooltips - v2.2.1
+ * http://qtip2.com
+ *
+ * Copyright (c) 2014 
+ * Released under the MIT licenses
+ * http://jquery.org/license
+ *
+ * Date: Tue Sep 9 2014 07:03 EDT-0400
+ * Plugins: tips viewport
+ * Styles: core
+ */
+.qtip{
+	position: absolute;
+	left: -28000px;
+	top: -28000px;
+	display: none;
+
+	/* max-width: 280px; */
+	/* min-width: 50px; */
+
+	font-size: 13px;
+	line-height: 12px;
+
+	direction: ltr;
+	
+
+	box-shadow: none;
+	padding: 0;
+}
+
+	.qtip-content{
+		position: relative;
+		padding: 5px 9px;
+		overflow: hidden;
+
+		text-align: left;
+		word-wrap: break-word;
+	}
+
+	.qtip-titlebar{
+		position: relative;
+		padding: 5px 35px 5px 10px;
+		overflow: hidden;
+
+		border-width: 0 0 1px;
+		font-weight: bold;
+	}
+
+	.qtip-titlebar + .qtip-content{ border-top-width: 0 !important; }
+
+	/* Default close button class */
+	.qtip-close{
+		position: absolute;
+		right: -9px; top: -9px;
+		z-index: 11; /* Overlap .qtip-tip */
+
+		cursor: pointer;
+		outline: medium none;
+
+		border: 1px solid transparent;
+	}
+
+		.qtip-titlebar .qtip-close{
+			right: 4px; top: 50%;
+			margin-top: -9px;
+		}
+
+		* html .qtip-titlebar .qtip-close{ top: 16px; } /* IE fix */
+
+		.qtip-titlebar .ui-icon,
+		.qtip-icon .ui-icon{
+			display: block;
+			text-indent: -1000em;
+			direction: ltr;
+		}
+
+		.qtip-icon, .qtip-icon .ui-icon{
+			-moz-border-radius: 3px;
+			-webkit-border-radius: 3px;
+			border-radius: 3px;
+			text-decoration: none;
+		}
+
+			.qtip-icon .ui-icon{
+				width: 18px;
+				height: 14px;
+
+				line-height: 14px;
+				text-align: center;
+				text-indent: 0;
+				font: normal bold 10px/13px Tahoma,sans-serif;
+
+				color: inherit;
+				background: transparent none no-repeat -100em -100em;
+			}
+
+/* Applied to 'focused' tooltips e.g. most recently displayed/interacted with */
+.qtip-focus{}
+
+/* Applied on hover of tooltips i.e. added/removed on mouseenter/mouseleave respectively */
+.qtip-hover{}
+
+/* Default tooltip style */
+.qtip-default{
+	border: 1px solid #ccc;
+
+	background-color: #fff; /* #FFFFA3 */
+	color: #555;
+}
+
+	.qtip-default .qtip-titlebar{
+		background-color: #fff;
+	}
+
+	.qtip-default .qtip-icon{
+		border-color: #CCC;
+		background: #F1F1F1;
+		color: #777;
+	}
+
+	.qtip-default .qtip-titlebar .qtip-close{
+		border-color: #CCC;
+		color: #111;
+	}
+
+
+.qtip .qtip-tip{
+	margin: 0 auto;
+	overflow: hidden;
+	z-index: 10;
+
+}
+
+	/* Opera bug #357 - Incorrect tip position
+	https://github.com/Craga89/qTip2/issues/367 */
+	x:-o-prefocus, .qtip .qtip-tip{
+		visibility: hidden;
+	}
+
+	.qtip .qtip-tip,
+	.qtip .qtip-tip .qtip-vml,
+	.qtip .qtip-tip canvas{
+		position: absolute;
+
+		color: #123456;
+		background: transparent;
+		border: 0 dashed transparent;
+	}
+
+	.qtip .qtip-tip canvas{ top: 0; left: 0; }
+
+	.qtip .qtip-tip .qtip-vml{
+		behavior: url(#default#VML);
+		display: inline-block;
+		visibility: visible;
+	}
+
+.qtip-shadow{
+	-webkit-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15);
+	-moz-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15);
+	box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15);
+}
+
+/* Add rounded corners to your tooltips in: FF3+, Chrome 2+, Opera 10.6+, IE9+, Safari 2+ */
+.qtip-rounded,
+.qtip-tipsy,
+.qtip-bootstrap{
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.qtip-rounded .qtip-titlebar{
+	-moz-border-radius: 4px 4px 0 0;
+	-webkit-border-radius: 4px 4px 0 0;
+	border-radius: 4px 4px 0 0;
+}
+.qtip.qtip-default.iconset-urlcopy { border:1px solid #666; }
+.iconset-urlcopy .qtip-content .iconset_url_copy input[type="text"] { color:#7c9ece; border:1px solid #999;  }
+.iconset-urlcopy .qtip-content .content .bottom_layer { overflow: hidden; padding: 10px 5px; }
+.iconset-urlcopy .qtip-content .content .bottom_layer .message { display: inline-block; float: left; font-size: 12px; }
+.iconset-urlcopy .qtip-content .content .bottom_layer .btnclose { display: inline-block; float: right; padding-right:11px; background:url('/res/core/comm/img/bg_close.gif') no-repeat right center; cursor: pointer; font-size: 12px; }
+
+
+
+
+/* 달력 영역 */
+.qtip.ssiba { padding: 20px; }
+.qtip.ssiba .qtip-titlebar { position: relative; }
+.qtip.ssiba .qtip-titlebar .qtip-title {display: block; margin-bottom: 20px; font-size: 20px; color: #333;  }
+.qtip.ssiba .qtip-titlebar .qtip-close.qtip-icon { position: absolute; right: 0; top: 10px; border:none; background: none; }
+.qtip.ssiba .qtip-titlebar .ui-icon.ui-icon-close {display: block;  width: 18px;  height: 18px;  background: url("/res/core/comm/img/bt_close.gif") no-repeat 0 0; text-indent: -9999px;}
+.qtip.ssiba .qtip-content table { border-collapse: collapse; border-spacing: 0; width: 100%; }
+.qtip.ssiba .qtip-content table td { padding:4px; border-top: 1px solid #ddd; vertical-align: top; word-break: break-all; line-height: 14px;}
+.qtip.ssiba .qtip-content table tr:first-child td { border-top: none; }
+
+.qtip.ssiba .qtip-content ul { margin:0; padding:0; }
+.qtip.ssiba .qtip-content ul li { list-style: none !important; margin-top:8px; cursor: pointer; }
+.qtip.ssiba .qtip-content ul li:first-child { margin-top:0;} 
+.qtip.ssiba .qtip-content .name {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

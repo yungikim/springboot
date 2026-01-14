@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<kportal>
+    <!-- 
+        1. 사이트 도메인(document.domain) 
+        - 적용하려는 시스템이 document.domain을 세팅하고 있다면 document.domain의 값을 넣는다.
+            ex) dev.test.com 이면 test.com만 입력.
+    -->
+    <site_domain></site_domain>
+
+    <!--
+        2. 업로드 경로 - 필수 입력값.
+        -  파일을 업로드할 대상 서버를 입력한다. ip도 가능하며 포트 및 네트워크 연결이 원활한지 반드시 확인 후 설정.
+    -->
+    <normal_upload_url></normal_upload_url>
+    
+    <!-- 
+        3. 분산 업로드 기능.
+        아래 기능은 사용하는 시스템의 서버가 이중화 및 동기화되어 있지 않거나 L4 구성등을 통해 도메인이 
+        묶여있지 않는 상황에서 여러 대의 서버에 분산 업로드를 해야되는 경우에만 사용한다.
+       업로드 경로가 여러개일 경우 true, 아래 옵션 사용하지 않으면 false.
+       url 태그에 지정되어 있는 여러개의 경로 중 한 군데로 업로드를 한다.
+    <multi_upload_url use="false">
+        <url>http://localhost:16080/A</url>
+        <url>http://localhost:16080/B</url>
+        <url>http://localhost:16080/C</url>
+    </multi_upload_url>
+    -->
+
+    <!-- 
+        4. 대용량 파일 업로드.
+            해당 기능은 별도의 대용량 파일 저장 서버가 존재할 때 사용한다. 
+            대용량 첨부 업로드는 서버에 업로드가 완료되었을 때 HTML 코드를 return한다.
+            대용량 업로드는 업로드가 완료되면 파일의 목록에서 삭제되므로 주의.
+
+            - 대용량 업로드 기능 사용하면 true, 사용하지 않으면 false.
+            - large_file_upload_url : 업로드 경로(기능이 사용할 경우에는 필수값.)
+            - large_file_size : 설정된 값보다 큰 파일일 경우에는 대용량 파일로 인식한다.
+            - large_file_limit : 대용량 첨부파일의 MB단위 용량 제한.(기능 사용할때는 필수값.) ex) 1024로 설정하면 1GB이상의 파일은 업로드 하지 못한다.
+            - limit_period : 만약 대용량 서버의 파일 삭제 정책이 있다면 화면에 display용으로 사용한다. 오늘 이후 최대 몇일 후까지 서버에 저장되는지를 설정한다.
+                                         해당 기능은 화면 display용이며 기간을 설정한다고 해서 서버에서 자동으로 삭제되는 것은 아니다.
+                                         일반 첨부는 해당하지 않음.
+    <large_file_upload use="true">
+        <large_file_upload_url>http://localhost:16080</large_file_upload_url>
+        <large_file_size>3</large_file_size>
+        <large_file_limit>1024</large_file_limit>
+        <large_file_limit_count>3</large_file_limit_count>        
+        <limit_period use="true">15</limit_period>
+    </large_file_upload>
+
+    -->
+
+    <!-- 
+        5. 다국어 설정 - 필수입력값. (한국어:kor, 영어:eng)  
+          - 추가적인 언어를 커스터마이징하여 만들고 싶을 때는 매뉴얼을 참조. 
+    -->
+    <language>kor</language>
+
+    <!-- 
+        6.  클라이언트 모듈의 절대경로, 상대경로 유무.
+         - 클라이언트 모듈은 upload 폴더 아래에 있는데 XAM_upload.html파일의 경로를 상대경로로 지정할지 절대 경로로 지정할지에 대한 옵션.
+            1은 절대경로, 0은 상대경로.
+    <installed_path absolute="1">/test/sample</installed_path>
+    -->
+
+    <!-- 
+        7. 첨부파일 용량 제한 기능을 설정한다.
+        file_size_max_mb : 파일 한개당 최대 사이즈 크기를 설정한다.          ex) 10을 설정하면 10MB 이상의 파일은 첨부할 수 없음.
+        attach_limit_size : (필수값) 파일 전체 사이즈 제한을 설정한다. 숫자로 입력하되 MB가 기본. unlimited 사용시 제한이 사라진다.
+                         ex) 10을 설정하면 파일 갯수에 상관없이 전체 10MB 이상의 파일은 첨부할 수 없음.
+        attach_limit_count : (필수값) 파일 전체 갯수 제한을 설정한다.            ex) 5를 설정하면 파일 5개까지 첨부가 가능함. 
+        attach_allow_ext_use : 업로드 허용 확장자 기능 사용시 true,  사용하지 않을 경우 false. 해당 확장자의 파일만 첨부가 가능함.
+        attach_allow_ext : 업로드 허용될 확장자 입력. 복수값은 ,로 구분함. attach_allow_ext_use가 false로 설정되면 이 값은 무시된다.
+        attach_prevent_ext_use :  업로드 제한 확장자 기능 사용시 true, 사용하지 않을 경우 false. 해당 확장자의 파일은 첨부가 불가능.
+        attach_prevent_ext : 업로드가 제한될 확장자를 입력. 복수값은 ,로 구분함.  attach_prevent_ext_use가 false로 설정되면 이 값은 무시된다.
+    -->
+    <attach_ext_policy file_size_max_mb="200" attach_limit_size="200" attach_limit_count="10">
+        <attach_allow_ext_use>false</attach_allow_ext_use>
+        <attach_allow_ext>html,txt</attach_allow_ext>
+        <attach_prevent_ext_use>true</attach_prevent_ext_use>
+        <attach_prevent_ext>cgi,php,exe,asp,aspx,jsp,dll,pl,bat,sh</attach_prevent_ext>
+    </attach_ext_policy>
+</kportal>

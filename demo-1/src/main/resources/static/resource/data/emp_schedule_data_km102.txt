@@ -1,0 +1,26 @@
+[
+    {
+      "start": "2024-10-03",
+      "end": "2024-10-03",
+      "title": "메인 TO-DO 그래프 표시",
+      "category": "meeting",
+      "allDay": true,
+      "free": true
+    },
+    {
+      "start": "2024-10-15",
+      "end": "2024-10-16",
+      "title": "메인 콘텐츠 개인화 기능 개발",
+      "category": "vac",
+      "allDay": true,
+      "free": true
+    },
+    {
+      "start": "2024-10-14",
+      "end": "2024-10-16",
+      "title": "현재 날씨 데이터 불러오기 기능 개발",
+      "category": "vac",
+      "allDay": true,
+      "free": true
+    }
+ ]

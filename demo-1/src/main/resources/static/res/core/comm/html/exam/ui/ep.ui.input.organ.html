@@ -1,0 +1,313 @@
+<div class="frm_wrap frm_page_scroll">
+	<div class="formpage ">
+		<form class="">			
+			<fieldset class="organ">
+				<legend>organ singleSelect</legend>
+				<table class="table-form">
+				<colgroup><col width="100px" /><col width="100px" /><col /></colgroup>
+				<tr>
+					<th class="first" rowspan=6>SingleSelect</th>
+					<th>Person Only</th>
+					<td><input type="text" name="exam_1"></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="text" name="result_1_1" readonly style="width:100%;"><br>
+						<input type="text" name="result_1_2" readonly style="width:100%;">
+					</td>
+				</tr>
+				<tr>
+					<th>Team Only</th>
+					<td><input type="text" name="exam_2"></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="text" name="result_2_1" readonly style="width:100%;"><br>
+						<input type="text" name="result_2_2" readonly style="width:100%;">
+					</td>
+				</tr>			
+				<tr>
+					<th>Team&Person</th>
+					<td><input type="text" name="exam_3"></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="text" name="result_3_1" readonly style="width:100%;"><br>
+						<input type="text" name="result_3_2" readonly style="width:100%;">
+					</td>
+				</tr>	
+				</table>
+				<span class="source">source</span>
+				<pre id="src"></pre>
+<script>
+$ep
+.wait(function() {
+	/* Single Select */
+	$ep.ui.input("fieldset.organ [name=exam_1]", {	icon : "organ"	
+		,placeholder : "검색어 입력 후 엔터..."	,width : "100%"
+		,organ: {
+			type : "single"
+			,display : "all"
+			,select : "person"	
+			,server : "devaphqapp"
+			,expandTree :"1^00012018^00072551^00020397"
+			,resultset : [
+			 	{element : ".organ input[name=result_1_1]" , pattern : $ep._CONST.ORG_DISPLAY_MASK["default"]}							 	
+			 	,{element : ".organ input[name=result_1_2]"}
+			] 
+			,pubgroup : true
+		}
+		,organresult : function() {
+			this.val("");
+		}
+	});
+	
+	$ep.ui.input("fieldset.organ [name=exam_2]", {	icon : "organ"	
+		,placeholder : "검색어 입력 후 엔터..."	,width : "100%"						
+		,organ: {
+			type : "single"
+			,display : "team"
+			,server : "devaphqapp"
+			,select : "team"								
+			,expandTree :"1^00012018^00072551^00020397"							
+		}
+		,organresult : function(data,api) {
+			this.val("");
+			var _data = api.toData(data);
+			$("fieldset.organ [name=result_2_1]").val(_data.patternString('{name} [ / {orgname}]'));
+			$("fieldset.organ [name=result_2_2]").val(_data.string());
+		}
+	});
+	
+	$ep.ui.input("fieldset.organ [name=exam_3]", {	icon : "organ"	
+		,placeholder : "검색어 입력 후 엔터..."	,width : "100%"
+		,organ: {
+			type : "single"
+			,display : "all"
+			,select : "all"
+			,server : "devaphqapp"
+			,expandTree :"1^00012018^00072551^00020397"
+			,resultset : [
+			 	{element : ".organ input[name=result_3_1]" , pattern : $ep._CONST.ORG_DISPLAY_MASK["default"]}							 	
+			 	,{element : ".organ input[name=result_3_2]"}
+			]
+		}
+		,organresult : function(data,api) {
+			this.val("");
+		}
+	});
+});
+</script>
+			</fieldset>
+
+			<fieldset class="organmulti">
+				<legend>organ multipleSelect</legend>
+				<table class="table-form">
+				<colgroup><col width="100px" /><col width="100px" /><col /></colgroup>
+				<tr>
+					<th class="first" rowspan="6">multipleSelect</th>
+					<th>Person Only</th>
+					<td><input type="text" name="exam_1"></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="text" name="result_1_1" readonly style="width:100%;"><br>
+						<input type="text" name="result_1_2" readonly style="width:100%;">
+					</td>
+				</tr>
+				<tr>
+					<th>Grid Result</th>
+					<td><input type="text" name="exam_2"></td>
+				</tr>
+				<tr>
+					<td colspan="2"><div class="organ_result_grid"></div></td>
+				</tr>		
+				
+				</table>
+				<span class="source">source</span>
+				<pre id="src"></pre>
+<script>
+$ep
+.wait(function() {
+	/* multiple Select */
+	$ep.ui.input("fieldset.organmulti [name=exam_1]", {	icon : "organ"	
+		,placeholder : "검색어 입력 후 엔터..."	,width : "100%"
+		,organ: {
+			type : "multiple"
+			,display : "all"
+			,select : "person"	
+			,server : "devaphqapp"
+			,expandTree :"1^00012018^00072551^00020397"
+			,resultset : [
+			 	{element : ".organmulti input[name=result_1_1]" , pattern : $ep._CONST.ORG_DISPLAY_MASK["default"]}							 	
+			 	,{element : ".organmulti input[name=result_1_2]"}
+			] 
+			,dataset : function() {
+				var _val = $(".organmulti input[name=result_1_2]").val();
+				return $ep.util.stringToObject(_val.split($ep._CONST.SEPERATE.record));
+			}
+			,pubgroup : true
+		}
+		,organresult : function(data,api) {
+			debugger;
+			this.val("");
+		}
+	});
+	$ep.ui.organ.grid("fieldset.organmulti .organ_result_grid",{
+		keycode : "notesid"
+		,isduplicate :true
+		,duplicate : {
+			type : "toast"
+			,message : "중복된 사용자는 추가 할 수 없습니다."
+		}
+		,draggable : true
+		,classes : "withoutscroll"
+		//,selectType : "checkbox"
+		,offresize : true
+		,hideheader : true
+		,headers : [
+				{ id : "display" , label : "Selected List", css : {"padding-left" : "5px"}
+			   	 ,expression : function(td,colset,data) {
+			   		 var _pattern = data.type == "P" || data.type == "D" ? data.lang != $ep.lang() ? data.ename ? "{ename}[/{eorgname}]" : "{name}[/{orgname}]" : "{name}[/{orgname}]" : 
+			   			 '{name}';
+			   		 return $ep.util.patternCompletion(_pattern,data);
+			   	 }							   	 
+			  	} 
+			   ,{ id : "up" , width : "23px"
+				   ,expression : function(td,colset,data) {
+					  var _self = this,_td = td;
+					  return $('<span style="padding:5px;"><span class="ep-icon up"></span></span>').on("click",function(e){
+						   e.stopPropagation();
+						   $(_self).epgrid("selectedUp",_td.closest(".ep-epgrid-item")).done(function() {
+							   
+						   });
+					  });
+				  }
+			   }
+			   ,{ id : "down" , width : "23px"
+				   ,expression : function(td,colset,data) {
+					   var _self = this, _td = td;
+					  return $('<span style="padding:5px;"><span class="ep-icon down"></span></span>').on("click",function(e){
+						   e.stopPropagation();
+						   $(_self).epgrid("selectedDown",_td.closest(".ep-epgrid-item")).done(function() {
+							   //debugger;
+						   });
+					  });
+					}
+			   }
+			   ,{ id : "delete" , width : "23px" , css : {textAlign:"center"}
+				  ,expression : function(td,colset,data) {
+					  var _self = this, _td = td;
+					  return $('<span style="padding:5px;"><span class="ep-icon cancel"></span></span>').on("click", function(e) {
+						  e.stopPropagation();
+						  $(_td).closest(".ep-epgrid-item").fadeOut(300,function() {$(this).remove();});
+					  });
+				  }
+			   }
+	   
+		]
+	});
+	$ep.ui.input("fieldset.organmulti [name=exam_2]", {	icon : "organ"	
+		,placeholder : "검색어 입력 후 엔터..."	,width : "100%"
+		,organ: {
+			type : "multiple"
+			,display : "all"
+			,select : "person"	
+			,server : "devaphqapp"
+			,expandTree :"1^00012018^00072551^00020397"
+			,resultset : [	{element : ".organmulti .organ_result_grid", type : "organgrid" }] 
+			,dataset : function() {
+				return $ep.ui.organ.grid(".organmulti .organ_result_grid").getAllData();
+			}
+		}
+		,organresult : function() {
+			this.val("");
+		}
+	});
+	$(".bttondelete").epbutton({
+		text : "전체삭제", show : true
+		,click : function() {
+			$ep.ui.organ.grid($("fieldset.organmulti .organ_result_grid")).removeAll();
+		}
+	})
+});	
+</script>
+			</fieldset>
+			
+			
+			
+			<fieldset class="organgrid">
+				<legend>ui.organgrid</legend>
+				<table class="table-form">
+				<colgroup><col width="100px" /><col /></colgroup>
+				<tr>
+					<th class="first">OrganGrid</th>
+					<td>
+					<div class="organgrid"></div>
+					</td>
+				</tr>
+				</table>
+				<span class="source">source</span>
+				<pre id="src"></pre>
+<script>
+$ep.wait(function(){
+	var _inst = $ep.ui.organgrid($("fieldset.organgrid div.organgrid"),{
+		display : "all"
+		,select : "all"
+		,server : "devaphqapp"
+		,expandTree :"1^00012018^00072551^00020397"
+		/*
+		,hideinput : true
+	 	,pubgroup : false
+		,pergroup : false		
+		,peraddr : false
+		,hidedeleteall : false
+		,hideupdown : false
+		,hidedelete : false */
+		/* ,userinfo : "level1" */
+		,dataset : [
+			{	code: "shbang",ename: "Bang SangHyuk"
+				,eorgname: "Business Partner",lang: "ko"
+				,name: "방상혁",notesid: "CN=Sanghyuk Bang/OU=shbang/O=APG"
+				,orgcode: "90000001",orgname: "협력업체",type: "P"
+				,officephonenumber : "(000)0000",post : "부장", epost : "Manager"
+			}
+		]
+	});
+	
+	/*인스턴스에 값 넣기.*/
+	_inst.addValue({
+		code: "hgyeo"
+		,ename: "Yeo HyungGoo"
+		,eorgname: "Business Partner"
+		,lang: "ko"
+		,name: "여형구"
+		,notesid: "CN=Yeo HyungGoo/OU=hgyeo/O=APG"
+		,orgcode: "90000001"
+		,orgname: "협력업체"
+		,type: "P"}
+	);
+	_inst.addValue($ep.util.stringToObject("D^90000001^협력업체^Business Partner^^^1^#협력업체^ko"));
+});
+
+</script>
+			</fieldset>
+			
+		</form>
+		
+	</div>
+	
+
+</div>
+ <script>
+(function(){
+	$("fieldset .source").on("click", function(e) {
+		var _fieldset = $(e.target).closest("fieldset")
+			,_src = $("#src",_fieldset);
+		if($(e.target).hasClass("open")) {_src.empty();$(e.target).removeClass("open");return;}
+		_src.html($("script",_fieldset).html().replace(/</g,"&lt;").replace(/>/g,"&gt;"));
+		$(e.target).addClass("open");
+	});
+})();
+</script> 
+ 

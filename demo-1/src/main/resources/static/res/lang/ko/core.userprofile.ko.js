@@ -1,0 +1,3 @@
+(function(){var _l;_l = LANGPACK.CORE||(LANGPACK.CORE={});_l = LANGPACK.CORE.USERPROFILE||(LANGPACK.CORE.USERPROFILE={});$.extend(_l,
+{
+"ACTION":{"ADDCONTACT":"주소록추가","VIEWCALENDAR":"일정보기","MORE":"더보기","DETAIL":"상세정보"},"OFFICEPHONE":"사내전화","MEMO":"프로필","JOBASSIGNMENT":"업무분장","OBJECTIVES":"업무목표","ADDED":"추가 되었습니다.","ERROROCCUR":"오류가 발생 했습니다.","CHECKSIGN":"로그인을 확인 해주세요.","NOTKNOWLOGIN":"로그인 상태를 알 수 없습니다.","VIEWCALENDAR":"일정보기","WORKINGTIME":"업무시간","MORE":"더보기","EMAIL":"이메일","MOBILEPHONE":"모바일","IPTPHONE":"IPT전화","FAX":"팩스","SPECIALMESSAGE":"※ 2014 AP인이 뽑은 &lt;감사 우수 인물&gt; 선정","CONNPROFILE":"프로파일","CONNFILES":"파일즈","EMPNO":"사번","WORKINGTIME_ALERT":"%(name)s님의 금일 WorkingTime은 %(start)s ~ %(end)s 입니다. "});})();

@@ -1,0 +1,22 @@
+[
+	{
+		"location": {
+			"city": "Seoul",
+			"town": "Sangam-dong"
+		},
+		"sky": {
+			"status": "Sunny",
+			"img": "../../resource/images/sun.svg"
+		},
+		"temperature": {
+			"now": 13.9,
+			"yesterday": 15,
+			"perceived": 20.5
+		},
+		"humidity": 50,
+		"wind": {
+			"direction": "West",
+			"speed": 1.9
+		}
+	}
+]

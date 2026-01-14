@@ -1,0 +1,48 @@
+{"total":500
+, "page":1
+, "data":[
+{
+"unid":"D09D37F94DE7557749258B2E002472E5"
+,"noteid":"1BC82"
+,"label":""
+,"form":"Memo"
+,"icon":"ico-okmail"
+,"nh_read":"1"
+,"category":"[${INBOX}]"
+,"importance":"2"
+,"forward_deny":""
+,"autosave":"N"
+,"isexternal":""
+,"receivertype":"2"
+,"attach":"N"
+,"star":"F"
+,"from":"김도영-ENG-Kim Do Young"
+,"principal":"김도영-ENG-Kim Do Young"
+,"subject":"대상 버전 메신저 서버 운영 적용 완료"
+,"date":"2024-05-31T06:38:07+00:00"
+,"size":"10072"
+,"sendstatus":""
+}
+,{
+"unid":"E0924AF3B9A3C9FD49258B2E001945B4"
+,"noteid":"1BC7A"
+,"label":""
+,"form":"Memo"
+,"icon":"ico-okmail"
+,"nh_read":"1"
+,"category":"[${INBOX}]"
+,"importance":""
+,"forward_deny":""
+,"autosave":"N"
+,"isexternal":""
+,"receivertype":"2"
+,"attach":"N"
+,"star":"F"
+,"from":" 최애리"
+,"principal":" 최애리"
+,"subject":"공지사항 확인요청 : 2024년 하기휴가 신청에 관한 건"
+,"date":"2024-05-31T04:36:02+00:00"
+,"size":"19705"
+,"sendstatus":""
+}
+]}

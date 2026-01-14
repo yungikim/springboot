@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xml:lang="ko" lang="ko">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Web Standard Guide</title>
+	<link type="text/css" rel="stylesheet" href="/res/core/jquery/jquery-ui/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="/res/core/jquery/customscroll/jquery.scroll.css">
+	<link rel="stylesheet" type="text/css" href="wsg.css" />
+	<link rel="stylesheet" type="text/css" href="/res/portal/css/portal.css" />
+	
+	<script type="text/javascript" src="/res/core/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/customscroll/jquery.scroll.js"></script>
+	<script type="text/javascript" src="/res/core/newep.js"></script>
+	<script type="text/javascript" src="/res/portal/js/portal_common.js"></script>
+	
+	<script type="text/javascript">
+		jQuery(function(){
+			var totalCount = $('.state').size();
+			var successCount = 0;
+			$('.state').each(function(){
+				if($(this).text() == '완료') {
+					successCount += 1;
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id="wsg_wrap">
+		<h2>.btype01</h2>
+		<button type="button" class="btype01">검색결과 더보기 +</button>
+		<!------------------------------------------------------------------------------------------------------>
+		<h2>.h_search</h2>
+		<button type="button" class="h_search">검색</button>
+		<br /><br />
+		<span class="btn view_iconOn" title="아이콘형식보기"></span>
+		<span class="btn view_icon" title="아이콘형식보기"></span>
+		<span class="btn view_listOn" title="리스트형식보기"></span>
+		<span class="btn view_list" title="리스트형식보기"></span>
+		<!------------------------------------------------------------------------------------------------------>
+		<br />
+		<h2>Common button</h2>
+		<table class="tt01">
+			<tr>
+				<th scope="col">&nbsp;</th>
+				<th scope="col">common_btn00</th>
+				<th scope="col">common_btn01</th>
+				<th scope="col">common_btn02</th>
+				<th scope="col">common_btn03</th>
+				<th scope="col">common_btn04</th>
+			</tr>
+			<tr>
+				<th scope="row">btnH</th>
+				<td><button type="button" class="common_btn00 btnH">x</button></td>
+				<td><button type="button" class="common_btn01 btnH">확인</button></td>
+				<td><button type="button" class="common_btn02 btnH">취소</button></td>
+				<td><button type="button" class="common_btn03 btnH">파일찾기</button></td>
+				<td>
+					<button type="button" class="common_btn04 btnH">다음</button><br />
+					<button type="button" class="common_btn042 btnH">이전</button>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row">btnM</th>
+				<td><button type="button" class="common_btn00 btnM">x</button></td>
+				<td><button type="button" class="common_btn01 btnM">확인</button></td>
+				<td><button type="button" class="common_btn02 btnM">취소</button></td>
+				<td><button type="button" class="common_btn03 btnM">파일찾기</button></td>
+				<td></td>
+			</tr>
+			<tr>
+				<th scope="row">&nbsp;</th>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<th scope="row">&nbsp;</th>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

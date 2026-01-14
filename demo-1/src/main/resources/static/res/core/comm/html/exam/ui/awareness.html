@@ -1,0 +1,62 @@
+<div class="frm_wrap">
+	<div class="formpage">
+		<form>
+			<fieldset class="Awareness">
+				<legend>Awareness</legend>
+				<table class="table-form">
+				<colgroup><col width="350px" /><col /></colgroup>
+				<tr>
+					<th class="first">CN=Sanghyuk Bang,OU=shbang,O=APG</th>
+					<td><div class="awareness" uid="CN=Sanghyuk Bang,OU=shbang,O=APG" ipt="1"></div></td>
+				</tr>
+				<tr>
+					<th class="first">CN=Lee DongGeol,OU=dongglee,O=APG</th>
+					<td><div class="awareness" uid="CN=Lee DongGeol,OU=dongglee,O=APG" ipt="2"></div></td>
+				</tr>
+				<tr>
+					<th class="first">Sanghyuk Bang - 동적생성</th>
+					<td class="dynamic"></td>
+				</tr>
+				<tr>
+					<th class="first">사용자목록형</th>
+					<td>
+						<div class="awareness1" uid="CN=Sanghyuk Bang,OU=shbang,O=APG" ipt="2" /><br>
+						<div class="awareness2" uid="CN=Lee DongGeol,OU=dongglee,O=APG" ipt="2" /><br>
+						<div class="awareness3" uid="CN=Sanghyuk Bang,OU=shbang,O=APG" ipt="2" /><br>
+					</td>
+				</tr>
+				</table>
+				<span class="source">source</span>
+				<pre id="src"></pre>
+<script>
+$ep
+.wait(function() {
+	$(".awareness").epawareness();  //모든 .awareness의 속성 정보로 Awareness 아이콘 구성.
+	$(".awareness1").epawareness({classes : "organlist"});
+	$(".awareness2").epawareness({classes : "organlist",hidemail:true});
+	$(".awareness3").epawareness({classes : "organlist",hideiptel: true,hidesametime : true});
+	
+	//동적 생성
+	$('<span />')
+	.appendTo("fieldset.Awareness .dynamic")
+	.epawareness({id : "CN=Sanghyuk Bang,OU=shbang,O=APG",ipt : "010-2880-1837"});
+});
+</script> 				
+			</fieldset>
+		</form>
+	</div>
+</div>
+
+
+ <script>
+(function(){
+	$("fieldset .source").on("click", function(e) {
+		var _fieldset = $(e.target).closest("fieldset")
+			,_src = $("#src",_fieldset);
+		if($(e.target).hasClass("open")) {_src.empty();$(e.target).removeClass("open");return;}
+		_src.html($("script",_fieldset).html().replace(/</g,"&lt;").replace(/>/g,"&gt;"));
+		$(e.target).addClass("open");
+	});
+})();
+</script> 
+</html> 

@@ -1,0 +1,533 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=10" />
+	<link rel="stylesheet" href="/res/core/keditor/css/editor.css" type="text/css" charset="utf-8" />
+	<style type="text/css">
+ 		html,body {margin:0;height:100%;}
+		form {height:100%;}
+		.tx-editor-container {height:100%;}
+		.tx-canvas {position:absolute;top: 30px;bottom:0px;right:0px;left:0px;}
+		.tx-canvas.tx-extended-toolbar {top:61px}
+		.tx-canvas .tx-holder {height:100%;}
+		.tx-canvas .tx-holder iframe {height:100% !important;}  
+		.tx-specialchar-menu.tx-menu { left:-458px;}
+		.tx-editor-font-1 {font-family:{TOOLBAR.FONTFAMILY_1}!important;}
+		.tx-editor-font-2 {font-family:{TOOLBAR.FONTFAMILY_2}!important;}
+		.tx-editor-font-3 {font-family:{TOOLBAR.FONTFAMILY_3}!important;}
+		.tx-editor-font-4 {font-family:{TOOLBAR.FONTFAMILY_4}!important;}
+		.tx-editor-font-5 {font-family:{TOOLBAR.FONTFAMILY_5}!important;}
+		.tx-editor-font-6 {font-family:{TOOLBAR.FONTFAMILY_6}!important;}
+		.tx-editor-font-7 {font-family:{TOOLBAR.FONTFAMILY_7}!important;}
+		.tx-editor-font-8 {font-family:{TOOLBAR.FONTFAMILY_8}!important;}
+		.tx-editor-font-9 {font-family:{TOOLBAR.FONTFAMILY_9}!important;}
+		.tx-editor-font-10 {font-family:{TOOLBAR.FONTFAMILY_10}!important;}
+		.tx-editor-font-11 {font-family:{TOOLBAR.FONTFAMILY_11}!important;}
+		.tx-editor-font-12 {font-family:{TOOLBAR.FONTFAMILY_12}!important;}
+		.tx-editor-font-13 {font-family:{TOOLBAR.FONTFAMILY_13}!important;}
+		.tx-editor-font-14 {font-family:{TOOLBAR.FONTFAMILY_14}!important;}
+		.tx-editor-font-15 {font-family:{TOOLBAR.FONTFAMILY_15}!important;}
+		a.tx-icon{background:url(/res/core/keditor/images/icon/editor/skin/06/{TOOLBAR.TOOLBAR_IMAGE});}
+		.tx-fullscreen{margin-top:-7px;margin-right:0px;background-position:-331px -95px}
+		.tx-editor-fullscreen .tx-fullscreen{margin-top:-5px}
+		.tx-color-value{font-face:Arial;font-size:12px;height:16px !important}
+		.tx-fontfamily-menu{width:160px;}
+		.tx-fontsize-menu{width:52px;}
+		.tx-pastebt a.tx-icon{background-position:-197px -10px;}
+		.tx-toolbar{
+		background:-webkit-linear-gradient(top, #ffffff 1%, #fdfdfd 3%,#ececec 98%);
+		background:-moz-linear-gradient(top, #ffffff 1%,#fdfdfd 3%,#ececec 98%);
+		background:-o-linear-gradient(top, #ffffff 1%,#fdfdfd 3%,#ececec 98%);
+		background:-ms-linear-gradient(top, #ffffff 1%,#fdfdfd 3%,#ececec 98%);
+		background:linear-gradient(to bottom, #ffffff 1%,#fdfdfd 3%,#ececec 98%);
+		background-color:#f8f8f8;
+		}
+		.tx-link-menu {width:{TOOLBAR.LINK_MENU_WIDTH}px;}
+		.tx-colorpallete p.tx-pallete-input a {background-image: url('/res/core/keditor/images/icon/editor/{TOOLBAR.IMG_BTN_L_INPUT_1}');}
+		.tx-colorpallete div.tx-pallete-buttons p.tx-pallete-more a.tx-more-down {background-image: url('/res/core/keditor/images/icon/editor/{TOOLBAR.IMG_BTN_A_SPREAD}');}
+		.tx-colorpallete div.tx-pallete-buttons p.tx-pallete-more a.tx-more-up {background-image: url('/res/core/keditor/images/icon/editor/{TOOLBAR.IMG_BTN_A_FOLD}');}
+		.tx-table-menu .tx-more-button a {background-image: url('/res/core/keditor/images/icon/editor/table/{TOOLBAR.IMG_BTN_DIRECT_SETTING}?v=2');}
+		.tx-table-menu .tx-btn-confirm {background-image: url('/res/core/keditor/images/icon/editor/{TOOLBAR.IMG_BTN_CONFIRM_S1}?v=2');}
+		.tx-table-menu .tx-btn-cancel {background-image: url('/res/core/keditor/images/icon/editor/{TOOLBAR.IMG_BTN_CANCEL_S1}?v=2');}
+		.tx-insertcells-menu {width:{TOOLBAR.INSERTCELLLS_MENU_WIDTH}px;}
+		.tx-deletecells-menu {width:{TOOLBAR.DELETECELLLS_MENU_WIDTH}px;}
+		.tx-editor-container ul,.tx-editor-container li {list-style-type:none;}
+		* html .tx-loading div{background:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/res/core/keditor/images/icon/editor/{TOOLBAR.IMG_LOADING2}?v=2',sizingMethod='image');width:113px;height:21px;}
+	</style>
+	
+	<!-- <script src="/res/core/keditor/js/editor_loader_debug.js" type="text/javascript" charset="utf-8"></script>	 -->
+	<script src="/res/core/labjs/LAB.min.js" type="text/javascript"></script>
+	<script type="text/javascript" language="jsvascript">
+		var _ImageControl = parent.ImageControl;
+		var WEC = {
+			parent : function(){return document.parentIFrameElement;}
+			,onLoadComplete : function(){
+				var _parent = parent.$(this.parent()).closest("#ep_richbody");
+				_parent.data("WEC",this);
+				_parent.trigger("initEditorComplete",WEC); 				
+			}
+			,getHTML : function(){
+				return Editor.getContent();
+			}
+			,saveHTML : function(uidoc){
+				var html = Editor.getContent();
+				var compNewCids = {}, newCids = [];
+				var compOldCids = {}, oldCids = [];
+				var _imageLinkKey = (uidoc.elements.form[0].MIMEMerge_ImageLinkKey||{value:uidoc.options.unid}).value;
+				// 신규 이미지 cid 처리
+				var newImageRegExp = null;
+				eval("(newImageRegExp = /[\"'][^\"']*\\/Body\\/M2\\?OpenElement(?:\\&amp;|\\&)linked\\=" + _imageLinkKey + "(?:\\&amp;|\\&)cid\\=([^\"']*)[\"']/gi)");
+				html = html.replace(newImageRegExp, function(a, b){
+					if(compNewCids[b] == null){
+						newCids.push(b);
+						compNewCids[b] = true;
+					}
+					return "\"cid:" + b + "\"";
+				});
+				// 기존 이미지 cid 처리
+				var oldImageRegExp = null;
+				eval("(oldImageRegExp = /[\"'][^\"']*\\?OpenElement(?:\\&amp;|\\&)linked\\=" + _imageLinkKey + "_OLD(?:\\&amp;|\\&)cid\\=([^\"']*)[\"']/gi)");
+				html = html.replace(oldImageRegExp, function(a, b){
+					if(compOldCids[b] == null){
+						oldCids.push(b);
+						compOldCids[b] = true;
+					}
+					return "\"cid:" + b + "\"";
+				});
+				
+				uidoc.elements.form[0].Body_NewCids.value = newCids.join("; ");
+				uidoc.elements.form[0].Body_OldCids.value = oldCids.join("; ");
+				
+				return html;
+			}
+			,getText : function(){
+				var editor = Editor.canvas.panels.html.iframe.contentWindow.document.body;
+				return editor.textContent||editor.innerText;
+			}
+			,setHTML : function(html){
+				Editor.modify({content : html});
+			}
+			,getStyle : function() {
+				var _style =  Editor.getCanvas().getStyleConfig();
+				_style.fontFamily = "{TOOLBAR.FONTFAMILY_DEFAULT}";
+				return _style;}
+			,init : function(uidoc){
+				var imageLinkKey = (uidoc.elements.form[0].MIMEMerge_ImageLinkKey||{value:uidoc.options.unid}).value;
+				Editor.imageUploadFrameUrl = '/' + (uidoc.options.server?uidoc.options.server + '/':'') + 'ngw/core/temporarily.nsf/ImageUpload?OpenForm'
+						+ '&ImageLinkKey=' + encodeURIComponent(imageLinkKey)
+						+ '&prefix=' + uidoc.options.server
+						+ '&type=KEditor';
+				if(_ImageControl){
+					var iframe = Editor.canvas.panels.html.iframe;
+					this.imageControl = _ImageControl.IframeLoad.apply(parent, [iframe, uidoc]);
+				}
+			}
+			,destroy:function(){
+				if(_ImageControl && this.imageControl){
+					_ImageControl.destroy(this.imageControl._instanceId);
+				}
+			}
+		};
+	</script>
+</head>
+<body>
+
+<form name="tx_editor_form" id="tx_editor_form"
+	method="post" accept-charset="utf-8">
+	<!-- 에디터 컨테이너 시작 -->
+	<div id="tx_trex_container" class="tx-editor-container">
+		<!--  tool bar wrap -->
+			<div id="tx_toolbar_basic" class="tx-toolbar tx-toolbar-basic">
+				<div class="tx-toolbar-boundary">
+					<ul class="tx-bar tx-bar-left">
+						<li class="tx-list">
+							<div id="tx_fontfamily" unselectable="on"
+								class="tx-slt-70bg tx-fontfamily">
+								<a href="javascript:;" title="{TOOLBAR.FONT}">{TOOLBAR.FONT}</a>
+							</div>
+							<div id="tx_fontfamily_menu" class="tx-fontfamily-menu tx-menu"
+								unselectable="on"></div>
+						</li>
+					</ul>
+					<ul class="tx-bar tx-bar-left">
+						<li class="tx-list">
+							<div unselectable="on" class="tx-slt-42bg tx-fontsize"
+								id="tx_fontsize">
+								<a href="javascript:;" title="{TOOLBAR.FONTSIZE}">9pt</a>
+							</div>
+							<div id="tx_fontsize_menu" class="tx-fontsize-menu tx-menu"
+								unselectable="on"></div>
+						</li>
+					</ul>
+					<ul class="tx-bar tx-bar-left tx-group-font">
+	
+						<li class="tx-list">
+							<div unselectable="on" class="		 tx-btn-lbg 	tx-bold" id="tx_bold">
+								<a href="javascript:;" class="tx-icon" title="{TOOLBAR.FONT_BOLD} (Ctrl+B)">{TOOLBAR.FONT_BOLD}</a>
+							</div>
+						</li>
+						<li class="tx-list">
+							<div unselectable="on" class="		 tx-btn-bg 	tx-underline"
+								id="tx_underline">
+								<a href="javascript:;" class="tx-icon" title="{TOOLBAR.FONT_UNDERLINE} (Ctrl+U)">{TOOLBAR.FONT_UNDERLINE}</a>
+							</div>
+						</li>
+						<li class="tx-list">
+							<div unselectable="on" class="		 tx-btn-bg 	tx-italic"
+								id="tx_italic">
+								<a href="javascript:;" class="tx-icon" title="{TOOLBAR.FONT_ITALIC} (Ctrl+I)">{TOOLBAR.FONT_ITALIC}</a>
+							</div>
+						</li>
+						<li class="tx-list">
+							<div unselectable="on" class="		 tx-btn-bg 	tx-strike"
+								id="tx_strike">
+								<a href="javascript:;" class="tx-icon" title="{TOOLBAR.FONT_STRIKE} (Ctrl+D)">{TOOLBAR.FONT_STRIKE}</a>
+							</div>
+						</li>
+						<li class="tx-list">
+							<div unselectable="on" class="		 tx-slt-tbg 	tx-forecolor"
+								id="tx_forecolor">
+								<a href="javascript:;" class="tx-icon" title="{TOOLBAR.FONT_COLOR}">{TOOLBAR.FONT_COLOR}</a> <a
+									href="javascript:;" class="tx-arrow" title="{TOOLBAR.FONT_COLOR_SELECT}">{TOOLBAR.FONT_COLOR_SELECT}</a>
+							</div>
+							<div id="tx_forecolor_menu"
+								class="tx-menu tx-forecolor-menu tx-colorpallete"
+								unselectable="on"></div>
+						</li>
+						<li class="tx-list">
+							<div unselectable="on" class="		 tx-slt-brbg 	tx-backcolor"
+								id="tx_backcolor">
+								<a href="javascript:;" class="tx-icon" title="{TOOLBAR.FONT_BACKCOLOR}">{TOOLBAR.FONT_BACKCOLOR}</a>
+								<a href="javascript:;" class="tx-arrow" title="{TOOLBAR.FONT_BACKCOLOR_SELECT}">{TOOLBAR.FONT_BACKCOLOR_SELECT}</a>
+							</div>
+							<div id="tx_backcolor_menu"
+								class="tx-menu tx-backcolor-menu tx-colorpallete"
+								unselectable="on"></div>
+						</li>
+					</ul>
+					<ul class="tx-bar tx-bar-left tx-group-align">
+						<li class="tx-list">
+							<div unselectable="on" class="		 tx-btn-lbg 	tx-alignleft"
+								id="tx_alignleft">
+								<a href="javascript:;" class="tx-icon" title="{TOOLBAR.ALIGNLEFT} (Ctrl+,)">{TOOLBAR.ALIGNLEFT}</a>
+							</div>
+						</li>
+						<li class="tx-list">
+							<div unselectable="on" class="		 tx-btn-bg 	tx-aligncenter"
+								id="tx_aligncenter">
+								<a href="javascript:;" class="tx-icon" title="{TOOLBAR.ALIGNCENTER} (Ctrl+.)">{TOOLBAR.ALIGNCENTER}</a>
+							</div>
+						</li>
+						<li class="tx-list">
+							<div unselectable="on" class="		 tx-btn-bg 	tx-alignright"
+								id="tx_alignright">
+								<a href="javascript:;" class="tx-icon" title="{TOOLBAR.ALIGNRIGHT} (Ctrl+/)">{TOOLBAR.ALIGNRIGHT}</a>
+							</div>
+						</li>
+						<li class="tx-list">
+							<div unselectable="on" class="		 tx-btn-rbg 	tx-alignfull"
+								id="tx_alignfull">
+								<a href="javascript:;" class="tx-icon" title="{TOOLBAR.ALIGNRIGHT}">{TOOLBAR.ALIGNRIGHT}</a>
+							</div>
+						</li>
+					</ul>
+					<ul class="tx-bar tx-bar-left tx-group-tab">
+						<li class="tx-list">
+							<div unselectable="on" class="		 tx-btn-lbg 	tx-indent"
+								id="tx_indent">
+								<a href="javascript:;" title="{TOOLBAR.INDENT} (Tab)" class="tx-icon">{TOOLBAR.INDENT}</a>
+							</div>
+						</li>
+						<li class="tx-list">
+							<div unselectable="on" class="		 tx-btn-rbg 	tx-outdent"
+								id="tx_outdent">
+								<a href="javascript:;" title="{TOOLBAR.OUTDENT} (Shift+Tab)" class="tx-icon">{TOOLBAR.OUTDENT}</a>
+							</div>
+						</li>
+					</ul>
+					<ul class="tx-bar tx-bar-left tx-group-list">
+						<li class="tx-list">
+							<div unselectable="on" class="tx-slt-31lbg tx-lineheight"
+								id="tx_lineheight">
+								<a href="javascript:;" class="tx-icon" title="{TOOLBAR.LINEHEIGHT}">{TOOLBAR.LINEHEIGHT}</a> <a
+									href="javascript:;" class="tx-arrow" title="{TOOLBAR.LINEHEIGHT_SELECT}">{TOOLBAR.LINEHEIGHT_SELECT}</a>
+							</div>
+							<div id="tx_lineheight_menu" class="tx-lineheight-menu tx-menu"
+								unselectable="on"></div>
+						</li>
+						<li class="tx-list">
+							<div unselectable="on" class="tx-slt-31rbg tx-styledlist"
+								id="tx_styledlist">
+								<a href="javascript:;" class="tx-icon" title="{TOOLBAR.STYLEDLIST}">{TOOLBAR.STYLEDLIST}</a> <a
+									href="javascript:;" class="tx-arrow" title="{TOOLBAR.STYLEDLIST_SELECT}">{TOOLBAR.STYLEDLIST_SELECT}</a>
+							</div>
+							<div id="tx_styledlist_menu" class="tx-styledlist-menu tx-menu"
+								unselectable="on"></div>
+						</li>
+					</ul>
+					<ul class="tx-bar tx-bar-left tx-group-etc">
+					<li class="tx-list">
+						<div unselectable="on" class="tx-btn-lbg tx-emoticon" id="tx_image">
+							<a href="javascript:;" class="tx-icon" title="{TOOLBAR.IMAGE}" style="background-position:-157px -10px;">{TOOLBAR.IMAGE}</a>
+						</div>
+					</li>
+					<li class="tx-list">
+						<div unselectable="on" class="tx-btn-rbg tx-emoticon" id="tx_media">
+							<a href="javascript:;" class="tx-icon" title='{TOOLBAR.MEDIA}' style="background-position:-157px -49px;">{TOOLBAR.MEDIA}</a>
+						</div>
+					</li>
+					</ul>
+					<ul class="tx-bar tx-bar-left tx-group-etc">
+						<li class="tx-list">
+							<div unselectable="on" class="		 tx-btn-lbg 	tx-link" id="tx_link">
+								<a href="javascript:;" class="tx-icon" title="{TOOLBAR.LINK} (Ctrl+K)">{TOOLBAR.LINK}</a>
+							</div>
+							<div id="tx_link_menu" class="tx-link-menu tx-menu"></div>
+						</li>
+						<li class="tx-list">
+							<div unselectable="on" class="		 tx-btn-bg 	tx-table"
+								id="tx_table">
+								<a href="javascript:;" class="tx-icon" title="{TOOLBAR.CREATE_TABLE}">{TOOLBAR.CREATE_TABLE}</a>
+							</div>
+							<div id="tx_table_menu" class="tx-table-menu tx-menu"
+								unselectable="on">
+								<div class="tx-menu-inner">
+									<div class="tx-menu-preview"></div>
+									<div class="tx-menu-rowcol"></div>
+									<div class="tx-menu-deco"></div>
+									<div class="tx-menu-enter"></div>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<ul class="tx-bar tx-bar-left">
+						<li class="tx-list">
+							<div unselectable="on" class="		 tx-btn-lbg 	tx-richtextbox"
+								id="tx_richtextbox">
+								<a href="javascript:;" class="tx-icon" title="{TOOLBAR.RICHTEXTBOX}">{TOOLBAR.RICHTEXTBOX}</a>
+							</div>
+							<div id="tx_richtextbox_menu" class="tx-richtextbox-menu tx-menu">
+								<div class="tx-menu-header">
+									<div class="tx-menu-preview-area">
+										<div class="tx-menu-preview"></div>
+									</div>
+									<div class="tx-menu-switch">
+										<div class="tx-menu-simple tx-selected">
+											<a><span>{TOOLBAR.MENU_SIMPLE_SELECT}</span></a>
+										</div>
+										<div class="tx-menu-advanced">
+											<a><span>{TOOLBAR.MENU_ADVANCED_SELECT}</span></a>
+										</div>
+									</div>
+								</div>
+								<div class="tx-menu-inner"></div>
+								<div class="tx-menu-footer">
+									<img class="tx-menu-confirm"
+										src="/res/core/keditor/images/icon/editor/{TOOLBAR.IMG_BTN_CONFIRM}?rv=1.0.1"
+										alt="" /> <img class="tx-menu-cancel" hspace="3"
+										src="/res/core/keditor/images/icon/editor/{TOOLBAR.IMG_BTN_CANCEL}?rv=1.0.1"
+										alt="" />
+								</div>
+							</div>
+						</li>
+						<li class="tx-list">
+							<div unselectable="on" class="		 tx-btn-bg 	tx-quote"
+								id="tx_quote">
+								<a href="javascript:;" class="tx-icon" title="{TOOLBAR.QUOTE} (Ctrl+Q)">{TOOLBAR.QUOTE}</a>
+							</div>
+							<div id="tx_quote_menu" class="tx-quote-menu tx-menu"
+								unselectable="on"></div>
+						</li>
+					</ul>
+					<ul class="tx-bar tx-bar-left tx-group-undo">
+						<li class="tx-list">
+							<div unselectable="on" class="		 tx-btn-lbg 	tx-undo" id="tx_undo">
+								<a href="javascript:;" class="tx-icon" title="{TOOLBAR.UNDO} (Ctrl+Z)">{TOOLBAR.UNDO}</a>
+							</div>
+						</li>
+						<li class="tx-list">
+							<div unselectable="on" class="		 tx-btn-rbg 	tx-redo" id="tx_redo">
+								<a href="javascript:;" class="tx-icon" title="{TOOLBAR.REDO} (Ctrl+Y)">{TOOLBAR.REDO}</a>
+							</div>
+						</li>
+					</ul>
+					<ul class="tx-bar tx-bar-right">
+						<li class="tx-list">
+						<div unselectable="on" class="tx-switchtoggle" id="tx_switchertoggle">
+							<a href="javascript:;" title='{TOOLBAR.EDITOR_TYPE}'>{TOOLBAR.EDITOR_TYPE}</a>
+						</div>
+						</li>
+						<li class="tx-list">
+							<div unselectable="on" class="tx-btn-nlrbg tx-advanced"
+								id="tx_advanced">
+								<a href="javascript:;" class="tx-icon" title="{TOOLBAR.TOOLBAR_ADVANCED}">{TOOLBAR.TOOLBAR_ADVANCED}</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- 툴바 - 기본 끝 -->
+			<!-- 툴바 - 더보기 시작 -->
+			<div id="tx_toolbar_advanced" class="tx-toolbar tx-toolbar-advanced">
+				<div class="tx-toolbar-boundary">
+					<!-- <ul class="tx-bar tx-bar-left">
+						<li class="tx-list">
+							<div class="tx-tableedit-title"></div>
+						</li>
+					</ul> -->
+					<ul class="tx-bar tx-bar-left tx-group-align">
+					<li class="tx-list">
+						<div unselectable="on" class="tx-btn-lbg tx-mergecells" id="tx_mergecells">
+							<a href="javascript:;" class="tx-icon2" title='{TOOLBAR.MERGECELLS}'>{TOOLBAR.MERGECELLS}</a>
+						</div>
+						<div id="tx_mergecells_menu" class="tx-mergecells-menu tx-menu" unselectable="on"></div>
+					</li>
+					<li class="tx-list">
+						<div unselectable="on" class="tx-btn-bg tx-insertcells" id="tx_insertcells">
+							<a href="javascript:;" class="tx-icon2" title='{TOOLBAR.INSERTCELLS}'>{TOOLBAR.INSERTCELLS}</a>
+							</div>
+						<div id="tx_insertcells_menu" class="tx-insertcells-menu tx-menu" unselectable="on"></div>
+					</li>
+					<li class="tx-list">
+						<div unselectable="on" class="tx-btn-rbg tx-deletecells" id="tx_deletecells">
+							<a href="javascript:;" class="tx-icon2" title='{TOOLBAR.DELETECELLS}'>{TOOLBAR.DELETECELLS}</a>
+						</div>
+						<div id="tx_deletecells_menu" class="tx-deletecells-menu tx-menu" unselectable="on"></div>
+					</li>
+				</ul>
+
+				<ul class="tx-bar tx-bar-left tx-group-align">
+					<li class="tx-list">
+						<div id="tx_cellslinepreview" unselectable="on" class="tx-slt-70lbg tx-cellslinepreview">
+							<a href="javascript:;" title='{TOOLBAR.CELLSLINEPREVIEW}' style="display:inline-block;"></a>
+						</div>
+						<div id="tx_cellslinepreview_menu" class="tx-cellslinepreview-menu tx-menu" unselectable="on"></div>
+					</li>
+					<li class="tx-list">
+						<div id="tx_cellslinecolor" unselectable="on" class="tx-slt-tbg tx-cellslinecolor">
+							<a href="javascript:;" class="tx-icon2" title='{TOOLBAR.CELLSLINECOLOR}'>{TOOLBAR.CELLSLINECOLOR}</a>
+							<div class="tx-colorpallete" unselectable="on"></div>
+						</div>
+						<div id="tx_cellslinecolor_menu" class="tx-cellslinecolor-menu tx-menu tx-colorpallete" unselectable="on"></div>
+					</li>
+					<li class="tx-list">
+						<div id="tx_cellslineheight" unselectable="on" class="tx-btn-bg tx-cellslineheight">
+							<a href="javascript:;" class="tx-icon2" title='{TOOLBAR.CELLSLINEHEIGHT}'>{TOOLBAR.CELLSLINEHEIGHT}</a>
+						</div>
+						<div id="tx_cellslineheight_menu" class="tx-cellslineheight-menu tx-menu"
+							 unselectable="on"></div>
+					</li>
+					<li class="tx-list">
+						<div id="tx_cellslinestyle" unselectable="on" class="tx-btn-bg tx-cellslinestyle">
+							<a href="javascript:;" class="tx-icon2" title='{TOOLBAR.CELLSLINESTYLE}'>{TOOLBAR.CELLSLINESTYLE}</a>
+						</div>
+						<div id="tx_cellslinestyle_menu" class="tx-cellslinestyle-menu tx-menu" unselectable="on"></div>
+					</li>
+					<li class="tx-list">
+						<div id="tx_cellsoutline" unselectable="on" class="tx-btn-rbg tx-cellsoutline">
+							<a href="javascript:;" class="tx-icon2" title='{TOOLBAR.CELLSOUTLINE}'>{TOOLBAR.CELLSOUTLINE}</a>
+						</div>
+						<div id="tx_cellsoutline_menu" class="tx-cellsoutline-menu tx-menu" unselectable="on"></div>
+					</li>
+				</ul>
+
+
+				<ul class="tx-bar tx-bar-left">
+					<li class="tx-list">
+						<div id="tx_tablebackcolor" unselectable="on" class="tx-btn-lrbg tx-tablebackcolor" style="background-color:#9aa5ea;">
+							<a href="javascript:;" class="tx-icon2" title='{TOOLBAR.TABLEBACKCOLOR}'>{TOOLBAR.TABLEBACKCOLOR}</a>
+						</div>
+						<div id="tx_tablebackcolor_menu" class="tx-tablebackcolor-menu tx-menu tx-colorpallete"
+							 unselectable="on"></div>
+					</li>
+				</ul>
+	
+				</div>
+			</div>
+		<!-- 툴바 - 더보기 끝 -->
+		<!-- 편집영역 시작 -->
+		<!-- 에디터 Start -->
+		<div id="tx_canvas" class="tx-canvas">
+			<div id="tx_loading" class="tx-loading">
+				<div>
+					<img src="/res/core/keditor/images/icon/editor/{TOOLBAR.IMG_LOADING2}"
+						width="113" height="21" align="absmiddle" />
+				</div>
+			</div>
+			<div id="tx_canvas_wysiwyg_holder" class="tx-holder"
+				style="display: block;">
+				<iframe id="tx_canvas_wysiwyg" name="tx_canvas_wysiwyg"
+					allowtransparency="true" frameborder="0"></iframe>
+			</div>
+			<div class="tx-source-deco">
+				<div id="tx_canvas_source_holder" class="tx-holder">
+					<textarea id="tx_canvas_source" rows="30" cols="30"></textarea>
+				</div>
+			</div>
+			<div id="tx_canvas_text_holder" class="tx-holder">
+				<textarea id="tx_canvas_text" rows="30" cols="30"></textarea>
+			</div>
+		</div>
+	</div>
+<div id="imageUploadProgress" style="display:none;position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:9999999;">
+<iframe frameBorder="0" style="position:absolute;top:0px;left:0px;width:100%;height:100%;opacity:0.3;filter:alpha(opacity=30);background-color:white;"></iframe>
+<div style="position:absolute;top:0px;left:0px;width:100%;height:100%;opacity:0.3;filter:alpha(opacity=30);background-color:white;"></div>
+<div id="imageUploadProgressInner" style="position:absolute;top:0px;left:0px;width:200px;height:90px;border:1px solid #e0e0e0;background-color:white;vertical-align:center;text-align:center;padding-top:15px;font-size:12px;">
+<img src="/res/core/keditor/images/imageUploadProgress.gif" border="0"><br>
+{TOOLBAR.IMAGE_UNLOAD_PROGRESS}
+</div>
+</div>
+<div id="imageInfoToolbar" style="display:block;position:absolute;top:485px;left:5px;width:auto;overflow:hidden;display:none;z-index:9999999;">
+<div class="tx-toolbar" style="border-bottom:1px solid #cdcdcd;border-top:0px;width:360px;line-height:30px;font-size:12px;">
+&nbsp;&nbsp;Width : <Input type="text" id="editorImageWidth" value="" style="width:80px;"> / Height : <Input type="text" id="editorImageHeight" value="" style="width:80px;">
+&nbsp;&nbsp;<input type="checkbox" checked id="editorImageSizeLock">{TOOLBAR.IMAGE_SIZE_LOCK}
+</div>
+</div>
+</form>
+<script type="text/javascript">
+if(parent.ImageControl){parent.ImageControl.deploy();}
+var _i18n = parent.LANGPACK.CORE.KEDITOR.TOOLBAR;
+var nv = navigator.userAgent;
+var nv_l = nv.toLowerCase();
+var is_mobile = (nv_l.indexOf('mobile')>-1) || (nv_l.indexOf('android')>-1) || (nv_l.indexOf('iphone')>-1) || (nv_l.indexOf('ipad')>-1) || (nv_l.indexOf('blackberry')>-1) || (nv_l.indexOf('opera mini')>-1) || (nv_l.indexOf('iemobile')>-1);
+(function() {
+	function _lab() {
+		if(typeof $LAB === "undefined") {setTimeout(function(){_lab();},10);return;};
+		$LAB.script("/res/core/keditor/js/editor_eploader.js").wait()
+		.script("/res/core/keditor/js/editor_ep.js").wait(function() {
+			var config = {
+					txHost : '', /* 런타임 시 리소스들을 로딩할 때 필요한 부분으로, 경로가 변경되면 이 부분 수정이 필요. ex) http://xxx.xxx.com */
+					txPath : '', /* 런타임 시 리소스들을 로딩할 때 필요한 부분으로, 경로가 변경되면 이 부분 수정이 필요. ex) /xxx/xxx/ */
+					txService : 'sample', /* 수정필요없음. */
+					txProject : 'sample', /* 수정필요없음. 프로젝트가 여러개일 경우만 수정한다. */
+					initializedId : "", /* 대부분의 경우에 빈문자열 */
+					wrapper : "tx_trex_container", /* 에디터를 둘러싸고 있는 레이어 이름(에디터 컨테이너) */
+					form : 'tx_editor_form' + "", /* 등록하기 위한 Form 이름 */
+					txIconPath : "/res/core/keditor/images/icon/editor/", /*에디터에 사용되는 이미지 디렉터리, 필요에 따라 수정한다. */
+					txDecoPath : "/res/core/keditor/images/deco/contents/", /*본문에 사용되는 이미지 디렉터리, 서비스에서 사용할 때는 완성된 컨텐츠로 배포되기 위해 절대경로로 수정한다. */
+					canvas : {
+						styles : {
+							color : "#000000", /* 기본 글자색 */
+							fontFamily : "Arial", /* 기본 글자체 */
+							fontSize : "10pt", /* 기본 글자크기 */
+							backgroundColor : "#fff", /*기본 배경색 */
+							lineHeight : "1.5", /*기본 줄간격 */
+							padding : "8px" /* 위지윅 영역의 여백 */
+						},
+						showGuideArea : false
+					},
+					events : {
+						preventUnload : false
+					}
+			};
+			var editor = new Editor(config);
+			Editor.getCanvas().observeJob(Trex.Ev.__IFRAME_LOAD_COMPLETE, function() {	WEC.onLoadComplete();});
+			Editor.getToolbar().observeJob("toolbar.advanced.spread", function() {$tx.addClassName(this.canvas.elContainer,"tx-extended-toolbar");	});
+			Editor.getToolbar().observeJob("toolbar.advanced.fold", function() {$tx.removeClassName(this.canvas.elContainer,"tx-extended-toolbar");});	
+		});
+	}
+	_lab();
+})();
+</script>
+</body>
+</html>

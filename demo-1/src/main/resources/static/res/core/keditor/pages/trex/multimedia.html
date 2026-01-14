@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=10" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+<script src="../../js/popup.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="../../css/popup.css" type="text/css"  charset="utf-8"/>
+<style type="text/css">
+	input,textarea { border:1px solid #000000;vertical-align:middle;font-size:12px;}
+	
+	/* swf wrapper, set width/height */
+	.wrapper { width:458px; }
+	.code { width:458px; }
+	
+	.hidden { display:none;}
+	.show { display:auto;}
+	.desc{ margin: 15px 27px 5px 25px;padding:10px 8px;text-align:left;font-weight:bold;}
+	.desc span{ color:#496ce5; }
+	.field { margin:0 auto 10px; background:#ffffff url(../../images/icon/editor/tvpot/body_bg.gif?rev=1.0.1);width:420px;height:239px;}
+	.field li{ list-style-type:none;}
+	.field .codesubmenu { padding-top:20px;width:350px; margin:0 auto; }
+	.codeMenu { margin:0px auto;}
+	.codeMenu li { display:inline;margin-right:20px; }
+	.inputmenu { margin-top:20px;padding-left:30px; color:#333;font-size:11px;font-family:"돋움",dotum}
+	.inputmenu input, .inputmenu textarea{ width:308px; }
+	#codeUrl { margin-top:10px;}
+	
+	.inputmenu .unselected{color:#bbbbbb}
+	.inputmenu .unselected input, .inputmenu .unselected textarea{border:1px solid #bbbbbb;}
+	
+	.point {
+		font-weight:normal;
+		color:#a7b9ec;
+	}
+</style>
+<script type="text/javascript">
+// <![CDATA[
+	var _i18n = opener._i18n;
+	window.title = _i18n.MEDIA_POPUP_TITLE;
+	document.write('<style>	.footer li a {background-image: url(\'/res/core/keditor/images/icon/editor/' + _i18n.IMG_POP_FOOTER_BTN + '?v=2\');}</style>');
+	function initEmbeder() {
+		var _opener = PopupUtil.getOpener();
+		if(!_opener) {
+			alert(_i18n.MEDIA_POPUP_ERROR1);
+			return; 
+		}
+
+		var _embeder = getEmbeder('media');
+		window.execEmbed = _embeder.embedHandler;
+		
+		autoResizeHeight($tx("wrapper"));
+	}
+	
+	// 코드 삽입 완료 후
+	function done() {
+		var _data = {};
+		var types = document.getElementsByName("codeType");
+		if (types[1].checked) {
+			_data.url = document.getElementsByName("url")[0].value.trim();
+		} else if (types[0].checked) {
+			_data.code = document.getElementsByName("source")[0].value.trim();
+		}
+		if (typeof(execEmbed) == 'undefined') { //Virtual Function
+	        return;
+	    }
+		executeAfterDataCheck(_data, function(){
+			execEmbed(_data);
+			closeWindow();
+	    }); 
+	}
+
+	function executeAfterDataCheck(data, successHandler) {
+		if (data.url || data.code) {
+			successHandler();
+		} else {
+			alert(_i18n.MEDIA_POPUP_URL_ERROR);
+		}
+	}
+	
+	function selectType(id){
+		var textArea = document.getElementsByName("source")[0];
+		var input = document.getElementsByName("url")[0];	
+		if ( id == 'codeUrl' ){
+			$tx.addClassName($tx('codeSource'), "unselected")
+			$tx.removeClassName($tx('codeUrl'), "unselected")
+			textArea.value = "";
+			textArea.disabled = true;
+			input.disabled=false;
+			input.focus();
+		}else{
+			$tx.addClassName($tx('codeUrl'), "unselected")
+			$tx.removeClassName($tx('codeSource'), "unselected")
+			textArea.disabled = false;
+			input.value = "";		
+			input.disabled=true;
+			textArea.focus();
+		}
+		autoResizeHeight($tx("wrapper"));
+	}
+
+// ]]>
+</script>
+</head>
+<body onload="initEmbeder()">
+<div id="wrapper" class="wrapper">
+<div class="header">
+	<h1><script>document.write(_i18n.MEDIA_POPUP_ATTACH_EXT_CONTENT);</script></h1>
+</div>	
+<div class="body">
+	<div id="code" class="code">
+		<p class="desc"><script>document.write(_i18n.MEDIA_POPUP_DESC1);</script></p>
+		<ul class="field">
+			<li class="codesubmenu">
+				<ol class="codeMenu">
+					<li><input type="radio" id="type_source" value="source" name="codeType" onclick="selectType('codeSource');" checked="checked" style="border:none" /> <label for="type_source"><script>document.write(_i18n.MEDIA_POPUP_DESC2);</script></label></li>
+					<li><input type="radio" id="type_url" value="url" name="codeType" onclick="selectType('codeUrl');" style="border:none" /> <label for="type_url"><script>document.write(_i18n.MEDIA_POPUP_LINK);</script></label></li>
+				</ol> 
+			</li>
+			<li class="inputmenu">
+				<ol>
+					<li id="codeSource"><label><script>document.write(_i18n.MEDIA_POPUP_INPUT_SOURCE);</script></label><textarea rows="7" name="source"></textarea></li>							
+					<li id="codeUrl" class="unselected"><label><script>document.write(_i18n.MEDIA_POPUP_INPUT_LINK);</script></label><input type="text" name="url" disabled="true" /></li>
+				</ol>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="footer">
+	<!--p><a href="#" onclick="closeWindow();" title="닫기" class="close">닫기</a></p-->
+	<ul>
+		<li class="submit"><script>document.write('<a href="#" onclick="done();" title="' + _i18n.MEDIA_POPUP_REG + '" class="btnlink">' + _i18n.MEDIA_POPUP_REG + '</a>');</script></li>
+		<li class="cancel"><script>document.write('<a href="#" onclick="closeWindow();" title="' + _i18n.MEDIA_POPUP_CANCEL + '" class="btnlink">' + _i18n.MEDIA_POPUP_CANCEL + '</a>');</script></li>
+	</ul>
+</div>
+</div>
+</body>
+</html>

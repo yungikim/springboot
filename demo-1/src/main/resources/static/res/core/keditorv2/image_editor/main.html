@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!--CSS-MIN-GROUP : 수정금지-->
+	<link rel="stylesheet" href="./css/common.css" type="text/css" charset="utf-8">
+	<link rel="stylesheet" href="./css/jquery.selectbox.css" type="text/css" charset="utf-8">
+	<!--/CSS-MIN-GROUP : 수정금지-->
+	<script src="./js/popup.min.js?open&_ver=3.1103" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/jquery-3.1.1.min.js"></script>
+	<script src="./js/jquery.selectbox-0.2.js"></script>	
+	<!--JS-MIN-GROUP : 수정금지-->
+	<script src="./js/fabric.js"></script>
+	<script src="./js/main.js"></script>
+	<script src="./js/FileSaver.js"></script>
+	<script src="./js/history.js"></script>
+	<script src="./js/jscolor.js"></script>
+	<script src="./js/text.js"></script>
+	<script src="./js/resize.js"></script>
+	<script src="./js/shape.js"></script>
+	<script src="./js/draw.js"></script>
+	<script src="./js/crop.js"></script>
+	<!--/JS-MIN-GROUP : 수정금지-->
+	<script language="JavaScript" type="text/javascript">
+		if(!window.Trex) window.Trex = {};
+		Trex._TI = null;
+		Trex._I18N_ = PopupUtil.getOpener().Trex._I18N_;
+		Trex._I18N = {
+			'g': function () {
+				var args = [];
+				for (var i = 0; i < arguments.length; i++) args.push(arguments[i]);
+				var defaultvalue = args.pop();
+				if (!Trex._I18N_ || !Trex._I18N_.words[args[0]]) return defaultvalue;
+				else return Trex._I18N_.get.apply(Trex._I18N_, args);
+			},
+			'w': function () {
+				document.write(Trex._I18N.g.apply(Trex._I18N, arguments));
+			}
+		};
+		function done(data) {
+			if (typeof (execAttach) == 'undefined') { //Virtual Function
+				return;
+			}
+			execAttach(data);
+			closeWindow();
+		}
+		function initUploader() {
+			var _opener = PopupUtil.getOpener();
+			if (!_opener) {
+				alert(Trex._I18N.g('image_popup_error', '잘못된 경로로 접근하셨습니다.'));
+				return;
+			}
+			var instanceid = qs.get('instance');
+			var _ti = qs.get('_TI');			
+			var editor = _opener.KEditor.get(instanceid);
+			window.ImageUploader = editor.imageUploader;
+			var _attacher = getAttacher('image_edit', _opener);
+			registerAction(_attacher);
+			if(_ti){
+				var obj = _opener.Trex.Image.EDIT_TARGET[_ti];
+				if(obj){
+					Trex._TI = {
+						img:obj,
+						src:obj.src,
+						width:obj.width,
+						height:obj.height
+					};
+					Trex.KEditor = editor;
+				}
+			}
+			imageEditorInit();
+		}
+	</script>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" onload="initUploader();" cz-shortcut-listen="true">
+	<header>
+		<h1><img src="./images/logo_webeditor_lge.png?open&_ver=3.1017" alt=""></h1>
+		<div class="btn_history_wrap">
+			<button type="button" class="btn btn_prev disabled"><span class="icon"></span><span class="btn_txt"><script>Trex._I18N.w('image_editor.undo', '실행취소');</script></span></button>
+			<button type="button" class="btn btn_next disabled"><span class="btn_txt"><script>Trex._I18N.w('image_editor.redo', '다시실행');</script></span><span class="icon"></span></button>
+		</div>
+		<div class="h_btns">
+			<div class="btn_image_div">
+				<div class="import-btn" style="margin-right:5px;"><button type="button" class="btn btn_image"><script>Trex._I18N.w('image_editor.import', '불러오기');</script></button>
+				<input type="file" id="imgfile" name="%%File.49257f960000ed94.b15f497411784e264925818a00107701.$Body.0.91C" class="btn_image_hidden"></div>
+				<!--<button type="button" class="btn btn_pc disabled" disabled><script>Trex._I18N.w('image_editor.save.pc', 'PC저장');</script></button>-->
+				<button type="button" class="btn btn_insert disabled" disabled><script>Trex._I18N.w('image_editor.insert.body', '본문삽입');</script></button>
+			</div>
+		</div>
+	</header>
+	<div class="contents">
+		<nav>
+			<ul>
+				<li>
+					<button type="button" class="bg btn btn_selector disabled" disabled></button>
+				</li>
+				<li>
+					<button type="button" class="bg btn btn_crop disabled" disabled></button>
+				</li>
+				<li>
+					<button type="button" class="bg btn btn_resize disabled" disabled></button><em class="bg btn_sub btn_resize_sub disabled">위 화살표</em>
+					<!-- 사이즈 상세 Start -->
+					<div class="detail_menu resize_menu" style="display:none;">
+						<ul>
+							<li class="resize_input"><input type="text" class="txt txt_num" id="reize_width"> <span>*</span> <input type="text" class="txt txt_num" id="reize_height"><button class="btn bg btn_ratio toggle_on" type="button"></button></li>
+							<li><button class="btn btn_original" type="button"><em><script>Trex._I18N.w('image.origin_size', '원본크기');</script></em></button></li>
+						</ul>
+					</div>
+					<!-- 사이즈 상세 End -->
+				</li>
+				<li>
+					<button type="button" class="bg btn btn_text disabled" disabled></button><em class="bg btn_sub btn_text_sub disabled">아래 화살표</em>
+					<!-- 텍스트 상세 Start -->
+					<div class="detail_menu text_menu" style="display:none;">
+						<ul>
+							<li class="fontset font">
+								<span class="sel_slide_down">
+									<select id="sel_font" class="select">
+										<script>Trex._I18N.w('image_editor.font_list', '<option value="나눔고딕">나눔고딕</option><option value="나눔명조">나눔명조</option>');</script>										
+									</select>
+								</span>
+							</li>
+							<li class="fontset size">
+								<span class="sel_slide_down">
+									<select id="sel_size" class="select s_size">
+										<option value="8">8pt</option>
+										<option value="9">9pt</option><!-- 12 -->
+										<option value="10">10pt</option>
+										<option value="11">11pt</option>
+										<option value="12">12pt</option><!-- 16 -->
+										<option value="14">14pt</option>
+										<option value="18" selected>18pt</option><!-- 24 -->
+										<option value="24">24pt</option><!-- 32 -->
+										<option value="36">36pt</option><!-- 48 -->									
+									</select>
+								</span>
+							</li>
+							<li class="fontset"><button type="button" class="bg btn btn_bold"><em>볼드체</em></button></li>
+							<li class="fontset"><button type="button" class="bg btn btn_italic"><em>이탤릭</em></button></li>
+							<li class="fontset"><button type="button" class="bg btn btn_underline"><em>밑줄</em></button></li>
+							<li class="fontset"><button type="button" class="bg btn btn_txt_color jscolor{styleElement:'btn_txt_color_span', value:'', colorInput:true, noneColor:'#000000', closable:true}"></button>
+								<span class="bg_txt_color" id="btn_txt_color_span" style="background:#000000">색상</span></li>
+							<!-- 배경색 없을때 클래스 none 추가 class="bg_txt_bgcolor none") -->
+							<li class="fontset bgcolor"><button type="button" class="bg btn btn_bg_color jscolor{styleElement:'btn_bg_color_span', value:'', colorInput:true, noneColor:'#bdbdbd', closable:true}"></button>
+								<span class="bg_txt_bgcolor" id="btn_bg_color_span" style="background:#bdbdbd">배경색상</span></li>
+						</ul>
+					</div>
+					<!-- 텍스트 상세 End -->
+				</li>
+				<li>
+					<button type="button" class="bg btn btn_shape btn_rect disabled" disabled></button><em class="bg btn_sub btn_shape_sub disabled">아래 화살표</em>
+					<!-- 도형 상세 Start -->
+					<div class="detail_menu shape_menu" style="display:none;">
+						<ul>
+							<li><button class="bg btn btn_rect on"><em>사각형</em></button></li>
+							<li><button class="bg btn btn_round_rect"><em>둥근사각형</em></button></li>
+							<li><button class="bg btn btn_circle"><em>원</em></button></li>
+							<li><button class="bg btn btn_line"><em>라인</em></button></li>
+							<li><button class="bg btn btn_color btn_color_fill none_color btn_shape_bg_color jscolor{styleElement:'btn_shape_bg_color_span', value:'', colorInput:true, noneColor:'#000000', closable:true}"></button>
+								<span class="bg_color bg_color_fill none" id="btn_shape_bg_color_span">색상</span></li>
+							<li class="shape size"><span class="sel_slide_down"><select class="select s_size">
+								<option value="0">0px</option><option value="1">1px</option><option selected value="2">2px</option>
+								<option value="3">3px</option><option value="4">4px</option><option value="5">5px</option></select></span></li>
+							<li class="shape style"><span class="sel_slide_down"><select class="select s_style">
+								<option value="normal" selected>―――</option><option value="dash">-------</option><option value="dot">.........</option></select></span></li>
+							<li class="shape color"><button class="bg btn btn_color btn_color_line btn_shape_line_color jscolor{styleElement:'btn_shape_line_color_span', value:'#fd3259', colorInput:true, noneColor:'#000000', closable:true}"></button>
+								<span class="bg_color bg_color_line" id="btn_shape_line_color_span" style="background:#fd3259">색상</span></li>
+						</ul>
+					</div>
+					<!-- 도형 상세 End -->
+				</li>
+				<li>
+					<button type="button" class="bg btn btn_draw btn_pencil disabled" disabled></button><em class="bg btn_sub btn_draw_sub disabled">아래 화살표</em>
+					<!-- 그리기 상세 Start -->
+					<div class="detail_menu draw_menu" style="display:none;">
+						<ul>
+							<li><button class="bg btn btn_pencil on"><em>연필</em></button></li>
+							<li><button class="bg btn btn_pen"><em>펜</em></button></li>
+							<li><button class="bg btn btn_brush"><em>브러쉬</em></button></li>
+							<!--li><button class="bg btn btn_eraser"><em>지우개</em></button></li-->
+							<li><button class="bg btn btn_color btn_color_line jscolor{styleElement:'draw_span_color', value:'#fd3259', colorInput:true, noneColor:'#000000', closable:true}"></button>
+								<span id="draw_span_color" class="bg_color bg_color_line" style="background:#fd3259">색상</span></li>
+							<li class="draw size">
+								<span class="brush_size"><span class="wrap_size" style="left:0%"><span class="btn btn_drag"></span><em id="size_text">1</em></span>
+								</span>
+								<input type="text" class="txt txt_num" id="draw_brush_size" value="1"/> px
+							</li>
+						</ul>
+					</div>
+					<!-- 그리기 상세 End -->
+				</li>
+				<li>
+					<button type="button" class="bg btn btn_rotate disabled" disabled></button><em class="bg btn_sub btn_rotate_sub disabled">아래 화살표</em>
+					<!-- 회전 상세 Start -->
+					<div class="detail_menu rotate_menu" style="display:none">
+						<ul>
+							<li><button type="button" class="bg btn btn_left_rotate"></button></li>
+							<li><button type="button" class="bg btn btn_right_rotate"></button></li>
+						</ul>
+					</div>
+				</li>
+				<!--<li>
+					<button type="button" class="bg btn btn_prev disabled">이전</button>
+				</li>
+				<li>
+					<button type="button" class="bg btn btn_next disabled">다음</button>
+				</li>-->
+			</ul>
+		</nav>
+		<article class="wrap_image">
+			<div id="default_canvas" class="img_import">
+				<p><script>
+					var _ua = navigator.userAgent;
+					Trex._I18N.w('image_editor.paste_disc' + (_ua.search(/Trident/i)!=-1?'.ie':(_ua.search(/Chrome/i)!=-1?'.chrome':'')), '이미지를 붙여넣기(Ctrl+V) 하거나<br>드래그 하여 불러 올 수 있습니다.');
+				</script></p>
+			</div>
+			<div contenteditable="true" class="ie_paste"></div>
+			<div id="canvas_wrap">
+				<canvas id="canvas_image" class="main_canvas"></canvas>
+			</div>
+			<div id="canvas_crop_wrap">
+				<img id="crop_background_img">
+				<canvas id="canvas_crop_image" class="crop_canvas"></canvas>
+				<div class="crop_selector_wrap">
+					<div class="resize_guide">
+						<div class="hl" style="top: 33.333333333333336%"></div>
+						<div class="vl" style="left: 33.333333333333336%"></div>
+						<div class="hl" style="top: 66.66666666666667%"></div>
+						<div class="vl" style="left: 66.66666666666667%"></div>
+					</div>
+					<div class="rotation_guide">
+						<div class="hl" style="top: 11.11111111111111%"></div>
+						<div class="vl" style="left: 11.11111111111111%"></div>
+						<div class="hl" style="top: 22.22222222222222%"></div>
+						<div class="vl" style="left: 22.22222222222222%"></div>
+						<div class="hl" style="top: 33.333333333333336%"></div>
+						<div class="vl" style="left: 33.333333333333336%"></div>
+						<div class="hl" style="top: 44.44444444444444%"></div>
+						<div class="vl" style="left: 44.44444444444444%"></div>
+						<div class="hl" style="top: 55.55555555555556%"></div>
+						<div class="vl" style="left: 55.55555555555556%"></div>
+						<div class="hl" style="top: 66.66666666666667%"></div>
+						<div class="vl" style="left: 66.66666666666667%"></div>
+						<div class="hl" style="top: 77.77777777777777%"></div>
+						<div class="vl" style="left: 77.77777777777777%"></div>
+						<div class="hl" style="top: 88.88888888888889%"></div>
+						<div class="vl" style="left: 88.88888888888889%"></div>
+					</div>
+					<div class="sl st lt selector" crop_type="lt"></div>
+					<div class="st sm mt selector" crop_type="mt"></div>
+					<div class="sr st rt selector" crop_type="rt"></div>
+					<div class="sl sc lm selector" crop_type="lm"></div>
+					<div class="sr sc rm selector" crop_type="rm"></div>
+					<div class="sl sb lb selector" crop_type="lb"></div>
+					<div class="sb sm mb selector" crop_type="mb"></div>
+					<div class="sr sb rb selector" crop_type="rb"></div>
+				</div>
+			</div>
+		</article>
+	</div>
+	<script type="text/javascript">
+		$(".select").selectbox();
+	</script>
+</body>
+</html>

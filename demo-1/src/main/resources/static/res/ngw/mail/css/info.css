@@ -1,0 +1,48 @@
+@CHARSET "UTF-8";
+body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,button,figure,figcaption{margin:0;padding:0;border:0;outline:0;}
+body,input,textarea,select,button{font-family:'맑은 고딕','Malgun Gothic','돋움',dotum,Arial,sans-serif,Helvetica; }
+ul,ol{list-style:none}
+.meetingRoomWrap .srchFieldWrap .btnCls,.meetingRoomWrap .srchFieldWrap .btnSrch, .meetingRoomWrap .srchResult .srchFoot a>span, .popHeader .btnCls
+{display:inline-block;background:url('/res/core/comm/img/spr_com.png') no-repeat;font-size:0;overflow:hidden;line-height:0;vertical-align:middle}
+.popHeader {position: relative;height:15px;background:none;color:#343434;padding:0 40px;border:none;border-top:4px solid #8ba8d2 !important;font-size:24px}
+.popHeader h1 {font-size:24px;color:#343434;height:86px;line-height:95px}
+.popHeader .btnCls {width:18px;height:18px;background-position:0 -40px;margin:0;position:absolute;top:20px;right:20px}
+
+.popHeader2 {position: relative;height:15px;background:none;color:#343434;padding:0 40px;border:none;font-size:24px}
+.popHeader2 h1 {font-size:24px;color:#343434;height:86px;line-height:95px}
+.popHeader2 .btnCls {width:18px;height:18px;background-position:0 -40px;margin:0;position:absolute;top:20px;right:20px}
+
+.profileWrap {padding:0 40px 35px;overflow:hidden;position:relative;min-height:146px;margin:0}
+.profileWrap .profileImgWrap {position:absolute;top:0;left:0;display:block;width:106px;height:145px}
+.profileWrap .profileImgWrap .imgFrame {position:absolute;top:0;left:0;width:105px;height:105px;background-position:-395px 0;z-index:10}
+.profileWrap .profileImgWrap .imgHolder {position:absolute;top:0;left:0;width:105px;height:105px;z-index:9}
+.profileWrap .profileImgWrap .imgHolder img {width:105px;height:105px}
+.profileWrap .profileImgWrap .userStateWrap {position:absolute;top:120px;left:6px;right:6px;bottom:0}
+.profileWrap .profileImgWrap .userStateWrap a {display:inline-block;width:26px;height:26px;margin-left:3px}
+.profileWrap .profileImgWrap .userStateWrap a:first-child {margin-left:0}
+.profileWrap .infoWrap {margin-left:140px}
+.profileWrap .briefInfo {position:relative;color:#000;border-bottom:1px solid #f2f2f2;padding-bottom:10px}
+.profileWrap .briefInfo dt {font-size:16px;color:#666}
+.profileWrap .briefInfo dt strong {color:#333}
+.profileWrap .briefInfo dd {color:#666;margin:0;padding:0}
+.profileWrap .briefInfo dd ul {margin:0;padding:0}
+.profileWrap .briefInfo dd li {font-size:13px;line-height:26px;list-style:none;padding:0;margin:0}
+.profileWrap .divider {display:inline-block;color:#ddd;font-size:12px;margin:0 5px}
+.userTaskSet {position:absolute;top:0;right:0}
+.userTaskSet a {font-size:12px;color:#105cb6}
+.userTaskSet .divider, .userTaskSet .divider {color:#f2f2f2}
+.userTaskSet a {font-size:12px;color:#105cb6}
+.profileWrap .detailInfo {margin-top:10px}
+.profileWrap .detailInfo dt {font-size:13px;color:#666;width:65px;float:left}
+.profileWrap .detailInfo dd {font-size:13px;color:#666;display:block;padding-left:65px}
+.profileMemoWrap {margin:15px 0 9px;padding:0}
+.profileMemoWrap li {position:relative;list-style:none;padding:0;margin:0}
+.profileMemoWrap li>a.btnMore {position:absolute;top:0;right:0;width:18px;height:10px;display:block}
+.profileMemoWrap li>a.btnMore>span {width:18px;height:10px;background-position:-59px -30px}
+.profileMemoWrap li.on>a.btnMore>span {background-position:-79px -30px}
+.profileMemoWrap li>dl {display:none;margin-top:15px}
+.profileMemoWrap li.on>dl {display:block}
+.profileMemoWrap li dt {font-size:16px;font-weight:bold;color:#333}
+.profileMemoWrap li dd {margin:0;padding:0}
+.profileMemoWrap a {font-size:12px;color:#7a9ccc;text-decoration:underline}
+.profileMemoWrap textarea {height:80px;width:330px;width:-webkit-calc(100% - 32px);width:-moz-calc(100% -32px);width :calc(100% -32px)}

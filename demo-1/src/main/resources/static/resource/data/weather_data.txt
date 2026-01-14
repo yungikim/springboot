@@ -1,0 +1,22 @@
+[
+	{
+		"location": {
+			"city": "서울",
+			"town": "상암동"
+		},
+		"sky": {
+			"status": "맑음",
+			"img": "../../resource/images/sun.svg"
+		},
+		"temperature": {
+			"now": 13.9,
+			"yesterday": 15,
+			"perceived": 20.5
+		},
+		"humidity": 50,
+		"wind": {
+			"direction": "서쪽",
+			"speed": 1.9
+		}
+	}
+]

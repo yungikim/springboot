@@ -1,0 +1,354 @@
+/* 110% 일 때 */
+/* 1680px ~ 1919px */ 
+@media screen and (min-width: 1680px) and (max-width: 1919px) {
+	#area_left .btn_left_menu, #area_left .btn_menu_help {
+		width: 42px;
+		height: 42px;
+	}
+	
+	#weather_box {
+		/* gap: 16px; */
+	}
+	#schedule_box .mbsc-ios.mbsc-calendar-wrapper {
+		/* font-size: 0.85em; */
+	}
+	#schedule_box .mbsc-ios.mbsc-datepicker-inline {
+    	/* flex: 2.5; */
+    }
+	#schedule_box .mbsc-calendar-table-active .mbsc-calendar-row:last-child {}
+	#survey_box .survey_title_wrap,
+	#survey_box .survey_info_wrap {
+		padding: 12px 0;
+	}
+	#meeting_list_layer .left_content .list_wrap {
+	   /* max-height: 465px;*/
+	}
+	
+	#ai_result_dis .source_content_wrap .item_wrap .item {
+        width: 23%;
+        min-width: 180px;
+	}
+	#ai_result_dis .source_content_wrap .item_wrap .item .item_link {
+    	max-width: 140px;
+	}
+	
+	#manual_folder_box {
+        height: 560px;
+    }
+	
+}
+
+/* 125% 일 때*/ 
+/* 1440px ~ 1679px */ 
+@media screen and (min-width: 1440px) and (max-width: 1679px) {
+	
+	#area_left .menu_wrap {
+		gap: 16px;
+	}
+	#area_left .btn_left_menu, #area_left .btn_menu_help {
+		width: 42px;
+		height: 42px;
+	}
+	#area_left .menu_name_wrap {
+		min-width: 36px;
+		font-size: 10px;
+	}
+	
+	#content_container .content_item {
+		padding: 16px;	
+	}
+	
+	#content_container .content_item .doc_li,
+	#content_container .content_item .msg_li {
+		font-size: 0.9em;
+	}
+	
+	#weather_box {
+		/* gap: 8px; */
+	}
+	#weather_box .weather_info_top {
+		gap: 4px;
+	}
+	#weather_box .weather_info {
+		font-size: 0.8em;
+	}
+	#weather_box .weather_img {
+		width: 64px;
+		height: 64px;
+	}
+	#weather_box .weather_info_wrap {
+		gap: 11px;
+	}
+	
+	#schedule_box .mbsc-ios.mbsc-calendar-wrapper {
+		/* font-size: 0.8em; */
+	}
+	#schedule_info_box .schedule_info_wrap {
+        line-height: 16px;
+        padding: 8px 0;
+        font-size: 0.8em;
+	}
+	#schedule_info_box {
+		margin-bottom: 8px;	
+	}
+	#schedule_box .mbsc-ios.mbsc-datepicker-inline {
+	    /* max-height: 219px; */
+	}
+	#schedule_box .mbsc-calendar-week-days {
+		/* margin-top: 6px; */
+	}
+	#schedule_box .mbsc-ios.mbsc-datepicker-inline {
+    	/* flex: 3.2; */
+    }
+	#schedule_box .mbsc-calendar-table-active .mbsc-calendar-row:last-child {
+		/* display: none; */
+	}
+	
+	#chat_box .item_title {
+		max-width: initial;
+		font-size: 0.9em;
+	}
+	
+	#emp_search_box .category_wrap {
+		margin: 12px 0;
+	}	
+	#emp_search_box .search_input_wrap {
+    	height: 40px;
+	    margin-bottom: 12px;
+	}
+	
+	#holidays_box .holiday_info_wrap {
+		margin-top: 12px;
+	}
+	#holidays_box .holiday_info {
+		font-size: 0.9em;
+	}
+	#holidays_box .holiday_img {
+	    width: 90px;
+    	height: 80px;
+	}
+	#holidays_box .remain_title_wrap,
+	#holidays_box .detail_count_wrap {
+		margin-bottom: 4px;
+	}
+	#holidays_box .btn_wrap {
+		margin-top: 16px;
+	}
+	
+	#survey_box .survey_title_wrap,
+	#survey_box .survey_info_wrap {
+		gap: 6px;
+		padding: 8px 0;
+	}
+	#survey_box .survey_title {
+	    max-width: 253px;
+	    white-space: nowrap;
+	    text-overflow: ellipsis;
+	    overflow: hidden;
+	}
+	#survey_box .survey_title,
+	#survey_box .survey_info {
+		font-size: 0.9em;
+	}
+	
+	#bookmark_app_box .app_info_wrap {
+		gap: 4px;
+	    font-size: 0.88em;
+	}
+	
+	#bookmark_app_box .app_img {
+		width: 20px;
+		height: 20px;
+	}
+	
+	.content_item .btn_white, .content_item .btn_blue {
+		line-height: 32px;
+	    height: 32px;
+	    font-size: 0.84em;
+	}
+	
+	#todo_work_area .box_top {
+		padding: 24px 24px 12px;
+	}
+	#todo_work_area .emp_wrap_title {
+		font-size: 14px;
+	}
+	#emp_schedule_cal.mbsc-font {
+		font-size: 0.85em;
+	}
+	
+	#manual_layer,
+	#ai_briefing_set_box {
+	    min-height: inherit;
+	}
+	
+	#manual_folder_box {
+	    height: 470px;
+	}
+	#ai_briefing_set_box .temp_folder_list {
+		max-height: 500px;
+	}
+	#meeting_list_layer {
+	    width: 70%;
+	    min-height: 90%;
+	}
+	#meeting_list_layer .left_content .list_wrap {
+	   /* max-height: 465px;*/
+	}
+	
+	#ai_result_dis .source_content_wrap .item_wrap .item {
+        width: 31%;
+        /* min-width: 146px; */
+	}
+	#ai_result_dis .source_content_wrap .item_wrap .item .item_link {
+        /* max-width: 105px; */
+    }
+    
+    .ui-selectmenu-open {
+    	max-height: 144px;
+	   	border-bottom: 1px solid #ddd;
+    }
+    
+    #proceedings_show_layer .layer_inner {
+	    min-width: 640px;
+	    min-height: 480px;
+	    max-height: 600px;    
+    }
+    
+}
+
+@media screen and (max-width: 1439px) {
+	
+	#content_container .content_item {
+        padding: 16px;
+    }
+	.content_item .category {
+		white-space: nowrap;
+	}
+	
+	#bookmark_app_box .app_img {
+        width: 18px;
+        height: 18px;
+    }
+	
+	#schedule_box .mbsc-ios.mbsc-calendar-wrapper {
+        /* font-size: 0.8em; */
+    }
+    #schedule_info_box {
+    	margin: 0;
+    }
+    #schedule_info_box .schedule_info_wrap {
+        
+        line-height: 16px;
+        padding: 8px 0;
+        font-size: 0.8em;
+    }
+    #schedule_box .btn_wrap {
+    	margin-top: 16px;
+    }
+    
+    #emp_search_box .category_wrap {
+    	margin: 8px 0;
+    }
+    #emp_search_box .search_input_wrap {
+        height: 40px;
+        margin-bottom: 12px;
+    }
+    #weather_box {
+        gap: 4px;
+    }
+    #weather_box .weather_info_top {
+        gap: 4px;
+    }
+    #weather_box .weather_info {
+        font-size: 0.8em;
+    }
+    #weather_box .weather_img {
+        width: 64px;
+        height: 64px;
+    }
+    
+    #chat_box .item_title {
+    	max-width: initial;
+    }
+    
+    .content_item .btn_white, .content_item .btn_blue {
+    	line-height: 32px;
+        height: 32px;
+        font-size: 0.84em;
+    }
+}
+
+
+@media screen and (max-width: 1320px) {
+	#ceo_mail {
+		gap: 12px;
+	}
+}
+@media screen and (min-width: 1280px) and (max-width: 1439px) {
+
+	
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1279px) {
+	#emp_card_box .emp_card {
+	    width: calc(50% - 13.5px);
+	}
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+	#search_layer .recent_search_list_box {
+		width: inherit;
+	}
+	#emp_card_box .emp_card {
+	    width: 100%;
+	}
+}
+
+@media screen and (max-width: 767px) {
+	/* 통합검색 최근검색결과 */
+	
+	#search_layer .logo {
+	    width: 100%;
+	    background-size: contain;
+	}
+
+	#search_layer .layer_content {
+		gap: 48px;
+		padding: 0 6%;
+	}
+	
+	#search_layer .recent_search_list_box {
+	    justify-content: flex-start;
+		gap: 16px;
+		width: 100%;
+	}
+	
+	#search_layer .search_box {
+	    height: 50px;
+	}
+	
+	#search_selectmenu-button {
+		width: auto;
+		height: 100%;
+	}
+	
+	#search_layer .search_btn {
+		width: 72px;
+	}
+	
+	#emp_card_box .emp_card {
+	    width: 100%;
+	}
+}
+
+/*** 포틀릿 2열일 경우 ***/
+@media screen and (max-width: 1539px) {
+
+	#weather_box .weather_info_wrap {
+	    justify-content: space-evenly;
+	    gap: 8px;
+	    flex: 1;
+	}
+	
+}

@@ -1,0 +1,343 @@
+/**************** 동명이인창 관련 레이어  S ****************/
+.same-name-layer {
+	position: fixed;
+    width: 680px;
+    height: 380px;
+    top: 50%;
+    left: 50%;
+    z-index: 10000;
+    background: #fff;
+    transform: translate(-50%, -50%) scale(0.8);
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+.same-name-layer.show-layer {
+	transform: translate(-50%, -50%) scale(1);
+	opacity: 1;
+}
+.same-name-layer .title-wrap {
+	display: flex;
+    justify-content: space-between;
+    padding: 15px 15px 0;
+}
+.same-name-layer .title-wrap .title{
+    font-size: 18px;
+    font-weight: bold;
+}
+.same-name-layer .title-wrap .btn-close {
+	width: 31px;
+	height: 31px;
+}
+.same-name-layer .user-term {
+    padding: 15px;
+    text-align: center;
+}
+.same-name-layer .user-list {
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	overflow-y: auto;
+	height: calc(100% - 136px);
+}
+.same-name-layer .user-list li {
+    border-bottom: 1px solid #f2f2f2;
+	padding: 11px 20px;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    color: #666;
+}
+.same-name-layer .user-list li:last-child {
+	border-bottom: none;
+}
+.same-name-layer .user-list li.on {
+	background: #e9e9e9;	
+}
+.same-name-layer .user-list li:not(.on):hover {
+	background: #fafafa;
+}
+
+.same-name-layer .btn-wrap {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 15px;
+}
+.same-name-layer .btn-wrap button {
+	background: transparent;
+    border: none;
+    border-radius: 4px;
+    margin-left: 5px;
+    padding: 5px 8px;
+    color: #666;
+}
+.same-name-layer .btn-wrap button:hover {
+	background: #f2f2f2;
+	color: #333;
+}
+
+
+
+/**************** 동명이인창 관련 레이어  E ****************/
+
+.left-area.org {
+	padding: 30px 15px;
+}
+
+.org-left-cont {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+.org-menu-title {
+    flex-shrink: 0;
+    height: 40px;
+    padding-left: 26px;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+}
+.org-menu-sub {
+	position: relative;
+	z-index: 20;
+	background: #fff;
+}
+.org-company-wrap {
+	display: flex;
+	flex-shrink: 0;
+	height: 50px;
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+}
+.org-company-wrap input {
+    height: 30px;
+    border: 1px solid #ccc !important;
+    padding: 5px !important;
+}
+.btn-search-area {
+	width: 26px;
+	display: -ms-flexbox;
+	display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+#container .btn-search-ico {
+	top: 12px;
+}
+.btn-org-search {
+	width: 16px;
+	height: 16px;
+    background-position: 0 0;
+}
+.btn-org-search:hover {
+	background-position: -16px 0;
+}
+.org-search-area {
+	position: absolute;
+	top: 45px;
+	border-bottom: 1px solid #ccc;
+	width: 100%;
+    height: 45px;
+    background: #fff;
+    z-index: 5;
+    transition: all 0.2s ease;
+    
+}
+.search-txt-wrap {
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+}
+.search-txt-wrap .input-field {
+	height: 100%;
+	padding: 0;
+}
+.search-txt-wrap .input-field input {
+	height: 100%;
+	padding: 0 0 5px;
+}
+
+
+.org-left-cont.show-search .btn-org-search {
+	background-position: -692px -20px	
+}
+.org-left-cont.show-search .btn-org-search:hover {
+	background-position: -712px -20px	
+}
+.org-left-cont.show-search .org-search-area {
+	top: 90px;
+	box-shadow: 0px 0px 10px 0px;
+}
+
+
+.org-search-result {
+	user-select: none;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+    font-size: 13px;	
+}
+
+.org-search-result.show {
+	max-height: 200px;
+	border-bottom: 1px solid #ccc;
+	position: relative;
+}
+.search-result-header {
+	padding: 0 10px;
+}
+.search-result-title {
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+	height: 30px;
+}
+.search-result-title .keyword {
+    font-weight: bold;
+    color: red;
+}
+.search-result-title .btn-search-close {
+	position: relative;
+    display: flex;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+	transition: all 0.2s ease;
+	cursor: pointer;
+}
+.search-result-title .btn-search-close:hover {
+	transform: rotate(90deg);	
+}
+.search-result-title .btn-search-close span {
+	width: 100%;
+    height: 1px;
+    background: #000;
+    display: block;
+    position: absolute;
+    transform: rotate(45deg);
+}
+.search-result-title .btn-search-close span:nth-child(1) {
+	transform: rotate(-45deg);
+}
+.search-result-theader {
+	height: 20px;
+}
+.search-result-body {
+	padding: 0 10px;
+    max-height: 150px;
+    overflow: auto;
+}
+.search-result-body tr {
+	cursor: pointer;
+	height: 25px;
+}
+.search-result-body tr:hover {
+	background: #e3e3e3;
+}
+.search-result-body td {
+    word-break: keep-all;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+
+.userinfo-layer {
+	position: fixed;
+	width: 150px;
+	height: 180px;
+	overflow: hidden;
+	z-index: 1000;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	
+}
+.userinfo-layer .img-bg {
+	background: #000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    opacity: 0.15;
+}
+.userinfo-layer .user-info {
+	color: #fff;
+	position: absolute;   
+    bottom: 0;
+    z-index: 20;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+
+.org-tree-wrap {
+	height: 100%;
+	overflow: auto;
+}
+
+#org_tree {
+	padding: 18px 10px;
+	border: none;
+}
+#org_tree .ui-fancytree > li > span {
+	font-size: 14px;
+	font-weight: 500;
+}
+#org_tree span.fancytree-node {
+	height: 30px;
+}
+#org_tree span.fancytree-node.fancytree-active {
+    color: #333;
+    font-weight: bold;
+    position: relative;
+}
+#org_tree span.fancytree-node.fancytree-active:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 30px;
+    display: block;
+    border-radius: 10px;
+    background: #ebebeb;
+    box-shadow: 0px 2px 21.6px 5.4px rgb(0 0 0 / 5%);
+}
+#org_tree span.fancytree-title {
+	position: relative;
+	margin-left: 0;
+}
+#org_tree span.fancytree-expander {
+	position: relative;
+}
+
+/*********************** 사용자 정보 표시 테이블 S***********************/
+.user-table .photo-wrap {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    border: 1px solid #eeeeee;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+.user-table tr{
+	transition: all 0.2s ease;
+}
+.user-table tr:hover, .user-table tr.select-user {
+	background: #e3e3e3;
+}
+.user-table tr:hover .photo-wrap, .user-table tr.select-user .photo-wrap {
+	transform: scale(1.5);
+}
+.user-table .photo-wrap img {
+	width: 100%;
+}
+/*********************** 사용자 정보 표시 테이블 E***********************/

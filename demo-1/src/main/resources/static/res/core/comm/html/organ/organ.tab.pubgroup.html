@@ -1,0 +1,126 @@
+<div class="tab-wrap pubgroup-tab">
+	<div class="srch-wrap">
+		<span class="comp-select">
+		</span><!-- <span class="organ-search">
+		<input type="text" name="organ_search"></span> -->
+	</div>
+	<div class="ep-organ-tab-tree orgType" />
+	<div class="ep-organ-tab-search">
+		<div class="search-header">
+			<span class="ep-organ-search-resultcount">{$CORE.ORGAN.TEXT.SEARCHRESULT}<span>(<strong>0</strong>)</span></span>
+			<span class="ep-organ-search-btnclose"></span>
+		</div>
+		<div class="ep-organ-search" />
+	</div>
+</div>
+
+<script>
+(function(){
+	var _dlg = $("#{$dialogid$}")  		/* dialog id */
+		,_tabid = "{$tabid$}"			/* tabid */
+		, _tab = $("#"+_tabid,_dlg)		
+		,_event = $.Event("ep.ui.organ.dialog.method")
+		,_dialog = null  		/* organ.dialog */
+		,_panel = null			/* active Tab */
+		,_tree = null 			/* organ.tree */
+		,_select = null 
+		,_search = null ;
+
+	_dlg.trigger(_event,["getInstance"]);		/* organ dialog의 instance  구하기 */
+	_dialog = _event.result;
+	_panel = _dialog.getActiveTab();  			/*현재 활성 탭*/ 
+		
+	/* Tree 초기화 */
+	function _initOrgan() {
+		if(_dialog.moduleName != "ep.ui.organ.dialog") {return;}
+		if(_panel.options.tree) {
+			if(!_panel.options.tree.root && _panel.options.tree.expandTree) {
+				_panel.options.tree.root = _panel.options.tree.expandTree.split("^")[0];
+			}
+			/* 검색 결과 처리.*/
+			!_panel.options.tree.aftersearch && (_panel.options.tree.aftersearch = function(data) {$(".ep-organ-search-resultcount strong",_tab).html(data.length);});
+			/* 트리 초기화.*/
+			_tree = _dialog.api.tabs[_tabid] = $ep.ui.organ.tree.apply(_dialog,[$(".ep-organ-tab-tree",_panel.panel),_panel.options.tree]);
+		}
+		return;	
+	}
+	function _closeSearch() {
+		$(".ep-organ-tab-search",_tab).hide();
+		_search && _search.val("");
+		_tree && _tree.closeSearch(); 
+	}
+	function _initPage() {
+		function _getQuery(q) {
+			var _v = q
+			,_data = _select.getSelectedData()
+			,_query = $ep.util.patternCompletion(
+						'(&#91;form&#93;=group,user[ AND &#91;eCompany&#93;="{ename}"]) AND (&#91;korname&#93;={query} OR &#91;engname&#93;={query})'
+						,$.extend({query : _v},_data.data)
+				).replace(/&#91;/g,"[").replace(/&#93;/g,"]");
+			return _query;
+		};
+		_select = $ep.ui.select($(".comp-select",_tab),{
+			select : function(e,ui) {
+				_closeSearch();
+				_tree && (_tree.options.root = ui.item.value);
+				_tree && _tree.reload();
+			}
+			,items : function(result) {
+				var _self = this;
+				var __opt = $.extend({},_panel.options.tree);
+				__opt.view = "byorgan_tree_all";
+				__opt.viewtype = "readviewentries";
+				var _uri = _dialog.getOrganURI("company",__opt);
+				$ep.util.ajax({
+					url : _uri.url
+				}).done(function(d) {
+					var _d = $ep.ui.organ.tree.prototype.convertViewEntry.apply(this,[d,_panel.options.tree])
+					var _ext = _panel.options.tree.expandTree ?  _panel.options.tree.expandTree.split($ep._CONST.SEPERATE.col)[0] : "";
+					var _r = [];
+					$.each(_d, function(idx,v){
+						_r.push({text : v.title,id : v.code,data : v});						
+					});
+					result(_r);
+					_self.setSelected(_ext);
+				});
+			} 
+		}); 
+		_search = $ep.ui.input($('.organ-search',_tab), {
+			icon : "search"
+			,accesskey : "s"
+			,placeholder : "{$CORE.ORGAN.TEXT.ORGANSEARCHTEXT}" 
+			,title : "{$CORE.ORGAN.TEXT.ORGANSEARCHTEXT}"
+			,icoClick : function() {
+				var _v = this.val();
+				if(!_v.trim()) {_closeSearch();return;}
+				var _query = _getQuery(_v);
+				$(".ep-organ-tab-search",_tab).show();
+				_tree && _tree.doSearch(_query);				
+			}
+			,event : "keydown"
+			,eventHandler : function(e) {
+				if(e.keyCode != 13) {return;}
+				var _v = this.val();
+				if(!_v.trim()) {_closeSearch();return;}
+				var _query = _getQuery(_v);
+				$(".ep-organ-tab-search",_tab).show();
+				_tree && _tree.doSearch(_query);
+			} 
+			,complete : function() {
+				$(this.elements.input).focus();
+			}
+		}); 
+		
+		$($('.ep-organ-search-btnclose',_tab)).epbutton({
+			text : "{$CORE.ORGAN.BUTTON.BTNSEARCHCLOSE}"
+			,id : "btnsearchclose"
+			,show : true
+			,click : function() {_closeSearch();}
+		});
+		
+
+	}
+	_initOrgan();
+	_initPage();
+})();
+</script>

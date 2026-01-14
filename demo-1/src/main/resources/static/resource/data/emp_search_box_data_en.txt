@@ -1,0 +1,16 @@
+<div id='emp_search_box' class='content_item' idx='6'>
+	<div class='content_title_wrap'><h4 class='content_title'>Employee inquiry</h4></div>
+	<div class='emp_content'>
+		<div class="category_wrap">
+			<li class="category active"><span class="category_name">All</span></li>
+			<li class="category"><span class="category_name">Dept</span></li>
+			<li class="category"><span class="category_name">Name</span></li>
+        </div>
+        <div class='search_input_wrap'>
+            <input type='text' class='search_input' placeholder='Please enter the employee's information'>
+        </div>
+    </div>
+ 	<div class='btn_wrap'>
+		<button type='button' class='btn_blue'><span>Search</span></button>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+@font-face {
+    font-family: Nanum Gothic;
+    src: url(../fonts/NanumGothicLight.woff) format('woff');
+    font-display: block;
+    font-weight: 300;
+}
+@font-face {
+    font-family: Nanum Gothic;
+    src: url(../fonts/NanumGothic.woff) format('woff');
+    font-display: block;
+    font-weight: 400;
+}
+@font-face {
+    font-family: Nanum Gothic;
+    src: url(../fonts/NanumGothicBold.woff) format('woff');
+    font-display: block;
+    font-weight: 700;
+}
+@font-face {
+    font-family: Nanum Gothic;
+    src: url(../fonts/NanumGothicExtraBold.woff) format('woff');
+    font-display: block;
+    font-weight: 800;
+}
+
+/* @font-face {
+    font-family: 'Quicksand';
+    font-style: normal;
+    font-weight: 300;
+    src: url(../fonts/Quicksand_Light.woff) format('woff');
+}
+@font-face {
+    font-family: 'Quicksand';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../fonts/Quicksand_Book.woff) format('woff');
+}
+@font-face {
+    font-family: 'Quicksand';
+    font-style: normal;
+    font-weight: bold;
+    src: url(../fonts/Quicksand_Bold.woff) format('woff');
+} */
+
+@font-face {
+    font-family: 'Quicksand';
+    src: url(../fonts/Quicksand-Medium.woff) format('woff');
+    font-display: block;
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Quicksand';
+    src: url(../fonts/Quicksand-Light.woff) format('woff');
+    font-display: block;
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Quicksand';
+    src: url(../fonts/Quicksand-Regular.woff) format('woff');
+    font-display: block;
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Quicksand';
+    src: url(../fonts/Quicksand-Bold.woff) format('woff');
+    font-display: block;
+    font-weight: bold;
+    font-style: normal;
+}
+

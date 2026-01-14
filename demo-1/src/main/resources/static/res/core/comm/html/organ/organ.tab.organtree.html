@@ -1,0 +1,149 @@
+<div class="tab-wrap organ-tab">
+	<div class="srch-wrap">
+		<span class="comp-select">
+		</span><span class="organ-search">
+		<input type="text" name="organ_search"></span>
+	</div>
+	<div class="ep-organ-tab-tree orgType" />
+	<div class="ep-organ-tab-tree-message">{$CORE.ORGAN.TEXT.ORGANTREEMESSAGE}</div>
+	<div class="ep-organ-tab-search">
+		<div class="search-header">
+			<span class="ep-organ-search-resultcount">{$CORE.ORGAN.TEXT.SEARCHRESULT}<span>(<strong>0</strong>)</span></span>
+			<span class="ep-organ-search-btnclose"></span>
+		</div>
+		<div class="ep-organ-search" />
+	</div>
+	
+</div>
+
+<script>
+(function(){
+	var _dlg = $("#{$dialogid$}")
+		,_tabid = "{$tabid$}"
+		, _tab = $("#"+_tabid,_dlg)
+		,_event = $.Event("ep.ui.organ.dialog.method")
+		,_dialog = null  /* organ.dialog */
+		,_panel = null/* active Tab */
+		,_tree = null /* organ.tree */
+		,_select = null 
+		,_search = null ;
+		
+	_dlg.trigger(_event,["getInstance"]);
+	_dialog = _event.result;
+	_panel = _dialog.getActiveTab(); 
+
+	function _initOrgan() {
+		if(_dialog.moduleName != "ep.ui.organ.dialog") {return;}
+		if(_panel.options.tree) {
+			if(_panel.options.tree.checkbox == true) {
+				$(".ep-organ-tab-tree",_tab).addClass("hasmessage");
+				if($ep.ui.isShowOrg == "F"){
+					$(".ep-organ-tab-tree",_tab).hide();
+				}
+				$(".ep-organ-tab-tree-message",_tab).show();
+			}
+			if(!_panel.options.tree.root && _panel.options.tree.expandTree) {
+				//_panel.options.tree.root = _panel.options.tree.expandTree.left("^");
+				_panel.options.tree.root='';
+			}
+			/* 검색 결과 처리.*/
+			!_panel.options.tree.aftersearch && (_panel.options.tree.aftersearch = function(data) {$(".ep-organ-search-resultcount strong",_tab).html(data.length);});
+			/* 트리 초기화.*/
+			_tree = _dialog.api.tabs[_tabid] = $ep.ui.organ.tree.apply(_dialog,[$(".ep-organ-tab-tree",_panel.panel),_panel.options.tree]);
+		}
+		return;	
+	}
+	function _closeSearch() {
+		$(".ep-organ-tab-search",_tab).hide();
+		_search && _search.val("");
+		_tree && _tree.closeSearch(); 
+	}
+	//&#91&#93
+	function _initPage() {
+		_select = $ep.ui.select($(".comp-select",_tab),{
+			width : 190
+			,select : function(e,ui) {
+				_closeSearch();
+				_tree && (_tree.options.root = ui.item.value);
+				_tree && _tree.reload();
+			}
+			,items : function(result) {
+				var _self = this
+					,__opt = $.extend({},_panel.options.tree);
+				__opt.viewtype = "readviewentries";
+			//	var _uri = _dialog.getOrganURI("company",__opt);
+				var _pd = {
+					"companycode" : companycode
+				}
+				var _url = root_path + "/search_company.km"
+				$ep.util.ajax({
+					type: "post",
+					url: _url,//_uri.url
+					data: JSON.stringify(_pd)
+				}).done(function(d) {
+					var _d = $ep.ui.organ.tree.prototype.convertViewEntry.apply(this,[d,__opt])
+					var _ext = __opt.expandTree ?  __opt.expandTree.split($ep._CONST.SEPERATE.col)[0] : "1";
+					
+				//	var _daesang = "{$CORE.ORGAN.TEXT.ADDR_DAESANG_GROUP}";
+					var _daesang = "All";
+					var _r = [{text : _daesang}];	
+					$.each(_d, function(idx,v){
+						//var __r = {text : v.title, id : v.code, data : v};
+						var __r = {text : v.cp, id : v.cpc, data : v};
+						// _ext == __r.id && (__r.selected = true);
+						_r.push(__r);						
+					});
+					result(_r);					
+					//_self.setSelected(_ext);
+					//_self.setSelectedIndexOne(0);
+				});
+			} 
+		}); 
+		function _doSearch(_v) {
+			if(!_v.trim()) {_closeSearch();return;}
+			if(!_v.match(/[A-Za-z\s]{2,}|[^A-Za-z\s]{2,}/g)) {
+				$ep.util.toast($ep.LangString("$CORE.ORGAN.TEXT.QUERYLIMIT"));
+				return;}
+			/* var _query = _getQuery(_v); */
+			var _data = _select.getSelectedData();
+			var _query = _dialog.api.organ.__organ._organSearchQuery(_v,_data.data);
+			$(".ep-organ-tab-search",_tab).show();
+			_tree && _tree.doSearch(_query);
+		}
+		_search = $ep.ui.input($('.organ-search',_tab), {
+			icon : "search"
+			,accesskey : "s"
+			,placeholder : "{$CORE.ORGAN.TEXT.ORGANSEARCHTEXT}" 
+			,title : "{$CORE.ORGAN.TEXT.ORGANSEARCHTEXT}"
+			,icoClick : function() {
+				var _v = this.val();
+				_doSearch(_v);				
+			}
+			,event : "keydown"
+			,eventHandler : function(e) {
+				if(e.keyCode != 13) {return;}
+				var _v = this.val();
+				_doSearch(_v);
+			} 
+			,complete : function() {
+				$(this.elements.input).focus();
+			}
+		}); 
+		
+		$($('.ep-organ-search-btnclose',_tab)).epbutton({
+			text : "{$CORE.ORGAN.BUTTON.BTNSEARCHCLOSE}"
+			,id : "btnsearchclose"
+			,show : true
+			,click : function() {_closeSearch();}
+		});
+		
+
+	}
+	_initOrgan();
+	_initPage();
+	
+	$("#organ .ep-organ-tab-search").on('mousedown mousemove touchstart', function(event) {
+		event.preventDefault();
+	});
+})();
+</script>

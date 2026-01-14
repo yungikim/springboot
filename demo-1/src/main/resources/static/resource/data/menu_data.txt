@@ -1,0 +1,57 @@
+[
+	{
+		"name": "home",
+		"name_ko": "홈",
+		"img": "../resource/images/menu_home.svg"
+	},
+	{
+		"name": "work",
+		"name_ko": "업무방",
+		"img": "../resource/images/menu_work.svg"
+	},
+	{
+		"name": "chat",
+		"name_ko": "채팅",
+		"img": "../resource/images/menu_chat.svg"
+	},
+	{
+		"name": "mail",
+		"name_ko": "메일",
+		"img": "../resource/images/menu_mail.svg"
+	},
+	{
+		"name": "calendar",
+		"name_ko": "캘린더",
+		"img": "../resource/images/menu_calendar.svg"
+	},
+	{
+		"name": "folder",
+		"name_ko": "파일",
+		"img": "../resource/images/menu_folder.svg"
+	},
+	{
+		"name": "meeting",
+		"name_ko": "회의예약",
+		"img": "../resource/images/menu_meeting_room.svg"
+	},
+	{
+		"name": "tree",
+		"name_ko": "조직도",
+		"img": "../resource/images/menu_tree.svg"
+	},
+	{
+		"name": "gathering",
+		"name_ko": "취합",
+		"img": "../resource/images/menu_gathering.svg"
+	},
+	{
+		"name": "portal",
+		"name_ko": "K-GPT",
+		"img": "../resource/images/menu_portal.svg"
+	},
+	{
+		"name": "help",
+		"name_ko": "help",
+		"img": "../resource/images/menu_help.svg"
+	}	
+]

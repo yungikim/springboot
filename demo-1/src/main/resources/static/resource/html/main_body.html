@@ -1,0 +1,615 @@
+<style>
+
+
+.mo_tab_wr li {
+    padding: 0 19px;
+    width: 33.33%;
+    position: relative;
+    padding-bottom: 11px;
+    text-align: center;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 17px;
+    font-weight: 600;
+}
+.mo_tab_wr li::after {
+    position: absolute;
+    left: 0;
+    bottom: 0;   
+    height: 1px;
+    background-color: #e5e5e5;
+    width: 100%;
+    content: '';
+}
+.mo_tab_wr li.on {
+    color: #000;
+}
+.mo_tab_wr li.on::after {    
+    height: 2px;
+    background-color: #71368d;
+}
+.mo_tab_wr li::before {
+    position: absolute;
+    top: 7px;
+    right: 0;
+    width: 1px;
+    background-color: #e5e5e5;
+    height: 11px;
+    content: '';
+}
+.mo_tab_wr li:last-child:before {display: none;}
+.flex {display: flex;}
+.mo_tab_wr ul li::after {background-color: transparent;}
+.mo_tab_wr li::after {bottom: -2px;}
+.mo_tab_wr li::after {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: #e5e5e5;
+    width: 100%;
+    content: '';
+}
+.all_read {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.8);
+    border-radius: 6px;
+    background-color: #e9e9e9;
+    padding: 4px 10px;
+    margin-bottom: 11px;
+}
+.stop_gen {
+	width : 200px;
+	height : 35px;
+	position : absolute;
+	border : 1px solid #c3c2c2;
+	bottom : 60px;
+	font-size : 13px;
+	left: 50%; transform: translateX(-50%);
+	line-height:30px;
+	text-align:center;
+	border-radius : 5px;
+	cursor : pointer;
+}
+</style>
+<!--<div class="left-menu mu_left_menu" id="left_menu_list" style="display: none;">-->
+<!-- 
+	<ul style="margin-top:60px; list-style:none">
+		<li id="home"><span class="ico ico-menu"></span></li>
+		<li id="channel"><span class="ico ico-channel"></span>Meet</li>
+		<li id="org"><span class="ico ico-org"></span>Org</li>
+		<li id="drive"><span class="ico ico-drive"></span>Files</li>
+		<li id="mail"><span class="ico ico-mail"></span>Mail</li>		
+		<li id="cal"><span class="ico ico-calendar"></span>Cal</li>	
+		<li id="collect"><span class="ico ico-calendar"></span>Collect</li>			
+		<li id="meeting"><span class="ico ico-calendar"></span>회의</li>
+		<li id="left_more" style='display:none'><span class="ico ico-more"></span></li>
+		<li id="left_apps" class="apps" style='display:none'><span class="ico ico-apps"></span>Apps</li>
+		<li id="help" class="help"><span class="ico ico-help"></span>Help</li>
+	</ul>
+ -->		
+	<div class="logo"><a ><img src="resource/images/common/logo.png" alt="daesang" /></a></div>
+	<ul>      
+       
+           <li class="home" id="home"><div class="lnb-ico"></div><a class="lnb-title"><span></span></a></li>
+           <li class="work" id="channel"><div class="lnb-ico"></div><a class="lnb-title"><span></span><div class="menu-cnt-bx" style='display:none' id='menu_id_2'></div></a></li>
+           <li class="chat" id="abc2"><div class="lnb-ico"></div><a class="lnb-title"><span></span><div class="menu-cnt-bx" style='display:none' id='menu_id_3'></div></a></li>
+           <li class="chart" id="org" style="display:none;"><a class="lnb-title">Org</a></li>
+            
+           <li class="appmore" id="app_more"><a></a></li>
+           <!-- <li class="apps"><a href="" class="ico ico-apps"></a>앱스</li> --> 
+           <li class="list abs" id="btn_main_popup" style="z-index:1;""><a class="en ico"></a></li>
+           <li class="help abs" id="help"><a class="en ico">Help</a></li>
+	</ul>
+
+</div>
+<nav id='left_main' style="display:none">
+	<div class="nav-wide" id='nav_left_menu'>		
+	</div>	
+	<div class="nav-wide" id='nav_left_menu_todo' style="display:none">
+	</div>	
+	<div class="nav-narrow" style="display:none" id='todo_left_col'> <!-- 20210408 -->
+		<button class="ico btn-left-fold on"></button>
+	</div>	
+	<div class="nav-narrow" id='nav_left_sub_menu'>  
+		<button class="ico btn-left-fold on" id='left_frame_collapse_sub_btn'></button>
+		<button class="ico btn-favorite" id='favorite_sub_show' style='display:none'></button>
+		<ul class="favorite-narrow" id="favorite_small" style="display:none">			
+		</ul>
+		<div class="narrow-btns">
+			<button class="ico btn-buddy" id="left_sub_buddylist"></button>
+			<button class="ico btn-room" id="left_sub_chatroom"></button>
+			<span id="left_sub_chatroom_new_dis" ></span>
+		</div>
+	</div>
+</nav>
+<section id="main_body" style="display:none">
+	<article class="left-area search-result full-area" id="user_search_content" style="display:none; width:100%; overflow:hidden">
+		<div id="user_search_result"></div>
+	</article>
+	<article class="left-area chatting channel" id="sub_channel_content" style="display:none">		
+	</article>	
+	<div id='previews_channel' style='display:none'></div>	
+	<article class="chatting channel files left-area box-search" id="box_search_content" style="display:none;"></article>	
+	<article class="left-area" id="channel_main" style="/*padding:25px 45px;*/ overflow:hidden">
+		<div class="section_inner mu_work mu_container" style='display:none;'>
+             <div class="work-tab">
+                 <ul class="flex">
+                     <!-- 활성화 on 클래스 추가 -->
+                     <li class="on" id='p1'><span>요청 받은 업무</span></li>
+                     <li id='p2'><span>요청한 업무</span></li>
+                     <li id='p3'><span>업무 검색</span></li>
+                 </ul>
+             </div>
+             <div class="work-order">
+            	 <div class="work-search flex" id='work_search' style='display:none'>
+                      <div class="input-field selectbox">
+                          <select id='select_my_channel_combo'>
+                             <!--  <option value="" selected>전체 업무방</option>
+                              <option value="" >DSW PJT</option>
+                              <option value="" >JS PJT</option> -->
+                          </select>
+                      </div>
+                      <input type="text" id="cMain_query" style='padding-left:5px'>
+                      <div class="type_icon flex" id="cMain_org"><span></span></div>
+                  </div>
+                 <div class="work-filter on" id="work_filter"></div>
+                 <ul class="flex order-ul">                               
+                     <li>우선순위 현황</li>
+                     <li class="color order-1st red">1st <span id='pri_1'>0</span></li>
+                     <li class="color order-2nd orange">2nd <span  id='pri_2'>0</span></li>                               
+                     <li class="color order-3th blue">3th <span  id='pri_3'>0</span></li>
+                     <li class="color order-4th purple">4th <span id='pri_4'>0</span></li>
+                </ul>
+             </div> 
+             <div class="work-requested  custom-scroll-row" id='work_show_card' style='display:none'>             	
+             </div>                    
+         </div> 
+		<div id='show_mypage' style='display:none; margin-top:16px; width:calc(100% - 8px);  max-height:calc(100% - 100px);'></div>		
+	</article>
+	
+             
+	<article class="left-area room-list" id="center_content" style="display:none">
+		<div id="center_content_main"></div>		
+		<!-- <div class="channel-tab" id='person_dis' style='display:none'>			
+				<li class="" id='p1' style='height:20px; margin-bottom:20px'><a href="#" id='tp1'>개인업무</a></li>
+				<li class="" id='p2' style='height:20px; margin-bottom:20px'><a href="#" id='tp2'>공유업무</a></li>
+				<li class="" id='p3' style='height:20px; margin-bottom:20px'><a href="#" id='tp3'>대상자 검색</a></li>
+		</div> -->					
+	</article>
+	<article class="right-area my-profile" id="user_profile" style='display:none'></article>
+	<article class="left-area chatting" id="chat_content" style="display:none;">
+		<div class='chat-area' id='chat_list'>
+			<div class='chat-header'>							
+				<!--  <button class='btn-prev' id='chat_room_back'><span class="ico ico-prev"></span><span class='ico btn-prev-arrow'></span><span id='chatroom_back'></span></button>-->
+				
+				<span class='before_btn_icon' id='chat_room_back' style='cursor:pointer;margin-right:5px; margin-left:20px'></span>
+				<span class='chatroom_title' id='chatroomtitle' style='font-size:15px'></span>
+				<!--<div class='info-type' id='realtime_video2' style='display:none; position:relative; top:0px; left:-3px; cursor:pointer'><span class='ico ico-camera'></span></div>-->
+				 <!-- <button class='ico btn-video' id='video_add_member'></button>  -->
+				<div class="trans-box">
+				<span class="trans-sel">
+            		<span class="ico sim"></span>
+            		<span id='trans_box_title'></span>
+            		<span class="ico clos" id='trans_close_btn_bottom'></span>
+            	</span>
+            	</div>
+            	
+            	<div class="btn-wrap">
+					<div class="channel-search">		
+						<div class="input-field">			
+							<input type="text" class="" id="chat_query" autocomplete="off" placeholder="">		
+						</div>		
+						<button class="ico btn-channel-search" id="chat_query_btn">검색</button> 	
+						<div class='xbtn-search-close' style='display:none' id='msg_query_btn_close'></div>
+					</div>
+					<span class="ico ico-add-translation" id='translate_btn'></span>
+					<span class="ico ico-add-friend" id='chat_add_member'></span>
+					<span class="ico ico-add-add_newwin" id='chat_new_window'></span>
+					<button id="chat_config" class="ico header-setting" style="right: 22px;"></button>
+					<!-- <button class='ico btn-add' id='chat_add_member'></button>
+					<button class='ico btn-new-window' id='chat_new_window'></button> -->
+				</div>
+			</div>
+			<div class="alarm_offline" style="display:none" id="chatroom_all_status"></div>
+			<div class="notice-top" id="notice_top_chat">
+				<div class="notice-detail-wr">
+					<div class="notice-detail-inner">
+						<div class="notice-head-wr">
+							<div class="ico-notice"></div>
+							<div class="notice-head"></div>
+						</div>
+						<div class="reply-cnt">0</div>
+						<div class="ico-expand"></div>						
+					</div>
+					
+					<div class="notice-writer"></div>
+					<div class="notice-btn-wr">
+						<button type="button" class="btn-notice-detail"></button>
+						<button type="button" class="btn-notice-modify"></button>
+						<button type="button" class="btn-notice-remove"></button>
+					</div>
+				</div>
+			</div>
+			<div style="display:none" id="gpt_plugin_dis"></div>
+			<div  id="chat_msg" style="height:100%" >
+				<div id="chat_msg_dis"></div>
+			</div>
+		</div>		
+		<div id='show_chatgpt_stop' class="stop_gen" style='display:none'>Stop generating</div>
+		<div class='chat-bottom' >
+			<div id="total-progress" class="" style='height:1px;width: calc(100% - 20px); margin-left:10px'>
+				<div class="progress-bar" style="width:0%;background:#337ab7" data-dz-uploadprogress></div>
+			</div>			
+			<div class='input-area'>				
+				<textarea class='txt-chat' style='overflow:hidden; resize:none; margin-left:39px' id='message_txt' onInput='gap.auto_height_check_popup(this)' placeholder='' /></textarea>
+				<button class='abs ico ico-plus' id='open_attach_window' style='display:none'></button>
+				<button class='abs ico ico-plus' id='open_attach_window_popup' style='display:none'></button>
+				<button class='abs ico ico-plus' id='open_attach_window_call'></button>
+				<button class="abs ico ico-emoticon" id="open_emoticon" ></button>
+				<button class='btn-more ico' id="person_text_option"></button>
+				<img class='ico-reply' src='resource/images/icon/ic_reply_gr.png'/>
+			</div>
+		</div>
+	</article>
+	<article class="right-area chat-info" id="chat_profile" style="display:none;">
+		<div class="your-info" id="chat_profile_view"></div>
+		<div id="file_wrap" style="height: calc(100% - 454px) ; overflow-y:auto; width:100%; margin-top:30px">
+			<div id = "chat_image_dis" style='display:none; padding-top:20px; border-top:1px solid #e8e8e8'></div>
+			<div id = "chat_file_dis" style='display:none; padding-top:20px; border-top:1px solid #e8e8e8'></div>
+		</div>
+	</article>
+	<article class="left-area search-result invite" id="sub_search_content" style="display:none"></article>
+	<article class="right-area invite-member" id="sub_search_profile" style="display:none"></article>	
+	<article class="right-area" id="ext_body"  style="display:none; z-index: 2000; position: absolute;  right: 10px;  top: 0; "></article>
+	<article class="right-area" id="ext_body_search"  style="display:none;  z-index: 2000; position: absolute;  right: 10px;  top: 0;"></article>
+	<article class="right-area" id="ext_body_more"  style="display:none; z-index: 2010; position: absolute;  right: 10px;  top: 0;"></article>
+	<article class="right-area channel-info" id="channel_right" style="display:none; overflow:hidden">
+	</article>
+</section>
+
+<div class="schedule_wr r_wr alram mu_work" id="alram_layer" style="display:none">
+	<div class="close_box"><button type="button" class="pop_btn_close" id='alram_close_btn'></button></div>
+	<h2 id="alram_title" style='padding-bottom:5px'></h2>
+	<div class="aside-inner">	
+		<div class="nav-tab" style='margin-bottom:0px; '>
+			<ul class="tabs" id='sel_tabs_main'>
+				<li class="tab on" id='unread_count_title_main'><a href="#" class="active"><p id='unck'></p></a></li>
+				<li class="tab" id='all_count_title_main'><a href="#"><p id='allck'></p></a></li>				
+			</ul>
+		</div>	
+		<div class="input-field" style='margin-top:5px'>
+           <div class="rel" style="position: relative" id='qsearch_layer'>
+               <span class="ico ico-search"></span>
+               <input type="text" class="formInput" id="qsearch" autocomplete="off" />
+               <div class='xbtn-search-close' style='right:5px; top:8px; display:none' id='alram_query_btn_close'></div>
+           </div>
+       </div>      
+       <div class="alarm-list" id='alram_list_main' style=' padding-right:10px' >
+                  <!-- <div class="mo_tab_wr">
+                        <ul class="flex" id='sel_tabs'>
+                            <li class="on" id='unread_count_title'></li>
+                            <li id='all_count_title'></li>
+                        </ul>
+                        <button type="button" class="all_read" id='allread'>모두읽음</button>
+                    </div> -->
+       		<ul id="alram_list_ul" style='height: calc(100% - 100px)'></ul>       		
+       </div>
+	</div>
+</div>
+<div id="portal_search" class="mu_container mu_work" style='display:none'>
+	<div class="contents scroll">
+		<div class="search_wr">
+			<div class="left_tab_cont" id="portal_search_result">				
+			</div>
+			<div class="right_info" id='portal_search_right'>			
+			</div>
+		</div>
+	</div>
+</div>
+<aside id="right_menu" style="display:none; top:68px">
+	<ul>
+		<li><button class="ico btn-right-fold" id="right_menu_collpase_btn"></button></li> 
+		<li><button class="ico btn-right-attach" id="show_attach_layer"></button></li>
+		<li><button class="ico btn-right-link" id="show_link_layer"></button></li>
+		<!--  <li><button class="ico btn-right-memo" id="show_memo_layer"></button></li>-->
+		<!-- <li><button class="ico btn-right-video" id="show_video_layer"></button></li> -->
+	</ul>
+</aside>
+<div id="previews" style="display:none;"></div>
+<div id="fileupload_temp" style="display:none"><button id='open_attach_temp'></button></div>
+<div class="preview" id='preview_img' style="display:none; width:100vw">
+	<header style='z-index:10'>
+		<h1 id='preview_title'><h1>
+		<button class="ico btn-download" id='preview_download' ></button>
+		<button class="ico btn-close" onclick='gap.close_preview_img()'></button>
+	</header>
+	<div class="wrap-preview" id="img_preview_layer" style='z-index:1'>
+		<img id='preview_img_src' style='max-width:95%; background-color:white' src="" alt="" />
+	</div>
+	<div id='img_next_btn'></div>
+</div>
+<div class="manual" id='preview_manual' style="display:none">
+	<header>
+		<h1 id='manual_title'><h1> 
+		<button class="ico btn-close" id='manual_close_btn'></button>
+	</header>
+	<ul class="manual-menu">
+		<li id='manual_1'><a href="" id="manual_t1"></a></li>  
+		<li id='manual_2'><a href="" id="manual_t2"></a></li>    
+		<li id='manual_3'><a href="" id="manual_t3"></a></li>   
+		<li id='manual_4'><a href="" id="manual_t4"></a></li>  
+		<li id='manual_5'><a href="" id="manual_t5"></a></li>  
+		<li id='manual_6'><a href="" id="manual_t6"></a></li>        
+		<li id='manual_7'><a href="" id="manual_t7"></a></li>    
+		<li id='manual_8'><a href="" id="manual_t8"></a></li>        
+		<li id='manual_9'><a href="" id="manual_t9"></a></li>  
+	</ul>
+	<div class="manual-contents">
+	<div class="wrap-manual">
+		<div class="wrap-video"><video id='video_play_div' class="video"  style='width:100%;height:100%' controls></video></div> 
+	</div>
+	</div>
+</div>
+<div class="manual" id='preview_video' style="display:none">
+	<header>
+		<h1 id='video_title'><h1> 
+		<button class="ico btn-close" id='manual_close_btn2'></button>
+	</header>	
+	<div class="manual-contents">
+	<div class="wrap-manual">
+		<div class="wrap-video"><video id='video_play_div_mp4' class="video"  style='width:100%;height:100%' controls></video></div> 
+	</div>
+	</div>
+</div>
+<div class="preview doc-view" id="fullscreen_file_info" style="display: none">
+</div>
+<div class="manual" id='preview_install' style="display:none">
+	<header>
+		<h1 ><span id='xxmanual_title'></span><h1> 	
+	</header>	
+	<div class='pop_usedGuide' id='preview_announce'   >
+		<span class='btn ico_popclose ico' id='ann_close' ></span>
+		<div class='usedGuide_content' >
+			<div class='capture_imgArea'><img id='ann_img' src='../resource/images/intro01_en.jpg' alt=''></div>
+			<div class='guide_textArea'>
+				<div class='title' id='ann_title'></div>
+				<div class='src_area' >
+					<p id='ann_desc'></p><br><br>
+					<strong id='ann_s1'></strong><br>
+					<strong id='ann_s2'></strong><br>
+					<strong id='ann_s3'></strong><br>
+					<strong id='ann_s4'></strong><br>
+					<strong id='ann_s5'></strong><br>
+					<strong id='ann_s6'></strong><br>
+					<strong id='ann_s7'></strong><br>
+					<strong id='ann_s8'></strong><br>
+					<strong id='ann_s9'></strong><br>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>
+<div style="display:none">
+	<div id="preview-template" class="dz-preview dz-file-preview">	
+		<ul>
+			<li>
+				<span class="attach-name" data-dz-name></span> (<span class="attach-size" data-dz-size></span>)
+				<span><button class="btn-memo-file-del ico" data-dz-remove></button></span>
+			</li>
+		</ul>
+	</div>
+</div>
+<div id='chat_history_dialog' style="display:none"></div>
+<!-- Block UI -->
+<div id="blockui" class="blockui" style="display:none;">
+	<iframe style="width:100%;height:100%;border:0"></iframe>
+</div>
+<div id="blockui_todo" class="blockui" style="display:none;">
+	<iframe style="width:100%;height:100%;border:0"></iframe>
+</div>
+<div id="blockui_org" class="blockui" style="display:none;">
+	<iframe style="width:100%;height:100%;border:0"></iframe>
+</div>
+<div id='past_image_viewer' style="display:none">
+	<div id='past_image_head'></div>
+	<canvas style="border:1px solid grey; max-width:1000px" id="mycanvas">
+	<div id='past_image_btn'></div>
+</div>
+<div id='past_image_viewer_channel' style="display:none">
+	<div id='past_image_head_channel'></div>
+	<canvas style="border:1px solid grey; max-width:1000px" id="mycanvas_channel">
+	<div id='past_image_btn_channel'></div>
+</div>
+<div class="layer-channel-create" id="create_channel_layer" style="display:none;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+<div class="layer-move" id="move_file_layer" style="display:none;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+<div id="orgModal" class="modalpop" style="display:none;background-color:white"></div>
+<div class="layer-upload2" id='fileupload_layer' style="display:none;">
+	<div class="layer layer-upload2-view">
+		<h2 id='f_u1'></h2>
+		<button class="ico btn-close" id='p_close_channel'></button>		
+		<div class="input-field select-share">
+			<h3 id='f_u2'></h3>
+			<select id="share_channel_list_popup">
+			</select>
+		</div>
+		<button class="btn-attach-add" id="file_upload_add"><span id='add_file_text'></span></button>
+		<ul class="attach-list" id="upload_file_list_edit" style="max-height:190px; margin-bottom:5px ; display:none"></ul>
+		<ul class="attach-list" id="upload_file_list"></ul>		
+		<div class="upload-emoticon" id="up_emoticon" style="display:none">
+			<img src="" alt="" id="up_emoticon_img" />
+		</div>		
+		<div id="ex_body_dis" style="display:none"></div>		
+		<div class="input-field">
+			<textarea class="formInput" id='fileupload_content' style='line-height:20px;' ></textarea>
+			<span class="bar"></span>
+		</div>
+		<div class="layer-bottom">
+			<button id='fileupload_start'><strong id="f_s_btn"></strong></button>
+			<button id='fileupload_cancel_new'><span id="f_c_btn"></span></button>
+		</div>
+	</div>
+</div>
+
+
+<div class="layer layer-upload layer-drive" id='drive_fileupload_layer' style="display:none; top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+<div class="layer layer-exit mu_work" id='exit_info_layer' style="display:none; top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+<div id="open_attach_window22" style="display:none"></div>
+<div class="layer-channel-create" id="open_mail" style="display:none;top:50%;left:50%;transform:translate(-50%,-50%); max-width: 1000px;"></div>
+<div id="editor_upload_dis" style="display:none"></div>
+<div id="plugin_dis" class='layer layer-plugin' style='top:50%;left:50%;transform:translate(-50%,-50%); height: 700px;  display:none'></div>
+
+<!-- invite_video -->
+<div id="invite_video" class='layer layer-invite' style='top:50%;left:50%;transform:translate(-50%,-50%);  display:none'></div>
+
+<!-- Reply modifiy -->
+<div class="layer layer-upload reply-edit" id='rmlayer' style="display:none; top:50%;left:50%;transform:translate(-50%,-50%);">
+	<h2 id='rmtitle'></h2><button class="ico btn-close" id='rmclose'></button>	
+	<div class="input-field"><textarea class="formInput" id='rmtext'></textarea><span class="bar"></span></div>
+	<div id='rm_attachment_dis' style='display:none; margin-bottom:10px; text-align:left; line-height:40px'></div>
+	<div class="layer-bottom">
+		<button id='add_reply_file'><strong ></strong></button>
+		<button id='rmsave'><strong ></strong></button>
+		<button id='rmcancel'><span ></span></button>
+	</div>
+</div>
+
+<!-- Reply write -->
+<div class="layer layer-upload reply-edit" id='	' style="display:none; top:50%;left:50%;transform:translate(-50%,-50%);">
+	<h2 id='rmtitle_write'></h2><button class="ico btn-close" id='rmclose_write'></button>
+	<div class="input-field"><textarea class="formInput" id='rmtext_write'></textarea><span class="bar"></span></div>
+	<div class="layer-bottom"><button id='rmsave_write'><strong ></strong></button><button id='rmcancel_write'><span ></span></button></div>
+</div>
+
+<!-- modify job layer -->
+<div class="layer layer-upload reply-edit" id='bslayer' style="display:none; top:50%;left:50%;transform:translate(-50%,-50%);">
+	<h2 id='bstitle'></h2><button class="ico btn-close" id='bsclose'></button>
+	<div class="input-field"><textarea class="formInput" id='bstext'></textarea><span class="bar"></span><div id='bsbottom' style='text-align:left; margin-top:15px'></div></div>
+	
+	<div class="layer-bottom"><button><strong id='bssave'></strong></button><button><span id='bscancel'></span></button></div>
+</div>
+
+<!-- TODO -->
+<div id="create_todo_layer" class="layer layer-todo-create" style="display:none; top:50%;left:50%;transform:translate(-50%,-50%);">
+</div>
+
+<!-- TODO TODO -->
+<div class='layer-todo' id='compose_todo' style='display:none; '>
+</div>
+
+<!-- TODO -->
+<div class='layer layer-calendar' id='compose_todo_calendar' style='display:none; top:50%;left:50%;transform:translate(-50%,-50%);'>
+</div>
+
+<!-- Reply modifiy TODO -->
+<div class="layer layer-upload reply-edit" id='rmlayer_reply_todo' style="display:none; top:50%;left:50%;transform:translate(-50%,-50%);">
+	<h2 id='rmtitle_reply_todo'></h2><button class="ico btn-close" id='rmclose_reply_todo'></button>
+	<div class="input-field"><textarea class="formInput" id='rmtext_reply_todo'></textarea><span class="bar"></span></div>
+	<div class="layer-bottom"><button id='rmsave_reply_todo'><strong ></strong></button><button id='rmcancel_reply_todo'><span ></span></button></div>
+</div>
+
+<!-- Checklist modifiy TODO -->
+<div class="layer layer-upload reply-edit" id='rmlayer_checklist_todo' style="display:none; top:50%;left:50%;transform:translate(-50%,-50%);">
+	<h2 id='rmtitle_checklist_todo'></h2><button class="ico btn-close" id='rmclose_checklist_todo'></button>
+	<div class="input-field"><textarea class="formInput" id='rmtext_checklist_todo'></textarea><span class="bar"></span></div>
+	<div class="layer-bottom"><button id='rmsave_checklist_todo'><strong ></strong></button><button id='rmcancel_checklist_todo'><span ></span></button></div>
+</div>
+
+<!-- Collect -->
+<button class="btn-attach-add" id="upload_collect_add_file" style="display:none;"></button>
+<button class="btn-attach-add" id="response_collect_add_file" style="display:none;"></button>
+
+<!-- Memo Popup -->
+<button class="btn-attach-add" id="memo_add_file" style="display:none;"></button>
+
+<!--  Manual  -->
+<button class="btn-attach-add" id="upload_manual_add_file" style="display:none;"></button>
+
+<div id="common_work_layer" class="mu_container mu_work" style="top:50%;left:50%;display:none;position:absolute"></div>
+<div id="common_plugin_layer" ></div>
+
+<script language="javascript">
+	$LAB
+//	.script("resource/js/main/main_body3.js?open?ver="+jsversion)
+//	.script("resource/js/main/main_body2.js?open?ver="+jsversion)
+//	.script("resource/js/main/main_body4.js?open?ver="+jsversion)
+//	.script("resource/js/main/main_todo.js?open?ver="+jsversion)
+//	.script("resource/js/main/main_todo_compose.js?open?ver="+jsversion)
+	.script("resource/js/main/main_org.js?open?ver="+jsversion)
+	.script("resource/js/main/main_meeting.js?open?ver="+jsversion)
+	.script("resource/js/main/main_collect.js?open?ver="+jsversion)
+	.script("resource/js/main/main_home.js?open?ver="+jsversion)
+	.script("resource/js/main/main_right_sub.js?open?ver="+jsversion)
+	.script("resource/js/main/kgpt.js?open?ver="+jsversion)
+	.script("resource/js/main/portlet.js?open?ver="+jsversion)
+	.script("resource/js/common/fullcalendar.js?open?ver="+jsversion).wait(function(){
+
+		// 메뉴명 다국어 처리
+		$('#home span').text(gap.lang.lnb_home);
+		$('#channel span').text(gap.lang.lnb_work);
+		$('#abc2 span').text(gap.lang.lnb_chat);
+
+		
+		var param = gap.getParam("v");
+		gap.param = param;
+		
+		gkgpt = new gKGPT();
+		
+		gOrg = new gBodyOrg();
+		gOrg.init();				
+		gCol = new gBodyCollect();
+		gCol.init();	
+		gMet = new gBodyMeeting();
+		gMet.init();	
+	
+		
+		gHome = new gBodyHome();
+	//	gBody3 = new gBodyFN3();
+	//	gBody3.init();		
+		gBody = new gBodyFN();
+		//gBody.init();
+	//	gBody2 = new gBodyFN2();
+	//	gBody2.init();		
+	//	gRM = new gRightMenu();
+	//	gRM.init();	
+	//	gBody4 = new gBodyFN4();
+	// gBody4.init();		
+		
+	//	gTodo = new gBodyTODO();
+	//	gTodo.init();
+	//	gTodoC = new gBodyTODOCompose();
+	//	gTodoC.init();
+		
+	//	gptl = new gPtl();		
+		////////////////////////////////////////////////////////////////////
+		gma.init();		
+
+	//	gBody.change_page();
+		 		
+	});
+</script>
+
+<div class="demo-comp-eventcalendar" style="height:100%;" ng-app="demoApp" ng-controller="DemoCtrl" ng-class="'demo-display-' + display + ' demo-theme-' + theme">
+    <div id="demo-wrapper" class="demo-wrapper demo-custom-event-tooltip " mbsc-page>
+        <div style="height:100%">
+<div id="custom-event-tooltip-popup" class="md-tooltip">
+    <div id="tooltip-event-header" class="md-tooltip-header">
+        <span id="tooltip-event-name-age" class="md-tooltip-name-age"></span>
+        <span id="tooltip-event-time" class="md-tooltip-time"></span>
+    </div>
+    <div class="md-tooltip-info">
+        <div id="tooltip-event-title" class="md-tooltip-title">
+            Status: <span class="md-tooltip-status md-tooltip-text"></span>
+            <button id="tooltip-event-status" mbsc-button data-color="warning" data-variant="outline" class="md-tooltip-status-button"></button>
+        </div>
+        <div id="tooltip-event-reason" class="md-tooltip-title">Reason for visit: <span class="md-tooltip-reason md-tooltip-text"></span></div>
+        <div id="tooltip-event-location" class="md-tooltip-title">Location: <span class="md-tooltip-location md-tooltip-text"></span></div>
+        <button id="tooltip-event-view" mbsc-button data-color="secondary" class="md-tooltip-view-button">View patient file</button>
+        <button id="tooltip-event-delete" mbsc-button data-color="danger" data-variant="outline" class="md-tooltip-delete-button">Delete appointment</button>
+    </div>
+</div>
+
+

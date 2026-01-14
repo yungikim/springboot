@@ -1,0 +1,126 @@
+<div class="frm_wrap frm_page_scroll">
+	<div class="formpage ">
+		<form class="">			
+			<fieldset class="blockui">
+				<legend>blockui</legend>
+				<table class="table-form">
+				<colgroup><col width="150px"/><col width="150px" /><co /></colgroup>
+				<tr>
+					<th class="first">block & unblock</th>
+					<td><span class="btn_1" /></td>
+					<td>화면을 흐리게 하고 클릭하면 풀림.</td>
+				</tr>
+				<tr>
+					<th class="first">진행중</th>
+					<td><span class="btn_2" /></td>
+					<td>대기 이미지만 돌리기.</td>
+				</tr>
+				<tr>
+					<th class="first">진행중 메세지</th>
+					<td><span class="btn_3" /></td>
+					<td>직업 진행이 완료되면 해제.</td>
+				</tr>					
+				</table>
+				<span class="source">source</span>
+				<pre id="src"></pre>
+<script>
+	$ep
+	.wait(function() {
+		$("fieldset.blockui .btn_1").epbutton({
+			text : "blockUI"
+			,show : true
+			,click : function() {
+				$ep.util.blockUI({ hide : "click"});
+			}
+		});
+		$("fieldset.blockui .btn_2").epbutton({
+			text : "blockUI"
+			,show : true
+			,click : function() {
+				$ep.util.blockUI({ message : "", hide : "click"});
+			}
+		});
+		$("fieldset.blockui .btn_3").epbutton({
+			text : "blockUI"
+			,show : true
+			,click : function() {
+				var _b = $ep.util.blockUI({ message : "4 초만 기다려 주세요..."});
+				setTimeout(function(){
+					_b.unblock();
+				},4000);
+			}
+		});
+		
+	});
+</script>
+			</fieldset>
+
+			<fieldset class="toast">
+				<legend>toast</legend>
+				<table class="table-form">
+				<colgroup><col width="150px"/><co /></colgroup>
+				<tr>
+					<th class="first">메세지</th>
+					<td>
+						<input type="text" name="message" value= "일시적으로 메세지를 화면에 표시 합니다." style="width:100%">					
+					</td>					
+				</tr>
+				<tr>
+					<th>지연</th>
+					<td>
+						<select name="time">
+							<option value="1000">1초
+							<option value="2000">2초
+							<option value="4000">4초
+							<option value="click">click
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>지연</th>
+					<td>
+						<span class="btn_2_1"></span>
+					</td>				
+				</table>
+				<span class="source">source</span>
+				<pre id="src"></pre>
+<script>
+	$ep
+	.wait(function() {
+
+		$("fieldset.toast .btn_2_1").epbutton({
+			text : "toast"
+			,show : true
+			,click : function() {
+				var message = $("fieldset.toast input[name=message]").val();
+				var time = $("fieldset.toast select[name=time]").val();
+				$ep.util.toast(message,time,function() {
+					$ep.util.toast("완료",500);					
+				}, {width : 500,marginLeft : -275});
+			}
+		});
+		
+		
+		
+	});
+</script>	
+			</fieldset>
+	
+		</form>
+		
+	</div>
+	
+
+</div>
+ <script>
+(function(){
+	$("fieldset .source").on("click", function(e) {
+		var _fieldset = $(e.target).closest("fieldset")
+			,_src = $("#src",_fieldset);
+		if($(e.target).hasClass("open")) {_src.empty();$(e.target).removeClass("open");return;}
+		_src.html($("script",_fieldset).html().replace(/</g,"&lt;").replace(/>/g,"&gt;"));
+		$(e.target).addClass("open");
+	});
+})();
+</script> 
+ 

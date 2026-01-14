@@ -1,0 +1,430 @@
+﻿<!DOCTYPE html>
+<html xml:lang="ko" lang="ko">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<meta name="format-detection" content="telephone=no, address=no, email=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<title>...</title>
+	<link rel="apple-touch-icon-precomposed" href="../img/favicomImg.png" />  
+	<link rel="shortcut icon" href="../img/favicomImg.ico" />
+	<link rel="icon" type="image/x-icon" href="../img/favicomImg.ico" />
+
+	<link rel="stylesheet" type="text/css" href="/res/portal/css/portal.css" />
+	<link type="text/css" rel="stylesheet" href="/res/core/jquery/jquery-ui/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="/res/core/jquery/customscroll/jquery.scroll.css">
+	
+	<script type="text/javascript" src="/res/core/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/customscroll/jquery.scroll.js"></script>
+	<script type="text/javascript" src="/res/core/newep.js"></script>
+	<script type="text/javascript" src="/res/portal/js/portal_common.js"></script>
+	<script type="text/javascript" src="/res/portal/js/owl.carousel.js"></script>
+	<!--[if lt IE 9]>
+		<script type="text/javascript" src="/res/portal/js/HTML5forIE.js"></script>
+		<script type="text/javascript" src="/res/portal/js/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+	<div id="wrap">
+		<!-- header 
+		<div id="header">
+			<div class="header_area">
+				<h1><a href="">AMOREPACIFIC</a></h1>
+				<div class="info_area">
+					<div class="fl">
+						<span class="btn ico_sitemap" title="사이트맵"><a href=""></a></span>
+						<span class="btn ico_search" title="검색"><a href=""></a></span>
+					</div>
+					<div class="fr">
+						<span class="btn ico_mail" title="메일"><a href=""><em class="count_info">99</em></a></span>
+						<span class="btn ico_schedule" title="일정"><a href=""></a></span>
+						<span class="btn ico_works" title="업무"><a href=""></a></span>
+						<span class="user_thum">
+							<span class="thum_border"></span>
+							<img src="/res/portal/img/img01.png" alt="" />
+						</span>
+						<span class="btn ico_arrowview" title="개인설정"><a href=""></a></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		//header -->
+		<div class="searchDetail_header">
+			<div class="fl">
+				<h1><a href="">AMOREPACIFIC</a></h1>
+			</div>
+			<div class="fr">
+				<span class="fl">
+					<select name="" id="searchDetail" style="width:140px">
+						<!-- 20150225 옵션 수정 -->
+						<option value="">전체</option>
+						<option value="">임직원</option>
+						<option value="">게시글</option>
+						<option value="">AP Connect</option>
+						<option value="">사규</option>
+						<!-- //20150225 옵션 수정 -->
+					</select>
+				</span>
+				<span class="fl organ-search ep-widget ep-epinput hasicon sh_input" style="width:200px">
+					<input type="text" name="" id="" class="box-size" title="검색어" placeholder="검색어">
+					<span class="ep-icon ep-input-iconsearch"></span>
+				</span>
+				<span class="fr">
+					<button type="button" class="h_search2">검색</button>
+					<!-- 20150225 결과내 검색 추가 -->
+					<span class="chkbox-area">
+						<label><input type="checkbox" /> 결과내 재검색</label>
+					</span>
+					<!-- //20150225 결과내 검색 추가 -->
+				</span>
+				<span class="fclear"></span>
+			</div>
+			<div class="fclear"></div>
+		</div>
+		<!-- contents -->
+		<div id="content_area">
+			<div class="containerWrapper">
+				<div class="component-container fullPageLayout">
+					<div id="ep_body" class="component-control">
+						<!-- 좌측메뉴 -->
+						<div id="ep_content_navigator">
+							<div class="epSideMenu ep-widget ep-epSideMenu">
+								<div class="side-wrap search_lnb">
+									<ul class="side-ul">
+										<!-- <li class="side-li title"><span class="side-item item-label">전체 Search</span></li> -->
+										<li class="side-li item haschild open"> 
+											<span class="side-item item-wrap"> 
+												<span class="side-item item-label">정렬</span><!-- 20150225 텍스트 수정 -->
+												<span class="side-item holder"></span> 
+											</span>
+											<ul class="side-ul">
+												<!-- 20150225 순서변경 -->
+												<li class="side-li item active"><span class="side-item item-label">최신순</span></li>
+												<li class="side-li item"><span class="side-item item-label">정확도순</span></li>
+												<!-- //20150225 순서변경 -->
+												<li class="side-li item"><span class="side-item item-label">서브02</span></li>	
+											</ul>
+										</li>
+										<li class="side-li item haschild open"> 
+											<span class="side-item item-wrap"> 
+												<span class="side-item item-label">기간</span><!-- 20150225 텍스트 수정 -->
+												<span class="side-item holder"></span> 
+											</span>
+											<ul class="side-ul">
+												<!-- 20150225 리스트 수정 -->
+												<li class="side-li item active"><span class="side-item item-label">전체</span></li>
+												<li class="side-li item"><span class="side-item item-label">1일</span></li>
+												<li class="side-li item"><span class="side-item item-label">1주</span></li>
+												<li class="side-li item"><span class="side-item item-label">1개월</span></li>
+												<li class="side-li item"><span class="side-item item-label">1년</span></li>
+												<li class="side-li item"><span class="side-item item-label">직접입력</span></li>
+
+													<span class="date_ing"> 
+														<span class="date_day">
+															<label for="">시작일</label>
+															<input type="text" name="" id="start_date" value="2014-00-00" eptype="datepicker" style="width:110px;">
+														</span>
+														<span class="date_day">
+															<label for="">종료일</label>
+															<input type="text" name="" id="end_date" value="2014-00-00" eptype="datepicker"  style="width:110px;">
+														</span>
+													</span>
+													<!-- 20150225 버튼 추가 -->
+													<p class="lnb-bt-area">
+														<span class="btn-apply"></span>
+													</p>
+													<!-- //20150225 버튼 추가 -->
+												</li>
+												<!-- //20150225 리스트 수정 -->
+											</ul>
+										</li>
+										<li class="side-li item haschild open" style="padding-top:5px;"> 
+											<span class="side-item item-wrap"> 
+												<span class="side-item item-label">적용</span> <!-- 20150225 텍스트 수정 -->
+												<span class="side-item holder"></span> 
+											</span>
+											<ul class="side-ul search_category_list">
+												<!-- 20150225 리스트 수정 -->
+												<li class="side-li item"><span class="side-item item-label"><input type="checkbox" name="" id="" /><label for="">전체</label></span></li>
+												<li class="side-li item"><span class="side-item item-label"><input type="checkbox" name="" id="" /><label for="">제목</label></span></li>
+												<li class="side-li item"><span class="side-item item-label"><input type="checkbox" name="" id="" /><label for="">본문</label></span></li>
+												<li class="side-li item"><span class="side-item item-label"><input type="checkbox" name="" id="" /><label for="">첨부파일</label></span></li>
+												<!-- //20150225 리스트 수정 -->
+											</ul>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!-- //좌측메뉴 -->
+						<div id="ep_content_body">
+							<div class="view-wrap">
+								<div class="viewpage ep-bodycontent ep-viewpage">
+									<!-- 검색결과 타이틀 -->
+									<div class="view-action actionbar">
+										<h2 class="searchD_tit">‘<em>전자결재</em>’에 검색결과 (총 <em>140</em>건, 임직원 <em>15</em>건, 게시글 <em>120</em>건)</h2>
+									</div>
+									<!-- //검색결과 타이틀 -->
+									<!---------------------------------------------------------------------------------------------
+									내용영역
+									---------------------------------------------------------------------------------------------->
+									<div class="view-body searchDetail_result">
+										<div class="searchDetail_content" style="overflow-y:auto;">
+											
+											<!-- 임직원 검색결과 -->
+											<div class="div_section">
+												<h3>임직원 <em>(15)</em></h3>
+												<ul class="result_list_type01">
+													<li>
+														<div class="profile_min">
+															<div class="photo">
+																<span class="user_thum02">
+																	<span class="thum_border02"></span>
+																	<img src="/res/portal/img/img01.png" alt="">
+																</span>
+															</div>
+															<div class="info">
+																<span class="name_ko">홍길동</span>
+																<span class="name_eng">Gil-Dong-Hong</span>
+																<span class="mail">amore@amorepacific.com</span>
+																<span class="phone">02-1234-1234 / 010-1234-1345</span>
+																<span class="group">정보전략팀 / AMOREPACIFIC</span>
+																<span class="state">
+																	<span class="icon mailC" title="메일"></span>
+																	<span class="icon pc_onLine" title="온라인"></span>
+																	<span class="icon tel_callPossible" title="통화가능"></span>
+																</span>
+															</div>
+															<div class="fclear"></div>
+														</div>
+													</li>
+													<li>
+														<div class="profile_min">
+															<div class="photo">
+																<span class="user_thum02">
+																	<span class="thum_border02"></span>
+																	<img src="/res/portal/img/img01.png" alt="">
+																</span>
+															</div>
+															<div class="info">
+																<span class="name_ko">홍길동</span>
+																<span class="name_eng">Gil-Dong-Hong</span>
+																<span class="mail">amore@amorepacific.com</span>
+																<span class="phone">02-1234-1234 / 010-1234-1345</span>
+																<span class="group">정보전략팀 / AMOREPACIFIC</span>
+																<span class="state">
+																	<span class="icon mailC" title="메일"></span>
+																	<span class="icon pc_onLine" title="온라인"></span>
+																	<span class="icon tel_callPossible" title="통화가능"></span>
+																</span>
+															</div>
+															<div class="fclear"></div>
+														</div>
+													</li>
+													<li>
+														<div class="profile_min">
+															<div class="photo">
+																<span class="user_thum02">
+																	<span class="thum_border02"></span>
+																	<img src="/res/portal/img/img01.png" alt="">
+																</span>
+															</div>
+															<div class="info">
+																<span class="name_ko">홍길동</span>
+																<span class="name_eng">Gil-Dong-Hong</span>
+																<span class="mail">amore@amorepacific.com</span>
+																<span class="phone">02-1234-1234 / 010-1234-1345</span>
+																<span class="group">정보전략팀 / AMOREPACIFIC</span>
+																<span class="state">
+																	<span class="icon mailC" title="메일"></span>
+																	<span class="icon pc_onLine" title="온라인"></span>
+																	<span class="icon tel_callPossible" title="통화가능"></span>
+																</span>
+															</div>
+															<div class="fclear"></div>
+														</div>
+													</li>
+												</ul>
+												<!-- 더보기 -->
+												<div class="open_moreView">
+													<div><span class="btn" title="더보기"></span></div>
+													<ul class="result_list_type01">
+														<li>
+															<div class="profile_min">
+																<div class="photo">
+																	<span class="user_thum02">
+																		<span class="thum_border02"></span>
+																		<img src="/res/portal/img/img01.png" alt="">
+																	</span>
+																</div>
+																<div class="info">
+																	<span class="name_ko">홍길동</span>
+																	<span class="name_eng">Gil-Dong-Hong</span>
+																	<span class="mail">amore@amorepacific.com</span>
+																	<span class="phone">02-1234-1234 / 010-1234-1345</span>
+																	<span class="group">정보전략팀 / AMOREPACIFIC</span>
+																	<span class="state">
+																		<span class="icon mailC" title="메일"></span>
+																		<span class="icon pc_onLine" title="온라인"></span>
+																		<span class="icon tel_callPossible" title="통화가능"></span>
+																	</span>
+																</div>
+																<div class="fclear"></div>
+															</div>
+														</li>
+														<li>
+															<div class="profile_min">
+																<div class="photo">
+																	<span class="user_thum02">
+																		<span class="thum_border02"></span>
+																		<img src="/res/portal/img/img01.png" alt="">
+																	</span>
+																</div>
+																<div class="info">
+																	<span class="name_ko">홍길동</span>
+																	<span class="name_eng">Gil-Dong-Hong</span>
+																	<span class="mail">amore@amorepacific.com</span>
+																	<span class="phone">02-1234-1234 / 010-1234-1345</span>
+																	<span class="group">정보전략팀 / AMOREPACIFIC</span>
+																	<span class="state">
+																		<span class="icon mailC" title="메일"></span>
+																		<span class="icon pc_onLine" title="온라인"></span>
+																		<span class="icon tel_callPossible" title="통화가능"></span>
+																	</span>
+																</div>
+																<div class="fclear"></div>
+															</div>
+														</li>
+													</ul>
+												</div>
+												<!-- //더보기 -->
+											</div>
+											<!-- //임직원 검색결과 -->
+
+											<!-- 게시글 검색결과 -->
+											<div class="div_section">
+												<h3>게시글 <em>(153)</em></h3>
+												<button type="button" class="btype01 portal_search_more_btn">검색결과 더보기 +</button>
+												<ul class="result_list_type02">
+													<li>
+														<div>
+															<span class="name">홍길동 / 정보전략팀</span>
+															<span class="fr date">AM 09:00</span>
+															<span class="fclear"></span>
+														</div>
+														<div class="title"><a href="">재공지 - [HR Service 홍보 4탄] HRSC - 전자결재 문서로 바뀐 신청서재공지</a></div>
+														<div class="nav">게시판 > 전사 > 일반게시물</div>
+														<p class="src"><a href="">본 게시물은 시리즈로 게시되며 네번째 게시물 입니다. 지난 게시물은 아래를 클릭하시면 확인 하실 수 있습니다. 제 1탄 - HR Service Grand Open! 인사행정서비스 업그레이드 합니다. 제 2탄 - HRSC 업무요청서가 궁금해요. 제 3탄 - HRSC 새롭게 구축한 신청서. HRSC(Human Resource Service Center)는 인사 제반에 대한 각종 신청서와 요청서를 접수 받는 업무 포털 사이트 입니다. 기존에 Off-Line의 페이퍼 문서 양식으로 신청했습니다.</a></p>
+														<div class="add_info">
+															<span class="btn ico_fileAdd"></span>화면설계서.ppt외 4개
+														</div>
+													</li>
+													<li>
+														<div>
+															<span class="name">홍길동 / 정보전략팀</span>
+															<span class="fr date">AM 09:00</span>
+															<span class="fclear"></span>
+														</div>
+														<div class="title"><a href="">재공지 - [HR Service 홍보 4탄] HRSC - 전자결재 문서로 바뀐 신청서재공지</a></div>
+														<div class="nav">게시판 > 전사 > 일반게시물</div>
+														<p class="src"><a href="">본 게시물은 시리즈로 게시되며 네번째 게시물 입니다. 지난 게시물은 아래를 클릭하시면 확인 하실 수 있습니다. 제 1탄 - HR Service Grand Open! 인사행정서비스 업그레이드 합니다. 제 2탄 - HRSC 업무요청서가 궁금해요. 제 3탄 - HRSC 새롭게 구축한 신청서. HRSC(Human Resource Service Center)는 인사 제반에 대한 각종 신청서와 요청서를 접수 받는 업무 포털 사이트 입니다. 기존에 Off-Line의 페이퍼 문서 양식으로 신청했습니다.</a></p>
+														<div class="add_info">
+															<span class="btn ico_fileAdd"></span>화면설계서.ppt외 4개
+														</div>
+													</li>
+													<li>
+														<div>
+															<span class="name">홍길동 / 정보전략팀</span>
+															<span class="fr date">AM 09:00</span>
+															<span class="fclear"></span>
+														</div>
+														<div class="title"><a href="">재공지 - [HR Service 홍보 4탄] HRSC - 전자결재 문서로 바뀐 신청서재공지</a></div>
+														<div class="nav">게시판 > 전사 > 일반게시물</div>
+														<p class="src"><a href="">본 게시물은 시리즈로 게시되며 네번째 게시물 입니다. 지난 게시물은 아래를 클릭하시면 확인 하실 수 있습니다. 제 1탄 - HR Service Grand Open! 인사행정서비스 업그레이드 합니다. 제 2탄 - HRSC 업무요청서가 궁금해요. 제 3탄 - HRSC 새롭게 구축한 신청서. HRSC(Human Resource Service Center)는 인사 제반에 대한 각종 신청서와 요청서를 접수 받는 업무 포털 사이트 입니다. 기존에 Off-Line의 페이퍼 문서 양식으로 신청했습니다.</a></p>
+														<div class="add_info">
+															<span class="btn ico_fileAdd"></span>화면설계서.ppt외 4개
+														</div>
+													</li>
+												</ul>
+											</div>
+											<!-- //게시글 검색결과 -->
+
+											<!-- 사규 검색결과 -->
+											<div class="div_section">
+												<h3>사규 <em>(153)</em></h3>
+												<button type="button" class="btype01 portal_search_more_btn">검색결과 더보기 +</button>
+												<ul class="result_list_type02">
+													<li>
+														<div>
+															<span class="name2">공정거래 자율준수 프로그램 운영규정</span>
+															<span class="fr date">2014-00-00</span>
+															<span class="fclear"></span>
+														</div>
+														<div class="nav">ISO>지침</div>
+														<p class="src"><a href=""> 1. 목적 본 지침은 화장품 제조 및 설비 세척 등에 사용하는 정제수에 대한 미생물을 관리함으로써 제품 및 설비의 오염을 예방하여 제품의 품질 확보를 기여하는 데 그 목적이 있다. 2. 적용범위 본 지침은 오산 뷰티사업장에서 생산하는 정제수 및 정제수 제조설비에 대하여 적용한다. 3. 용어의 정의 3.1 상수: 수도물이나 먹는 물의 수질기준에 적합한 물...</a></p>
+													</li>
+													<li>
+														<div>
+															<span class="name2">공정거래 자율준수 프로그램 운영규정</span>
+															<span class="fr date">2014-00-00</span>
+															<span class="fclear"></span>
+														</div>
+														<div class="nav">ISO>지침</div>
+														<p class="src"><a href=""> 1. 목적 본 지침은 화장품 제조 및 설비 세척 등에 사용하는 정제수에 대한 미생물을 관리함으로써 제품 및 설비의 오염을 예방하여 제품의 품질 확보를 기여하는 데 그 목적이 있다. 2. 적용범위 본 지침은 오산 뷰티사업장에서 생산하는 정제수 및 정제수 제조설비에 대하여 적용한다. 3. 용어의 정의 3.1 상수: 수도물이나 먹는 물의 수질기준에 적합한 물...</a></p>
+													</li>
+												</ul>
+											</div>
+											<!-- //사규 검색결과 -->
+										</div>
+									</div>
+									<!---------------------------------------------------------------------------------------------
+									//내용영역
+									---------------------------------------------------------------------------------------------->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- //contents -->
+		
+		<!-- footer -->
+		<div id="footer">
+			<div class="copyright">AMOREPACIFIC CORPORATION. ALL RIGHT RESERVED.</div>
+		</div>
+		<!-- //footer -->
+	</div>
+	<!-- <script type="text/javascript">
+		$ep.wait(function() {
+			$ep.ui.initLNBLayout();
+		});
+	</script> --> 
+	<script type="text/javascript">
+		$ep.wait(function() {
+				//lnb 레이아웃
+				$ep.ui.initLNBLayout();
+
+				//lnb
+				$ep.ui.sidemenu(".epSideMenu",{});
+
+				//셀렉트박스
+				$ep.ui.select("#searchDetail",{});
+
+				//달력
+				//$ep.ui.datepicker("#start_date",{});
+				$ep.ui.input($("#start_date"),{icon : "datepicker", datepicker : {} });
+				$ep.ui.input($("#end_date"),{icon : "datepicker", datepicker : {} });
+
+				$(".btn-apply").epbutton({
+					text : "적용하기"
+					,id : "single"
+					,show : true
+				});
+		});
+	</script>
+</body>
+</html>

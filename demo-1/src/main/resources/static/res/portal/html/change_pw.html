@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html xml:lang="ko" lang="ko">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<meta name="format-detection" content="telephone=no, address=no, email=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<title>...</title>
+	<link rel="apple-touch-icon-precomposed" href="../img/favicomImg.png" />  
+	<link rel="shortcut icon" href="../img/favicomImg.ico" />
+	<link rel="icon" type="image/x-icon" href="../img/favicomImg.ico" />
+
+	<link rel="stylesheet" type="text/css" href="/res/portal/css/portal.css" />
+	<link type="text/css" rel="stylesheet" href="/res/core/jquery/jquery-ui/jquery-ui.css" />
+	<link type="text/css" rel="stylesheet" href="/res/core/jquery/qtip/jquery.qtip.css" />
+	<link rel="stylesheet" type="text/css" href="/res/core/jquery/customscroll/jquery.scroll.css">
+	
+	<script type="text/javascript" src="/res/core/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/qtip/jquery.qtip.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/customscroll/jquery.scroll.js"></script>
+	<script type="text/javascript" src="/res/core/newep.js"></script>
+	<script type="text/javascript" src="/res/portal/js/portal_common.js"></script>
+	<!-- <script type="text/javascript" src="/res/portal/js/owl.carousel.js"></script> -->
+	<!--[if lt IE 9]>
+		<script type="text/javascript" src="/res/portal/js/HTML5forIE.js"></script>
+		<script type="text/javascript" src="/res/portal/js/respond.min.js"></script>
+	<![endif]-->
+	<!-- <script> 
+		$(document).ready(function(){
+			$("button.h_search").click(function(){
+				$("#search_resultArea").show("");
+			});
+		});
+	</script> -->
+</head>
+
+<body>
+	<div id="wrap" class="password-wrap">
+		<div class="inner-wrap">
+			<h1><img src="/res/portal/img/ci_popup.png" alt="AP-ON" /></h1>
+			<h2 class="ep_tit_area tit_underline">Change Password AP-ON System</h2>
+			<table class="frm_tbl">
+				<colgroup>
+					<col style="width:130px;" />
+					<col />
+				</colgroup>
+				<tbody>
+					<tr>
+						<th>Current Password</th>
+						<td><input type="password" style="width:100%;" /></td>
+					</tr>
+					<tr>
+						<th>New Password</th>
+						<td><input type="password" style="width:100%;" /></td>
+					</tr>
+					<tr>
+						<th>Check Password</th>
+						<td><input type="password" style="width:100%;" /></td>
+					</tr>
+				</tbody>
+			</table>
+			<p class="bt-area"><button type="button" class="common_btn01 btnH">Submit</button></p>
+			<ul class="list-area">
+				<li><span>1.</span>  A minimum of 10 characters and a maximum of 16 characters [must include capital and small letters + numbers]</li>
+				<li><span>2.</span>  Same character/number repeated 4 times is not allowed<br />
+					     Ex) apple111111, 5678dogdog, cdef2365</li>
+				<li><span>3.</span>  Do not use P/W which has less than 3 characters when excluding the same characters<br />
+					     Ex) aa1a2a1a11: only 3 characters left when removing the same characters (a12)</li>
+				<li><span>4.</span>  Cannot use employee number as password<br />
+					     Ex) employee No. AP123456, cannot use aap123456bb as P/W</li>
+				<li><span>5.</span>  Cannot use old password (the previous one and one before that)</li>
+				<li><span>6.</span>  Date of birth/Phone number not allowed<br />
+					     Ex) 4 end digits of personal mobile number not allowed</li>
+				<li><span>7.</span>  Password expiry: Every 3 months (90 days)</li>
+
+				<li class="lst c_type01"><span>*</span> If you are using the ABC² Messenger please login 20 minutes after resetting your password.</li>
+				<li class="lst"><span>*</span> Your account will be locked if you enter the wrong password 7 times. <br />
+					  To unlock please contact BR or IT administrator.</li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>

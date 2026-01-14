@@ -1,0 +1,266 @@
+
+.mentions-input-box {
+  /*position: relative;*/
+  /*background: #fff;*/	/*2022.02.25*/
+}
+
+.mentions-input-box textarea {
+  width: 100%;
+ /* display: block;
+  height: 43px;
+  padding: 9px;
+  border: 1px solid #dcdcdc;
+  border-radius:3px;*/
+  overflow: hidden;
+  background: transparent;
+  position: relative;
+  outline: 0;
+ /* resize: none;*/
+ /* font-size: 14px;*/	/*2022.02.25*/
+
+   -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.mentions-input-box .mentions-autocomplete-list {
+  width: 300px;
+  display: none;
+  background: #fff;
+  border: 1px solid #dadada;
+  position: absolute;	/*absolute;*/
+  left: 44px;
+  right: 0;
+  z-index: 10000;
+  margin-top: 1px;
+  max-height: 350px;
+  overflow-y: auto;
+
+  border-radius:5px;
+  border-top-right-radius:0;
+  border-top-left-radius:0;
+
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.148438);
+     -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.148438);
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.148438);
+}
+
+
+.todo-view-left .mentions-input-box .mentions-autocomplete-list {
+  width: 300px;
+  display: none;
+  background: #fff;
+  border: 1px solid #dadada;
+  position: absolute;	/*absolute;*/
+  left: 20px;
+  right: 0;
+
+  z-index: 10000;
+  margin-top: 1px;
+  max-height: 350px;
+  overflow-y: auto;
+
+  border-radius:5px;
+  border-top-right-radius:0;
+  border-top-left-radius:0;
+
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.148438);
+     -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.148438);
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.148438);
+}
+
+
+.mentions-input-box .mentions-autocomplete-list ul {
+    margin: 0;
+    padding: 0;
+}
+
+.mentions-input-box .mentions-autocomplete-list li {
+  background-color: #fff;
+  padding: 0 5px;
+  margin: 0;
+  width: auto;
+  border-bottom: 1px solid #eee;
+  height: 61px;
+  /*line-height: 61px;*/
+  overflow: hidden;
+  cursor: pointer;
+  list-style: none;
+  white-space: nowrap;
+}
+
+.mentions-input-box .mentions-autocomplete-list li:last-child {
+  border-radius: 5px;
+}
+
+.mentions-input-box .mentions-autocomplete-list li > img,
+.mentions-input-box .mentions-autocomplete-list li > div.icon {
+  width: 34px;
+  height: 34px;
+  float: left;
+  margin-left: 10px;
+  margin-top: 12px;
+  margin-right: 5px;
+  -moz-background-origin:3px;
+
+  border-radius:50% 50%;
+}
+
+.mentions-input-box .mentions-autocomplete-list li em {
+  font-weight: bold;
+  font-style: none;
+}
+
+/* 자동완성 리스트박스에서 선택(마우스오버) 시 표시되는 색상 */
+/*.mentions-input-box .mentions-autocomplete-list li:hover,
+.mentions-input-box .mentions-autocomplete-list li.active {
+  background-color: #f2f2f2;
+}*/
+
+.mentions-input-box .mentions-autocomplete-list li.active {
+  background-color: #f4fdfb;
+}
+
+/* 자동완성 리스트박스에서 선택(마우스오버) 시 표시되는 색상 */
+.mentions-input-box .mentions-autocomplete-list li:hover {
+  background-color: #f4fdfb;
+  color: #34b49d;
+}
+
+/* 매칭되는 텍스트에 표시되는 색상 */
+.mentions-input-box .mentions-autocomplete-list li b {
+  background: #ffff99;
+  font-weight: normal;
+}
+
+.mentions-input-box .mentions-autocomplete-list dl {
+  margin-top: 18px;
+  margin-left: 58px;
+}
+
+.mentions-input-box .mentions-autocomplete-list dt {
+  margin-bottom: 2px;
+  text-align: left;
+  float: left;
+}
+
+.mentions-input-box .mentions-autocomplete-list dd {
+  float: right;
+  color: #999;
+  margin-right: 10px;
+}
+
+.mentions-input-box .mentions-autocomplete-list .mentions-team {
+  color: #ccc;
+  font-size: 12px;
+}
+
+.channel-right-reply .mentions-input-box .mentions-autocomplete-list {
+  width: 300px;
+  position: absolute;	/*absolute;*/
+  left: -100px;
+  right: 0;
+}
+
+.channel_reply_top .mentions-input-box .mentions-autocomplete-list {
+  width: 300px;
+  /*position: absolute;*/
+  left: -100px;
+  right: 0;
+  z-index: 1000000;
+}
+
+.mentions-input-box .mentions {
+  font-size: 14px;
+  position: absolute;
+  left: 42px;
+  right: 0;
+  top: 1px;
+  bottom: 0;
+  padding: 8px;
+  color: #fff;
+  overflow: hidden;
+
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* all mention style in upload-layer */
+.layer-upload2 .mentions-input-box .mentions {
+  top: 4px;
+  left: -8px;
+  text-align: left;
+  font-size: 13px;
+}
+
+/* Channel -> reply */
+.channel-right-reply .mentions-input-box .mentions {
+  top: 2px;
+  left: 3px;
+  bottom : 30px;
+  text-align: left;
+  font-size: 13px;
+}
+
+.channel_reply_top .mentions-input-box .mentions {
+  top: 1px;
+  left: 49px;
+  bottom : 30px;
+  text-align: left;
+  font-size: 13px;
+  position: absolute;
+
+}
+
+/* Todo -> reply input */
+.todo-view-left .mentions-input-box .mentions {
+  left: 2px;
+}
+
+/* Todo -> edit rply */
+.reply-edit .mentions-input-box .mentions {
+  top: 2px;
+  left: -8px;
+  text-align: left;
+  font-size: 13px;
+}
+
+.mentions-input-box .mentions > div {
+  color: #fff;
+  white-space: pre-wrap;
+  width: 100%;
+}
+
+/* 선택된 이름이 textarea에 표시될 때 보여지는 스타일 */
+.mentions-input-box .mentions > div > strong {
+  font-weight:mormal;
+  background: #d8dfea;
+}
+
+.mentions-input-box .mentions > div > strong > span {
+  font-size: 14px;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+}
+
+.layer-upload2 .mentions-input-box .mentions > div > strong > span {
+  font-size: 13px;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+}
+
+/* Channel -> reply */
+.channel-right-reply .mentions-input-box .mentions > div > strong > span {
+  font-size: 13px;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+}
+
+/* To Do edit reply */
+.reply-edit .mentions-input-box .mentions > div > strong > span {
+  font-size: 13px;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+}
+.mention_comment{margin-left:25px;}
+.mention_comment li{float:left;display:inline;height:28px;margin-right:5px;margin-top:8px;position:relative;}
+.mention_comment li span{font-size:13px;color:#6189ae;background:#dff0ff;height:28px;padding:5px 23px 6px 6px; line-height:auto;display:block;}
+.mention_comment li .btn_del_user{width:16px;height:16px;position:absolute;right:3px;top:6px;background-position:-692px -20px;}
+.mention_comment li .btn_del_user:hover{background-position:-712px -20px;}
+

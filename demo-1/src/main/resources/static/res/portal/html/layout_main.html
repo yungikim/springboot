@@ -1,0 +1,751 @@
+﻿<!DOCTYPE html>
+<html xml:lang="ko" lang="ko">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<meta name="format-detection" content="telephone=no, address=no, email=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<title>...</title>
+	<link rel="apple-touch-icon-precomposed" href="../img/favicomImg.png" />  
+	<link rel="shortcut icon" href="../img/favicomImg.ico" />
+	<link rel="icon" type="image/x-icon" href="../img/favicomImg.ico" />
+
+	<link rel="stylesheet" type="text/css" href="/res/portal/css/portal.css" />
+	<link type="text/css" rel="stylesheet" href="/res/core/jquery/jquery-ui/jquery-ui.css" />
+	<link type="text/css" rel="stylesheet" href="/res/core/jquery/qtip/jquery.qtip.css" />
+	<link rel="stylesheet" type="text/css" href="/res/core/jquery/customscroll/jquery.scroll.css">
+	
+	<script type="text/javascript" src="/res/core/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/qtip/jquery.qtip.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/customscroll/jquery.scroll.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/jquery.wheelmenu.js"></script>
+	<script type="text/javascript" src="/res/core/newep.js"></script>
+	<script type="text/javascript" src="/res/portal/js/portal_common.js"></script>
+	<!-- <script type="text/javascript" src="/res/portal/js/owl.carousel.js"></script> -->
+	<!--[if lt IE 9]>
+		<script type="text/javascript" src="/res/portal/js/HTML5forIE.js"></script>
+		<script type="text/javascript" src="/res/portal/js/respond.min.js"></script>
+	<![endif]-->
+	<!-- <script> 
+		$(document).ready(function(){
+			$("button.h_search").click(function(){
+				$("#search_resultArea").show("");
+			});
+		});
+	</script> -->
+	<script type="text/javascript">
+		$(function() {
+			//즐겨찾기앱 팝업
+			$( "#pop_favoriteApp" ).dialog({
+				autoOpen: false,
+				width: 580,
+				height: 420,
+				modal: true,
+				resizable: false,
+				//buttons: {
+				//	Ok : {text : "확인", highlight : true, click : function() {}}
+				//}
+			});
+			$( ".ico_favorite" ).click(function() {
+				$( "#pop_favoriteApp" ).dialog( "open" );
+			});
+			$(".wheel-button").wheelmenu({
+				trigger: "hover",
+				animation: "fade",
+				angle: "NW"
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<div id="wrap">
+		<!-- header -->
+		<div id="header">
+			<div class="header_area">
+				<h1><a href="">AMOREPACIFIC</a></h1>
+				<div class="info_area">
+					<div class="fl">
+						<span class="btn ico_sitemap" title="사이트맵"><!-- <a href="" onclick="openLayer('popLayer_wrap',{top:60, left:0});return false;"></a> --></span>
+						<span class="btn ico_search" title="검색"></span>
+					</div>
+					<div class="fr">
+						<div class="header_layer" style="display:none;">
+							<span class="btn ico_mail" title="메일"><em class="count_info">99</em></span>
+							<!-- 메일확인 layerPop -->
+							<div class="header_layerWrap tip01">
+								<div class="header_layerContent">
+									<h2>읽지 않은 메일 <em>12</em>건</h2>
+									<ul class="list_board011 tf_border">
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="fl writer">000사내커뮤니케이션팀</span>
+													<span class="fr date">AM 09:45</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[상주투입인력] 교육확인서 동의 요합니다.합니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="fl writer">000사내커뮤니케이션팀</span>
+													<span class="fr date">AM 09:45</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[상주투입인력] 교육확인서 동의 요합니다.합니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="fl writer">000사내커뮤니케이션팀</span>
+													<span class="fr date">AM 09:45</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[상주투입인력] 교육확인서 동의 요합니다.합니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="fl writer">000사내커뮤니케이션팀</span>
+													<span class="fr date">AM 09:45</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[상주투입인력] 교육확인서 동의 요합니다.합니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="btn_footArea">
+									<span class="fl btn_t01"><a href="">메일함 이동</a></span>
+									<span class="fr btn_t02"><a href="">닫기 X</a></span>
+								</div>
+							</div>
+							<!-- //메일확인 layerPop -->
+						</div>
+
+						<div class="header_layer" >
+							<span class="btn ico_schedule" title="일정" class="header_layer"></span>
+							<!-- 금주일정확인 layerPop --> 
+							<div class="header_layerWrap tip02" >
+								<div class="header_layerContent">
+									<h2>금중의 일정 <em>12</em>건</h2>
+									<span class="btn ico_view4" title="더보기"></span>
+									<ul class="list_board011 tf_border">
+										<li class="read_list">
+											<a href="">
+												<span class="write2">
+													<span class="date">AM 09:45 ~ Am1 11:00</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[상주투입인력] 교육확인서 동의 요합니다.합니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li class="unknow_list">
+											<a href="">
+												<span class="write2">
+													<span class="date">AM 09:45 ~ Am1 11:00</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[회의] NEW EP 프로토타입 설계화면입니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="date">AM 09:45 ~ Am1 11:00</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[회의] NEW EP 프로토타입 설계화면입니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="date">AM 09:45 ~ Am1 11:00</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[회의] NEW EP 프로토타입 설계화면입니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="btn_footArea">
+									<span class="fl btn_t01"><a href="">일정관리 이동</a></span>
+									<span class="fr btn_t02"><a href="">닫기 X</a></span>
+								</div>
+							</div>
+							<!-- //금주일정확인 layerPop -->
+						</div>
+
+						<div class="header_layer" style="display:none;">
+							<span class="btn ico_works" title="업무" class="header_layer"></span>
+							<!-- 결재대기문서확인 layerPop -->
+							<div class="header_layerWrap tip03">
+								<div class="header_layerContent">
+									<h2>결재대기 문서 <em>12</em>건</h2>
+									<ul class="list_board011 tf_border">
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="writer">Diana Peters</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[상주투입인력] 교육확인서 동의 요합니다.합니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="writer">Diana Peters</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[회의] NEW EP 프로토타입 설계화면입니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="writer">Diana Peters</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[회의] NEW EP 프로토타입 설계화면입니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="writer">Diana Peters</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[회의] NEW EP 프로토타입 설계화면입니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="btn_footArea">
+									<span class="fl btn_t01"><a href="">전자결재 이동</a></span>
+									<span class="fr btn_t02"><a href="">닫기 X</a></span>
+								</div>
+							</div>
+							<!-- //결재대기문서확인 layerPop -->
+						</div>
+
+						<div class="header_layer" style="display:none;">
+							<span>
+								<span class="user_thum">
+									<span class="thum_border"></span>
+									<img src="/res/portal/img/img01.png" alt="" />
+								</span>
+								<span class="btn ico_arrowview" title="개인설정"></span>
+							</span>
+							<!-- 개인설정 -->
+							<div class="header_layerWrap tip04">
+								<div class="header_layerContent">
+									<ul class="p_list_type01">
+										<li><a href="" class="tbold"><span class="btn bult_setting"></span> 환경설정</a></li>
+										<li><a href="" class="tbold"><span class="btn bult_logout"></span> 로그아웃</a></li>
+										<li><a href="" class="tbold"><span class="btn bult_default"></span> 일반리스트</a></li>
+									</ul>
+								</div>
+							</div>
+							<!-- //개인설정 -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- sitemap -->
+		 <div id="popLayer_wrap">
+			<span class="btn ico_close" title="닫기"><!-- <a href="" onclick="closeLayer('popLayer_wrap')"></a> --></span>
+			<div class="fclear"></div>
+			<div class="pop_content view_scroll">
+				<ul class="sitemap">
+					<li>
+						<p class="title"><a href="">MY APPS</a><p>
+						<ul class="map_list">
+							<li><a href="">E-mail</a></li>
+							<li><a href="">일정관리</a></li>
+							<li><a href="">작업관리</a></li>
+							<li><a href="">연락처</a></li>
+							<li><a href="">ABC² 자동로그인</a></li>
+							<li><a href="">환경설정</a></li>
+							<li><a href="">개인정보변경</a></li>
+							<li><a href="">Smart Campus</a></li>
+							<li><a href="">웰빙센터</a></li>
+							<li><a href="">인사아라</a></li>
+						</ul>
+					</li>
+					<li>
+						<p class="title"><a href="">WORKPLACE</a><p>
+						<ul class="map_list">
+							<li><a href="">전자결재(해외출장시스템)</a></li>
+							<li><a href="">회의관리</a></li>
+							<li><a href="">Sametime Meeting</a></li>
+							<li><a href="">Self Survey</a></li>
+							<li><a href="">APS(간접구매통합시스템)</a></li>
+							<li><a href="">PM</a></li>
+							<li><a href="">BSC</a></li>
+							<li><a href="">권한별 메뉴</a></li>
+						</ul>
+					</li>
+					<li>
+						<p class="title"><a href="">ONE AP</a><p>
+						<ul class="map_list">
+							<li><a href="">Connect AP</a></li>
+							<li><a href="">게시판</a></li>
+							<li><a href="">노조게시판</a></li>
+							<li><a href="">나눔터</a></li>
+							<li><a href="">어린이집</a></li>
+							<li><a href="">AP 人</a></li>
+							<li><a href="">New Square</a></li>
+							<li><a href="">사회공헌포탈</a></li>
+							<li><a href="">그룹감사실</a></li>
+							<li><a href="">뉴스클리핑</a></li>
+							<li><a href="">경영Insight</a></li>
+							<li><a href="">Career Market</a></li>
+						</ul>
+					</li>
+					<li>
+						<p class="title"><a href="">SUPPORT</a>
+						<ul class="map_list">
+							<li><a href="">지원 Service</a></li>
+							<li><a href="">세무 Service</a></li>
+							<li><a href="">지식재산 Service</a></li>
+							<li><a href="">데스크탑클라우드</a></li>
+							<li><a href="">기업자료관리</a></li>
+							<li><a href="">내부회계관리</a></li>
+							<li><a href="">정보시스템도우미</a></li>
+							<li><a href="">공정거래도우미</a></li>
+							<li><a href="">수상기록</a></li>
+							<li><a href="">EuroMonitor</a></li>
+							<li><a href="">사규집</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- //sitemap -->
+
+		<!-- 검색 -->
+		<div class="popSearch_wrap view_scroll" id="popSearch_wrap">
+			<span class="btn ico_close" title="닫기"></span>
+			<div class="fclear"></div>
+			<div class="pop_content">
+				<div class="search_formArea bbottom3">
+					<div class="form_area">
+						<span class="ico_loading2" title="Please wait ..."></span>
+						<span class="fl search_input"><input type="text" name="" id="" class="" placeholder="SEARCH"/></span>
+						<span class="fr"><button type="button" class="h_search">검색</button></span>
+						<span class="fclear"></span>
+					</div>
+					<!-- 검색결과 목록 -->
+					<div id="search_resultArea">
+						<ul class="result_list_type01">
+							<li>
+								<div class="photo">
+									<span class="user_thum02">
+										<span class="thum_border02"></span>
+										<img src="/res/portal/img/img01.png" alt="">
+									</span>
+								</div>
+								<div class="info">
+									<span class="name_ko">홍길동</span>
+									<span class="name_eng">Gil-Dong-Hong</span>
+									<span class="mail">amore@amorepacific.com</span>
+									<span class="phone">02-1234-1234 / 010-1234-1345</span>
+									<span class="group">정보전략팀 / AMOREPACIFIC</span>
+									<span class="state">
+										<span class="icon mailC" title="메일"></span>
+										<span class="icon pc_onLine" title="온라인"></span>
+										<span class="icon tel_callPossible" title="통화가능"></span>
+									</span>
+								</div>
+								<div class="fclear"></div>
+							</li>
+							<li>
+								<div class="photo">
+									<span class="user_thum02">
+										<span class="thum_border02"></span>
+										<img src="/res/portal/img/img01.png" alt="">
+									</span>
+								</div>
+								<div class="info">
+									<span class="name_ko">홍길동</span>
+									<span class="name_eng">Gil-Dong-Hong</span>
+									<span class="mail">amore@amorepacific.com</span>
+									<span class="phone">02-1234-1234 / 010-1234-1345</span>
+									<span class="group">정보전략팀 / AMOREPACIFIC</span>
+									<span class="state">
+										<span class="icon mailC" title="메일"></span>
+										<span class="icon pc_onLine" title="온라인"></span>
+										<span class="icon tel_callPossible" title="통화가능"></span>
+									</span>
+								</div>
+								<div class="fclear"></div>
+							</li>
+							<li>
+								<div class="photo">
+									<span class="user_thum02">
+										<span class="thum_border02"></span>
+										<img src="/res/portal/img/img01.png" alt="">
+									</span>
+								</div>
+								<div class="info">
+									<span class="name_ko">홍길동</span>
+									<span class="name_eng">Gil-Dong-Hong</span>
+									<span class="mail">amore@amorepacific.com</span>
+									<span class="phone">02-1234-1234 / 010-1234-1345</span>
+									<span class="group">정보전략팀 / AMOREPACIFIC</span>
+									<span class="state">
+										<span class="icon mailC" title="메일"></span>
+										<span class="icon pc_onLine" title="온라인"></span>
+										<span class="icon tel_callPossible" title="통화가능"></span>
+									</span>
+								</div>
+								<div class="fclear"></div>
+							</li>
+							<li>
+								<div class="photo">
+									<span class="user_thum02">
+										<span class="thum_border02"></span>
+										<img src="/res/portal/img/img01.png" alt="">
+									</span>
+								</div>
+								<div class="info">
+									<span class="name_ko">홍길동</span>
+									<span class="name_eng">Gil-Dong-Hong</span>
+									<span class="mail">amore@amorepacific.com</span>
+									<span class="phone">02-1234-1234 / 010-1234-1345</span>
+									<span class="group">정보전략팀 / AMOREPACIFIC</span>
+									<span class="state">
+										<span class="icon mailC" title="메일"></span>
+										<span class="icon pc_onLine" title="온라인"></span>
+										<span class="icon tel_callPossible" title="통화가능"></span>
+									</span>
+								</div>
+								<div class="fclear"></div>
+							</li>
+							<li>
+								<div class="photo">
+									<span class="user_thum02">
+										<span class="thum_border02"></span>
+										<img src="/res/portal/img/img01.png" alt="">
+									</span>
+								</div>
+								<div class="info">
+									<span class="name_ko">홍길동</span>
+									<span class="name_eng">Gil-Dong-Hong</span>
+									<span class="mail">amore@amorepacific.com</span>
+									<span class="phone">02-1234-1234 / 010-1234-1345</span>
+									<span class="group">정보전략팀 / AMOREPACIFIC</span>
+									<span class="state">
+										<span class="icon mailC" title="메일"></span>
+										<span class="icon pc_onLine" title="온라인"></span>
+										<span class="icon tel_callPossible" title="통화가능"></span>
+									</span>
+								</div>
+								<div class="fclear"></div>
+							</li>
+							<li>
+								<div class="photo">
+									<span class="user_thum02">
+										<span class="thum_border02"></span>
+										<img src="/res/portal/img/img01.png" alt="">
+									</span>
+								</div>
+								<div class="info">
+									<span class="name_ko">홍길동</span>
+									<span class="name_eng">Gil-Dong-Hong</span>
+									<span class="mail">amore@amorepacific.com</span>
+									<span class="phone">02-1234-1234 / 010-1234-1345</span>
+									<span class="group">정보전략팀 / AMOREPACIFIC</span>
+									<span class="state">
+										<span class="icon mailC" title="메일"></span>
+										<span class="icon pc_onLine" title="온라인"></span>
+										<span class="icon tel_callPossible" title="통화가능"></span>
+									</span>
+								</div>
+								<div class="fclear"></div>
+							</li>
+							<li>
+								<div class="photo">
+									<span class="user_thum02">
+										<span class="thum_border02"></span>
+										<img src="/res/portal/img/img01.png" alt="">
+									</span>
+								</div>
+								<div class="info">
+									<span class="name_ko">홍길동</span>
+									<span class="name_eng">Gil-Dong-Hong</span>
+									<span class="mail">amore@amorepacific.com</span>
+									<span class="phone">02-1234-1234 / 010-1234-1345</span>
+									<span class="group">정보전략팀 / AMOREPACIFIC</span>
+									<span class="state">
+										<span class="icon mailC" title="메일"></span>
+										<span class="icon pc_onLine" title="온라인"></span>
+										<span class="icon tel_callPossible" title="통화가능"></span>
+									</span>
+								</div>
+								<div class="fclear"></div>
+							</li>
+							<li>
+								<div class="photo">
+									<span class="user_thum02">
+										<span class="thum_border02"></span>
+										<img src="/res/portal/img/img01.png" alt="">
+									</span>
+								</div>
+								<div class="info">
+									<span class="name_ko">홍길동</span>
+									<span class="name_eng">Gil-Dong-Hong</span>
+									<span class="mail">amore@amorepacific.com</span>
+									<span class="phone">02-1234-1234 / 010-1234-1345</span>
+									<span class="group">정보전략팀 / AMOREPACIFIC</span>
+									<span class="state">
+										<span class="icon mailC" title="메일"></span>
+										<span class="icon pc_onLine" title="온라인"></span>
+										<span class="icon tel_callPossible" title="통화가능"></span>
+									</span>
+								</div>
+								<div class="fclear"></div>
+							</li>
+							<li>
+								<div class="photo">
+									<span class="user_thum02">
+										<span class="thum_border02"></span>
+										<img src="/res/portal/img/img01.png" alt="">
+									</span>
+								</div>
+								<div class="info">
+									<span class="name_ko">홍길동</span>
+									<span class="name_eng">Gil-Dong-Hong</span>
+									<span class="mail">amore@amorepacific.com</span>
+									<span class="phone">02-1234-1234 / 010-1234-1345</span>
+									<span class="group">정보전략팀 / AMOREPACIFIC</span>
+									<span class="state">
+										<span class="icon mailC" title="메일"></span>
+										<span class="icon pc_onLine" title="온라인"></span>
+										<span class="icon tel_callPossible" title="통화가능"></span>
+									</span>
+								</div>
+								<div class="fclear"></div>
+							</li>
+							<li>
+								<div class="photo">
+									<span class="user_thum02">
+										<span class="thum_border02"></span>
+										<img src="/res/portal/img/img01.png" alt="">
+									</span>
+								</div>
+								<div class="info">
+									<span class="state">
+										<span class="icon pc_onLine" title="pc_온라인">pc_온라인</span>
+										<span class="icon pc_offLine" title="pc_오프라인">pc_오프라인</span>
+										<span class="icon pc_noStay" title="pc_부재중">pc_부재중</span>
+										<span class="icon pc_noRecive" title="pc_수신거부">pc_수신거부</span>
+										<span class="icon pc_meeting" title="pc_온라인미팅">pc_온라인미팅</span>
+										<br />
+										<span class="icon tel_calling" title="tel_통화중">tel_통화중</span>
+										<span class="icon tel_noStay" title="tel_상태모름">tel_상태모름</span>
+										<span class="icon tel_callPossible" title="tel_통화가능">tel_통화가능</span>
+										<span class="icon tel_receipt" title="tel_착신중">tel_착신중</span>
+										<br />
+										<span class="icon mailC" title="메일">메일c</span>
+									</span>
+								</div>
+								<div class="fclear"></div>
+							</li>
+							<li>
+								<div class="photo">
+									<span class="portlet_icon newsSquare2"></span>
+								</div>
+								<div class="info">
+									<span class="btn ico_home"></span> > Work Place > 전자결재 > 출장관리
+								</div>
+								<div class="fclear"></div>
+							</li>
+							<li>
+								<div class="photo">
+									<span class="portlet_icon newsSquare2"></span>
+								</div>
+								<div class="info">
+									<span class="btn ico_home"></span> > Work Place > 전자결재 > 출장관리
+								</div>
+								<div class="fclear"></div>
+							</li>
+						</ul>
+						<!-- 검색결과 목록 -->
+						<button type="button" class="btype01">검색결과 더보기 +</button>
+					</div>
+					<div class="portlet_bottom_blank"></div>
+				</div>
+			</div>
+		</div>
+		<!-- //검색 -->
+		<!-- //header -->
+
+		<!-- contents -->
+		<div id="content_area">
+			<div class="containerWrapper">
+				<div class="component-container myPageLayout">
+					<!-- <iframe src="http://www.daum.net/" width="100%" height="100%" frameborder="0"></iframe> -->
+					<!-- 내용이 위치합니다.<br/><br/>
+					내용이 위치합니다.<br/><br/>
+					내용이 위치합니다.<br/><br/>
+					내용이 위치합니다.<br/><br/>
+					내용이 위치합니다.<br/><br/>
+					내용이 위치합니다.<br/><br/>
+					내용이 위치합니다.<br/><br/>
+					내용이 위치합니다.<br/><br/>
+					내용이 위치합니다.<br/><br/> -->
+				</div>
+			</div>
+		</div>
+		<!-- //contents -->
+
+		<!-- 포틀릿편집-개인화 -->
+		<div class="portlet_btn">
+			<!-- 20150312 App 휠버튼 추가 -->
+			<span href="#app-wheel" class="btn ico_portletOpen wheel-button" title="포틀릿편집-개인화"></span>
+			<ul id="app-wheel" data-angle="NC" class="wheel">
+				<li class="item"><a href="">E-Mail</a></li>
+				<li class="item"><a href="">APG News Square</a></li>
+				<li class="item"><a href="">일정관리</a></li>
+				<li class="item"><a href="">게시판</a></li>
+				<li class="item"><a href="">AP Connections</a></li>
+				<li class="item"><a href="">내 즐겨찾기 App</a></li>
+			</ul>
+			<script type="text/javascript">
+				$(function() {
+					$(".wheel-button").wheelmenu({
+						trigger: "hover",
+						animation: "fly",
+						angle: "NW"
+					});
+					$(".wheel-button").click(function(){
+						$(".wheel").hide();
+					});
+				});
+			</script>
+			<!-- //20150312 App 휠버튼 추가 -->
+		</div>
+		
+		<!-- footer -->
+		<div id="footer">
+			<div class="fl copyright">AMOREPACIFIC CORPORATION. ALL RIGHT RESERVED.</div>
+			<div class="fr guide_area">
+				<span class="btn ico_favorite" title="내 즐겨찾기 APP"></span> 
+				<span class="btn ico_help" title="이용안내"></span>
+				<!-- <select name="" style="width:140px">
+					<option value="">FAMILY SITE</option>
+					<option value="">옵션 둘</option>
+					<option value="">옵션 셋</option>
+				</select> -->
+				<div class="family_site">
+					<div class="family_siteList">
+						<ul>
+							<li><a href="">111</a></li>
+							<li><a href="">222</a></li>
+							<li><a href="">333</a></li>
+						</ul>
+					</div>
+					<div class="family_siteBtnArea">
+						<span class="tit">FAMILY SITE</span><span class="family_siteBtn">▲</span>
+					</div>
+				</div>
+			</div>
+			<div class="fclear"></div>
+		</div>
+		<!-- //footer -->
+		<!-- 내 즐겨찾기 APP 팝업 -->
+		<div id="pop_favoriteApp" title="내 즐겨찾기 APP">
+			<div class="favorite_infoArea">
+				<div class="fl"><em class="count_info">45</em></div>
+				<div class="fr">
+					<span class="btn ico_add2" title="추가"></span>
+					<span class="btn ico_setting" title="설정"></span>
+				</div>
+				<div class="fclear"></div>
+			</div>
+			<div style="height:330px; overflow:hiddne; overflow-y:auto;">
+				<ul class="app_list">
+					<li>
+						<a href="">
+							<span><img src="/res/portal/img/icon02.png" alt=""></span>
+							<span class="tit">경영Insight</span>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<span><img src="/res/portal/img/icon03.png" alt=""></span>
+							<span class="tit">공정거래도우미</span>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<span><img src="/res/portal/img/icon04.png" alt=""></span>
+							<span class="tit">내부회계관리</span>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<span><img src="/res/portal/img/icon05.png" alt=""></span>
+							<span class="tit">웰빙센터</span>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<span><img src="/res/portal/img/icon03.png" alt=""></span>
+							<span class="tit">000</span>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<span><img src="/res/portal/img/icon02.png" alt=""></span>
+							<span class="tit">경영Insight</span>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<span><img src="/res/portal/img/icon02.png" alt=""></span>
+							<span class="tit">경영Insight</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- //내 즐겨찾기 APP 팝업 -->
+	</div>
+</body>
+</html>

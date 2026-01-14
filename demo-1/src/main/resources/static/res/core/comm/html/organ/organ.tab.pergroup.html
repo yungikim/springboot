@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+<div class="tab-wrap pergroup-tab">
+	<div class="ep-organ-tab-tree orgType" /></div>
+</div>
+<script>
+(function(){
+	if(!window.NotesName){
+		window.NotesName = function (name){
+			this.keyword = this.origin = name;this.addr821 = "";this.addr822LocalPart = "";this.addr822Phrase = "";this.addr822Phrase2 = "";
+			this.addr822Comment1 = "";this.addr822Comment2 = "";this.addr822Comment3 = "";
+			this.abbreviated = "";this.canonical = "";this.common = "";this.country = "";
+			this.abbreviated2 = "";this.canonical2 = "";
+			this.isHierarchical = false;this.isInternetAddress = false;
+			this.organization = "";this.orgUnit1 = "";this.orgUnit2 = "";this.orgUnit3 = "";this.orgUnit4 = "";
+			this.domain = "";
+			if(NotesName.REGEXP_RFC822.test(this.origin)){ /* rfc822 */
+				var match = this.origin.match(NotesName.REGEXP_RFC822);
+				this.addr822Phrase2 = this.addr822Phrase = match[1].trim();
+				if(NotesName.REGEXP_RFC822Phrase.test(this.addr822Phrase2)){
+					var mt = this.addr822Phrase2.match(NotesName.REGEXP_RFC822Phrase);
+					this.addr822Phrase2 = mt[1];
+				}
+				this.addr821 = match[2].trim();
+				this.addr822LocalPart = match[3].trim();
+				this.domain = match[4].trim();
+				this.canonical2 = this.abbreviated2 = this.canonical = this.abbreviated = this.origin.trim();
+				this.common = this.addr822Phrase;
+				this.addr822Comment1 = (match[5]||"").trim();
+				this.addr822Comment2 = (match[6]||"").trim();
+				this.addr822Comment3 = (match[7]||"").trim();
+				this.isInternetAddress = true;
+			}else{ /* rfc821 or hierarchical or flat */
+				var localpart = this.origin;
+				if(this.origin.indexOf("@") != -1){
+					localpart = this.addr822LocalPart = this.origin.substring(0, this.origin.indexOf("@")).trim();
+					this.domain = this.origin.substring(this.origin.indexOf("@") + 1).trim();
+				}
+				if(this.origin.indexOf("@") != -1 && localpart.indexOf("/") == -1){/* rfc821 */
+					this.canonical2 = this.canonical = this.abbreviated2 = this.abbreviated = this.addr821 = this.origin.trim();
+					this.common = localpart;
+					this.isInternetAddress = true;
+				}else if(localpart.indexOf("/") == -1){ /* flat */
+					this.common = this.canonical2 = this.canonical = this.abbreviated2 = this.abbreviated = this.origin.trim();
+				}else{ /* hierarchical */
+					this.isHierarchical = true;
+					isAbbreviated = true;
+					if(this.origin.indexOf("@") != -1) this.addr821 = this.origin.trim();
+					var hierarch = localpart.split("/");
+					var hierarchType = [];		
+					for(var i = 0; i < hierarch.length; i++){
+						if(hierarch[i].indexOf("=") != -1){
+							isAbbreviated = false;
+							hierarchType.push(hierarch[i].substring(0, hierarch[i].indexOf("=")).trim().toUpperCase());
+							hierarch[i] = hierarch[i].substring(hierarch[i].indexOf("=") + 1).trim();
+						}else{
+							hierarchType.push("");
+						}
+					}
+					/* 처음은 무조건 CN으로 인식. */
+					this.common = hierarch.shift();
+					hierarchType.shift();
+					hierarch = hierarch.reverse();
+					hierarchType = hierarchType.reverse();
+					if(!isAbbreviated) this.keyword = hierarch.join("\\");
+					if(hierarch.length > 1 && (hierarchType[0] == "C" || hierarch[0].length == 2)){ /* C */
+						this.country = hierarch.shift();
+						hierarchType.shift();
+					}
+					this.organization = hierarch.shift();
+					var orgUnitsA = [], orgUnits = [];
+					if(hierarch.length >= 1){
+						for(var i = 1; i <= 4; i++){
+							if(hierarch[i - 1]){
+								orgUnits.push("OU=" + hierarch[i - 1]);
+								orgUnitsA.push(hierarch[i - 1]);
+								this["orgUnit" + i] = hierarch[i - 1];
+							}
+						}
+					}
+					orgUnitsA = orgUnitsA.reverse();orgUnits = orgUnits.reverse();
+					this.canonical2 = this.canonical = "CN=" + this.common + (orgUnits.length != 0?"/" + orgUnits.join("/"):"") + "/O=" + this.organization + (this.country?"/C=" + this.country:"");
+					this.abbreviated2 = this.abbreviated = this.common + (orgUnits.length != 0?"/" + orgUnitsA.join("/"):"") + "/" + this.organization + (this.country?"/" + this.country:"");
+					if(this.domain){
+						this.canonical += "@" + this.domain;
+						this.abbreviated += "@" + this.domain;
+					}
+				}
+			}
+		}
+		NotesName.REGEXP_RFC822 = /("[\S\s]*"|[^<]*)?\s*<(([^@]+)@([^>]+))>(?:\s*\(([^\)]*)\))?(?:\s*\(([^\)]*)\))?(?:\s*\(([^\)]*)\))?/;
+		NotesName.REGEXP_RFC822Phrase = /"([\S\s]*)"/;
+	}
+})();
+(function(){
+	var _dlg = $("#{$dialogid$}")  		/* dialog id */
+		,_tabid = "{$tabid$}"			/* tabid */
+		, _tab = $("#"+_tabid,_dlg)		
+		,_event = $.Event("ep.ui.organ.dialog.method")
+		,_dialog = null  		/* organ.dialog */
+		,_panel = null			/* active Tab */
+		,_tree = null 			/* organ.tree */
+		,_select = null 
+		,_search = null;
+
+	_dlg.trigger(_event,["getInstance"]);		/* organ dialog의 instance  구하기 */
+	_dialog = _event.result;
+	_panel = _dialog.getActiveTab();  			/*현재 활성 탭*/ 
+	
+
+	/* Tree 초기화 */
+	function _initOrgan() {
+
+		try {
+			if (org_type == "" || org_type  == undefined || org_type == "undefined" ) {
+				org_type = "mail";
+			}	
+		} catch(e) {
+			org_type = "mail";
+		}
+
+		if(_dialog.moduleName != "ep.ui.organ.dialog") {return;}
+		var mailpath = "";
+		if (typeof org_mail_path != "undefined") {
+			if (org_mail_path != undefined && org_mail_path != "") {
+				mailpath = org_mail_path;
+			}
+		}
+		if(_panel.options.tree) {
+			if(!_panel.options.tree.root && _panel.options.tree.expandTree) {
+				_panel.options.tree.root = _panel.options.tree.expandTree.split("^")[0];
+			}
+			/* 검색 결과 처리.*/
+			!_panel.options.tree.aftersearch && (_panel.options.tree.aftersearch = function(data) {$(".ep-organ-search-resultcount strong",_tab).html(data.length);});
+			/* 트리 초기화.*/
+			if (org_type == "etc") {
+				_panel.options.tree.view = "/" + mailpath + "/byorgan_tree_pergroup_member_etc?readviewentries"; 
+			} else {
+				_panel.options.tree.view = "/" + mailpath + "/byorgan_tree_pergroup_member?readviewentries"; 
+			}
+			
+			_panel.options.tree.viewtype = "readviewentries";
+			_panel.options.tree.source = function(){
+				var _self = this;
+				var dfd = new $.Deferred()
+				
+
+				if (org_type == "etc") {
+					var _uri = $.CURI(
+							"/" + mailpath + "/byorgan_tree_pergroup_etc?readviewentries" 
+							,{restricttocategory :"pergroup",outputformat : "json" ,count : "9999"}
+						);
+				}  else {
+					var _uri = $.CURI(
+							"/" + mailpath + "/byorgan_tree_pergroup?readviewentries" 
+							,{restricttocategory :"pergroup",outputformat : "json" ,count : "9999"}
+						);
+				}
+
+				var _result;
+				$ep.util.ajax({type:"get",async:true, url:_uri.url})
+				.done(function(_data,txt,xhr) {
+					if(!_data.viewentry || _data.viewentry.length == 0){
+						dfd.resolveWith(this, [[],txt,xhr]);
+						 return;
+					}
+					_result = $ep.ui.organ.tree.prototype.convertViewEntry.apply(this,[_data,_self.options]) 
+
+					dfd.resolveWith(this, [_result ? _result : [],txt,xhr]);
+				})
+				.fail(function(xhr,txt,err) {dfd.rejectWith(this,[[],txt,xhr]);});
+				return dfd.promise();
+			};
+			// 실제 데이터를 넣는 부분
+			_panel.options.tree.item = function(data){	
+				var notes_name = new NotesName(data.altname||data.notesid);
+				var result = {title:null, tooltip:null};
+				if (data.type == "PM") {
+					var _name = '';
+					var _post = '';
+					var _orgname = '';
+					var _company = '';
+					var _t_uinfo = '';
+					_name = data.name;
+					_post = data.post;
+					_orgname = data.orgname;
+					_company = data.company;
+					_t_uinfo = _name + (_post == '' ? '' : "/" + _post) + (_orgname == '' ? '' : "/" + _orgname ) + (_company == '' ? '' : "/" + _company );
+					result.title = _t_uinfo.toEscape();
+				} else {
+					result.title = notes_name.abbreviated2.toEscape();
+				}
+				result.tooltip = notes_name.abbreviated2;
+				return result;
+			};
+			_panel.options.tree.itemRender =function(a){
+				switch(a.type){
+					case"PG":
+						a["lazy"]=true;
+						a["folder"]=true;
+						a["key"]=a["notesid"];
+						a["name"]=a["notesid"];
+
+						if (org_type == "etc") {
+							a["unselectable"]=true;
+							a["hideCheckbox"]=true;
+						} else if (org_type == "etc_all") {
+							a["unselectable"]=true;
+							a["hideCheckbox"]=true;
+						} else {
+							//2023.11.15  주소록 > 개인그룹에서 그룹이 선택되지 않게 변경
+							if(typeof _tabid != "undefined" && _tabid == "pergroup"){
+								a["unselectable"]=true;
+								a["hideCheckbox"]=true;
+							} else {
+								a["unselectable"]=false;
+								a["hideCheckbox"]=false;
+							}
+						}
+						
+						break;
+					case"PM":
+						a["key"]=a["notesid"];
+						a["email"]=a["InternetAddress"];
+						// a["name"]=a["notesid"];
+						break;
+				}
+			};
+			_tree = _dialog.api.tabs[_tabid] = $ep.ui.organ.tree.apply(_dialog,[$(".ep-organ-tab-tree",_panel.panel),_panel.options.tree]);
+		}
+		return;
+	}
+	function _initPage() {
+	}
+	_initOrgan();
+	_initPage();
+})();
+</script>
+</body>
+</html>

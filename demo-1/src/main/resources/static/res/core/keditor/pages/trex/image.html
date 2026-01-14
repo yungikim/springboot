@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=10" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title> 
+<script src="../../js/popup.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="../../css/popup.css" type="text/css"  charset="utf-8"/>
+<script type="text/javascript">
+// <![CDATA[
+	var _i18n = opener._i18n;
+	window.title = _i18n.IMAGE;
+	document.write('<style>	.footer li a {background-image: url(\'/res/core/keditor/images/icon/editor/' + _i18n.IMG_POP_FOOTER_BTN + '?v=2\');}</style>');
+	function done(data) {
+	    if (typeof(execAttach) == 'undefined') { //Virtual Function
+	        return;
+	    }
+		
+		/*var _mockdata = {
+			'imageurl': 'http://cfile284.uf.daum.net/image/116E89154AA4F4E2838948',
+			'filename': 'editor_bi.gif',
+			'filesize': 640,
+			'imagealign': 'C',
+			'originalurl': 'http://cfile284.uf.daum.net/original/116E89154AA4F4E2838948',
+			'thumburl': 'http://cfile284.uf.daum.net/P150x100/116E89154AA4F4E2838948'
+		};
+		execAttach(_mockdata);*/
+		execAttach(data);
+		closeWindow();
+	}
+	function imageUpload(){
+		var form = document.getElementById("imageUpload").contentWindow.document.forms[0];
+		form.action = opener.Editor.imageUploadFrameUrl;
+		form.submit();
+	}
+	function initUploader(){
+	    var _opener = PopupUtil.getOpener();
+	    if (!_opener) {
+	        alert(_i18n.MEDIA_POPUP_ERROR1);
+	        return;
+	    }
+
+		autoResizeHeight($tx("wrapper"));
+
+	    document.getElementById("imageUpload").src = opener.Editor.imageUploadFrameUrl;
+	    var _attacher = getAttacher('image', _opener);
+	    registerAction(_attacher);
+	}
+// ]]>
+</script>
+</head>
+<body onload="initUploader();">
+<div id="wrapper" class="wrapper">
+	<div class="header">
+		<h1><script>document.write(_i18n.IMAGE);</script></h1>
+	</div>	
+	<div class="body">
+		<iframe id="imageUpload" src="" frameborder="0" style="width:100%;height:60px"></iframe>
+		<!--dl class="alert">
+		    <dt>사진 첨부 확인</dt>
+		    <dd>
+		    	확인을 누르시면 임시 데이터가 사진첨부 됩니다.<br /> 
+				인터페이스는 소스를 확인해주세요.
+			</dd>
+		</dl-->
+	</div>
+	<div class="footer">
+		<!--p><a href="#" onclick="closeWindow();" title="닫기" class="close">닫기</a></p-->
+		<ul>
+		<li class="submit"><script>document.write('<a href="#" onclick="imageUpload();" title="' + _i18n.MEDIA_POPUP_REG + '" class="btnlink">' + _i18n.MEDIA_POPUP_REG + '</a>');</script></li>
+		<li class="cancel"><script>document.write('<a href="#" onclick="closeWindow();" title="' + _i18n.MEDIA_POPUP_CANCEL + '" class="btnlink">' + _i18n.MEDIA_POPUP_CANCEL + '</a>');</script></li>
+		</ul>
+	</div>
+</div>
+</body>
+</html>

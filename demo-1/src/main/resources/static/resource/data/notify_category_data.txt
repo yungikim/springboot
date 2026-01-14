@@ -1,0 +1,22 @@
+[
+	{
+		"category": "all",
+		"category_ko": "전체",
+		"length": 3
+	},
+	{
+		"category": "mail",
+		"category_ko": "메일함",
+		"length": 0
+	},
+	{
+		"category": "approval",
+		"category_ko": "결재함",
+		"length": 1
+	},
+	{
+		"category": "workplace",
+		"category_ko": "업무방",
+		"length": 2
+	}
+]

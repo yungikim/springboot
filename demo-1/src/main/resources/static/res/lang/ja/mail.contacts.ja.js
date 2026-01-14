@@ -1,0 +1,3 @@
+(function(){var _l;_l = LANGPACK.MAIL||(LANGPACK.MAIL={});_l = LANGPACK.MAIL.CONTACTS||(LANGPACK.MAIL.CONTACTS={});$.extend(_l,
+{
+"PERSON":{"NAME":"Name","GROUP":"Group","EMAIL":"E-Mail","COMPANY":"Company","HOMEPAGE":"Homepage","DEPT":"Department","OFFICEPHONE":"Office Phone","OFFICEFAX":"Fax","POST":"Post","CELLPHONE":"Mobile Phone","PERSONHOMEPAGE":"Home URL","HOMEPHONE":"Home Phone"},"GROUP":{"NAME":"Group Name","DESCRIPTION":"Description","MEMBER":"Members"},"SAVE":"Save","CLOSE":"Close","VALID1":"Please enter your name and email.","VALID2":"Please enter the name of the group.","MSG_SAVE":"It has been saved"});})();

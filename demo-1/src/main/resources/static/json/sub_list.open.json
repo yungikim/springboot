@@ -1,0 +1,47 @@
+{
+    "result": [
+        {
+            "subCode": "MTGCL_00000037",
+            "sub": "1F",
+            "ordr": 10
+        },
+        {
+            "subCode": "MTGCL_00000038",
+            "sub": "2F",
+            "ordr": 20
+        },
+        {
+            "subCode": "MTGCL_00000039",
+            "sub": "3F",
+            "ordr": 30
+        },
+        {
+            "subCode": "MTGCL_00000040",
+            "sub": "4F",
+            "ordr": 40
+        },
+        {
+            "subCode": "MTGCL_00000041",
+            "sub": "5F",
+            "ordr": 50
+        },
+        {
+            "subCode": "MTGCL_00000042",
+            "sub": "6F",
+            "ordr": 60
+        },
+        {
+            "subCode": "MTGCL_00000043",
+            "sub": "13F",
+            "ordr": 130
+        },
+        {
+            "subCode": "MTGCL_00000044",
+            "sub": "14F",
+            "ordr": 140
+        }
+    ],
+    "code": "1",
+    "message": "정상적으로 조회되었습니다.",
+    "totalCount": 8
+}

@@ -1,0 +1,79 @@
+
+<style>
+	body {overflow-y:auto; overflow-x : hidden;}
+	section {padding : 0 0 0 3px}
+	/*.talk {overflow: auto}*/
+	.mCSB_inside>.mCSB_container{
+		margin-right:15px;
+	}
+	.highlight{background:#ffc000;color:#202020;}
+	
+	.md-bottom-grid.mbsc-ms-c {
+	    border: 0;
+	}
+	
+	.md-content-scroll .mbsc-fr-c {
+        height: 330px;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .md-content-scroll .mbsc-popup {
+        filter: blur(8px);
+    }
+
+</style>
+
+
+<body>
+<div id="dis"></div>
+
+<!-- Block UI -->
+<div id="blockui" class="blockui" style="display:none;">
+	<iframe style="width:100%;height:100%;border:0"></iframe>
+</div>
+
+
+</body>
+<script language="javascript">
+	$LAB.script(cdbpath+"/js/main/main_bodyM.js?open?ver="+jsversion).script(cdbpath+"/js/main/main_bodyM2.js?open?ver="+jsversion).script(cdbpath+"/js/main/main_todoM.js?open?ver="+jsversion).script(cdbpath+"/js/main/main_regM.js?open?ver="+jsversion).wait(function(){
+		gBodyM = new gBodyM();
+		gBodyM.init();
+
+		gBodyM2 = new gBodyM2();
+		gBodyM2.init();
+
+		gTodoM = new gTodoM();
+		gTodoM.init();
+		
+		gRegM = new gRegM();
+		gRegM.init();
+
+		//URL을 특정한 케이스로 치고 들어올때 해당 페이지로 바로 이동하는 함수
+		gRegM.changePage();
+	});
+</script>
+
+<div id="vertical" class="mbsc-cloak" style="display:none">
+	<ul id="listview" class="mbsc-cloak">
+		<li data='0'><img src="img/temp.png" /><h3 id='li0'></h3></li>
+		<li data='1'><img src="img/wait.png" /><h3 id='li1'></h3></li>
+		<li data='2'><img src="img/continue.png" /><h3 id='li2'></h3></li>
+		<li data='3'><img src="img/complete.png" /><h3 id='li3'></h3></li>
+		<li data='4' id='s_archive'><img src="img/complete.png" /><h3 id='li4'></h3></li>
+	</ul>
+</div>
+
+<div id="list" class="mbsc-cloak" style="display:none">
+    <ul id="action_list">
+        <li data-role="list-divider" >Actions</li>
+        <li data-icon="copy" data='1' id='t01'></li>
+        <li data-icon="pencil" data='2' id='t02'></li>
+        <li data-icon="remove2" data='3' id='t03'></li>
+    </ul>
+</div>
+
+<div id="memberlist" class="mbsc-cloak" style="display:none;">
+	<ul id="members" class="mbsc-cloak">	
+	</ul>
+</div>

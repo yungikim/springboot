@@ -1,0 +1,133 @@
+@media screen and (max-width: 1920px) {}
+
+@media screen and (max-width: 1600px) {
+	
+	#login_bg_swiper .swiper-slide .bg_desc {
+		white-space: normal;
+	}
+	
+}
+
+@media screen and (max-width: 1440px) {
+	
+	#loginContainer {
+		padding: 100px 80px;
+	}
+	
+	#login_box_wrap .login_content .inner {
+        gap: 48px;
+		width: inherit;
+	}
+	#login_box_wrap .title {
+		font-size: 20px;
+	}
+	#login_box_wrap .logo {
+		height: 50%;
+	}
+	#login_box_wrap .login_form_wrap {
+		width: -webkit-fill-available;
+	}
+}
+
+@media screen and (max-width: 1280px) {
+	/* #login_bg_swiper .swiper-slide .bg_wrap {
+		gap: 24px;
+	} */
+	#login_bg_swiper .swiper-slide .slide_img {
+		width: 400px;
+		height: 308px;
+	}
+	
+	#login_bg_swiper .swiper-slide .bg_title span {
+		font-size: 40px;
+	}
+	#login_bg_swiper .swiper-slide .bg_desc {
+		font-size: 20px;
+	}
+	
+	#login_box_wrap .login_content {
+		padding: 80px 56px;
+	}
+	
+	#login_box_wrap .login_content .inner {
+		gap: 40px;
+	}
+	
+	#login_box_wrap .title {
+        font-size: 18px;
+    }
+    
+    #login_box_wrap .login_input {
+    	font-size: 14px;
+    }
+    
+	#login_box_wrap .login_input,
+	#login_box_wrap .login_btn {
+		height: 52px;
+	}
+}
+@media screen and (max-width: 1024px) {
+    
+	
+	#login_bg_swiper .swiper-slide .slide_img {
+		width: 320px;
+		height: 246px;
+	}
+
+	#login_bg_swiper .swiper-slide .bg_title span {
+		font-size: 36px;
+	}
+	
+	/* #login_box_wrap .login_content {
+		padding: 80px 56px;
+	} */
+	
+	#login_box_wrap .title_wrap {
+		gap: 12px;
+	}
+	
+	#login_box_wrap .logo_wrap {
+		gap: 16px;
+	}
+	#login_box_wrap .title_desc,
+	#login_bg_swiper .swiper-slide .bg_desc {
+		font-size: 16px;
+	}
+
+	#login_box_wrap .logo {
+		width: 100%;
+		height: 49px;
+	}
+}
+@media screen and (max-width: 768px) {
+	
+	#login_bg_wrap {
+		padding: 60px 12px;
+	}
+	
+	#login_bg_swiper .swiper-slide .bg_title span {
+		font-size: 30px;
+	}
+	#login_bg_swiper .swiper-slide .bg_desc {
+		font-size: 15px;
+	}
+	#login_bg_wrap .bg_swiper {
+		gap: 24px;
+	}
+	
+	
+	#login_box_wrap .login_content {
+		gap: 24px;
+		padding: 80px 42px;
+	}
+	
+	#login_box_wrap .logo {
+		height: 40px;
+	}
+	
+	#login_box_wrap .login_input, #login_box_wrap .login_btn {
+		height: 46px;
+        font-size: 16px;
+	}
+	
+}

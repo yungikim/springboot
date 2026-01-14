@@ -1,0 +1,26 @@
+[
+    {
+      "start": "2024-10-21",
+      "end": "2024-10-21",
+      "title": "회의록 녹음 및 읽기 기능 개발",
+      "category": "meeting",
+      "allDay": true,
+      "free": true
+    },
+    {
+      "start": "2024-10-30",
+      "end": "2024-10-31",
+      "title": "회의록 리스트 관리 기능 개발",
+      "category": "vac",
+      "allDay": true,
+      "free": true
+    },
+    {
+      "start": "2024-10-07",
+      "end": "2024-10-11",
+      "title": "즐겨찾기 검색 기능 개발",
+      "category": "vac",
+      "allDay": true,
+      "free": true
+    }
+ ]

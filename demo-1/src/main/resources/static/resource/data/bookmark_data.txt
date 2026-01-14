@@ -1,0 +1,42 @@
+[
+            {
+                "img": "../resource/images/globe.svg",
+                "title": "글로벌 고객 대시보드"
+            },
+            {
+                "img": "../resource/images/storefront.svg",
+                "title": "통합구매포털"
+            },
+            {
+                "img": "../resource/images/pallet.svg",
+                "title": "간접구매시스템(APS)"
+            },
+            {
+                "img": "../resource/images/local_mall.svg",
+                "title": "구매포털"
+            },
+            {
+                "img": "../resource/images/osulloc.svg",
+                "title": "오설록"
+            },
+            {
+                "img": "../resource/images/history_edu.svg",
+                "title": "아모레스토리"
+            },
+            {
+                "img": "../resource/images/meeting_room.svg",
+                "title": "회의관리"
+            },
+            {
+                "img": "../resource/images/monitoring.svg",
+                "title": "GHR 평가시스템"
+            },
+            {
+                "img": "../resource/images/mic_double.svg",
+                "title": "CS VoiceNet"
+            },
+            {
+                "img": "../resource/images/support_agent.svg",
+                "title": "고객전략 포털"
+            }
+]

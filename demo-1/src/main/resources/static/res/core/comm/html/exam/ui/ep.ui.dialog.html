@@ -1,0 +1,139 @@
+<div class="frm_wrap frm_page_scroll">
+	<div class="formpage ">
+		<form class="">			
+			<fieldset class="example-dialog">
+				<legend>ui.dialog</legend>
+				<table class="table-form">
+				<colgroup><col width="150px" /><col /></colgroup>
+				<tr>
+					<th class="first">dialog organgrid</th>
+					<td><span class="btn_dialog1"></span></td>
+				</tr>
+				<tr>
+					<th class="first">dialog view</th>
+					<td><span class="btn_dialog2"></span></td>
+				</tr>	
+				<tr>
+					<th class="first">dialog iframe</th>
+					<td><span class="btn_dialog3"></span></td>
+				</tr>					
+				</table>
+				<span class="source">source</span>
+				<pre id="src"></pre>
+<script id="script">
+$ep
+.wait(function() {
+	$("fieldset.example-dialog .btn_dialog1").epbutton({
+		text : "dialog1"
+		,click : function() {
+			var _grid = null;
+			$ep.ui.dialog({
+				title : "dialog organgrid"
+				,width : 450
+				,show : {effect : "fadeIn",duration: 200}
+				,position : {my : "center center", at : "center center", of : $(window)}
+				,content : {html : '<div class="ep-organ-wrap" />'}
+				,create : function() {
+					var _this = $(this).epdialog("widget").on("keydown",function(e) {
+						if(e.which !== $.ui.keyCode.ENTER) {return;}
+						e.preventDefault();
+						_this.find('.ui-dialog-buttonpane button:first').trigger("click");
+					});
+				}
+				,complete : function() {
+					$(this).empty();	
+					var _h = $("<div />").appendTo(this);
+					_grid =  $ep.ui.organgrid(_h,{
+						display : "all"
+						,select : "all"
+						,server : "devaphqapp"
+						,expandTree :"1^00012018^00072551^00020397"
+						,dataset : [
+							{	code: "shbang",ename: "Bang SangHyuk"
+								,eorgname: "Business Partner",lang: "ko"
+								,name: "방상혁",notesid: "CN=Sanghyuk Bang/OU=shbang/O=APG"
+								,orgcode: "90000001",orgname: "협력업체",type: "P"
+							}
+							,{
+								code: "hgyeo",ename: "Yeo HyungGoo"
+								,eorgname: "Business Partner" ,lang: "ko"
+								,name: "여형구"	,notesid: "CN=Yeo HyungGoo/OU=hgyeo/O=APG"
+								,orgcode: "90000001",orgname: "협력업체",type: "P"
+							}
+						]
+					});
+				}
+				,buttons : [
+				   { 
+					 text : $ep.LangString("$CORE.ORGAN.BUTTON.OK") 
+					 ,highlight : true
+					 ,click : function(){
+						var _data = _grid.getString();
+						$ep.util.toast(_data,"click",null,{
+							width : 500
+							,marginLeft: -250
+							,marginTop: -100							
+						});
+						_grid.destroy();
+						$(this).epdialog("close");
+					 }
+				   }
+				   ,{ text : $ep.LangString("$CORE.ORGAN.BUTTON.CANCEL") 
+					   ,click : function() { 
+						   $(this).epdialog("close"); 
+					   
+					   } 
+				   }
+				]					
+			});
+		}
+	});
+	
+	/* dialog view*/
+	$("fieldset.example-dialog .btn_dialog2").epbutton({
+		text : "dialog2"
+		,click : function() {
+			$ep.ui.dialog({
+				content : "/devaphqapp/ngw/comm/prototype.nsf/viewpage?readform&alias=view01&_ver=5"
+				,title : "prototype in Dialog"
+				,resizable : true
+				,width : 800
+				,height: 600
+				,lang : { langpack : "comm.prototype", prefix : "COMM.PROTOTYPE"}				
+			});
+		}
+	});
+	
+	/* dialog iframe*/
+	$("fieldset.example-dialog .btn_dialog3").epbutton({
+		text : "dialog3"
+		,click : function() {
+			$ep.ui.dialog({
+				content : "http://www.daum.net"
+				,title : "iframe in dialog"
+				,resizable : true
+				,iframe : true 
+				,width : 800
+				,height: 600
+			});
+		}
+	});
+});
+</script>
+			</fieldset>
+		</form>
+		
+	</div>
+</div>
+<script>
+(function(){
+	$("fieldset .source").on("click", function(e) {
+		var _fieldset = $(e.target).closest("fieldset")
+			,_src = $("#src",_fieldset);
+		if($(e.target).hasClass("open")) {_src.empty();$(e.target).removeClass("open");return;}
+		_src.html($("script",_fieldset).html().replace(/</g,"&lt;").replace(/>/g,"&gt;"));
+		$(e.target).addClass("open");
+	});
+})();
+</script> 
+ 

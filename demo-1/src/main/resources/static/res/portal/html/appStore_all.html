@@ -1,0 +1,397 @@
+﻿<!DOCTYPE html>
+<html xml:lang="ko" lang="ko">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<meta name="format-detection" content="telephone=no, address=no, email=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<title>...</title>
+	<link rel="apple-touch-icon-precomposed" href="../img/favicomImg.png" />  
+	<link rel="shortcut icon" href="../img/favicomImg.ico" />
+	<link rel="icon" type="image/x-icon" href="../img/favicomImg.ico" />
+
+	<link rel="stylesheet" type="text/css" href="/res/portal/css/portal.css" />
+	<link type="text/css" rel="stylesheet" href="/res/core/jquery/jquery-ui/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="/res/core/jquery/customscroll/jquery.scroll.css">
+	
+	<script type="text/javascript" src="/res/core/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/customscroll/jquery.scroll.js"></script>
+	<script type="text/javascript" src="/res/core/newep.js"></script>
+	<script type="text/javascript" src="/res/portal/js/portal_common.js"></script>
+	<script type="text/javascript" src="/res/portal/js/owl.carousel.js"></script>
+	<!--[if lt IE 9]>
+		<script type="text/javascript" src="/res/portal/js/HTML5forIE.js"></script>
+		<script type="text/javascript" src="/res/portal/js/respond.min.js"></script>
+	<![endif]-->
+	<script type="text/javascript">
+		$(function() {
+			//셀렉트박스
+			$ep.wait(function() {
+				$ep.ui.select("#app_sel01",{});
+				$ep.ui.select("#app_sel02",{});
+				$ep.ui.select("#categoty_sel",{});
+			});
+
+			//App 상세보기
+			$( "#pop_appDetail" ).dialog({
+				autoOpen: false,
+				width: 700,
+				height: 650,
+				modal: true,
+				resizable: false,
+				buttons: {
+					Ok : {text : "확인", highlight:true, click : function() {}}
+				}
+			});
+			$( ".btn_appDetail" ).click(function() {
+				$( "#pop_appDetail" ).dialog( "open" );
+			});
+
+			//App 카테고리선택
+			$( "#pop_appCategory" ).dialog({
+				autoOpen: false,
+				width: 450,
+				height: 230,
+				modal: true,
+				resizable: false,
+				buttons: {
+					Ok : {text : "확인", highlight:true, click : function() {}},
+					Cancle : {text : "취소", click : function() {}}
+				}
+			});
+			$( ".btn_appCategory" ).click(function() {
+				$( "#pop_appCategory" ).dialog( "open" );
+			});
+
+			//App 카테고리편집
+			$( "#pop_appCategoryEdit" ).dialog({
+				autoOpen: false,
+				width: 450,
+				height: 440,
+				modal: true,
+				resizable: false,
+				buttons: {
+					Ok : {text : "확인", highlight:true, click : function() {}},
+					Cancle : {text : "취소", click : function() {}}
+				}
+			});
+			$( ".btn_appCategoryEdit" ).click(function() {
+				$( "#pop_appCategoryEdit" ).dialog( "open" );
+			});
+		});
+	</script>
+
+</head>
+
+<body>
+	<div id="wrap">
+		<!-- header -->
+		<div id="header">
+			<div class="header_area">
+				<h1><a href="">AMOREPACIFIC</a></h1>
+				<div class="info_area">
+					<div class="fl">
+						<span class="btn ico_sitemap" title="사이트맵"><a href=""></a></span>
+						<span class="btn ico_search" title="검색"><a href=""></a></span>
+					</div>
+					<div class="fr">
+						<span class="btn ico_mail" title="메일"><a href=""><em class="count_info">99</em></a></span>
+						<span class="btn ico_schedule" title="일정"><a href=""></a></span>
+						<span class="btn ico_works" title="업무"><a href=""></a></span>
+						<span class="user_thum">
+							<span class="thum_border"></span>
+							<img src="/res/portal/img/img01.png" alt="" />
+						</span>
+						<span class="btn ico_arrowview" title="개인설정"><a href=""></a></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- //header -->
+
+		<!-- contents -->
+		<div id="content_area">
+			<div class="containerWrapper">
+				<div class="component-container fullPageLayout">
+					<div id="ep_body" class="component-control default_scroll">
+						<div id="ep_content_navigator">Left Navigation Area</div>
+						<div id="ep_content_body">
+							<div class="view-wrap">
+								<div class="viewpage ep-bodycontent ep-viewpage">
+									<!-- 타이틀영역 -->
+									<div class="view-header titlebar">
+										<span class="view-title">전체</span>
+										<span class="view-counter"><strong>1545</strong></span>
+										<span class="view-breadcrumb ep-breadcrumb"><span class="icon breadcrumb home"></span><span class="icon breadcrumb divider"></span><span class="breadcrumb appname">My Apps</span><span class="icon breadcrumb divider"></span><span class="breadcrumb page">App Store</span><span class="icon breadcrumb divider"></span><span class="breadcrumb page">App</span><span class="icon breadcrumb divider"></span><span class="breadcrumb page last">전체</span></span>
+									</div>
+									<!-- //타이틀영역 -->
+									<!-- 셀렉트영역 -->
+									<div class="view-action actionbar">
+										<span class="view-button">
+											<select name="" id="app_sel01" style="width:140px">
+												<option value="">전체</option>
+												<option value="">옵션 둘</option>
+												<option value="">옵션 셋</option>
+											</select>
+											<select name="" id="app_sel02" style="width:140px">
+												<option value="">가나다순</option>
+												<option value="">옵션 둘</option>
+												<option value="">옵션 셋</option>
+											</select>
+										</span>
+										<span class="btn_appCategoryEdit">
+											<button type="button" class="common_btn02 btnM" title="카테고리 편집">카테고리 편집</button>
+										</span>
+										<span class="view-search">
+											<span class="ep-widget ep-epinput searchtxt foldable collapse hasicon">
+												<span class="ep-widget ep-epselect"></span>
+												<span class="ep-icon ep-input-iconsearch"></span>
+											</span>
+										</span>
+									</div>
+									<!-- //셀렉트영역 -->
+									<!---------------------------------------------------------------------------------------------
+									내용영역
+									---------------------------------------------------------------------------------------------->
+									<div class="view-body">
+										<div class="appStore_content">
+											<div class="app_listArea view_scroll3">
+												<ul class="app_list">
+													<li>
+														<a href="">
+															<span><img src="/res/portal/img/icon01.png" alt=""></span>
+															<span class="tit">게시판</span>
+														</a>
+														<button type="button" class="btn_appDetail" title="App상세보기"><span class="ico app_detailView"></span></button>
+														<!----- APP상세보기 레이어 팝업 ----->
+														<div id="pop_appDetail" title="APP 상세보기">
+															<!-- 배너영역 -->
+															<div class="appbanner_area">
+																<ul class="appbanner_swipe">     
+																	<li class="app_infoBanner pdnone mgnone">
+																		<div class="app_src">	
+																			<span class="src_img">
+																				<img src="/res/portal/img/icon06.png" alt="" />
+																			</span>
+																			<span class="src_area">
+																				<span class="tit">Sametime</span>
+																				<span class="tit_sub">차세대 소셜 기반 통합 커뮤니케이션 플랫폼</span>
+																				<span class="src">Sametime 은 인스턴트 메시지 및 브라우저 기반 웹 미팅, 실시간 협업, 음성/화상 회의 등 다양한 통신 기능을 지원합니다.</span>
+																				<button type="button" class="common_btn02 btnM">설치</button>
+																			</span>
+																			<span class="fclear"></span>
+																		</div>
+																	</li>
+																</ul>
+															</div>
+															<!-- 배너영역 -->
+
+															<!-- APP담당자 -->
+															<p class="tit_3rd">APP 담당자</p>
+															<ul class="result_list_type01 pdnone">
+																<li>
+																	<div class="photo">
+																		<span class="user_thum02">
+																			<span class="thum_border02"></span>
+																			<img src="/res/portal/img/img01.png" alt="">
+																		</span>
+																	</div>
+																	<div class="info">
+																		<span class="name_ko">홍길동</span>
+																		<span class="name_eng">Gil-Dong-Hong</span>
+																		<span class="mail">amore@amorepacific.com</span>
+																		<span class="phone">02-1234-1234 / 010-1234-1345</span>
+																		<span class="group">정보전략팀 / AMOREPACIFIC</span>
+																		<span class="state">
+																			<span class="icon mailC" title="메일"></span>
+																			<span class="icon pc_onLine" title="온라인"></span>
+																			<span class="icon tel_callPossible" title="통화가능"></span>
+																		</span>
+																	</div>
+																	<div class="fclear"></div>
+																</li>
+																<li>
+																	<div class="photo">
+																		<span class="user_thum02">
+																			<span class="thum_border02"></span>
+																			<img src="/res/portal/img/img01.png" alt="">
+																		</span>
+																	</div>
+																	<div class="info">
+																		<span class="name_ko">홍길동</span>
+																		<span class="name_eng">Gil-Dong-Hong</span>
+																		<span class="mail">amore@amorepacific.com</span>
+																		<span class="phone">02-1234-1234 / 010-1234-1345</span>
+																		<span class="group">정보전략팀 / AMOREPACIFIC</span>
+																		<span class="state">
+																			<span class="icon mailC" title="메일"></span>
+																			<span class="icon pc_onLine" title="온라인"></span>
+																			<span class="icon tel_callPossible" title="통화가능"></span>
+																		</span>
+																	</div>
+																	<div class="fclear"></div>
+																</li>
+															</ul>
+															<!-- //APP담당자 -->
+
+															<!-- 설명 -->
+															<p class="tit_3rd">설명</p>
+															<div class="">
+																<p class="warning-msg">경고 메세지</p><!-- 20150227 경고 메세지 영역 추가 -->
+																<p>Sametime Meeting은 차세대 소셜 기반 통합 커뮤니케이션 플랫폼으로 인스턴트 메시지 및 브라우저 기반 웹 미팅, 실시간 협업, 음성/화상 회의 등 다양한 통신 기능을 지원합니다.</p>
+																<div>
+																	<p class="pdnone mgnone tit_4th c_type01">[주요기능]</p>
+																	<ul class="border_noneList02">
+																		<li>01. 인스턴트 메시지 및 온라인 상태 확인</li>
+																		<li>02. 웹 회의</li>
+																		<li>03. 실시간 협업</li>
+																		<li>04. 음성/화상 회의</li>
+																	</ul>
+																</div>
+															</div>
+															<!-- //설명 -->
+														</div>
+														<!----- //App상세보기 레이어 팝업 ----->
+
+														<button type="button" class="btn_appCategory" title="App카테고리"><span class="ico app_category"></span></button>
+														<!----- 내 즐겨찾기 APP 추가 레이어 팝업 ----->
+														<div id="pop_appCategory" title="내 즐겨찾기 APP 추가">
+															<br />
+															<div class="fl">
+																<span class="btn_appCategoryEdit">
+																	<button type="button" class="common_btn02 btnM" title="카테고리 편집" style="padding:0 15px;"><span class="ico ico_setting"></span>카테고리 편집</button>
+																</span>
+															</div>
+															<div class="fr">
+																<select name="" id="categoty_sel" style="width:250px;">
+																	<option value="">전체</option>
+																	<option value="">옵션 둘</option>
+																	<option value="">옵션 셋</option>
+																</select>
+															</div>
+															<div class="fclear"></div>
+														</div>
+														<!----- //내 즐겨찾기 APP 추가 레이어 팝업 ----->
+													</li>
+													<li>
+														<a href="">
+															<span><img src="/res/portal/img/icon02.png" alt=""></span>
+															<span class="tit">경영Insight</span>
+														</a>
+														<button type="button" class="btn_appDetail" title="App상세보기"><span class="ico app_detailView"></span></button>
+														<button type="button" class="btn_appCategory" title="App카테고리"><span class="ico app_category"></span></button>
+													</li>
+													<li>
+														<a href="">
+															<span><img src="/res/portal/img/icon03.png" alt=""></span>
+															<span class="tit">공정거래도우미</span>
+														</a>
+														<button type="button" class="btn_appDetail" title="App상세보기"><span class="ico app_detailView"></span></button>
+														<button type="button" class="btn_appCategory" title="App카테고리"><span class="ico app_category"></span></button>
+													</li>
+													<li>
+														<a href="">
+															<span><img src="/res/portal/img/icon04.png" alt=""></span>
+															<span class="tit">내부회계관리</span>
+														</a>
+														<button type="button" class="btn_appDetail" title="App상세보기"><span class="ico app_detailView"></span></button>
+														<button type="button" class="btn_appCategory" title="삭제"><span class="btn  ico_del3"></span></button>
+													</li>
+												</ul>
+												<!----- APP카테고리편집 레이어 팝업 ----->
+												<div id="pop_appCategoryEdit" title="카테고리 편집">
+													<!-- 카테고리추가 -->
+													<div class="category_addArea">
+														<span class="fl">
+															<input type="text" name="" id="" style="width:280px;"/>
+														</span>
+														<span class="fr ">
+															<span class="btn_appCategoryEdit">
+																<button type="button" class="common_btn02 btnM" title="카테고리 편집" style="width:120px;">카테고리 추가</button>
+															</span>
+														</span>
+														<span class="fclear"></span>
+													</div>
+													<!-- //카테고리추가 -->
+													<ul class="border_noneList01 btop2 bbottom2" style="height:240px; overflow:hidden; overflow-y:auto">
+														<li>
+															<input type="text" name="" id="" placeholder="내 카테고리" style="width:250px;"/>
+															<span class="fr">
+																<span class="btn ico_alignDown" title="위로정렬"> </span>
+																<span class="btn ico_alignUp" title="아래로정렬"> </span>
+																<span class="btn ico_del2" title="삭제"> </span>
+															</span>
+														</li>
+														<li>
+															<input type="text" name="" id="" placeholder="내 카테고리" style="width:250px;"/>
+															<span class="fr">
+																<span class="btn ico_alignDown" title="위로정렬"> </span>
+																<span class="btn ico_alignUp" title="아래로정렬"> </span>
+																<span class="btn ico_del2" title="삭제"> </span>
+															</span>
+														</li>
+														<li>
+															<input type="text" name="" id="" placeholder="내 카테고리" style="width:250px;"/>
+															<span class="fr">
+																<span class="btn ico_alignDown" title="위로정렬"> </span>
+																<span class="btn ico_alignUp" title="아래로정렬"> </span>
+																<span class="btn ico_del2" title="삭제"> </span>
+															</span>
+														</li>
+														<li>
+															<input type="text" name="" id="" placeholder="내 카테고리" style="width:250px;"/>
+															<span class="fr">
+																<span class="btn ico_alignDown" title="위로정렬"> </span>
+																<span class="btn ico_alignUp" title="아래로정렬"> </span>
+																<span class="btn ico_del2" title="삭제"> </span>
+															</span>
+														</li>
+														<li>
+															<input type="text" name="" id="" placeholder="내 카테고리" style="width:250px;"/>
+															<span class="fr">
+																<span class="btn ico_alignDown" title="위로정렬"> </span>
+																<span class="btn ico_alignUp" title="아래로정렬"> </span>
+																<span class="btn ico_del2" title="삭제"> </span>
+															</span>
+														</li>
+														<li>
+															<input type="text" name="" id="" placeholder="내 카테고리" style="width:250px;"/>
+															<span class="fr">
+																<span class="btn ico_alignDown" title="위로정렬"> </span>
+																<span class="btn ico_alignUp" title="아래로정렬"> </span>
+																<span class="btn ico_del2" title="삭제"> </span>
+															</span>
+														</li>
+													</ul>
+												</div>
+												<!----- //APP카테고리편집 레이어 팝업 ----->
+											</div>
+										</div>
+									</div>
+									<!---------------------------------------------------------------------------------------------
+									//내용영역
+									---------------------------------------------------------------------------------------------->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- //contents -->
+		
+		<!-- footer -->
+		<div id="footer">
+			<div class="copyright">AMOREPACIFIC CORPORATION. ALL RIGHT RESERVED.</div>
+		</div>
+		<!-- //footer -->
+	</div>
+	<script type="text/javascript">
+		$ep.wait(function() {
+			$ep.ui.initLNBLayout();
+		});
+	</script> 
+</body>
+</html>

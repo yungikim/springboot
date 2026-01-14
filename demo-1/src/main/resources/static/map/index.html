@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Locator</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="building-list">
+        <button class="building" data-lat="48.863491599999996" data-lng="2.3274942999999997">Building A</button>
+        <button class="building" data-lat="37.5510" data-lng="126.9880">Building B</button>
+        <button class="building" data-lat="37.5583" data-lng="126.9394">Building C</button>
+    </div>
+
+    <!-- Google Maps Pop-up -->
+    <div id="map-popup">
+        <span id="close-popup">X</span>
+        <iframe id="google-map" width="100%" height="500px" frameborder="0" style="border:0;" allowfullscreen></iframe>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

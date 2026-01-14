@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>editor</title>
+</head>
+<body>
+<div id="tx_trex_container${instanceId}" class="tx-editor-container">
+    <!-- 사이드바 -->
+    <div id="tx_sidebar${instanceId}" class="tx-sidebar" style="display:none;">
+        <div class="tx-sidebar-boundary">
+            <!-- 사이드바 / 첨부 -->
+            <ul class="tx-bar tx-bar-left tx-nav-attach">
+            </ul>
+        </div>
+    </div>
+    <div id="tx_toolbar_basic${instanceId}" class="tx-toolbar tx-toolbar-basic">
+        <div class="tx-toolbar-boundary">
+            <ul class="tx-bar tx-bar-left">
+                <li class="tx-list" style="display:none;">
+                    <div unselectable="on" id="tx_recorder${instanceId}" class="tx-recorder tx-btn-bg">
+                        <a href="javascript:;" title="{{tx_recorder|음성 녹음}}" class="tx-icon">{{tx_recorder|음성 녹음}}</a>
+                    </div>
+                </li>
+                <li class="tx-list">
+                    <div id="tx_fontfamily${instanceId}" unselectable="on" class="tx-slt-70bg tx-fontfamily">
+                        <a href="javascript:;" title="{{tx_fontfamily-title|글꼴}}"></a>
+                    </div>
+                    <div id="tx_fontfamily_menu${instanceId}" class="tx-fontfamily-menu tx-menu" unselectable="on"></div>
+                </li>
+            </ul>
+            <ul class="tx-bar tx-bar-left">
+                <li class="tx-list">
+                    <div unselectable="on" class="tx-slt-42bg tx-fontsize" id="tx_fontsize${instanceId}">
+                        <a href="javascript:;" title="{{tx_fontsize-title|글자크기}}"></a>
+                    </div>
+                    <div id="tx_fontsize_menu${instanceId}" class="tx-fontsize-menu tx-menu" unselectable="on"></div>
+                </li>
+            </ul>
+            <ul class="tx-bar tx-bar-left tx-group-font">
+
+                <li class="tx-list">
+                    <div unselectable="on" class="       tx-btn-lbg     tx-bold" id="tx_bold${instanceId}">
+                        <a href="javascript:;" title="{{tx_bold-title|굵게 (Ctrl+B)}}" class="tx-icon">{{tx_bold|굵게}}</a>
+                    </div>
+                </li>
+                <li class="tx-list">
+                    <div unselectable="on" class="       tx-btn-bg  tx-underline" id="tx_underline${instanceId}">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_underline-title|밑줄 (Ctrl+U)}}">{{tx_underline|밑줄}}</a>
+                    </div>
+                </li>
+                <li class="tx-list">
+                    <div unselectable="on" class="       tx-btn-bg  tx-italic" id="tx_italic${instanceId}">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_italic-title|기울임 (Ctrl+I)}}">{{tx_italic|기울임}}</a>
+                    </div>
+                </li>
+                <li class="tx-list">
+                    <div unselectable="on" class="       tx-btn-bg  tx-strike" id="tx_strike${instanceId}">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_strike-title|취소선 (Ctrl+D)}}">{{tx_strike|취소선}}</a>
+                    </div>
+                </li>
+                <li class="tx-list">
+                    <div unselectable="on" class="       tx-slt-tbg     tx-forecolor" id="tx_forecolor${instanceId}">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_forecolor|글자색}}">{{tx_forecolor|글자색}}</a>
+                        <a href="javascript:;" class="tx-arrow" title="{{tx_forecolor-arrow|글자색 선택}}">{{tx_forecolor-arrow|글자색 선택}}</a>
+                    </div>
+                    <div id="tx_forecolor_menu${instanceId}" class="tx-menu tx-forecolor-menu tx-colorpallete" unselectable="on"></div>
+                </li>
+                <li class="tx-list">
+                    <div unselectable="on" class="       tx-slt-brbg    tx-backcolor" id="tx_backcolor${instanceId}">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_backcolor}}">{{tx_backcolor|글자 배경색}}</a>
+                        <a href="javascript:;" class="tx-arrow" title="{{tx_backcolor-arrow|글자 배경색 선택}}">{{tx_backcolor-arrow|글자 배경색 선택}}</a>
+                    </div>
+                    <div id="tx_backcolor_menu${instanceId}" class="tx-menu tx-backcolor-menu tx-colorpallete" unselectable="on"></div>
+                </li>
+            </ul>
+            <ul class="tx-bar tx-bar-left tx-group-align">
+                <li class="tx-list">
+                    <div unselectable="on" class="       tx-btn-lbg     tx-alignleft" id="tx_alignleft${instanceId}">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_alignleft-title|왼쪽정렬 (Ctrl+,)}}">{{tx_alignleft|왼쪽정렬}}</a>
+                    </div>
+                </li>
+                <li class="tx-list">
+                    <div unselectable="on" class="       tx-btn-bg  tx-aligncenter" id="tx_aligncenter${instanceId}">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_aligncenter-title|가운데정렬 (Ctrl+.)}}">{{tx_aligncenter|가운데정렬}}</a>
+                    </div>
+                </li>
+                <li class="tx-list">
+                    <div unselectable="on" class="       tx-btn-bg  tx-alignright" id="tx_alignright${instanceId}">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_alignright-title|오른쪽정렬 (Ctrl+/)}}">{{tx_alignright|오른쪽정렬}}</a>
+                    </div>
+                </li>
+                <li class="tx-list" style="display:none;">
+                    <div unselectable="on" class="       tx-btn-rbg     tx-alignfull" id="tx_alignfull${instanceId}">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_alignfull|양쪽정렬}}">{{tx_alignfull|양쪽정렬}}</a>
+                    </div>
+                </li>
+            </ul>
+            <ul class="tx-bar tx-bar-left tx-group-tab">
+                <li class="tx-list">
+                    <div unselectable="on" class="       tx-btn-lbg     tx-indent" id="tx_indent${instanceId}">
+                        <a href="javascript:;" title="{{tx_indent-title|들여쓰기 (Tab)}}" class="tx-icon">{{tx_indent|들여쓰기}}</a>
+                    </div>
+                </li>
+                <li class="tx-list">
+                    <div unselectable="on" class="       tx-btn-rbg     tx-outdent" id="tx_outdent${instanceId}">
+                        <a href="javascript:;" title="{{tx_outdent-title|내어쓰기 (Shift+Tab)}}" class="tx-icon">{{tx_outdent|내어쓰기}}</a>
+                    </div>
+                </li>
+            </ul>
+            <ul class="tx-bar tx-bar-left tx-group-list">
+                <li class="tx-list">
+                    <div unselectable="on" class="tx-slt-31lbg tx-lineheight" id="tx_lineheight${instanceId}">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_lineheight|줄간격}}">{{tx_lineheight|줄간격}}</a>
+                        <a href="javascript:;" class="tx-arrow" title="{{tx_lineheight-arrow|줄간격 선택}}">{{tx_lineheight-arrow|줄간격 선택}}</a>
+                    </div>
+                    <div id="tx_lineheight_menu${instanceId}" class="tx-lineheight-menu tx-menu" unselectable="on"></div>
+                </li>
+
+                <li class="tx-list">
+                    <div unselectable="on" class="tx-slt-31lbg tx-letterspacing" id="tx_letterspacing${instanceId}">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_letterspacing|글자간격}}">{{tx_letterspacing|글자간격}}</a>
+                        <a href="javascript:;" class="tx-arrow" title="{{tx_letterspacing-arrow|글자간격 선택}}">{{tx_letterspacing-arrow|글자간격 선택}}</a>
+                    </div>
+                    <div id="tx_letterspacing_menu${instanceId}" class="tx-letterspacing-menu tx-menu" unselectable="on"></div>
+                </li>
+
+                <li class="tx-list">
+                    <div unselectable="on" class="tx-slt-31rbg tx-styledlist" id="tx_styledlist${instanceId}">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_styledlist|리스트}}">{{tx_styledlist|리스트}}</a>
+                        <a href="javascript:;" class="tx-arrow" title="{{tx_styledlist-arrow|리스트 선택}}">{{tx_styledlist-arrow|리스트 선택}}</a>
+                    </div>
+                    <div id="tx_styledlist_menu${instanceId}" class="tx-styledlist-menu tx-menu" unselectable="on"></div>
+                </li>
+            </ul>
+            <ul class="tx-bar tx-bar-left tx-group-etc">
+                <li class="tx-list">
+                    <div unselectable="on" class="tx-btn-lbg    tx-link" id="tx_link${instanceId}">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_link-title|링크 (Ctrl+K)}}">{{tx_link|링크}}</a>
+                    </div>
+                    <div id="tx_link_menu${instanceId}" class="tx-link-menu tx-menu"></div>
+                </li>
+                <li class="tx-list">
+                    <div unselectable="on" id="tx_image${instanceId}" class="tx-image tx-btn-bg">
+                        <a href="javascript:;" title="{{tx_image|사진}}" class="tx-icon">{{tx_image|사진}}</a>
+                    </div>
+                    <div id="tx_image_menu${instanceId}" class="tx-image-menu tx-image-property tx-menu"></div>
+                </li> 
+                <li class="tx-list" style="display:none;">
+                    <div unselectable="on" id="tx_image_edit${instanceId}" class="tx-image_edit tx-btn-bg">
+                        <a href="javascript:;" title="{{tx_image_edit|이미지 편집}}" class="tx-icon">{{tx_image_edit|이미지 편집}}</a>
+                    </div>
+                </li>   
+                <li class="tx-list">
+                    <div unselectable="on" id="tx_media${instanceId}" class="tx-media tx-btn-bg">
+                        <a href="javascript:;" title="{{tx_media|외부컨텐츠}}" class="tx-icon">{{tx_media|외부컨텐츠}}</a>
+                    </div>
+                    <div id="tx_media_menu${instanceId}" class="tx-media-menu tx-menu"></div>
+                </li>
+                <li class="tx-list">
+                    <div unselectable="on" class="tx-btn-bg     tx-specialchar" id="tx_specialchar${instanceId}">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_specialchar|특수문자}}">{{tx_specialchar|특수문자}}</a>
+                    </div>
+                    <div id="tx_specialchar_menu${instanceId}" class="tx-specialchar-menu tx-menu"></div>
+                </li>
+                <li class="tx-list">
+                    <div unselectable="on" class="tx-btn-bg     tx-table" id="tx_table${instanceId}">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_table|표만들기}}">{{tx_table|표만들기}}</a>
+                    </div>
+                    <div id="tx_table_menu${instanceId}" class="tx-table-menu tx-menu" unselectable="on">
+                        <div class="tx-menu-inner">
+                            <div class="tx-menu-preview"></div>
+                            <div class="tx-menu-rowcol"></div>
+                            <div class="tx-menu-deco"></div>
+                            <div class="tx-menu-enter"></div>
+                        </div>
+                    </div>
+                </li>
+                <li class="tx-list">
+                    <div unselectable="on" class="       tx-btn-rbg     tx-horizontalrule" id="tx_horizontalrule${instanceId}">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_horizontalrule|구분선}}">{{tx_horizontalrule|구분선}}</a>
+                    </div>
+                    <div id="tx_horizontalrule_menu${instanceId}" class="tx-horizontalrule-menu tx-menu" unselectable="on"></div>
+                </li>
+                <li class="tx-list">
+                    <div unselectable="on" class="tx-btn-lbg tx-findreplace" id="tx_findreplace${instanceId}">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_findreplace|찾기/바꾸기}}">{{tx_findreplace|찾기/바꾸기}}</a>
+                    </div>
+                    <div id="tx_findreplace_menu${instanceId}" class="tx-findreplace-menu tx-menu"></div>
+                </li>
+            </ul>
+            <ul class="tx-bar tx-bar-left tx-group-translate" style="display:none;">
+                <li class="tx-list">
+                    <div unselectable="on" class="tx-btn-lbg tx-translate" id="tx_translate${instanceId}">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_translate|번역}}">{{tx_translate|번역}}</a>
+                    </div>
+                </li>
+            </ul>
+            <!--ul class="tx-bar tx-bar-left">
+                <li class="tx-list">
+                    <div unselectable="on" class="       tx-btn-lbg     tx-richtextbox" id="tx_richtextbox${instanceId}">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_richtextbox|글상자}}">{{tx_richtextbox|글상자}}</a>
+                    </div>
+                    <div id="tx_richtextbox_menu${instanceId}" class="tx-richtextbox-menu tx-menu">
+                        <div class="tx-menu-header">
+                            <div class="tx-menu-preview-area">
+                                <div class="tx-menu-preview"></div>
+                            </div>
+                            <div class="tx-menu-switch">
+                                <div class="tx-menu-simple tx-selected"><a><span>{{tx-menu-simple|간단 선택}}</span></a></div>
+                                <div class="tx-menu-advanced"><a><span>{{tx-menu-advanced|직접 선택}}</span></a></div>
+                            </div>
+                        </div>
+                        <div class="tx-menu-inner">
+                        </div>
+                        <div class="tx-menu-footer">
+
+                            <img class="tx-menu-confirm" src="${iconPath}/{{btn_confirm_img|btn_confirm.gif}}?open&rv=1.0.1" alt="" />
+                            <img class="tx-menu-cancel" hspace="3" src="${iconPath}/{{btn_cancel_img|btn_cancel.gif}}?open&rv=1.0.1" alt="" />
+                        </div>
+                    </div>
+                </li>
+            </ul-->
+                        
+            <ul class="tx-bar tx-bar-left tx-group-undo">
+                <li class="tx-list">
+                    <div unselectable="on" class="tx-btn-lbg tx-undo" id="tx_undo${instanceId}">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_undo-title|실행취소 (Ctrl+Z)}}">{{tx_undo|실행취소}}</a>
+                    </div>
+                </li>
+                <li class="tx-list">
+                    <div unselectable="on" class="tx-btn-rbg tx-redo" id="tx_redo${instanceId}">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_redo-title|다시실행 (Ctrl+Y)}}">{{tx_redo|다시실행}}</a>
+                    </div>
+                </li>
+            </ul>
+
+            <ul class="tx-bar tx-bar-right">
+                <li class="tx-list" style="display:none;">
+                    <div unselectable="on" class="tx-btn-lbg tx-cleanup tx-custom-btn" id="tx_cleanup${instanceId}">
+                        <a href="javascript:;" class="tx-icon-txt" title="{{tx_cleanup|Tag 정리}}">{{tx_cleanup|Tag 정리}}</a>
+                    </div>
+                </li>
+                <li class="tx-list" style="display:none;">
+                    <div unselectable="on" class="tx-btn-lbg tx-kwebhelper" id="tx_kwebhelper${instanceId}">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_kwebhelper_install|KWebHelper 설치}}">{{tx_kwebhelper_install|KWebHelper 설치}}</a>
+                    </div>
+                </li>
+                <li class="tx-list" style="display:none;">
+                    <div unselectable="on" class="tx-switchtoggle" id="tx_switchertoggle${instanceId}" style="margin-top:-4px">
+                        <a href="javascript:;" title="{{tx_switchertoggle-title-html|HTML 타입}}">{{tx_switchertoggle-editor|에디터}}</a>
+                    </div>
+                </li>
+                <li class="tx-list" style="width:15px;display:none;">
+                    <div unselectable="on" class="tx-btn-nlrbg tx-fullscreen" id="tx_fullscreen${instanceId}" style="width:15px;">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_fullscreen-title|확장 (Ctrl+M)}}">{{tx_fullscreen|넓게쓰기}}</a>
+                    </div>
+                </li>
+                <li class="tx-list" style="width:13px;display:none">
+                    <div unselectable="on" class="tx-btn-nlrbg tx-advanced" id="tx_advanced${instanceId}">
+                        <a href="javascript:;" class="tx-icon" title="{{tx_advanced|툴바 더보기}}">{{tx_advanced|툴바 더보기}}</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 툴바 - 기본 끝 -->
+    <!-- 툴바 - 더보기 시작 -->
+    <div id="tx_toolbar_advanced${instanceId}" class="tx-toolbar tx-toolbar-advanced">
+        <div class="tx-toolbar-boundary">
+            <ul class="tx-bar tx-bar-left">
+                <li class="tx-list">
+                    <div class="tx-tableedit-title"></div>
+                </li>
+            </ul>
+
+            <ul class="tx-bar tx-bar-left tx-group-align">
+                <li class="tx-list">
+                    <div unselectable="on" class="tx-btn-lbg tx-mergecells" id="tx_mergecells${instanceId}">
+                        <a href="javascript:;" class="tx-icon2" title="{{tx_mergecells|병합}}">{{tx_mergecells|병합}}</a>
+                    </div>
+                    <div id="tx_mergecells_menu${instanceId}" class="tx-mergecells-menu tx-menu" unselectable="on"></div>
+                </li>
+                <li class="tx-list">
+                    <div unselectable="on" class="tx-btn-bg tx-insertcells" id="tx_insertcells${instanceId}">
+                        <a href="javascript:;" class="tx-icon2" title="{{tx_insertcells|삽입}}">{{tx_insertcells|삽입}}</a>
+                    </div>
+                    <div id="tx_insertcells_menu${instanceId}" class="tx-insertcells-menu tx-menu" unselectable="on"></div>
+                </li>
+                <li class="tx-list">
+                    <div unselectable="on" class="tx-btn-rbg tx-deletecells" id="tx_deletecells${instanceId}">
+                        <a href="javascript:;" class="tx-icon2" title="{{tx_deletecells|삭제}}">{{tx_deletecells|삭제}}</a>
+                    </div>
+                    <div id="tx_deletecells_menu${instanceId}" class="tx-deletecells-menu tx-menu" unselectable="on"></div>
+                </li>
+            </ul>
+
+            <ul class="tx-bar tx-bar-left tx-group-align">
+                <li class="tx-list">
+                    <div id="tx_cellslinepreview${instanceId}" unselectable="on" class="tx-slt-70lbg tx-cellslinepreview">
+                        <a href="javascript:;" title="{{tx_cellslinepreview|선 미리보기}}"></a>
+                    </div>
+                    <div id="tx_cellslinepreview_menu${instanceId}" class="tx-cellslinepreview-menu tx-menu" unselectable="on"></div>
+                </li>
+                <li class="tx-list">
+                    <div id="tx_cellslinecolor${instanceId}" unselectable="on" class="tx-slt-tbg tx-cellslinecolor">
+                        <a href="javascript:;" class="tx-icon2" title="{{tx_cellslinecolor|선색}}">{{tx_cellslinecolor|선색}}</a>
+
+                        <div class="tx-colorpallete" unselectable="on"></div>
+                    </div>
+                    <div id="tx_cellslinecolor_menu${instanceId}" class="tx-cellslinecolor-menu tx-menu tx-colorpallete" unselectable="on"></div>
+                </li>
+                <li class="tx-list">
+                    <div id="tx_cellslineheight${instanceId}" unselectable="on" class="tx-btn-bg tx-cellslineheight">
+                        <a href="javascript:;" class="tx-icon2" title="{{tx_cellslineheight|두께}}">{{tx_cellslineheight|두께}}</a>
+
+                    </div>
+                    <div id="tx_cellslineheight_menu${instanceId}" class="tx-cellslineheight-menu tx-menu" unselectable="on"></div>
+                </li>
+                <li class="tx-list">
+                    <div id="tx_cellslinestyle${instanceId}" unselectable="on" class="tx-btn-bg tx-cellslinestyle">
+                        <a href="javascript:;" class="tx-icon2" title="{{tx_cellslinestyle|스타일}}">{{tx_cellslinestyle|스타일}}</a>
+                    </div>
+                    <div id="tx_cellslinestyle_menu${instanceId}" class="tx-cellslinestyle-menu tx-menu" unselectable="on"></div>
+                </li>
+                <li class="tx-list">
+                    <div id="tx_cellsoutline${instanceId}" unselectable="on" class="tx-btn-rbg tx-cellsoutline">
+                        <a href="javascript:;" class="tx-icon2" title="{{tx_cellsoutline|테두리}}">{{tx_cellsoutline|테두리}}</a>
+
+                    </div>
+                    <div id="tx_cellsoutline_menu${instanceId}" class="tx-cellsoutline-menu tx-menu" unselectable="on"></div>
+                </li>
+            </ul>
+            <ul class="tx-bar tx-bar-left">
+                <li class="tx-list">
+                    <div id="tx_tablebackcolor${instanceId}" unselectable="on" class="tx-btn-lrbg tx-tablebackcolor" style="background-color:#9aa5ea;">
+                        <a href="javascript:;" class="tx-icon2" title="{{tx_tablebackcolor|테이블 배경색}}">{{tx_tablebackcolor|테이블 배경색}}</a>
+                    </div>
+                    <div id="tx_tablebackcolor_menu${instanceId}" class="tx-tablebackcolor-menu tx-menu tx-colorpallete" unselectable="on"></div>
+                </li>
+            </ul>
+            <ul class="tx-bar tx-bar-left">
+                <li class="tx-list">
+                    <div id="tx_tabletemplate${instanceId}" unselectable="on" class="tx-btn-lrbg tx-tabletemplate">
+                        <a href="javascript:;" class="tx-icon2" title="{{tx_tabletemplate|테이블 서식}}">{{tx_tabletemplate|테이블 서식}}</a>
+                    </div>
+                    <div id="tx_tabletemplate_menu${instanceId}" class="tx-tabletemplate-menu tx-menu tx-colorpallete" unselectable="on"></div>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    <!-- 툴바 - 더보기 끝 -->
+    <!-- 편집영역 시작 -->
+    <!-- 에디터 Start -->
+    <div id="tx_canvas${instanceId}" class="tx-canvas">
+        <div id="tx_loading${instanceId}" class="tx-loading" style="height:100%;">
+            <div><img src="${iconPath}/loading2.png" width="113" height="21" align="absmiddle" /></div>
+        </div>
+        <div id="tx_canvas_wysiwyg_holder${instanceId}" class="tx-holder" style="display:block;">
+            <iframe id="tx_canvas_wysiwyg${instanceId}" name="tx_canvas_wysiwyg${instanceId}" allowtransparency="true" frameborder="0"></iframe>
+        </div>
+        <div class="tx-source-deco">
+            <div id="tx_canvas_source_holder${instanceId}" class="tx-holder">
+                <textarea id="tx_canvas_source${instanceId}" rows="30" cols="30"></textarea>
+            </div>
+        </div>
+        <div id="tx_canvas_text_holder${instanceId}" class="tx-holder">
+            <textarea id="tx_canvas_text${instanceId}" rows="30" cols="30"></textarea>
+        </div>
+    </div>
+    <!-- 높이조절 Start -->
+    <div id="tx_resizer${instanceId}" class="tx-resize-bar" style="display:none;">
+        <div class="tx-resize-bar-bg"></div>
+        <img id="tx_resize_holder${instanceId}" src="${skinPath}/btn_drag01.gif" width="58" height="12" unselectable="on" alt="" />
+    </div>
+
+    <!-- 편집영역 끝 -->
+                
+                <!-- 에디터의 첨부 기능 사용안함 -->
+                <div style="display:none;">
+    <!-- 첨부박스 시작 -->
+    <!-- 파일첨부박스 Start -->
+    <div id="tx_attach_div${instanceId}" class="tx-attach-div">
+        <div id="tx_attach_txt${instanceId}" class="tx-attach-txt">파일 첨부</div>
+        <div id="tx_attach_box${instanceId}" class="tx-attach-box">
+            <div class="tx-attach-box-inner">
+                <div id="tx_attach_preview${instanceId}" class="tx-attach-preview">
+                    <p></p><img src="${iconPath}/pn_preview.gif" width="147" height="108" unselectable="on" /></div>
+                <div class="tx-attach-main">
+                    <div id="tx_upload_progress${instanceId}" class="tx-upload-progress">
+                        <div>0%</div>
+                        <p>파일을 업로드하는 중입니다.</p>
+                    </div>
+                    <ul class="tx-attach-top">
+                        <li id="tx_attach_delete${instanceId}" class="tx-attach-delete"><a>전체삭제</a></li>
+                        <li id="tx_attach_size${instanceId}" class="tx-attach-size">
+                            파일: <span id="tx_attach_up_size${instanceId}" class="tx-attach-size-up"></span>/<span id="tx_attach_max_size${instanceId}"></span>
+                        </li>
+                        <li id="tx_attach_tools${instanceId}" class="tx-attach-tools">
+                        </li>
+                    </ul>
+                    <ul id="tx_attach_list${instanceId}" class="tx-attach-list"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 첨부박스 끝 -->
+                </div>
+                
+    <!-- 컨텍스트 메뉴 시작 -->
+    <div id="tx_contextmenu_div${instanceId}" class="tx-contextmenu-div">
+        <ul class="tx-bar"></ul>
+    </div>
+    <div id="tx_image_contextmenu_div${instanceId}" class="tx-contextmenu-div">
+        <ul class="tx-bar"></ul>
+    </div>
+    <!-- 컨텍스트 메뉴 끝 -->
+    
+    <!-- 팝업 메뉴 시작-->
+    <div id="tx_popup_menu${instanceId}">
+        <div id="cellsplit_wrap${instanceId}" class="popup_wrap cell_split" style="display:none;"></div>
+        <div id="cellattr_wrap${instanceId}" class="popup_wrap cell_attr" style="display:none;"></div>
+        <div id="tableattr_wrap${instanceId}" class="popup_wrap table_attr" style="display:none;"></div>
+        <div id="table_detail_wrap${instanceId}" class="popup_wrap table_detail" style="display:none;"></div>
+        <div id="image_property_wrap${instanceId}" class="popup_wrap tx-image-property" style="display:none;"></div>
+        <div id="image_paste_wrap${instanceId}" class="popup_wrap tx-image-property" style="display:none;"></div>
+    </div>
+    <!-- 팝업 메뉴 끝-->
+    
+    <!-- BlockUI 시작 -->
+    <div id="tx_editor_blockui${instanceId}" class="tx-editor-disable" style="display:none;"></div>
+    <!-- BlockUI 끝-->
+</div>
+<div id="tx_preview_wrapper${instanceId}" class="tx-preview-wrapper" style="display:none;">
+    <iframe id="tx_preview${instanceId}" name="tx_preview${instanceId}" allowtransparency="true" frameborder="0"></iframe>
+</div>
+<div id="tx_bottom_tab${instanceId}" class="tx-bottom-tab-wrapper" style="display:none;">
+    <div class="tx-bottom-tab-bar">
+        <div class="tx-bottom-tab selected editor">Editor</div><div class="tx-bottom-tab html" style="display:none;">HTML</div><div class="tx-bottom-tab preview">Preview</div>
+    </div>
+</div>
+</body>
+</html>

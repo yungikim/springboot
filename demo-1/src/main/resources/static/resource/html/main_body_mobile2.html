@@ -1,0 +1,127 @@
+
+<style>
+	body {overflow-y:auto; overflow-x : hidden; background-color: #e8ecf1}
+	section {padding : 0 0px 0 2px}
+	/*.talk {overflow: auto}*/
+	.mCSB_inside>.mCSB_container{
+		margin-right:15px;
+	}
+	.highlight{background:#ffc000;color:#202020;}
+	
+</style>
+
+<div >
+<input type="button" onclick="gBodyM.data_load(1, '')" value="전체" />
+<input type="button" onclick="gBodyM.data_load(1, '테스트')" value="전체 검색하기" />
+
+<input type="button" onclick="gBodyM.data_load(2, '')" value="내거" />
+<input type="button" onclick="gBodyM.data_load(3, '')" value="공유" />
+<input type="button" onclick="gBodyM2.load_favorite('')" value="즐겨찾기" />
+
+<input type="button" onclick="gBodyM.load_channel('615fab2ebdbbee3edb7728cf','테스트', '')" value="특정 채널 " />
+<input type="button" onclick="gBodyM2.load_drive('61badf45468604490fabf155', '이런', '')" value="특정 드라이브 " />
+<input type="button" onclick="gBodyM2.load_folder('616e6937d06fb01f9dd5ffda', '61726b02cc8ded0d0186803e', 'test')" value="특정 폴더 " />
+<input type="button" onclick="gBodyM2.load_drive_main('1', '')" value="드라이브 전체 " />
+<input type="button" onclick="gBodyM2.load_files('')" value="Files" />
+
+<input type="button" onclick="gBodyM.data_load_channel2()" value="특정채널 상세보기" />
+<input type="button" onclick="gBodyM.data_load_member()" value="특정채널 참석자" />
+
+<input type="button" onclick="gBodyM.data_load_member2()" value="드라이브 참석자" />
+
+<input type="button" onclick="gBodyM2.create_drive()" value="드라이브생성" />
+<input type="button" onclick="gBodyM2.create_channel()" value="채널생성" />
+<input type="button" onclick="gBodyM2.channel_create_folder(null, 'Y')" value="공유채널폴더생성" />
+<input type="button" onclick="gBodyM2.drive_move_file('test')" value="이동" />
+<input type="button" onclick="gBodyM2.draw_exit_info_list('2')" value="나간채널" />
+<input type="button" onclick="gBodyM2.drive_file_upload()" value="드라이브 파일 업로드" />
+<input type="button" onclick="gBodyM2.load_drive_main('1')" value="드라이브 전체 파일" />
+
+<input type="button" onclick="gBodyM.display_reply('5ff5657407543a6eb2cec95c')" value="댓글그리기" />
+<input type="button" onclick="gBodyM.write_reply('1','2','3')" value="댓글 등록하기" />
+
+<input type="button" onclick="gBodyM2.mobile_file_detail_info('602e655d82b55956aa7cbd33', 'd9061d3da8601932e98f79ec8ba1c877.1570024', '2')" value="파일 상세보기" />
+<input type="button" onclick="gBodyM.show_video('http://ap-on.amorepacific.com/vstream/1/kmslab_yk.kim@amorepacific.com/602b18c580df881b4ed15d6e-spl-20210303140127_ZJT1GUTDGGUNN7S/5db7833c8ee72086a780383d1e6dacdf.15789743/wmv')" value="동영상 보기3">
+
+
+		<input type="button" onclick="gTodoM.todo_info_member();" value="Todo 멤버정보 넘기기" />
+
+<input type="button" onclick="gBodyM2.drive_info_member();" value="드라이브 멤버정보 넘기기" />
+
+<input type="button" onclick="gTodoM.create_folder();" value="Todo_폴더생성" />
+<input type="button" onclick="gTodoM.create_project();" value="Todo_프로젝트생성" />
+<input type="button" onclick="gTodoM.create_project('61d3fa460f5b7f6026339960', '60ac8d8bbe76e1515907f36d');" value="Todo_프로젝트수정" />
+<input type="button" onclick="gTodoM.load_todo('61511944676a5c2526bce196', '1');" value="Todo리스트_1" />
+<input type="button" onclick="gTodoM.load_todo_status('2', '1');" value="Todo리스트_2" />
+<input type="button" onclick="gTodoM.compose_layer('618882019e77bb5c11986ebb');" value="Todo보기" />
+<input type="button" onclick="gTodoM.draw_exit_info_list();" value="나간프로젝트 목록" />
+<input type="button" onclick="gBodyM2.config_channel_view();" value="채널 보기 설정" />
+<input type="button" onclick="gBodyM2.drive_create_folder('61badf5c468604490fabf156');" value="드라이브 폴더 정보 수정" />
+<input type="button" onclick="gBodyM2.create_drive('61bac915468604490fabf13d', 'Y');" value="드라이브 정보 변경" />
+
+</div>
+
+<body>
+<div id="dis"></div>
+
+<!-- 채널/드라이브 생성 레이어 -->
+<div class="layer-channel-create" id="create_channel_layer" data="_layer" style="display:none;"></div>
+
+<!-- 드라이브 파일 이동  레이어 -->
+<div class="layer-move" id="move_file_layer" data="_layer" style="display:none;"></div>
+
+<!-- 드라이브 파일 업로드  레이어 -->
+<div class="wrap contents-view drive-upload" id="drive_fileupload_layer" data="_layer" style="display:none;"></div>
+
+<!-- 나간 드라이브/채널 리스트  레이어 -->
+<div class="layer layer-exit" id='exit_info_layer' data="_layer" style="display:none;"></div>
+
+<!-- 이미지 미리보기 -->
+<div class="wrap preview" id='preview_img' data="_layer" style="display:none">
+<!--<h1 id='preview_title'></h1>
+	<button class="ico btn-close" id='img_close_btn'>닫기</button>  -->
+
+	<div class="preview-contents" style="text-align:center;">
+		<span><img id='preview_img_src' style='max-width:99%' src="" alt="" /></span>
+	</div>
+</div>
+
+<!-- 동영상 미리보기 -->
+<div class="wrap preview" id='preview_video' data="_layer" style="display:none">
+<!--<h1 id='video_title'></h1>
+	<button class="ico btn-close" id='video_close_btn'>닫기</button>  -->
+	
+	<div class="preview-contents">
+		<span><video id='video_play_div_mp4' class="video"  style='width:100%;height:100%' controls=''></video></span>
+	</div>
+</div>
+
+<!-- Block UI -->
+<div id="blockui" class="blockui" style="display:none;">
+	<iframe style="width:100%;height:100%;border:0"></iframe>
+</div>
+
+<!-- Reply modifiy -->
+<div class="layer layer-upload reply-edit" id='rmlayer' data="_layer" style="display:none; top:50%;left:50%;transform:translate(-50%,-50%);">
+	<h2 id='rmtitle'></h2><button class="ico btn-del1" id='rmclose' style='position:absolute;top:20px; right:10px'></button>
+	<div class="input-field"><textarea class="formInput" id='rmtext'></textarea><span class="bar"></span></div>
+	<div class="layer-bottom"><button id='rmsave'><strong ></strong></button><button id='rmcancel'><span ></span></button></div>
+</div>
+
+<!-- Todo Content -->
+<div class="wrap contents-view todo-view" id='todo_content_layer' data="_layer" style="display:none"></div>
+</body>
+<script language="javascript">
+	$LAB.script(cdbpath+"/js/main/main_bodyM.js?open?ver="+jsversion).script(cdbpath+"/js/main/main_bodyM2.js?open?ver="+jsversion).script(cdbpath+"/js/main/main_todoM.js?open?ver="+jsversion).wait(function(){
+		gBodyM = new gBodyM();
+		gBodyM.init();
+
+		gBodyM2 = new gBodyM2();
+		gBodyM2.init();	
+
+		gTodoM = new gTodoM();
+		gTodoM.init();	
+		
+	});
+</script>
+

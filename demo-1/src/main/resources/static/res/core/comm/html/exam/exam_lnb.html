@@ -1,0 +1,37 @@
+<div class="exam_side">
+
+</div>
+<script>
+$ep.wait(function() {
+	$ep.ui.sidemenu(".exam_side", {
+		title : "공통 Example"
+		,items : [
+		    { 
+		    	text : "widget" 
+		    	,isopen : true
+		    	,ishide : false
+		    	,items :[
+		    	 	{ text : "ep.ui.input"		,href : "ui/ep.ui.input.html" } 
+		    	 	,{ text : "ep.ui.dialog"	,href : "ui/ep.ui.dialog.html"} 
+		    	]
+		    },
+		    {
+		    	text : "organ"
+		    	,items : [
+					{ text : "ep.ui.input.organ"	,href : "ui/ep.ui.input.organ.html"},
+		    		{ text : "ep.ui.organtree"		,href : "ui/ep.ui.organtree.html"}          
+		    	]
+		    },
+		    {
+		    	text : "etc"
+		    	,items :[
+					{ text : "ep-icon", href : "ui/ep.icons.html"}
+		    	  	,{ text : "uiblock", href : "ui/ep.util.blockui.html"}
+		    	  	,{ text : "Awareness", href : "ui/awareness.html"}
+			    	,{ text : "결재관련자", href : "ui/aprv_comm.html"}
+		    	]
+		    }      
+		 ]		
+	});
+});
+</script> 

@@ -1,0 +1,107 @@
+[
+	{
+		"title": "차주 월요일 일정 공유",
+		"sender": "김둘리",
+		"category": "unread",
+		"bookmark": "yes",
+		"img": "./resource/images/chat_emp03.png",
+		"date": "2024-05-13 17:51"
+	},
+	{
+		"title": "차주 월요일 일정 공유",
+		"sender": "김둘리",
+		"category": "unread",
+		"bookmark": "no",
+		"img": "./resource/images/chat_emp03.png",
+		"date": "2024-05-13 14:09"
+	},
+	{
+		"title": "차주 월요일 일정 공유",
+		"sender": "김둘리",
+		"category": "unread",
+		"bookmark": "yes",
+		"img": "./resource/images/chat_emp03.png",
+		"date": "2024-05-13 13:20"
+	},
+	{
+		"title": "차주 월요일 일정 공유",
+		"sender": "김둘리",
+		"category": "unread",
+		"bookmark": "no",
+		"img": "./resource/images/chat_emp03.png",
+		"date": "2024-04-28 16:42"
+	},
+	{
+		"title": "차주 월요일 일정 공유",
+		"sender": "김둘리",
+		"category": "read",
+		"bookmark": "no",
+		"img": "./resource/images/chat_emp03.png",
+		"date": "2024-03-21 14:11"
+	},
+	{
+		"title": "차주 월요일 일정 공유",
+		"sender": "김둘리",
+		"category": "read",
+		"bookmark": "no",
+		"img": "./resource/images/chat_emp03.png",
+		"date": "2024-03-18 12:48"
+	},
+	{
+		"title": "차주 월요일 일정 공유",
+		"sender": "김둘리",
+		"category": "read",
+		"bookmark": "no",
+		"img": "./resource/images/chat_emp03.png",
+		"date": "2024-02-22 09:49"
+	},
+	{
+		"title": "차주 월요일 일정 공유",
+		"sender": "김둘리",
+		"category": "read",
+		"bookmark": "no",
+		"img": "./resource/images/chat_emp03.png",
+		"date": "2024-02-07 13:27"
+	},
+	{
+		"title": "차주 월요일 일정 공유",
+		"sender": "김둘리",
+		"category": "read",
+		"bookmark": "no",
+		"img": "./resource/images/chat_emp03.png",
+		"date": "2024-01-12 13:55"
+	},
+	{
+		"title": "차주 월요일 일정 공유",
+		"sender": "김둘리",
+		"category": "read",
+		"bookmark": "no",
+		"img": "./resource/images/chat_emp03.png",
+		"date": "2023-12-29 11:25"
+	},
+	{
+		"title": "차주 월요일 일정 공유",
+		"sender": "김둘리",
+		"category": "read",
+		"bookmark": "no",
+		"img": "./resource/images/chat_emp03.png",
+		"date": "2023-11-18 10:42"
+	},
+	{
+		"title": "차주 월요일 일정 공유",
+		"sender": "김둘리",
+		"category": "read",
+		"bookmark": "no",
+		"img": "./resource/images/chat_emp03.png",
+		"date": "2023-11-02 12:04"
+	},
+	{
+		"title": "차주 월요일 일정 공유",
+		"sender": "김둘리",
+		"category": "read",
+		"bookmark": "yes",
+		"img": "./resource/images/chat_emp03.png",
+		"date": "2023-09-12 08:33"
+	}
+
+]

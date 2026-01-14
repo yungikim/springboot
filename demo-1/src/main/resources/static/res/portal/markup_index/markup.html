@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html xml:lang="ko" lang="ko">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Web Standard Guide</title>
+	<link type="text/css" rel="stylesheet" href="/res/core/jquery/jquery-ui/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="/res/core/jquery/customscroll/jquery.scroll.css">
+	<link rel="stylesheet" type="text/css" href="wsg.css" />
+	<link rel="stylesheet" type="text/css" href="/res/portal/css/portal.css" />
+	
+	<script type="text/javascript" src="/res/core/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/customscroll/jquery.scroll.js"></script>
+	<script type="text/javascript" src="/res/core/newep.js"></script>
+	<script type="text/javascript" src="/res/portal/js/portal_common.js"></script>
+	
+	<script type="text/javascript">
+		jQuery(function(){
+			var totalCount = $('.state').size();
+			var successCount = 0;
+			$('.state').each(function(){
+				if($(this).text() == '완료') {
+					successCount += 1;
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id="wsg_wrap">
+		<h1><em>AMOREPACIFIC</em> 글로벌 통합기업 포탈( AP-ON ) 프로젝트</h1>
+		<div class="option_area">
+			<span class="fr date">화면정의 Version 6.0 반영</span>
+			<span class="fl option"><a href="markup.html" class="on">Mark Up</a></span>
+			<span class="fl option"><a href="ui.html">UI Library</a></span>
+			<span class="fclear"></span>
+		</div>
+		<div id="content">
+			<div class="progress-list" id="progressList">
+				<!-- 예정:undecided / 진행:working / 완료:complete / 수정:modify -->
+				<table class="data-table">
+					<colgroup>
+						<col style="width:40px" />
+						<col style="width:40px" />
+						<col style="width:150px" />
+						<col style="width:150px" />
+						<col style="width:150px" />
+						<col style="width:60px" />
+						<col style="width:90px" />
+						<col style="width:250px" />
+						<col style="width:70px" />
+						<col style="width:60px" />
+						<col style="width:" />
+					</colgroup>
+					<thead>
+						<tr>
+							<th rowspan="2">No.</th>
+							<th rowspan="2">PSD</th>
+							<th colspan="3" style="border-bottom:1px solid #ccc;">메뉴구분</th>
+							<th rowspan="2">구분</th>
+							<th rowspan="2">DIRECTORY</th>
+							<th rowspan="2">URL</th>
+							<th rowspan="2">DATE</th>
+							<th rowspan="2">상태</th>
+							<th rowspan="2">비고</th>
+						</tr>
+						<tr>
+						  <th>1 DEPTH</th>
+						  <th>2 DEPTH</th>
+						  <th>3 DEPTH</th>
+					  </tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td></td>
+							<td>0</td>
+							<td class="left" colspan="3">
+								<strong>layout_main (portlet)<b>- portlet 버튼 기능 추가(2015.03.12)</b></strong><!--  - GNB / 검색 / 메일 / 일정/ 문서 / 환경설정 --><br /> 
+								<strong>layout_main_domino</strong><br />
+								<strong>layout_main_lite</strong><br />
+								<strong>layout_sub</strong><br /><br/ >
+								layout_mainGNB<b>- 알림 및 쉐어박스 버튼 추가(2015.03.10)</b><br/ >
+								layout_mainSearch<b>- 검색결과없음추가(12.22)</b><br/ >
+								layout_mainSearch_select<b>- 검색창 셀렉트박스 추가(2015.02.25)</b><br/ ><br />
+								<strong>redirection</strong><br />
+								<strong>loading</strong><br />
+								<strong>Change Password AP-ON System</strong><br />
+								<strong>VPN Message</strong><br />
+								<strong>VPN Message 영문</strong>
+							</td>
+							<td>page</td>
+							<td>/res/portal</td>
+							<td class="left">
+								<a href="/res/portal/html/layout_main.html" target="_blank">/html/layout_main.html</a><br />
+								<a href="/res/portal/html/layout_main_domino.html" target="_blank">/html/layout_main_domino.html</a><br />
+								<a href="/res/portal/html/layout_main_lite.html" target="_blank">/html/layout_main_lite.html</a><br />
+								<a href="/res/portal/html/layout_sub.html" target="_blank">/html/layout_sub.html</a><br /><br />
+								<a href="/res/portal/html/layout_mainGNB.html" target="_blank">/html/layout_mainGNB.html</a><br />
+								<a href="/res/portal/html/layout_mainSearch.html" target="_blank">/html/layout_mainSearch.html</a><br />
+								<a href="/res/portal/html/layout_mainSearch_select.html" target="_blank">/html/layout_mainSearch_select.html</a><br /><br />
+								<a href="/res/portal/html/redirection/redirection.html" target="_blank">/html/redirection/redirection.html</a><br />
+								<a href="/res/portal/html/redirection/redirection_en.html" target="_blank">/html/redirection/redirection_en.html</a><br />
+								<a href="/res/portal/html/loading.html" target="_blank">/html/loading.html</a><br />
+								<a href="/res/portal/html/change_pw.html" target="_blank">/html/change_pw.html</a><br />
+								<a href="/res/portal/html/vpn_msg/vpn_msg.html" target="_blank">/html/vpn_msg/vpn_msg.html</a><br />
+								<a href="/res/portal/html/vpn_msg/vpn_msg_en.html" target="_blank">/html/vpn_msg/vpn_msg_en.html</a>
+							</td>
+							<td></td>
+							<td class="state">완료</td>
+							<td class="src">
+<pre>
+<em>2015.03.12</em> 포틀릿 하단 버튼 기능 추가
+<em>12.16</em> 상단우측 레이어팝업수정
+<em>12.24</em> footer-내 즐겨찾기App, Family Site
+<em>2015.02.25</em> 검색창 셀렉트박스 추가
+<em>2015.03.06</em> 도미노 메인 레이아웃 추가
+<em>2015.03.06</em> 라이트 버젼 메인 추가
+<em>2015.03.10</em> GNB 사이트 맵 새창연결 메뉴 아이콘 추가
+<em>2015.03.19</em> 우측 GNB 게시판 바로가기 버튼 추가, 사이트맵 SAP 팁메뉴 추가
+
+<em>2015.04.01</em> 기존 시스템 메인 화면 호출시 안내 페이지 추가
+<em>2015.04.03</em> 로딩페이지 추가
+<em>2015.04.03</em> 비밀번호변경 추가
+<em>2015.04.03</em> VPN 안내 메세지 추가
+<em>2015.04.06</em> VPN 안내 영문 메세지 추가
+</pre>
+							</td>
+						</tr>
+						<!-- <tr class="hidden">
+							<td></td>
+							<td>0</td>
+							<td colspan="3" class="left">header영역좌측 검색</td>
+							<td>pop</td>
+							<td>/res/portal</td>
+							<td class="left">/html/layout_main.html</td>
+							<td></td>
+							<td class="state"></td>
+							<td class="src">
+						<pre>
+						/html/layout_main.html 에적용
+						</pre>
+							</td>
+						</tr>
+						<tr class="hidden">
+							<td></td>
+							<td>0</td>
+							<td colspan="3" class="left">header영역우측 레이어팝업</td>
+							<td>pop</td>
+							<td>/res/portal</td>
+							<td class="left">/html/layout_main.html</td>
+							<td></td>
+							<td class="state"></td>
+							<td class="src">
+						<pre>
+						/html/layout_main.html 에적용
+						</pre>
+							</td> -->
+						</tr>
+						<tr>
+							<td></td>
+							<td>0</td>
+							<td colspan="3" class="left">
+								search-상세검색<b>- LNB 및 검색 영역 수정(2015.02.25)</b><br/ >
+								검색결과더보기_게시글<b>- 하단 페이지리스트 추가(2015.03.11)</b><br />
+								검색결과더보기_사규
+							</td>
+							<td></td>
+							<td>/res/portal</td>
+							<td class="left">
+								<a href="/res/portal/html/search_newTab.html" target="_blank">/html/search_newTab.html</a><br />
+								<a href="/res/portal/html/search_board01.html" target="_blank">/html/search_board01.html</a><br />
+								<a href="/res/portal/html/search_board02.html" target="_blank">/html/search_board02.html</a><br />
+							</td>
+							<td></td>
+							<td class="state">완료</td>
+							<td class="src">
+<pre>
+<em>2015.02.25</em> 상세검색 LNB 및 검색 영역 수정
+<em>2015.03.10</em> 검색결과 더보기_게시글 하단 페이지 리스트 추가
+</pre>
+							</td>
+						</tr>
+						<!-- <tr>
+							<td></td>
+							<td>0</td>
+							<td colspan="3" class="left">footer</td>
+							<td></td>
+							<td>/res/portal</td>
+							<td class="left"><a href="/res/portal/html/footer.html" target="_blank">/html/footer.html</a></td>
+							<td></td>
+							<td class="state">예정</td>
+							<td></td>
+						</tr> -->
+						<tr>
+							<td></td>
+							<td>0</td>
+							<td class="left">login</td>
+							<td colspan="2" class="left">
+								login<br />
+								login 등록수정<br />
+								login편집 미리보기<br />
+								login 한국어<br />
+								login 중국어<br />
+								login 영어<br />
+								login 도미노<br />
+								스크린세이버 다운로드
+							</td>
+							<td></td>
+							<td>/res/portal</td>
+							<td class="left">
+								<a href="/res/portal/html/login.html" target="_blank">/html/login.html</a><br />
+								<a href="/res/portal/html/login_edit.html" target="_blank">/html/login_edit.html</a>
+								<a href="/res/portal/html/login_editPreview.html" target="_blank">/html/login_editPreview.html</a>
+								<a href="/res/portal/html/login_kor.html" target="_blank">/html/login_kor.html</a><br />
+								<a href="/res/portal/html/login_cn.html" target="_blank">/html/login_cn.html</a><br />
+								<a href="/res/portal/html/login_en.html" target="_blank">/html/login_en.html</a><br />
+								<a href="/res/portal/html/login_domino.html" target="_blank">/html/login_domino.html</a><br />
+								<a href="/res/portal/html/download.html" target="_blank">/html/download.html</a>
+							</td>
+							<td></td>
+							<td class="state">완료</td>
+							<td class="src">
+<pre>
+<em>2015.03.19</em> 로그인 화면 한국어, 중국어, 영어
+<em>2015.03.31</em> 로그인 화면 도미노 타입 추가
+<em>2015.03.31</em> 스크린세이버 다운로드 페이지 추
+</pre>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>0</td>
+							<td class="left">Main_portlet</td>
+							<td colspan="2" class="left s_padding">01. E-mail<br /> 02. 전자결재<br /> 03. News <br /> 04. 게시판 <br /> 05. 일정관리(주간) <br /> 06. 일정관리(일간) <br /> 07. Smart Campus <br /> 08. 사회공헌포탈 <br /> 09. News Clipping <br /> 10. Global News Clipping <br /> 11-1. 경영 Insight-전체
+							<br /> 11-2.경영 Insight <br /> 12. 시스템점검안내 (국문/영문) <br /> 13. 주간 고객관심 베스트 10 <br /> 14. 주간 VOC <br />
+							15-1. Connections-내네트워크<br /><b>-파일추가팝업 / 직원정보미리보기(12.22)</b><br /> 15-2. Connections-파일 <br /> 15-3. Connections-커뮤니티 <br /> 15-4. Connections-활동 <br />16. 내 즐겨찾기 App <br />
+							17. AP 人 <br />
+							18. 일정관리(월간)
+							<td>page</td>
+							<td>/res/portal</td>
+							<td class="left"><a href="/res/portal/html/main_portlet.html" target="_blank">/html/main_portlet.html</a></td>
+							<td></td>
+							<td class="state">완료</td>
+							<td class="src">
+<pre>
+<em>12.15</em> Smart Campus - 하단 공지글 자동롤링
+<em>12.22</em> 직원정보 미리보기 레이어 팝업
+<em>2015.02.24</em> 상단 바로가기 "GO" 버튼 추가
+<em>2015.03.19</em> 메인 포틀릿에 주간일정(월간) 추가
+</pre>
+</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>0</td>
+							<td colspan="3" class="left">Main Portlet Edit</td>
+							<td>pop</td>
+							<td>/res/portal</td>
+							<td class="left">
+								<a href="/res/portal/html/pop_portletEdit.html" target="_blank">/html/pop_portletEdit.html</a><br />
+							</td>
+							<td></td>
+							<td class="state">완료</td>
+							<td class="src">&nbsp;</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>0</td>
+							<td class="left">App Store</td>
+							<td colspan="2" class="left">
+								01. App Store 홈<br />
+								02. App Store 전체 <br /><b>-APP상세보기팝업 / 카테고리선택팝업 / 카테고리편집팝업</b><br />
+								03. App Store 팝
+								<b>새창 팝업</b>
+							</td>
+							<td>page</td>
+							<td>/res/portal</td>
+							<td class="left">
+								<a href="/res/portal/html/appStore_home.html" target="_blank">/html/appStore_home.html</a><br />
+								<a href="/res/portal/html/appStore_all.html" target="_blank">/html/appStore_all.html</a><br />
+								<a href="/res/portal/html/appStore_pop.html" target="_blank">/html/appStore_pop.html</a><br />
+							</td>
+							<td></td>
+							<td class="state">완료</td>
+							<td class="src">
+<pre>
+<em>2015.03.10</em> 앱스토어 새창 관련 팝업 추
+</pre>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>0</td>
+							<td class="left">공지알림</td>
+							<td colspan="2" class="left">
+								pop_긴급공지<br />
+							</td>
+							<td>pop</td>
+							<td>/res/portal</td>
+							<td class="left">
+								<a href="/res/portal/html/pop_notice.html" target="_blank">/html/pop_notice.html_레이어팝업 OLD</a><br />
+								<a href="/res/portal/html/push_notice.html" target="_blank">/html/push_notice.html_브라우져팝업 NEW</a><br />
+							</td>
+							<td></td>
+							<td class="state">완료</td>
+							<td class="src">&nbsp;</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>0</td>
+							<td class="left">가이드</td>
+							<td colspan="2" class="left">
+								pop_이용가이드<br />
+							</td>
+							<td>pop</td>
+							<td>/res/portal</td>
+							<td class="left">
+								<a href="/res/portal/html/pop_guide.html" target="_blank">/html/pop_guide.html</a><br />
+								<a href="/res/portal/html/pop_guide_zh.html" target="_blank">/html/pop_guide_zh.html</a><br />
+								<a href="/res/portal/html/pop_guide_en.html" target="_blank">/html/pop_guide_en.html</a>
+							</td>
+							<td></td>
+							<td class="state">완료</td>
+							<td class="src">
+<pre>
+<em>2015.03.31</em> 도움말 이용 가이드 중문 및 영문 추가
+</pre>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>0</td>
+							<td class="left">모바일</td>
+							<td colspan="2" class="left">
+								다운로드 센터<br />
+							</td>
+							<td>page</td>
+							<td>/res/portal</td>
+							<td class="left">
+								<a href="/res/portal/html/download_center/ko.html" target="_blank">/html/download_center/ko.html</a><br />
+								<a href="/res/portal/html/download_center/en.html" target="_blank">/html/download_center/en.html</a>
+							</td>
+							<td></td>
+							<td class="state">완료</td>
+							<td class="src">
+<pre>
+<em>2015.04.01</em> 모바일 다운로드센터 수정 및 추가
+</pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="wsg.js"></script>
+</body>
+</html>

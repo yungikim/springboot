@@ -1,0 +1,42 @@
+[
+	{
+		"title": "5월 가정의 달 이벤트",
+		"date": "2024.5.2",
+		"category": "notification"
+	},
+	{
+		"title": "2023년도 귀속 건강·장기요양보험료 연말정산 분할고지 안내",
+		"date": "2024.4.27",
+		"category": "notification"
+	},
+	{
+		"title": "2023년 연말정산결과 통보 및 지급 안내 건",
+		"date": "2024.4.21",
+		"category": "holiday"
+	},
+	{
+		"title": "인사발령 제2024-6호",
+		"date": "2024.3.28",
+		"category": "manual"
+	},
+	{
+		"title": "2023년 연말정산 안내",
+		"date": "2024.3.13",
+		"category": "notification"
+	},
+	{
+		"title": "인사발령 제2024-5호",
+		"date": "2024.2.26",
+		"category": "notification"
+	},
+	{
+		"title": "인사발령 제2024-4호",
+		"date": "2024.2.8",
+		"category": "notification"
+	},
+	{
+		"title": "1월 워크샵 관련 설문조사 참여 요청의 건",
+		"date": "2024.1.15",
+		"category": "manual"
+	}
+]

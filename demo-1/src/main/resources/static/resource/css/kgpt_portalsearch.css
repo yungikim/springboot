@@ -1,0 +1,1398 @@
+
+#ps_search_area{
+	display: flex;
+	flex-direction : row;
+	width : 100%;
+	gap : 20px;
+}
+
+#ps_search_area .ps_left{
+	/*border : 1px solid #E7E7E7;*/
+	height : calc(100% - 10px);
+	flex : 1 1 auto;
+	margin-top: 5px;
+	border-radius: 10px;
+	padding: 10px;
+	min-width: 0;
+
+}
+
+#ps_search_area .ps_right{
+	height : 100%;
+	flex : 0 0 550px;
+	width: 550px;
+	flex-shrink: 0;
+}
+
+#ps_right_sub{
+	display : flex;
+	flex-direction : column;
+	height : calc(100% - 10px);
+	border : 1px solid #E7E7E7;
+	padding : 10px;
+	border-radius : 10px;
+	margin-right : 5px;
+	margin-top : 5px;
+}
+
+#ps_right_sub .ps_right_sub_top{
+	flex : 0 0 32px;
+	width : 100%;
+	justify-content : space-between;
+	display : flex;
+	flex-direction : row;
+	align-items : center;
+}
+
+#ps_right_sub .ps_right_sub_center{
+
+	flex : 1;
+	display : flex;
+	align-items: center;
+    justify-content: center;
+}
+
+#ps_right_sub .ps_right_sub_bottom{
+	border : 1px solid #E7E7E7;
+	flex : 0 0 60px;
+	border-radius : 10px;
+}
+
+#ps_right_sub .ps_right_sub_top_slider{
+	display : flex;
+	flex-direction : row;
+	gap : 5px;
+	align-items : center;	
+
+}
+
+#ps_right_sub .ps_right_sub_top_slider_title{
+	font-weight : 700;
+	font-size : 18px;
+}
+
+
+#ps_right_sub .ps_right_sub_top_slider_btn{
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-sidebar-right.svg") center center / cover no-repeat;
+}
+
+#ps_right_sub .ps_right_sub_top_close{
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/btn-close.svg") center center / cover no-repeat;
+}
+
+
+#ps_right_sub .ps_right_sub_center_area{
+	display : flex;
+	flex-direction : column;
+	gap : 20px;
+	width : 100%;
+}
+
+#ps_right_sub  .ps_right_sub_center_area_item_column{
+	display: grid;
+  	grid-template-columns: repeat(3, 1fr); /* 3등분 */
+  	gap: 15px; /* 카드 사이 간격 */
+  	max-width: 450px; /* 부모인 500px 안에서 적절히 배치 */
+  	margin: 0 auto;
+}
+
+#ps_right_sub .ps_right_sub_center_area_item{
+	background: #ffffff;
+  	border: 1px solid #e9ecef;
+ 	border-radius: 20px; /* 둥근 모서리 */
+ 	padding: 20px 10px;
+  	display: flex;
+  	flex-direction: column;
+ 	align-items: center;
+  	justify-content: center;
+  	transition: transform 0.2s;
+  	cursor: pointer;
+  	width : 140px;
+}
+
+#ps_right_sub .ps_right_sub_center_area_item:hover{
+	transform: translateY(-5px); /* 호버 시 살짝 올라가는 효과 */
+ 	 box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+#ps_right_sub .ps_right_sub_center_area_item_wrap{
+	display : flex;
+	flex-direction : column;
+	gap : 15px;
+}
+
+#ps_right_sub .ps_right_sub_center_area_title{
+
+	text-align: center;
+	font-weight : 700;
+	font-size: 32px;
+}
+
+#ps_right_sub .ps_right_sub_center_area_title span{
+	color : #005386;
+}
+
+#ps_right_sub .ps_right_sub_center_area_item .btn_item1{
+	display: block;
+	width: 50px;
+	height: 50px;
+	background: url("../images/portal_search/briefing.svg") center center / cover no-repeat;
+}
+
+#ps_right_sub .ps_right_sub_center_area_item .btn_item2{
+	display: block;
+	width: 56px;
+	height: 56px;
+	background: url("../images/portal_search/unreadmail.svg") center center / cover no-repeat;
+}
+
+#ps_right_sub .ps_right_sub_center_area_item .btn_item3{
+	display: block;
+	width: 56px;
+	height: 56px;
+	background: url("../images/portal_search/schedule.svg") center center / cover no-repeat;
+}
+
+#ps_right_sub .ps_right_sub_center_area_item .btn_item4{
+	display: block;
+	width: 56px;
+	height: 56px;
+	background: url("../images/portal_search/vocation.svg") center center / cover no-repeat;
+}
+
+#ps_right_sub .ps_right_sub_center_area_item .btn_item5{
+	display: block;
+	width: 56px;
+	height: 56px;
+	background: url("../images/portal_search/meeting.svg") center center / cover no-repeat;
+}
+
+#ps_right_sub .ps_right_sub_center_area_item .btn_item6{
+	display: block;
+	width: 56px;
+	height: 56px;
+	background: url("../images/portal_search/meeting2.svg") center center / cover no-repeat;
+}
+
+#ps_right_sub .ps_right_sub_center_area_item .btn_item_title{
+	font-weight: 600;
+	font-size : 18px;
+}
+
+#ps_right_sub_bottom .ps_right_sub_bottom_inner{
+	padding : 0px 12px;
+	height : 60px;
+	display : flex;
+	flex-direction : row;
+	gap : 5px;
+}
+
+#ps_right_sub_bottom .ps_right_sub_bottom_inner_left{
+	flex : 1;
+	display : flex;
+	flex-direction : row;
+	gap : 5px;
+	height : 60px;
+	align-items : center;
+	width : 100%;
+}
+
+#ps_right_sub_bottom .ps_right_sub_bottom_inner_right{
+	flex : 0 0 70px;
+	display : flex;
+	flex-direction : row;
+	gap : 5px;
+	justify-content : end;
+	align-items : center;
+}
+
+#ps_right_sub_bottom .ps_right_sub_bottom_inner_left_icon{
+	display: block;
+	width: 32px;
+	height: 32px;
+	background: url("../images/portal_search/btn-global.svg") center center / cover no-repeat;
+}
+
+#ps_right_sub_bottom .ps_right_sub_bottom_inner_left_textarea{
+	resize : none;
+	font-size : 18px;
+	height : 27px;
+	min-height : 21px;	
+	width : 100%;
+	overflow : hidden;
+	border : 0px;
+}
+
+
+#ps_right_sub_bottom .ps_right_sub_bottom_inner_right .ps_right_sub_bottom_inner_right_mic{
+	display: block;
+	width: 32px;
+	height: 32px;
+	background: url("../images/portal_search/btn-mic.svg") center center / cover no-repeat;
+}
+
+#ps_right_sub_bottom .ps_right_sub_bottom_inner_right .ps_right_sub_bottom_inner_right_send{
+	display: block;
+	width: 32px;
+	height: 32px;
+	background: url("../images/portal_search/btn-send.svg") center center / cover no-repeat;
+}
+
+
+
+/* 통합검색 좌측 검색 결과 영역 */
+
+#ps_left_sub{
+	display : flex;
+	flex-direction : column;
+	gap : 10px;
+	height : 100%;
+}
+
+
+#ps_left_sub .ps_left_sub_top{
+	height : 90px;
+	display : flex;
+	justify-content : center;
+	align-items : center;
+}
+
+#ps_left_sub .ps_left_sub_content{
+	height : calc(100% - 100px);
+	display : flex;
+	flex-direction : column;
+	gap : 10px;
+	width: 100%;
+}
+
+#ps_left_sub .ps_left_sub_search_area{
+	height : 60px;
+	width : 60%;
+	border-radius : 12px;
+	background : linear-gradient(90deg, #005386 0%, #00A9E5 100%);;
+	padding : 2px;
+	position : relative;
+}
+
+#ps_left_sub .ps_left_sub_search_area .inner{
+	background: #ffffff;
+  	border-radius: 10px; /* 16px - 2px */
+  	position: relative;
+  	align-items: center;
+  	display: flex;
+  	padding: 16px 20px;
+  	height : 56px;
+}
+
+#ps_left_sub .ps_left_sub_search_area_inner_search_ico{
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-search.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .ps_left_sub_search_area_inner_mic{
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-microphone.svg") center center / cover no-repeat;	
+}
+
+
+#ps_left_sub .ps_left_sub_search_area_inner_search_input{
+	flex: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #333;	
+
+    width : 100%;
+    font-weight : 500;
+    font-size : 16px;
+}
+
+#ps_left_sub .ps_left_sub_search_area_inner_search_input::placeholder{
+	color : #999;
+}
+
+#ps_left_sub .ps_left_sub_search_area_inner_left{
+	display : flex;
+	flex-direction : row;
+	gap : 5px;
+	flex : 1;
+	width : 100%;
+	align-items : center;
+}
+
+#ps_left_sub .ps_left_sub_search_area_inner_right{
+	flex : 0 0 30px;
+	display : flex;
+	align-items : center;
+	justify-content : end;
+}
+
+#ps_left_sub .ps_left_sub_content_tab{
+	height : 50px;
+	display : flex;
+	flex-direction : row;
+	gap :10px;
+	align-items : center;
+	padding-left : 20px;
+}
+
+
+#ps_left_sub .ps_left_sub_content_content{
+	height : 100%;
+}
+
+#ps_left_sub .ps_left_sub_content_content_noraml{
+	height : 100%;
+	display : none;
+}
+
+#ps_left_sub .ps_left_sub_content_tab_item{
+	height : 40px;
+	color : #121212;
+	background : #F3F4F6;
+	border-radius : 9999px;
+	padding : 8px 16px;
+	border : 1px solid grey;
+	cursor : pointer;
+	font-weight : 600;
+	font-size : 15px;
+} 
+
+#ps_left_sub .ps_left_sub_content_tab_item.selected{
+	color : #FFFFFF;
+	background : #121212;
+}
+
+#ps_left_sub .ps_left_sub_content_content_normal{
+	padding: 0px 15px 15px 20px;
+}
+
+#ps_left_sub .ps_left_sub_content_content_normal,
+#ps_left_sub .ps_left_sub_content_content{
+	overflow-y : auto;
+	height : calc(100% - 50px);
+}
+
+#ps_left_sub .ps_left_sub_content_content_normal::-webkit-scrollbar,
+#ps_left_sub .ps_left_sub_content_content::-webkit-scrollbar {
+	width: 1px;   /* 세로 스크롤 최소화 */
+  	height: 1px;  /* 가로 스크롤 최소화 */
+}
+
+
+#ps_left_sub .ps_left_sub_content_content_normal::-webkit-scrollbar-track,
+#ps_left_sub .ps_left_sub_content_content::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+#ps_left_sub .ps_left_sub_content_content_normal::-webkit-scrollbar-thumb,
+#ps_left_sub .ps_left_sub_content_content::-webkit-scrollbar-thumb {
+ 	background-color: rgba(0, 0, 0, 0.3);
+  	border-radius: 10px;
+}
+
+
+
+#ps_left_sub_content_content .portal_search_result_wrap{
+	/*border : 1px solid #E5E7EB;*/
+	border-radius : 16px;
+	padding : 24px;
+	overflow : hidden;
+}
+
+
+
+#ps_left_sub .portal_search_result_wrap_left{
+	display : flex;
+	flex-direction: row;
+	gap : 5px;
+	align-items: center;
+}
+
+#ps_left_sub .portal_search_result_wrap_left_title{
+	font-weight: 700;
+	font-size: 20px;
+	color: #121212;
+}
+
+#ps_left_sub .portal_search_result_wrap_top{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#ps_left_sub .portal_search_result_wrap_left_icon{
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-star03-fill.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .portal_search_result_wrap_right{
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-caret-up.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .portal_search_result_header{
+	background-color: #F3F4F6;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;	
+	padding: 16px;
+	margin-top: 12px;
+}
+
+#ps_left_sub .portal_search_result_header_btn{
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+}
+
+#ps_left_sub .portal_search_result_header_btn_item{
+	display: flex;
+	flex-direction: row;
+	padding: 7px 16px;
+	gap: 2px;
+	border: 1px solid #CBD0D7;
+	color: #E5E7EB;
+	border-radius: 8px;
+	align-items: center;
+	font-size: 14px;
+}
+
+#ps_left_sub .portal_search_result_header_btn_item.research{
+	cursor : pointer;
+}
+
+
+
+#ps_left_sub .portal_search_result_header_btn_item.checked{
+	background-color: #005386;
+	color: #FFFFFF;
+	font-weight: 600;
+}
+
+#ps_left_sub .portal_search_result_header_btn_item.think{
+	background-color: #005386;
+	color: #FFFFFF;
+	font-weight: 600;
+}
+
+#ps_left_sub .portal_search_result_header_btn_email{
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-mail.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .portal_search_result_header_btn_item.checked .portal_search_result_header_btn_email{
+	background: url("../images/portal_search/ic-check.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .portal_search_result_header_btn_item.think .portal_search_result_header_btn_email{
+	background: url("../images/portal_search/loading.png") center center / cover no-repeat;	
+	animation: spin 3s linear infinite;
+	width: 21px;
+	height: 21px;
+}
+
+#ps_left_sub .portal_search_result_header_btn_files{
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-folder1.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .portal_search_result_header_btn_item.checked .portal_search_result_header_btn_files{
+	background: url("../images/portal_search/ic-check.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .portal_search_result_header_btn_item.think .portal_search_result_header_btn_files{
+	background: url("../images/portal_search/loading_260106.svg") center center / cover no-repeat;	
+	animation: spin 3s linear infinite;
+	width: 21px;
+	height: 21px;
+}
+
+#ps_left_sub .portal_search_result_header_btn_approval{
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-stamp.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .portal_search_result_header_btn_item.checked .portal_search_result_header_btn_approval{
+	background: url("../images/portal_search/ic-check.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .portal_search_result_header_btn_item.think .portal_search_result_header_btn_approval{
+	background: url("../images/portal_search/loading.png") center center / cover no-repeat;	
+	animation: spin 3s linear infinite;
+	width: 21px;
+	height: 21px;
+}
+
+#ps_left_sub .portal_search_result_header_btn_bbs{
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-file-document.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .portal_search_result_header_btn_item.checked .portal_search_result_header_btn_bbs{
+	background: url("../images/portal_search/ic-check.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .portal_search_result_header_btn_item.think .portal_search_result_header_btn_bbs{
+	background: url("../images/portal_search/loading.png") center center / cover no-repeat;	
+	animation: spin 3s linear infinite;
+	width: 21px;
+	height: 21px;
+}
+
+#ps_left_sub .portal_search_result_header_btn_internet{
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-global.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .portal_search_result_header_btn_item.checked .portal_search_result_header_btn_internet{
+	background: url("../images/portal_search/ic-check.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .portal_search_result_header_btn_item.think .portal_search_result_header_btn_internet{
+	background: url("../images/portal_search/loading.png") center center / cover no-repeat;	
+	animation: spin 3s linear infinite;
+	width: 21px;
+	height: 21px;
+}
+
+#ps_left_sub .portal_search_result_header_btn_title{
+	color: #9CA3AF;
+}
+
+#ps_left_sub .portal_search_result_header_btn_item.think .portal_search_result_header_btn_title,
+#ps_left_sub .portal_search_result_header_btn_item.checked .portal_search_result_header_btn_title{
+	color: #FFFFFF;
+}
+
+#ps_left_sub .portal_search_result_header_reason{
+	margin-top: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+#ps_left_sub .portal_search_result_header_word{
+	margin-top: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	
+}
+
+#ps_left_sub .portal_search_result_header_reason_title{
+	color: #005386;
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 100%;
+}
+
+#ps_left_sub .portal_search_result_header_reason_content{
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 160%;
+	color: #121212;
+}
+
+#ps_left_sub .portal_search_result_header_word_content{
+	display: flex;
+	flex-direction: row;
+	gap: 7px;
+}
+
+#ps_left_sub .portal_search_result_header_word_content_item{
+	padding: 7px 12px;
+	border: 1px solid #E5E7EB;
+	border-radius: 9999px;
+	color: #374151;
+	font-size: 13px;
+	background-color: #FFFFFF;
+}
+
+#ps_left_sub .portal_search_result_content{
+	margin-top : 20px;
+	display : flex;
+	flex-direction : column;
+	gap : 1px;
+}
+
+
+#ps_left_sub .portal_search_result_content_btns{
+	display : flex;
+	flex-direction : row;
+	gap : 15px;
+	align-items : center;
+	height : 42px;
+	margin-top : 0px;
+}
+
+#ps_left_sub .portal_search_result_content_btns .item{
+	cursor : pointer;
+	width : 42px;
+	height : 42px;
+}
+
+#ps_left_sub .portal_search_result_content_btns .item.ps_share{
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-share.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .portal_search_result_content_btns .item.ps_copy{
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-copy.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .portal_search_result_content_btns .item.ps_research{
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-repeat.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .portal_search_result_content_btns .ps_cite{
+	display : flex;
+	flex-direction : row;
+	gap : 5px;
+	border : 1px solid #E5E7EB;
+	border-radius : 9999px;
+	padding : 8px 15px;
+	align-items : center;
+	cursor : pointer;
+}
+
+#ps_left_sub .portal_search_result_content_btns .ps_cite .ps_link{
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-link02.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .portal_search_result_content_btns .ps_cite .ps_link_title{
+	color : #393939;
+	font-weight : 500;
+	font-size : 16px;
+}
+
+#ps_left_sub .portal_search_result_person_wrap{
+	margin-top: 30px;
+	display : flex;
+	flex-direction : column;
+	gap : 15px;
+	overflow-x: auto;
+}
+
+
+#ps_left_sub .portal_search_result_rel .person_wrap_title,
+#ps_left_sub .portal_search_result_person_wrap .person_wrap_title{
+	color : #121212;
+	font-weight : 700;
+	font-size : 20px;
+	line-height : 150%;
+}
+
+#ps_left_sub .ai_search_result{
+
+}
+
+#ps_left_sub .portal_search_result_person{	
+	display : flex;
+	flex-direction : row;
+	gap : 10px;
+	justify-content: flex-start;
+}
+
+#ps_left_sub .portal_search_result_person .person_item{
+	/*min-width : 210px;*/
+	height : 255px;
+	border : 1px solid #E5E7EB;
+	padding : 13px 13px;
+	border-radius : 12px;
+	position : relative;
+	padding : 10px 15px;
+}
+
+#ps_left_sub .portal_search_result_person .person_item .ps_btn_star{
+	cursor : pointer;
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-star.svg") center center / cover no-repeat;
+}
+
+#ps_left_sub .portal_search_result_rel{
+	margin-top : 30px;
+	display : flex;
+	flex-direction : column;
+	gap : 15px;
+}
+
+#ps_left_sub .portal_search_result_rel_lists{
+	display : flex;
+	flex-direction : column;
+	gap : 10px;
+}
+
+#ps_left_sub .portal_search_result_rel_item{
+	display : flex;
+	flex-direction : row;
+	gap : 10px;
+	align-items : center;
+	border-bottom : 1px solid #E5E7EB;
+	padding : 5px 12px;
+	cursor : pointer;
+}
+
+#ps_left_sub .portal_search_result_rel .rel_search_icon{
+	display: block;
+	width: 20px;
+	height: 20px;
+	background: url("../images/portal_search/ic-search.svg") center center / cover no-repeat;
+}
+
+#ps_left_sub .portal_search_result_rel .portal_search_result_rel_title{
+	font-weight : 600;
+	font-size : 16px;
+	line-height : 150%;
+	color : #393939;
+}
+
+#ps_left_sub .portal_search_result_person_wrap .person_detail{
+	display : flex;
+	flex-direction : column;
+	gap : 10px;
+	justify-content : end;
+	align-items : center;
+	height : 100%;
+}
+
+#ps_left_sub .portal_search_result_person_wrap .person_detail .ps_person_image{
+	width : 74px;
+	height : 74px;
+	border-radius: 50%;
+ 	overflow: hidden;
+}
+
+#ps_left_sub .portal_search_result_person_wrap .person_detail .ps_pseron_info{
+	width : 100%;
+	height : 45px;
+}
+
+#ps_left_sub .portal_search_result_person_wrap .person_detail .ps_person_bts{
+	width : 100%;
+	height : 80px;
+	display : flex;
+	flex-direction : row;
+	gap : 7px;
+	justify-content: center;
+	
+}
+
+#ps_left_sub .person_item .person_top_btn{
+	position : absolute;
+	top : 15px;
+	left : 15px;
+
+}
+
+#ps_left_sub .person_item .person_top_btn_right{
+	position : absolute;
+	top : 15px;
+	right : 15px;
+
+}
+
+#ps_left_sub .person_item .person_top_btn_right .ps_btn_role{
+	padding : 5px;
+	/*border : 1px solid grey;*/
+	border-radius : 5px;
+	background-color : #F3F4F6;
+	color : #393939;
+	font-size: 14px;
+}
+
+#ps_left_sub .person_detail .ps_person_bts_item{
+	display : flex;
+	flex-direction : column;
+	gap : 3px;
+	align-items : center;
+	cursor : pointer;
+}
+
+
+#ps_left_sub .person_detail .ps_person_bts_item .bts_item{
+	background-color : #E6EEF3;
+	border-radius : 12px;
+	width : 45px;
+	height : 45px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#ps_left_sub .person_detail .ps_person_bts_item .bts_item .bts_item_phone{
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-telephone.svg") center center / cover no-repeat;
+}
+
+#ps_left_sub .person_detail .ps_person_bts_item .bts_item .bts_item_chat{
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-chat-conversation.svg") center center / cover no-repeat;
+}
+
+#ps_left_sub .person_detail .ps_person_bts_item .bts_item .bts_item_email{
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-mail-ps.svg") center center / cover no-repeat;
+}
+
+
+
+#ps_left_sub .ps_person_bts_item .bts_title{
+	color : #121212;
+	font-weight : 500;
+	font-size : 14px;
+}
+
+#ps_left_sub .ps_pseron_info .ps_person_info_nm{
+	font-weight : 600;
+	font-size : 16px;
+	color : #121212;
+	display : flex;
+	justify-content : center;
+}
+
+#ps_left_sub .ps_pseron_info .ps_person_info_dept{
+	font-weight : 500;
+	font-size : 14px;
+	color : #666666;
+	display : flex;
+	justify-content : center;	
+	
+}
+
+#ps_left_sub .portal_search_body_loading{
+	display: flex;
+	flex-direction: column;
+	gap : 15px;
+	align-items: center;
+	width: 100%;
+	border: 1px solid #F3F4F6;
+	border-radius: 15px;
+	padding: 20px 0px;
+	margin-top: 20px;
+}
+
+#ps_left_sub .portal_search_body_loading_img{
+	display: block;
+	width: 160px;
+	height: 115px;
+	background: url("../images/portal_search/loading.gif") center center / cover no-repeat;
+}
+
+#ps_left_sub .portal_search_body_loading_title{
+	font-size: 16px;
+	font-weight: 700;
+	display: flex;
+	justify-content: center;
+}
+
+
+#ps_left_sub .portal_search_result_research_wrap{
+	width : 100%;
+	height : 200px;
+	border : 1px solid #E7E7E7;
+	border-radius : 16px;
+	display : flex;
+	flex-direction : column;
+	gap : 10px;
+	padding : 15px;
+	margin-top : 10px;
+	display : none;
+}
+
+
+#ps_left_sub .portal_search_result_research_wrap .portal_search_result_research_head_close{
+	cursor : pointer;
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-close.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .portal_search_result_research_wrap .portal_search_result_research_head_title{
+	font-weight : 700;
+	font-size : 20px;
+	color : #121212;
+}
+
+#ps_left_sub .portal_search_result_research_wrap .portal_search_result_research_head{
+	display : flex;
+	flex-direction : row;
+	justify-content : space-between;
+	padding : 10px;
+}
+
+
+#ps_left_sub .portal_search_result_research_wrap .portal_search_result_research_btns{
+	display: flex;
+    flex-direction: row;
+    gap: 10px;
+    cursor : pointer;
+}
+
+#ps_left_sub .portal_search_result_research_info{
+	display : flex;
+	flex-direction : row;
+	gap : 10px;
+	padding : 16px;
+	background-color : #F0F3FA;
+	border-radius : 16px;
+}
+
+#ps_left_sub .portal_search_result_research_info .portal_search_result_research_info_icon{
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ico-info.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .portal_search_result_header_btn_wrap{
+	display : flex;
+	flex-direction : row;
+	justify-content : flex-start;
+	align-items : center;
+	gap : 20px;
+}
+
+#ps_left_sub .portal_search_result_research_btn{
+	background-color : #121212;
+	padding : 7px 16px;
+	border-radius : 8px;
+	display : flex;
+	flex-direction : row;
+	gap : 2px;
+	align-items : center;
+	cursor : pointer;
+}
+
+#ps_left_sub .portal_search_result_research_btn_icon{
+	display: block;
+	width: 18px;
+	height: 18px;
+	background: url("../images/portal_search/ic-search.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .portal_search_result_research_btn_icon_sepa{
+	display: block;
+	width: 1px;
+	height: 20px;
+	background: url("../images/portal_search/Rectangle.svg") center center / cover no-repeat;	
+}
+
+
+#ps_left_sub .portal_search_result_research_btn_title{
+	color : #FFFFFF;
+	font-weight : 600;
+}
+
+/* 통합검색 좌측 검색 결과 영역 종료 */
+
+
+#ps_right_sub .ref_list_wrap{
+	display : flex;
+	flex-direction: column;
+	gap: 10px;
+	justify-content: center;
+	margin-top: 30px;
+	padding : 16px;
+}
+
+#ps_right_sub .ref_list_title{
+	font-weight : 700;
+	color : #121212;
+	font-size : 20px;
+}
+
+#ps_right_sub .ref_list_items_wrap{
+	display : flex;
+	flex-direction : column;
+	gap : 5px;
+	padding : 16px 12px;
+	border : 1px solid #E5E7EB;
+	border-radius : 12px;
+	max-width : 495px;
+}
+
+#ps_right_sub .ref_list_items_wrap.checked{
+	border : 1px solid #D6E4FF;
+	background-color : #F0F5FF;
+}
+
+
+#ps_right_sub .ref_list_bottom{
+	display : flex;
+	flex-direction : row;
+	gap : 10px;
+}
+
+#ps_right_sub .ref_list_bottom_btn{
+	padding : 4px 8px;
+	border : 1px solid #9CA3AF;
+	border-radius : 6px;
+	font-weight : 600;
+	color : #121212;
+	font-size : 14px;
+	cursor : pointer;
+}
+
+#ps_right_sub .ref_list_items_wrap .ref_item{
+	display : flex;
+	flex-direction : column;
+	gap : 5px;
+	
+}
+
+#ps_right_sub .ref_item_bottom{
+	font-weight : 600;
+	font-size : 18px;
+	color : #000000;
+	padding-left : 30px;
+}
+
+
+#ps_right_sub .ref_item_top_content{
+	display : flex;
+	flex-direction : row;
+	gap : 10px;
+	align-items : center;
+}
+
+#ps_right_sub .ref_item_mail_icon_wrap .ref_item_mail{
+	color : #6B7280;
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-mail.svg") center center / cover no-repeat;	
+}
+
+#ps_right_sub .ref_item_mail_icon_wrap .ref_item_bulletin{
+	color : #6B7280;
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-file-document.svg") center center / cover no-repeat;	
+}
+
+#ps_right_sub .ref_item_mail_icon_wrap .ref_item_approval{
+	color : #6B7280;
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-stamp.svg") center center / cover no-repeat;	
+}
+
+#ps_right_sub .ref_item_mail_icon_wrap .ref_item_doc{
+	color : #6B7280;
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-folder1.svg") center center / cover no-repeat;	
+}
+
+#ps_right_sub .ref_item_mail_icon_wrap .ref_item_internet{
+	color : #6B7280;
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/portal_search/ic-global.svg.svg") center center / cover no-repeat;	
+}
+
+
+
+#ps_right_sub .ref_item_mail_icon_wrap{
+	display : flex;
+	flex-direction : row;
+	gap : 2px;
+	align-items : center;
+}
+
+#ps_right_sub .ref_item_top_content .ref_list_check{
+	cursor : pointer;
+	display: block;
+	width: 20px;
+	height: 20px;
+	background: url("../images/portal_search/checkbox_uncheck.svg") center center / cover no-repeat;		
+}
+
+#ps_right_sub .ref_item_top_content .ref_list_check.checked{
+	cursor : pointer;
+	display: block;
+	width: 20px;
+	height: 20px;
+	background: url("../images/portal_search/checkbox.svg") center center / cover no-repeat;		
+}
+
+#ps_right_sub .ref_icon_title,
+#ps_right_sub .ref_item_title{
+	color : #6B7280;
+	font-size : 14px;
+	font-weight : 500;
+}
+
+
+
+
+
+#ps_left_sub .search_draw_doc_wrap,
+#ps_left_sub .search_draw_email_wrap{
+	padding : 16px 30px;
+	border : 1px solid #E5E7EB;
+	border-radius: 16px;
+	display : flex;
+	flex-direction: column;
+	gap : 8px;
+	margin-top: 15px;
+}
+#ps_left_sub .search_draw_header{
+	display: flex;
+	flex-direction: row;
+	gap: 5px;
+}
+
+#ps_left_sub .search_draw_header span{
+	font-size: 20px;
+	font-weight: 700;
+	color : #121212;
+}
+
+#ps_left_sub .search_draw_header .search_draw_count{
+	color: #005386;
+}
+
+#ps_left_sub .search_item_person{
+	cursor : pointer;
+	display: block;
+	width: 48px;
+	height: 43px;
+	background: url("../images/portal_search/profile.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .search_item_person2{
+	cursor : pointer;
+	display: block;
+	width: 48px;
+	height: 43px;
+	background: url("../images/portal_search/profile2.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .search_item_word{
+	cursor : pointer;
+	display: block;
+	width: 32px;
+	height: 32px;
+	background: url("../images/portal_search/icons-word.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .search_item_excel{
+	cursor : pointer;
+	display: block;
+	width: 32px;
+	height: 32px;
+	background: url("../images/portal_search/icons-excel.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .search_item_pptx{
+	cursor : pointer;
+	display: block;
+	width: 32px;
+	height: 32px;
+	background: url("../images/portal_search/icons-pptx.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .search_item_pdf{
+	cursor : pointer;
+	display: block;
+	width: 32px;
+	height: 32px;
+	background: url("../images/portal_search/icons-pdf.svg") center center / cover no-repeat;	
+}
+
+#ps_left_sub .search_draw_items{
+	display: flex;
+	flex-direction: row;
+	gap: 5px;
+}
+
+#ps_left_sub .search_item_info{
+	font-weight: 500;
+	font-size: 14px;
+	color: #6B7280;
+}
+
+#ps_left_sub .search_item_title{
+	font-weight: 600;
+	font-size: 16px;
+	color: #121212;
+	cursor: pointer;
+}
+
+#ps_left_sub .search_item_sepa_line{
+	height: 1px;
+	width: 100%;
+	border: 1px solid #F3F4F6;
+}
+
+#ps_left_sub .search_draw_items_wrap{
+	display: flex;
+	flex-direction: column;
+	gap : 12px;
+	padding: 5px 16px;
+}
+
+#ps_left_sub .search_draw_bottom_more{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	padding-top: 8px;
+	gap : 8px;
+}
+
+#ps_left_sub .search_draw_bottom_more .search_draw_bottom_more_txt{
+	font-weight: 600;
+	font-size: 16px;
+	color: #374151;
+}
+
+#ps_left_sub .search_draw_bottom_more .search_draw_bottom_more_icon{
+	display: block;
+	width: 10px;
+	height: 20px;
+	background: url("../images/portal_search/ic-caret-right01.svg") center center / cover no-repeat;
+}
+
+#ps_left_sub .search_draw_items_icon_wrap{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	border: 1px solid #F3F4F6;
+	border-radius: 5px;
+	background-color: #F3F4F6;
+	padding: 1px 2px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 특정 영역 내부의 모든 리스트에 들여쓰기 적용 */
+.markdown-body ul {
+    padding-left: 24px; /* 들여쓰기 너비 설정 */
+    margin-top: 8px;
+    margin-bottom: 8px;
+    list-style-type: disc; /* 기본 불렛 모양 */
+}
+
+/* 중첩된 리스트(2단계 이상)에 추가 들여쓰기 및 불렛 변경 */
+.markdown-body ul ul {
+    padding-left: 20px; /* 하위 계층 추가 여백 */
+    list-style-type: circle; /* 2단계 불렛 모양 변경 */
+}
+
+.markdown-body ul ul ul {
+    list-style-type: square; /* 3단계 불렛 모양 변경 */
+}
+
+/* 리스트 항목 간의 간격 조정 */
+.markdown-body li {
+    margin-bottom: 4px;
+}
+
+.markdown-body ul ul {
+    border-left: 1px solid #e1e4e8; /* 하위 리스트 왼쪽에 가이드 선 추가 */
+    margin-left: 10px;
+    padding-left: 20px;
+}
+
+
+
+
+
+/* 기본 불렛을 제거 */
+.markdown-body li {
+    list-style: none;
+    position: relative;
+    padding-left: 10px;
+}
+
+/* ::before를 사용해 커스텀 기호 삽입 */
+.markdown-body li::before {
+    content: "•"; /* 원하는 기호 입력 (예: "•", "-", "·", "→") */
+    position: absolute;
+    left: 0;
+    color: #333; /* 기호 색상 */
+    font-weight: bold;
+}
+
+
+.markdown-body ul {
+    /* 불렛이 텍스트 영역 바깥에 위치하도록 설정 (줄바꿈 시 들여쓰기 유지) */
+    list-style-position: outside; 
+}
+
+.markdown-body li {
+    /* 리스트 항목 간의 세로 간격 */
+    margin-bottom: 6px; 
+    line-height: 1.6;
+}
+
+

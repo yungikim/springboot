@@ -1,0 +1,68 @@
+@charset "utf-8";
+@import "m_reset.css";
+/************************************************
+Cloud9Inc Publishing Group
+Author : Cloud9Inc. (2014.11)
+commnet : 화면 스타일링
+*************************************************/
+
+#mo_wrap {position:relative; width:100%; height:100%;}
+.bg {display:inline-block; background:url(m_bg.png) no-repeat; background-size:270px auto;}
+
+/********** header **********/
+#mo_header {border-bottom:2px solid #4e4e4e; height:65px; padding-top:15px; box-sizing:border-box;}
+.head_tit {display:block; margin:auto; width:270px; height:32px; background-position:50px 0; background-size:362px auto;}
+
+/********** footer **********/
+#mo_footer {position:fixed; bottom:0; width:100%; padding:10px 0; border-top:1px solid #dedede; background:#fff !important; text-align:center;}
+.f_info span {display:block; margin:auto; width:185px; height:14px; background-position:0 -35px;}
+.t_info {display:block; margin-top:5px;}
+
+/********** contents **********/
+#mo_contents {margin:auto; padding-bottom:40px;}
+.m_heading {font-size:18px; font-weight:bold; text-align:center; line-height:1.3em; padding:18px 15px;}
+.m_heading em {font-size:18px; font-weight:bold; color:#00aeff;}
+.m_text_src {overflow:hidden; background:#f4f4f4; border-bottom:1px solid #dedede; padding:12px; 
+  display:flex; display:-webkit-flex;}
+.m_text_src .tit {display:inline-block; float:left; padding-right:15px; line-height:1.3em; font-weight:bold; color:#323232;
+  flex:initial; -webkit-flex:initial; }
+.m_text_src .src {display:inline-block;  float:left; box-sizing:border-box; padding-left:15px; line-height:1.3em; border-left:1px solid #ccc;
+  flex:1; -webkit-flex:1;}
+.title {text-align:center; vertical-align:middle; height:15px; padding:15px 0; font-size:15px; font-weight:bold; background: #f5f5f5; }
+.title a {font-size:15px; font-weight:bold; color: #999;}
+.title.first { padding-bottom: 5px; }
+.title.first a { margin-left: -32px; }
+.tit01,.tit02 {display:inline-block; width:20px; height:20px; vertical-align:middle; margin-right:5px;}
+.tit01 {background:url(m_bult01.png) no-repeat; background-size:100% auto; position:relative; top:-2px;}
+.tit02 {background:url(m_bult02.png) no-repeat; background-size:100% auto;  position:relative; top:-1px;}
+.download_area {background:#fbfbfb; border-top:1px solid #dedede; border-bottom:1px solid #dedede; padding-bottom: 20px; }
+.download_area .tit {font-size:16px; padding:15px 0 20px; text-align:center;}
+.download_area ul {overflow:hidden;}
+.download_area ul li {width:50%; float:left; box-sizing:border-box;}
+.download_area ul li a {display:block; margin:auto; width:80%; height:100%; box-sizing:border-box; text-align:center;}
+.download_area ul li a.bl {border-bottom:1px solid #dedede;}
+.load_tit01,.load_tit02 {height:35px; line-height:35px;}
+.load_tit02 {font-weight:bold;}
+.load_tit02 span {font-weight:normal;}
+
+.load_icon01 span {display:block; margin:auto; width:42px; height:78px; background-position:0 -55px;}
+.load_icon02 span {display:block; margin:auto; width:42px; height:78px; background-position:0 -140px;}
+.load_icon03 span {display:block; margin:auto; width:77px; height:78px; background-position:-90px -140px;}
+.load_icon04 span {display:block; margin:auto; width:75px; height:78px; background-position:-168px -140px;}
+.load_icon05 span {display:block; margin:auto; width:57px; height:78px; background-position:-105px -55px;}
+.load_icon06 span {display:block; margin:auto; width:56px; height:78px; background-position:-221px -55px;}
+.load_icon07 span {display:block; margin:auto; width:53px; height:78px; background-position:-165px -140px;}
+.load_icon08 span {display:block; margin:auto; width:57px; height:78px; background-position:-44px -55px;}
+
+.icon_area {background:url(m_bg.png) no-repeat; background-size:362px auto;}
+
+/********** install info **********/
+.desc_area { padding: 20px; }
+.top_msg { margin-bottom: 10px; line-height: 1.3em; }
+.list_step { margin-bottom: 20px; }
+.list_step li { margin-bottom: 10px; text-indent: -16px; margin-left: 17px; line-height: 1.3em; }
+.list_step li:last-child { margin-bottom: 0; }
+.list_step li em, .list_step li a { font-weight: bold; }
+.list_step li a { color: blue; text-decoration: underline; }
+.list_step_dot li { margin-bottom: 10px; text-indent: -9px; margin-left: 7px; line-height: 1.3em;}
+.list_step_dot li:last-child { margin-bottom: 0; }

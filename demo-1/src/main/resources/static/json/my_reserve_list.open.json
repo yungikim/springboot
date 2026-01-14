@@ -1,0 +1,35 @@
+{ 
+    "result": [ 
+        { 
+            "reserveId": "RESVE_00000000001129", 
+            "title": "123123", 
+            "writerId": "10im0959", 
+            "writer": "김윤기", 
+            "dept": "프로젝트인력", 
+            "date": "20240704", 
+            "startTime": "1040", 
+            "endTime": "1210", 
+            "dateView": "2024.07.04", 
+            "startTimeView": "10:40:00", 
+            "endTimeView": "12:10:00", 
+            "place": "대상", 
+            "floor": "종로사옥", 
+            "sub": "1F", 
+            "roomCode": "MTGP_000000000000045", 
+            "room": "O Food STUDIO", 
+            "confirm": "A", 
+            "timezone": "+09:00", 
+            "atndncNmpr": 2, 
+            "mtgCn": "123", 
+            "extrlpsn": null, 
+            "repetitionAt": "N", 
+            "reserveType": null, 
+            "startGmt": "2024-07-04T01:40:00Z", 
+            "endGmt": "2024-07-04T03:10:00Z", 
+            "attendeeId": "10im0966" 
+        } 
+    ], 
+    "code": "1", 
+    "message": "정상적으로 조회되었습니다.", 
+    "totalCount": 1 
+}

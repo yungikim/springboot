@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xml:lang="ko" lang="ko">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Web Standard Guide</title>
+	<link type="text/css" rel="stylesheet" href="/res/core/jquery/jquery-ui/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="/res/core/jquery/customscroll/jquery.scroll.css">
+	<link rel="stylesheet" type="text/css" href="wsg.css" />
+	<link rel="stylesheet" type="text/css" href="/res/portal/css/portal.css" />
+	
+	<script type="text/javascript" src="/res/core/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/customscroll/jquery.scroll.js"></script>
+	<script type="text/javascript" src="/res/core/newep.js"></script>
+	<script type="text/javascript" src="/res/portal/js/portal_common.js"></script>
+	
+	<script type="text/javascript">
+		jQuery(function(){
+			var totalCount = $('.state').size();
+			var successCount = 0;
+			$('.state').each(function(){
+				if($(this).text() == '완료') {
+					successCount += 1;
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id="wsg_wrap">
+		<h2>.tab_type01 <span>_포틀릿에디트화면에 적용</span></h2>
+		<ul class="tab_type01">
+			<li class="active"><a href="">My Apps</a></li>
+			<li><a href="">Workplace</a></li>
+			<li><a href="">One AP</a></li>
+			<li><a href="">Support</a></li>
+			<li><a href="">ETC</a></li>
+		</ul>
+		<!------------------------------------------------------------------------------------------------------>
+		<h2>.tab_type02 <span>_메인포틀릿</span></h2>
+		<ul class="tab_type02">
+			<li><a href=""><em>1</em><br />대기</a></li>
+			<li class="active"><a href=""><em>96<span class="btn bult_new" title="새글"></span></em><br />진행</a></li>
+			<li><a href=""><em>2</em><br />반려</a></li>
+			<li><a href=""><em>4</em><br />최근완료</a></li>
+		</ul>
+		<!------------------------------------------------------------------------------------------------------>
+		<h2>.tab_type03 <span>_메인포틀릿</span></h2>
+		<ul class="tab_type03">
+			<li class="active"><a href="">전체보기</a></li>
+			<li><a href="">IR Report</a></li>
+			<li><a href="">China Report</a></li>
+			<li><a href="">Others</a></li>
+		</ul>
+		<!------------------------------------------------------------------------------------------------------>
+		<h2>.tab_type04 <span>_메인포틀릿</span></h2>
+		<ul class="tab_type04">
+			<li class="active"><a href="">tab01</a></li>
+			<li><a href="">tab02</a></li>
+			<li><a href="">tab03</a></li>
+			<li><a href="">tab04</a></li>
+		</ul>
+	</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+@import '../css/fonts.css';
+html, body{width:100%;height:100%;text-align:center;}
+body, body *{margin:0;padding:0;font-family:'Nanum Gothic';box-sizing:border-box;}
+header h1,section,footer{width:680px;margin:0 auto 0 auto;}
+header{width:100%;height:82px;border-bottom:1px solid #9c9c9c;position: relative;z-index: 0;}
+header h1{text-align:left;padding-top:21px;}
+section{text-align:left;position:relative;height:calc(100% - 164px);z-index: 1;}
+.contents{position:absolute;top:50%;margin-top:-196px;background:url(../images/bg_computer.png) no-repeat 0 5px;}
+section h2, section p{margin-left:163px;}
+section h2{font-size:30px;color:#000;font-family:'Nanum Gothic Bold';margin-bottom:15px;}
+section p, section div{font-size:16px;color:#555555;line-height:24px;}
+section .setup_descript{padding:40px 0 0 0;}
+section .setup_descript strong{color:#2b70cd;font-family:'Nanum Gothic Bold';}
+.setup_file{width:100%;background:#f6f6f6;border:1px solid #c2c2c2;text-align:center;padding:44px 0;margin-top:23px;}
+.setup_file span{display:block;margin:0 auto 24px auto;font-size:20px;color:#000;font-family:'Nanum Gothic Bold';}
+.setup_file button{width:140px;height:46px;display:block;margin:0 auto;background:#2b70cd;color:#fff;font-size:16px;font-family:'Nanum Gothic Bold';border:0;cursor:pointer;border-radius:3px;transition:all .3s;}
+.setup_file button:hover{background:#1453a8;}
+address{font-style:normal;font-size:11px;color:#959595;margin-top:36px;}

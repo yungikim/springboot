@@ -1,0 +1,127 @@
+{
+    "result": [
+        {
+            "floorCode": "MTGCL_00000014",
+            "floor": "종로사옥",
+            "ordr": 10
+        },
+        {
+            "floorCode": "MTGCL_00000016",
+            "floor": "하남사업장",
+            "ordr": 11
+        },
+        {
+            "floorCode": "MTGCL_00000017",
+            "floor": "InnoPark",
+            "ordr": 12
+        },
+        {
+            "floorCode": "MTGCL_00000080",
+            "floor": "대전사업장",
+            "ordr": 15
+        },
+        {
+            "floorCode": "MTGCL_00000012",
+            "floor": "부산사업장",
+            "ordr": 16
+        },
+        {
+            "floorCode": "MTGCL_00000081",
+            "floor": "수원사업장",
+            "ordr": 17
+        },
+        {
+            "floorCode": "MTGCL_00000018",
+            "floor": "군산공장",
+            "ordr": 18
+        },
+        {
+            "floorCode": "MTGCL_00000015",
+            "floor": "전북사업장",
+            "ordr": 19
+        },
+        {
+            "floorCode": "MTGCL_00000013",
+            "floor": "인천사업장",
+            "ordr": 20
+        },
+        {
+            "floorCode": "MTGCL_00000102",
+            "floor": "대구사업장",
+            "ordr": 21
+        },
+        {
+            "floorCode": "MTGCL_00000127",
+            "floor": "기흥공장",
+            "ordr": 22
+        },
+        {
+            "floorCode": "MTGCL_00000129",
+            "floor": "이천공장",
+            "ordr": 23
+        },
+        {
+            "floorCode": "MTGCL_00000131",
+            "floor": "횡성공장",
+            "ordr": 24
+        },
+        {
+            "floorCode": "MTGCL_00000132",
+            "floor": "순창공장",
+            "ordr": 25
+        },
+        {
+            "floorCode": "MTGCL_00000133",
+            "floor": "거창공장",
+            "ordr": 26
+        },
+        {
+            "floorCode": "MTGCL_00000134",
+            "floor": "구미공장",
+            "ordr": 27
+        },
+        {
+            "floorCode": "MTGCL_00000185",
+            "floor": "천안공장",
+            "ordr": 28
+        },
+        {
+            "floorCode": "MTGCL_00000186",
+            "floor": "단양공장",
+            "ordr": 29
+        },
+        {
+            "floorCode": "MTGCL_00000187",
+            "floor": "성남공장",
+            "ordr": 30
+        },
+        {
+            "floorCode": "MTGCL_00000188",
+            "floor": "오산공장",
+            "ordr": 31
+        },
+        {
+            "floorCode": "MTGCL_00000193",
+            "floor": "태국 사무소",
+            "ordr": 32
+        },
+        {
+            "floorCode": "MTGCL_00000195",
+            "floor": "러시아 사무소",
+            "ordr": 33
+        },
+        {
+            "floorCode": "MTGCL_00000197",
+            "floor": "미얀마 사무소",
+            "ordr": 34
+        },
+        {
+            "floorCode": "MTGCL_00000077",
+            "floor": "용인물류센터",
+            "ordr": 99
+        }
+    ],
+    "code": "1",
+    "message": "정상적으로 조회되었습니다.",
+    "totalCount": 24
+}

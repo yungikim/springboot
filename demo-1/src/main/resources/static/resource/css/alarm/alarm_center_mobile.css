@@ -1,0 +1,272 @@
+@charset "UTF-8";
+
+/*** 모바일 ***/
+
+/* 전체 스크롤바 */
+::-webkit-scrollbar {
+	  width: 4px; /* 세로 스크롤바 너비 */
+	  height: 10px; /* 가로 스크롤바 높이 */
+}
+
+/* 스크롤바 트랙 (배경) */
+::-webkit-scrollbar-track {
+	  background: #f4f4f4; /* 트랙 색상 */
+	  border-radius: 16px; /* 둥근 모서리 */
+}
+
+/* 스크롤바 핸들 (슬라이더) */
+::-webkit-scrollbar-thumb {
+	background: rgba(0, 0, 0, 0.2); /* 핸들 색상 */
+	border-radius: 5px; /* 둥근 모서리 */
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+/* 핸들 호버 효과 */
+::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(0, 0, 0, .6);
+}
+
+	#wrap_alarm,
+	#popup_alarm_preferences {
+		/*min-width: 360px;*/
+	}
+	
+	#system_alarm_box .title,
+	#alarm_category_box_wrap .category {
+		line-height: 16px;
+		font-size: 16px;
+		transition: 0s;
+	}
+	
+	#alarm_category_box_wrap .category:hover {
+		background: initial;
+	}
+	#alarm_category_box_wrap .category:active {
+		background: #f7f7f7;
+	}
+	
+	#alarm_category_box_wrap .btn_all_read_alarm,
+	#alarm_detail_list_layer .btn_all_read_alarm {
+		line-height: 13px;
+		font-size: 13px;
+	}
+	#alarm_category_box_wrap .btn_all_read_alarm:hover,
+	#alarm_detail_list_layer .btn_all_read_alarm:hover {
+		background: #303336;
+	}
+	#alarm_category_box_wrap .btn_all_read_alarm:active,
+	#alarm_detail_list_layer .btn_all_read_alarm:active {
+		background: #777;
+	}
+	
+	#alarm_category_box_wrap {
+		padding: 16px 12px 6px;
+	}
+	
+	#alarm_category_box_wrap:after {
+	    bottom: -20px;
+	    height: 20px;
+	    z-index: 1;
+	}
+	
+	#alarm_ul {
+	    flex: 1;
+	}
+
+	#alarm_ul .alarm_box_wrap {
+		height: calc(100vh - 130px);
+	}
+	#alarm_ul .alarm_box_wrap:after {
+		bottom: 26px;
+		height: 30px;
+	}
+	#alarm_ul .alarm_box {
+	    padding: 18px 16px 12px 8px;
+	}
+	
+	#unread_alarm_list .alarm_img_box_wrap {
+		min-width: 55px;
+    	max-width: 60px;
+	}
+	
+	#system_alarm_box .menu_img_wrap, 
+	#alarm_ul .alarm_img_box,
+	#all_alarm_list .alarm_img_wrap,
+	#detail_alarm_container .datail_alarm_img {
+		width: 46px;
+		height: 46px;
+	}
+	
+	#alarm_ul .alarm_img_box {
+		min-width: 46px;
+		max-width: 46px;
+	}
+	#system_alarm_box .menu_img, 
+	#alarm_ul .alarm_img,
+	#unread_alarm_list .fix_alarm_title .alarm_img {
+	    min-width: 26px;
+    	width: 26px;
+    	height: 26px;
+	}
+	#system_alarm_box .menu_alarm_count_wrap, 
+	#unread_alarm_list .alarm_count_wrap, 
+	#detail_all_alarm .alarm_count_wrap {
+		min-width: 15px;
+		height: 15px;
+		line-height: 12px;
+		font-size :12px;
+	}
+	#alarm_ul .alarm_li .img_desc_wrap {
+		min-width: initial;
+    	/*max-width: initial;*/
+	}
+	
+	#all_alarm_list .alarm_desc {
+		font-size: 14px;
+	}
+	
+	#unread_alarm_list .alarm_sender_info_wrap,
+	#unread_alarm_list .send_time_wrap {
+		line-height: 12px;
+		font-size: 12px;
+		font-weight: 400;
+	}
+	#alarm_ul .alarm_li .img_desc {
+	    position: static;
+		/*max-width: 46px;*/
+		line-height: 12px;
+		font-size: 12px;
+		font-weight: 500;
+		text-overflow: initial;
+		overflow: initial;
+	}
+	#unread_alarm_list .alarm_desc_txt,
+	#detail_alarm_container .detail_alarm_desc {
+	    font-size: 14px;
+	    font-weight: 500;
+	}
+	
+	#unread_alarm_list .btn_delete_alarm_li,
+	#unread_alarm_list .btn_fold_alarm_li,
+	#unread_alarm_list .btn_delete_alarm_li_wrap {
+	    /*width: 21px;
+   		height: 20px;*/
+   		scale: 0.8;
+	}
+	#unread_alarm_list .btn_fold_alarm_li .btn_ico {
+		width: 10px;
+		height: 10px;
+	}
+
+	#alarm_detail_list_layer {
+		left: 0;
+		top: 0;
+		width: 100%;
+    	/*min-width: 360px;
+		max-width: 920px;*/
+    	height: 100%;
+	}
+	#alarm_detail_list_layer .layer_top,
+	#alarm_detail_list_layer .layer_content {
+		border-radius: 0;
+	}
+	#detail_alarm_container .detail_alarm_box {
+	    height: calc(100vh - 150px);
+	}
+	
+	#detail_alarm_container .detail_alarm_box.all {
+	    width: calc(50% - 4px);
+	    height: calc(100vh - 318px);
+	    padding-left: 4px;
+	}
+	
+	#detail_alarm_container .ul_title_wrap:before {
+		top: 7.1px;
+	}
+	
+	#detail_alarm_container .detail_alarm_ul {
+	    /*padding: 0px 16px 12px;*/
+	}
+	
+	#all_alarm_list .alarm_count_wrap,
+	#alarm_detail_list_layer .total_alarm_count_box,
+	#alarm_detail_list_layer .alarm_count_wrap .list_unread_count {
+		line-height: 16px;
+		font-size: 16px;
+	}
+	
+	#detail_alarm_container .detail_alarm_li {}
+	
+	#detail_alarm_container .detail_alarm_title_box_wrap {
+	    font-size: 12px;
+	}
+	
+	#detail_alarm_container .detail_alarm_title_box .emp_name {
+		padding: 2px 0;
+	}
+	
+	
+	#popup_alarm_preferences .alarm_set_box.bymenu .set_box_ul {
+    	/*height: calc(100vh - 304px);*/
+		overflow-x: hidden;
+	}
+	
+	#popup_alarm_preferences .alarm_set_box.taskbar .ui-selectmenu-button {
+		max-width: 160px;
+	}
+	
+	#popup_alarm_preferences .all_mng_toggle_wrap,
+	#popup_alarm_preferences .set_box_toggle_wrap {
+	    width: 46px;
+	    min-width: 46px;
+	    height: 28px;
+	}
+	
+	#popup_alarm_preferences .all_mng_toggle_wrap .toggle, 
+	#popup_alarm_preferences .set_box_toggle_wrap .toggle {
+		width: 20px;
+		min-width: 20px;
+		height: 20px;
+	}
+	
+	/*** 모바일에서는 토글버튼 hover 효과 X ***/
+	#popup_alarm_preferences .all_mng_toggle_wrap:not(.on):hover, 
+	#popup_alarm_preferences .set_box_toggle_wrap:not(.on):hover {
+		background: #CCCCCC;
+	}
+	/*** 모바일에서는 토글버튼 hover 효과 X ***/
+	
+	#popup_alarm_preferences .all_mng_toggle_wrap.on .toggle, 
+	#popup_alarm_preferences .set_box_toggle_wrap.on .toggle {
+		left: calc(100% - 24px);
+	}
+	
+	#alarm_preferences_tooltip.tail_top:before {
+		left: 27.4%;
+	}
+	#alarm_preferences_tooltip.tail_top:after {
+		left: 27.3%;
+	}
+	#alarm_preferences_tooltip.tail_top:before {
+		left: 27.6%;
+	}
+	#alarm_preferences_tooltip.tail_top:after {
+		left: 27.3%;
+	}
+	#alarm_ul .alarm_box:after {
+		display: none;
+	}
+	
+	#alarm_ul .alarm_box,
+	#popup_alarm_preferences .alarm_set_box.bymenu .set_box_ul {
+	    margin: 4px 8px 10px 8px;
+	}
+	#unread_alarm_list .alarm_li_wrap .list_container.slide_down {}
+	
+	#popup_alarm_preferences .inner {
+		height: 100%;
+	}
+	#popup_alarm_preferences .set_box_tooltip {
+		margin-bottom: 0;
+	}

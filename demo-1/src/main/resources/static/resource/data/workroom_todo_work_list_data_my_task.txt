@@ -1,0 +1,78 @@
+[			
+	{
+		"work_type": "my_task",
+		"persons": [
+						{	
+							"manager": "홍길동",
+							"list": [
+								{	
+									"name": "화상회의 메일 미발송건 대응 방안보고 [2024-05-29]",
+									"comment": 0,
+									"state": "progress",
+									"state_ko": "진행중",
+									"manager": "./resource/images/user_img.png",
+									"start_date": "2024-05-29",
+									"deadline_date": "2024-06-13",
+									"priority": "high",
+									"priority_ko": "높음",
+									"progress_rate": "0%",
+									"file": 5
+								},
+								{
+									"name": "빈 페이지 대응 [2024-05-15]",
+									"comment": 1,
+									"state": "temporary",
+									"state_ko": "임시저장",
+									"manager": "./resource/images/user_img.png",
+									"start_date": "2024-05-15",
+									"deadline_date": "2024-06-25",
+									"priority": "medium",
+									"priority_ko": "보통",
+									"progress_rate": "20%",
+									"file": 1
+								},
+								{
+									"name": "업무방 생성 고도화 [2024-05-07]",
+									"comment": 3,
+									"state": "wait",
+									"state_ko": "대기",
+									"manager": "./resource/images/user_img.png",
+									"start_date": "2024-05-07",
+									"deadline_date": "2024-06-14",
+									"priority": "medium",
+									"priority_ko": "보통",
+									"progress_rate": "50%",
+									"file": 0
+								},
+								{
+									"name": "스팸메일 고도화 보고 [2024-05-01]",
+									"comment": 1,
+									"state": "progress",
+									"state_ko": "진행중",
+									"manager": "./resource/images/user_img.png",
+									"start_date": "2024-05-21",
+									"deadline_date": "2024-06-12",
+									"priority": "emergency",
+									"priority_ko": "긴급",
+									"progress_rate": "30%",
+									"file": 1
+								},
+								{
+									"name": "업무방 생성 고도화 [2024-05-01]",
+									"comment": 3,
+									"state": "progress",
+									"state_ko": "진행중",
+									"manager": "./resource/images/user_img.png",
+									"start_date": "2024-05-01",
+									"deadline_date": "2024-06-14",
+									"priority": "high",
+									"priority_ko": "높음",
+									"progress_rate": "80%",
+									"file": 0
+								}
+							]
+						}
+					]		
+			
+		}
+]

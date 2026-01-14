@@ -1,0 +1,89 @@
+@charset "UTF-8";
+/************************************************
+Cloud9Inc Publishing Group
+Author : Cloud9Inc. (2014.10)
+commnet : CSS 초기화
+*************************************************/
+
+/* @font-face{
+	font-family:aritadm;
+	src:url(../font/AritaDotumMedium.eot);
+	src:local(※),url(../font/AritaDotumMedium.woff) format('woff');
+} */
+
+/* *{margin:0; padding:0;} */
+*{-webkit-touch-callout:none; -webkit-text-size-adjust:none;}
+/* html, body {width:100%; height:100%;}
+html, body, div, p, pre, span, em, iframe,
+h1, h2, h3, h4, h5, h6, 
+dl, dt, dd, ul, ol, li,
+form, fieldset, legend, label, 
+table, caption, thead, tbody, tfoot, tr, th, td, 
+a, img, address, hr, blockquote, q, del, applet, object, abbr,
+section, article, aside, hgroup, header, footer, figure, figcaption, nav
+{margin:0; padding:0; border:0; background:transparent;
+font-size:13px; line-height:1; color:#333; text-decoration:none; font-weight:normal; font-style:normal;
+font-family:'맑은 고딕','Malgun Gothic','돋움',dotum,helvetica,'Apple Gothic','DroidSansFallback',Arial,'Arial Black',sans-serif;} */
+html, body {width:100%; height:100%; }
+html, body {margin:0; padding:0; border:0; background:transparent;
+/* font-family:'아리따돋움',aritadm,'맑은 고딕','Malgun Gothic','돋움',dotum,helvetica,'Apple Gothic','DroidSansFallback',arial,'Arial Black',sans-serif; */
+line-height:1; color:#333; text-decoration:none; font-weight:normal; font-style:normal;
+font-family:'맑은 고딕','Malgun Gothic','돋움',dotum,helvetica,'Apple Gothic','DroidSansFallback',Arial,'Arial Black',sans-serif;}
+/*body { min-width: 768px; }*/
+
+body {width: 10px !important; min-width: 100%; overflow: hidden; }
+
+/* dl, dt, dd, ul, ol, li {list-style:none;} */
+table {border-collapse:collapse; border-spacing:0; /* table-layout:fixed; */}
+/* hr, legend, caption {display:none;} */
+blockquote, q {quotes:none;}
+del {text-decoration:line-through;}
+/* form, fieldset, legend, caption {display:hidden;} */
+
+section, article, aside, hgroup, header, footer, figure, figcaption, nav {display: block;}
+
+/*****************************************************
+ 기본인풋스타일
+******************************************************/
+input {/* margin:0; padding:0; */ font-size:12px; line-height:1; color:#333; text-decoration:none; font-weight:normal; font-style:normal;
+/* font-family:'아리따돋움',aritadm,'맑은 고딕','Malgun Gothic','돋움',dotum,helvetica,'Apple Gothic','DroidSansFallback',arial,'Arial Black',sans-serif; */
+font-family:'맑은 고딕','Malgun Gothic','돋움',dotum,helvetica,'Apple Gothic','DroidSansFallback',Arial,'Arial Black',sans-serif;}
+label {vertical-align:middle;}
+input[type=text], 
+input[type=password], 
+input[type=radio], 
+input[type=checkbox],
+button[type=button] {vertical-align:middle;}
+textarea {}
+select {}
+
+
+/*****************************************************
+ 기본링크스타일 
+******************************************************/
+a:link {color:#333; text-decoration:none;}
+a:visited {color:#333; text-decoration:none;}
+a:hover {color:#333; text-decoration:none;}
+a:foucs {color:#333; text-decoration:none;}
+a:active {color:#333; text-decoration:none;}
+
+/*****************************************************
+기타 공통스타일
+******************************************************/
+.fl {float:left !important;}
+.fr {float:right !important;}
+.fclear {display:block; content:''; float:none; clear:both; height:0 !important;}
+/* .valign {display:inline-block; height:100% !importnat; vertical-align:middle;} */
+.tleft {text-align:left !important;}
+.tright {text-align:right !important;}
+.tcenter {text-align:center !important;}
+.tbold {font-weight:bold !important;}
+.ellipsis {white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.blind {display:none !important;}
+
+.blank5 {display:block; height:5px;}
+.pb10 {padding-bottom:10px !important;}
+
+
+
+

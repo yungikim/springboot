@@ -1,0 +1,179 @@
+
+
+.reply_attachment{
+	position: absolute;
+	z-index:1;
+	left:30px;
+	top:30px;
+	width: auto;
+	color : #757575;
+	border-radius : 5px;
+	background-color : #f2f2f2;
+	text-align : left;
+	padding: 0 8px 0px;
+	height: 25px
+}
+
+.reply_attachment span{
+	margin-right:5px;
+	font-size : 14px;
+	font-weight:900;
+	color : #bbb;
+}
+
+.add-filelist{
+	margin-top: -15px;
+	width : 100%;
+	height : auto;
+	padding-top : 0px !important;
+	padding-left : 0px !important;
+}
+
+.chat-attach{
+	margin-top:5px;
+	position: relative;
+	text-align : left;
+}
+
+.reply-file.add{
+	height: 38px;
+	
+	background-color : #fff !important;
+	
+	max-width: 400px;
+    padding: 8px 48px 8px 46px !important;
+    position: relative;
+    display: inline-block;
+    overflow: visible;
+    background: #fff7de;
+    border-radius: 5px !important;
+    border: 1px solid #ffe9a8;	
+}
+
+.reply-file p{
+	display: inline-block;
+
+    margin-bottom: 6px;
+    vertical-align: bottom;
+    
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.5);
+    
+    
+	width: 100%;
+    overflow: hidden;
+    font-size: 12px !important;
+    font-weight: 400;
+    color: #777;
+    line-height: 14px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    
+}
+
+
+.reply-file{
+	width: calc((100% - 20px) / 3) !important;
+    height: 40px;
+    padding: 8px 48px 8px 40px;
+    background: #f2f2f2 !important;
+    border-color: #e8e8e8 !important;
+    margin: 0 3px 5px 0;
+    border-radius : 5px !important;
+}
+
+
+.add-filelist .btn-delete {
+    width: 16px;
+    height: 16px;
+    right: 20px;
+    background-position: -484px -123px !important;
+}
+
+.reply-filelist{
+	margin-left:20px;	
+}
+
+.add-filelist .btn-delete:hover {
+  background-position: -504px -123px !important;
+}
+.reply-filelist .ico-file,.reply-filelist .ico-file.ppt,.reply-filelist .ico-file.word,.reply-filelist .ico-file.excel,.reply-filelist .ico-file.pdf,
+.add-filelist .ico-file,.add-filelist .ico-file.ppt,.add-filelist .ico-file.word,.add-filelist .ico-file.excel,.add-filelist .ico-file.pdf {
+  width: 30px;
+  height: 30px;
+  scale: 75%;
+}
+
+
+.reply-filelist .ico-file.ppt,
+.add-filelist .ico-file.ppt {
+  background-position:0 -58px !important;
+}
+.reply-filelist .ico-file.word,
+.add-filelist .ico-file.word {
+  background-position:-30px -58px !important;
+}
+.reply-filelist .ico-file.excel,
+.add-filelist .ico-file.excel {
+  background-position:-60px -58px !important;
+}
+.reply-filelist .ico-file.pdf,
+.add-filelist .ico-file.pdf {
+  background-position:-90px -58px !important;
+}
+.reply-filelist .btn-file-view,
+.add-filelist .btn-file-view {
+  right: 50px;
+}
+.reply-filelist .btn-file-download {
+  right: 20px;
+}
+
+
+.reply-filelist .btn-file-download {
+    background-position: -663px -94px !important;
+}
+
+
+.btn-file-download:hover {
+    background-position: -226px -20px !important;
+}
+
+
+.read-line {
+    position: relative;
+    height: 30px;
+    margin: 10px 0;
+}
+
+.read-line span {
+    position: absolute;
+    display: inline-block;
+    background: #ffe8e2;
+    color: #fa795f;
+    font-size: 13px;
+    font-weight: 500;
+    z-index: 1;
+    line-height: 30px;
+    padding: 0 60px;
+    text-align: center;
+    left: 50%;
+    transform: translate(-50%, 0);
+    border-radius: 20px;
+    box-shadow: 0 0 0 10px #f7f7f7;
+    max-width: 400px;
+    width: calc(100% - 200px);
+}
+
+.read-line:after {
+    content: "";
+    height: 1px;
+    background: #e8e8e8;
+    position: absolute;
+    left: 48px;
+    right: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+    z-index: 0;
+}
+

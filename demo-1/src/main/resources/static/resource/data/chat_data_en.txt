@@ -1,0 +1,58 @@
+[
+	{
+		"type": "personal",
+		"name": "Jeong Yuri",
+		"msg": "Lastly, please fix this ^^",
+		"date": "2024-05-14 16:30",
+		"img": "../resource/images/chat_emp00.png",
+		"unread_count": 2
+	},
+	{
+		"type": "personal",
+		"name": "Park Hyun",
+		"msg": "Please give me a final confirmation~",
+		"date": "2024-05-14 9:52",
+		"img": "../resource/images/chat_emp01.png",
+		"unread_count": 5
+	},
+	{
+		"type": "personal",
+		"name": "Kim Haneul",
+		"msg": "We have sent you the requested information.",
+		"date": "2024-05-11 14:30",
+		"img": "../resource/images/chat_emp02.png",
+		"unread_count": 0
+	},
+	{
+		"type": "personal",
+		"name": "Kim Dooli",
+		"msg": "yes",
+		"date": "2024-05-04 11:09",
+		"img": "../resource/images/chat_emp03.png",
+		"unread_count": 0
+	},
+	{
+		"type": "personal",
+		"name": "Kang Hana",
+		"msg": "Thank you^^",
+		"date": "2024-05-01 14:47",
+		"img": "../resource/images/chat_emp04.png",
+		"unread_count": 0
+	},
+	{
+		"type": "group",
+		"name": "Jeong Yuri, Park Hyun",
+		"msg": "yes^^",
+		"date": "2024-05-01 14:47",
+		"img": "../resource/images/chat_emp00.png, ../resource/images/chat_emp01.png",
+		"unread_count": 8
+	},
+	{
+		"type": "group",
+		"name": "Kim Haneul, Park Hyun, Kang Hana, Kim Dooli",
+		"msg": "I have received the information you sent. ^^",
+		"date": "2024-05-01 14:47",
+		"img": "../resource/images/chat_emp02.png, ../resource/images/chat_emp01.png, ../resource/images/chat_emp04.png, ../resource/images/chat_emp03.png",
+		"unread_count": 2
+	}
+]

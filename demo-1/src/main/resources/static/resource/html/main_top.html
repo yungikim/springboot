@@ -1,0 +1,213 @@
+<style>
+#alram_layer .tabs .tab.on a p {
+    border-bottom: 3px solid #ee7158;
+    padding-bottom: 7px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+#alram_layer .tabs li:first-child::after {
+    content: '';
+    position: absolute;
+    left : 73px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 1px;
+    height: 11px;
+    background-color: #e5e5e5;
+}
+
+#alram_layer .tabs .tab {
+	width : auto;
+	margin-right: 53px;
+}
+
+#alram_layer .tabs .tab a {
+    line-height: 52px;
+    height: 52px;
+    text-align: center;
+}
+
+#alram_layer .tabs .tab a.active {
+    font-weight: bold;
+}
+</style>
+<header>
+  <div class="mu_header" id="top_header_layer" style="display:none">
+                <div class="header-left">
+                	<div id="quick_schedule_dim" class="quick-schedule-dim"></div>
+                	<div id="quick_schedule_layer" class="quick-schedule-layer">
+                		<div class="btn-quick-close"><span></span><span></span></div>
+                		<div class="quick-schedule-wrap">
+                			<div id="user_schedule" "class="quick-schedule-inner">
+                			</div>
+                		</div>
+                	</div>
+                	<!-- <div class="quick-dummy"></div> -->
+                	<div class="quick-work-layer" id="quick_work_layer">
+                		<div class="quick-title"></div>
+                		<div class="quick-top">
+                			<div class="quick-top-inner">
+                				<div class="quick-top-title"></div>
+                				<div class="input-field">
+                					<span class="ico ico-search btn-search-ico"></span>
+                					<input type="text" id="quick_search_txt" class="formInput" placeholder="검색어를 입력하세요." autocomplete="off">
+                					<div class="btn-quick-org"></div>
+                				</div>
+                				<div class="input-field selectbox">
+                					<select id="quick_group"></select>
+                				</div>
+                			</div>
+                		</div>
+                		<div class="quick-center">
+                			<div class="quick-center-title">
+                				<div id="quick_user_cnt" class="select-cnt"></div>
+                				<div class="btn-area">
+                					<div class="btn-group"></div>
+                					<div class="btn-remove"></div>
+                				</div>
+                			</div>
+                			<ul id="quick_userlist" class="quick-center-list">
+                			</ul>
+                		</div>
+                		<div class="quick-bottom">
+                			<div class="quick-bottom-inner">
+                				<div class="btn-line">
+                					<div class="btn-wrap">
+                						<div class="quick-btn btn-talk"></div>
+                						<span class="btn-txt"></span>
+                					</div>
+                					<div class="btn-wrap">
+                						<div class="quick-btn btn-mail"></div>
+                						<span class="btn-txt"></span>
+                					</div>
+                					
+                					<!-- 쪽지기능 제거
+                					<div class="btn-wrap">
+                						<div class="quick-btn btn-note"></div>
+                						<span class="btn-txt"></span>
+                					</div>
+                					  -->
+                					 
+                					 <div class="btn-wrap">
+                						<div class="quick-btn btn-work"></div>
+                						<span class="btn-txt"></span>
+                					</div>
+                					
+                					<div class="btn-wrap">
+                						<div class="quick-btn btn-file"></div>
+                						<span class="btn-txt"></span>
+                					</div>
+                				</div>
+                				<div class="btn-line">
+                					<div class="btn-wrap">
+                						<div class="quick-btn btn-meet"></div>
+                						<span class="btn-txt"></span>
+                					</div>
+                					<div class="btn-wrap">
+                						<div class="quick-btn btn-online"></div>
+                						<span class="btn-txt"></span>
+                					</div>
+                					<div class="btn-wrap">
+                						<div class="quick-btn btn-schedule"></div>
+                						<span class="btn-txt"></span>
+                					</div>
+                				</div>
+                			</div>
+                		</div>
+                	</div>
+                	
+                    <h1 id="btn_work_start">
+                    	<a class="en">Daesang Smart Work</a>
+                    	<div class="btn-quick-work">
+                    		<img src="./icon/connector.png">
+							<span></span>
+                    	</div>
+                    </h1>
+                    <div class="header-search">
+                  
+                        <div class="input-field selectbox">
+                            <select id='top_select'>
+							</select>
+                        </div>                                              
+                        
+                        <div class="input-field">
+                            <input type="text" class="formInput" id='search_query_field' autocomplete="off" placeholder="" />
+                            <span class="bar dis-no"></span>
+                            <button class="btn-view-detail ico dis-no" id="detail_search_btn" style="display:none">상세검색</button>
+                            <button class="btn-header-search ico" id="top_search_btn">검색</button>
+                        </div>
+                    </div>
+                    <div class="btn-header-org" id="top_org"></div>
+                </div>
+                <div class="header-right f_between">
+                    <!-- <button class="ico btn-more" id="new_menu_drop">더보기</button> -->
+                    <!-- 알림 있는 경우 act 클래스 추가 -->
+                    <button class="ico btn-notice" id="new_alram_menu">알림</button>
+                    <button class="ico btn-setting" id='user_profile_btn'>메뉴 설정</button>
+                    <div class="user" id="person_status" style='cursor:pointer'>
+                        <p>Hi, <br><span id='username_display'></span></p>
+                     	<div class="user-thumb" id='my_profile_img'>
+                        </div>
+                        <span class='' id='my_profile_status'></span> 
+                        
+                    
+                       
+                        <!-- <button class="ico btn-fold">메뉴보기</button> 클릭시 on 클래스 추가 -->
+                    </div>
+                </div>
+            </div>
+
+<!--  
+	<h1 id='msgicon' style='cursor:pointer'><img src="./img/logo.png?open&ver=1.5" alt="AP-ON ABC2 Web" /></h1>
+	<div class="header-search">
+		<div class="input-field selectbox" style="width:135px">
+			<select id='top_select'>
+			</select>
+		</div>
+		<div class="input-field"> 
+			<input type="text" class="formInput" id='search_query_field' autocomplete="off" placeholder="" />
+			<span class="bar"></span>
+			<button class="btn-view-detail ico" id="detail_search_btn" style="display:none">상세검색</button>
+		</div>
+		<button class="btn-header-search ico" id="top_search_btn">검색</button>	
+	</div>
+	<div class="header-right">
+		<button class="btn-messenger-download" id="messenger_download"><span class="ico"></span><span id="messager_txt">메신저 다운로드</span></button>
+		<button class="ico btn-setting" id='user_profile_btn'>환경설정</button>
+		<div class="user">
+			<div class="user-thumb" id='my_profile_img'></div>
+			<span class="" id='my_profile_status'></span>
+			<span id='person_status' style='cursor:pointer'>
+				<p id='user_profile_name'></p>
+				<button class="ico btn-fold">메뉴보기</button>
+			</span>
+		</div>
+		<button class="ico btn-help" id='user_help'>도움말</button>
+	</div>
+	<div class="layer layer-menu" style="display:none;right:10px;top:43px;">
+		<ul>
+			<li class="online" id='user_profile_online'>온라인</li>
+			<li class="away"  id='user_profile_offline'>부재중</li>
+			<li class="deny" id='user_profile_deny'>방해금지</li>
+			<li class="meeting" id='user_profile_meeting'>미팅중</li>
+		</ul>
+	</div>
+	-->
+	
+	
+	
+</header>
+
+
+<script>
+	var gTop = "";
+	
+	$LAB.script("js/main/main_top.js?open?ver="+jsversion).wait(function(){
+		gTop = new gTop();
+		gTop.init();
+		
+	});
+	
+</script>
+

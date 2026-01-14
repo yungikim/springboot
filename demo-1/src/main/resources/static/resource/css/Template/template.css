@@ -1,0 +1,607 @@
+@charset "UTF-8";
+@import "../font.css";
+
+button {
+	border: 0;
+	outline: 0;
+}
+
+#container {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	letter-spacing: -0.05em;
+}
+
+#container .title_box_wrap {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	padding: 12px 24px;
+	border-bottom: 1px solid #E4E4E4;
+}
+#container .title_box_wrap .title_txt {
+	line-height: 100%;
+	color: #000;
+	font-size: 20px;
+	font-weight: 700;
+}
+#container .title_box_wrap .btn_wrap {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+#container .title_box_wrap .btn_share {	
+	border: 0;
+	background: 0;
+	cursor: no-drop;
+}
+#container .title_box_wrap .btn_save .btn_inner,
+#container .title_box_wrap .btn_edit .btn_inner,
+#container .title_box_wrap .btn_pdf .btn_inner,
+#container .title_box_wrap .btn_share .btn_inner {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	line-height: 100%;
+	padding: 12px 18px 12px 14px;
+	background: #D6E4F3;
+	border-radius: 6px;
+	color: #ACC9E7;
+	font-size: 16px;
+	font-weight: 700;
+	transition: 0.2s;
+}
+#container .title_box_wrap .btn_share .btn_ico {
+	display: block;
+	width: 18px;
+	min-width: 18px;
+	height: 18px;
+	background: url("../../images/Template/ico-edit.svg") center center / cover no-repeat;
+	transition: 0.2s;
+}
+
+#container .title_box_wrap .btn_edit .btn_ico {
+	display: block;
+	width: 18px;
+	min-width: 18px;
+	height: 18px;
+	background: url("../../images/Template/btn_edit.svg") center center / cover no-repeat;
+	transition: 0.2s;
+}
+
+#container .title_box_wrap .btn_save .btn_ico {
+	display: block;
+	width: 18px;
+	min-width: 18px;
+	height: 18px;
+	background: url("../../images/Template/btn_save.svg") center center / cover no-repeat;
+	transition: 0.2s;
+}
+
+#container .title_box_wrap .btn_pdf .btn_ico {
+	display: block;
+	width: 18px;
+	min-width: 18px;
+	height: 18px;
+	background: url("../../images/Template/btn_pdf.svg") center center / cover no-repeat;
+	transition: 0.2s;
+}
+
+
+#container .title_box_wrap .btn_share .btn_name {}
+
+/*** 공유하기 활성화 됐을 때 ***/
+
+#container .title_box_wrap .btn_share.active {
+	cursor: pointer;
+}
+#container .title_box_wrap .btn_save,
+#container .title_box_wrap .btn_pdf,
+#container .title_box_wrap .btn_edit {
+	display: none;
+}
+#container .title_box_wrap .btn_save .btn_inner,
+#container .title_box_wrap .btn_pdf .btn_inner,
+#container .title_box_wrap .btn_edit .btn_inner {	
+	height: 42px;
+}
+#container .title_box_wrap .btn_save .btn_inner,
+#container .title_box_wrap .btn_pdf .btn_inner,
+#container .title_box_wrap .btn_edit .btn_inner {
+	background: #fff;
+	color:  #3079C3;
+	border: 1px solid  #3079C3;
+}
+#container .title_box_wrap .btn_save:hover .btn_inner,
+#container .title_box_wrap .btn_pdf:hover .btn_inner,
+#container .title_box_wrap .btn_edit:hover .btn_inner{
+	background: #D6E4F3;
+}
+
+
+#container .title_box_wrap .btn_share.active .btn_inner {
+	background: #3079C3;
+	color: #fff;
+}
+
+#container .title_box_wrap .btn_share.active:hover .btn_inner {
+	background: #215f9f;
+}
+
+#container .title_box_wrap .btn_share.active .btn_ico {
+	filter: brightness(5);
+}
+/*** 공유하기 활성화 됐을 때 ***/
+#content_box_container {
+	display: flex;
+	flex: 1;
+}
+
+#content_box_container .content_box_wrap_left {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	padding: 24px;
+	border-right: 1px solid #E4E4E4;
+}
+#content_box_container .content_box_wrap {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	flex: 1;
+	padding: 24px;
+	border-right: 1px solid #E4E4E4;
+}
+#content_box_container .content_box_wrap:last-child {
+	border-right: 0;
+}
+
+#content_box_container .template_box,
+#content_box_container .detail_box {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+#content_box_container .template_box .title_txt,
+#content_box_container .detail_box .title_txt {
+	line-height: 100%;
+	color: #000;
+	font-size: 16px;
+	font-weight: 700;
+}
+
+#content_box_container .detail_box2 {
+	display: flex;
+	flex-direction: column;
+	gap: 25px;
+	height: 100%;
+}
+
+#content_box_container .detail_box2 .title_txt {
+	line-height: 100%;
+	color: #000;
+	font-size: 16px;
+	font-weight: 700;
+	
+}
+
+
+#content_box_container .template_box .item_box {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+#content_box_container .template_box .item_box .item {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-width: 130px;
+	height: 100px;
+	padding: 16px 24px;
+	border: 1px solid #C6C6C6;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: 0.2s;
+}
+#content_box_container .template_box .item_box .item:not(.active):hover {
+	background: #f7f7f7;
+}
+#content_box_container .template_box .item_box .item.active {
+	border-color: #3079C3;
+	border-width: 3px;
+}
+#content_box_container .template_box .item_box .item .template_ico_wrap {
+	width: 84px;
+	min-width: 84px;
+	height: 50%;
+	padding: 12px;
+	border-radius: 8px;
+	background: url("../../images/Template/template00.svg") center center / cover no-repeat;
+}
+
+
+#content_box_container .detail_box {
+	flex: 1;
+}
+#content_box_container .detail_box .template_txtarea {
+	flex: 1;
+	line-height: 180%;
+	padding: 8px 16px;
+	border: 1px solid #C6C6C6;
+	border-radius: 10px;
+	white-space: pre-line;
+	color: #050505;
+	font-size: 16px;
+	font-weight: 400;
+	resize: none;
+}
+#content_box_container .detail_box2 .template_txtarea::placeholder {
+	color: #777;
+	opacity: 0.7;
+}
+
+
+#content_box_container .detail_box2 .template_txtarea {
+	flex: 1;
+	line-height: 180%;
+	padding: 8px 16px;
+	border: 1px solid #C6C6C6;
+	border-radius: 10px;
+	white-space: pre-line;
+	color: #050505;
+	font-size: 16px;
+	font-weight: 400;
+	resize: none;
+	width : 100%;
+	height: calc(100% - 140px);
+	
+}
+#content_box_container .detail_box2 .template_txtarea:placeholder {
+	color: #777;
+}
+
+#content_box_container .detail_box .template_txtarea_dis {
+	flex: 1;
+	line-height: 180%;
+	padding: 8px 16px;
+	white-space: pre-line;
+	color: #050505;
+	font-size: 16px;
+	font-weight: 400;
+
+
+}
+
+#content_box_container .btn_wrap {
+	display: flex;
+	justify-content: flex-end;
+}
+#content_box_container .btn_wrap .btn_generate {
+	background: transparent;
+}
+#content_box_container .btn_wrap .btn_generate .btn_inner {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	line-height: 100%;
+	padding: 12px 18px 12px 14px;
+	border: 1px solid #3079C3;
+	border-radius: 6px;
+	color: #3079C3;
+	font-size: 16px;
+	font-weight: 700;
+	transition: 0.2s;
+}
+#content_box_container .btn_wrap .btn_generate:hover {
+}
+#content_box_container .btn_wrap .btn_generate:hover .btn_inner {
+	background: #3079C3;
+	color: #fff;
+}
+#content_box_container .btn_wrap .btn_generate:hover .btn_inner .btn_ico {
+	filter: brightness(10);
+}
+#content_box_container .btn_wrap .btn_generate .btn_ico {
+	display: block;
+	width: 18px;
+	min-width: 18px;
+	height: 18px;
+	background: url("../../images/Template/ico-twinkle.svg") center center / cover no-repeat;
+	transition: 0.2s;
+}
+#content_box_container .btn_wrap .btn_generate .btn_name {}
+
+#content_box_container .btn_wrap .btn_generate .noclick{
+	background-color: red;
+	cursor: no-drop;
+}
+
+#generate_box {
+	position: relative;
+	flex: 1;
+	padding: 5px;
+	border: 1px solid #C6C6C6;
+	border-radius: 10px;
+}
+#generate_box .please_generate {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	line-height: 150%;
+	color: #777777;
+	font-size: 20px;
+	font-weight: 500;
+}
+#generate_box .please_generate .ico {
+    width: 100px;
+    height: 120px;
+	background: url("../../images/Template/main1.svg") center center / cover no-repeat;
+}
+#generate_box .edit_generate_result {
+    position: absolute;
+    left: calc(120% - 1px);
+    top: calc(0% - 1px);
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+	line-height: 180%;
+    padding: 8px 16px;
+    border: 1px solid #C6C6C6;
+    border-radius: 10px;
+    white-space: pre-line;
+    color: #050505;
+    font-size: 16px;
+    font-weight: 400;
+	resize: none;
+	transition: 0.4s;
+}
+
+#generated_result {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	animation: fadeInShow 0.2s both;
+	transition: 0.2s;
+}
+
+@keyframes fadeInShow {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+#generated_result .summary_wrap {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+#generated_result .summary_wrap .title_txt {
+	line-height: 100%;
+	color: #000000;
+	font-size: 24px;
+	font-weight: 600;
+}
+#generated_result .summary_ul {
+	line-height: 200%;
+	padding-left: 24px;
+	color: #777777;
+	font-size: 16px;
+	font-weight: 500;
+}
+
+#generated_result .show_origin_btn {}
+#generated_result .show_origin_btn .btn_inner {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 4px;
+	line-height: 100%;
+	padding: 12px 0;
+	border: 1px solid #3079C3;
+	border-radius: 6px;
+	background-color: #fff;
+	color: #3079C3;
+	font-size: 16px;
+	font-weight: 700;
+	transition: 0.2s;
+}
+#generated_result .show_origin_btn .btn_ico {
+    display: block;
+    width: 18px;
+    min-width: 18px;
+    height: 18px;
+    background: url(../../images/Template/ico-edit.svg) center center / cover no-repeat;
+    transition: 0.2s;
+    filter: brightness(0) saturate(100%) invert(39%) sepia(42%) saturate(3790%) hue-rotate(188deg) brightness(82%) contrast(92%);    
+    transition: 0.2s;
+}
+#generated_result .show_origin_btn .btn_name {
+	margin-top: 1px;
+}
+
+#generated_result .show_origin_btn:hover .btn_inner {
+	background-color: #3079C3;
+	color: #fff;
+}
+#generated_result .show_origin_btn:hover .btn_ico {
+	filter: brightness(10);
+}
+
+/* 탭디자인 적용 */
+.tab-container {
+  width: 100%;
+  height: 100%;
+}
+
+/* 탭 버튼 스타일 */
+.tabs {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 10px 0;
+  display: flex;
+  border-bottom: 1px solid #edeaea;
+  height:51px;
+ 
+}
+.tabs .tab {
+  padding: 10px 10px;
+  cursor: pointer;
+  color: #666;
+  position: relative;
+  transition: color 0.3s;
+  font-size : 16px;
+  font-wegith : 700;
+}
+.tabs .tab:not(.active):hover {
+  color: #333;
+}
+/* 활성 탭 */
+.tabs .tab.active {
+  color: #2a8df4;
+  font-weight : 700;
+}
+.tabs .tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #2a8df4;
+}
+
+/* 탭 콘텐츠 */
+.tab-content .content {
+  display: none;
+  height: 100%;
+  
+}
+.tab-content .content.active {
+  display: block;
+}
+
+.tab-content{
+	height : 100%;
+}
+
+
+#content_box_container .template_box .item{
+  /*background-size: cover;*/
+  background-repeat: no-repeat;
+  background-position: center center;
+
+}
+
+#template_item_wrap .zoom-icon{
+  width: 22px;
+  height: 22px;
+  background-image: url('../../../resource/images/Template/search.svg'); /* 이미지 경로 */
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#template_item_wrap .text_caption{
+	display:flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;	
+	color:#777777;
+	font-size: 14px;
+	font-weight: 600;
+	margin-top:5px;
+	cursor: pointer;
+}
+
+#content_box_container #tab2 .xcontainer{
+
+	margin:10px auto;
+	border-radius : 12px;
+	/*border: 1px solid grey;*/
+	/*box-shadow: 0 0px 1px rgba(0,0,0,1);*/
+	padding: 10px
+}
+
+#content_box_container #tab2 .xcontainer .item{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 14px 0;
+	border-bottom:1px solid #eee;
+}
+
+#content_box_container #tab2 .xcontainer .item:last-child{
+	/*border-bottom:none;*/
+}
+
+#content_box_container #tab2 .xcontainer .item .title{
+	flex:1;
+	font-size: 16px;
+	cursor:pointer
+}
+
+#content_box_container #tab2 .xcontainer .item .date{
+	margin: 0 20px;
+	color: #777;
+	white-space: nowrap;
+	width : 100px;
+}
+
+#content_box_container #tab2 .xcontainer .item .icons{
+	display: flex;
+	gap: 10px;
+}
+
+#content_box_container #tab2 .xcontainer .item .icon{
+	cursor:pointer;
+	color: #555;
+	font-size:16px;
+}
+
+#content_box_container #tab2 .xcontainer .item .icons .icon1{
+	width : 18px;
+	height : 18px;
+	cursor:pointer;
+ 	background-image: url('../../../resource/images/Template/new_win.svg'); /* 이미지 경로 */
+  	background-size: cover;
+  	background-position: center;
+}
+
+#content_box_container #tab2 .xcontainer .item .icons .icon2{
+	width : 18px;
+	height : 18px;
+	cursor:pointer;
+ 	background-image: url('../../../resource/images/Template/delete.svg'); /* 이미지 경로 */
+  	background-size: cover;
+  	background-position: center;
+}
+
+#content_box_container #tab2 .xcontainer .item .icon:hover{
+	color: #000;
+}
+
+/******* 모달 *********/
+#modal {
+    /*position: fixed;*/
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 150;
+}
+.pop_btn_close {
+  top: 30px;
+  right: 30px;
+}

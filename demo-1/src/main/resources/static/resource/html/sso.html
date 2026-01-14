@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html translate="no">
+<head>
+	<title>K-Portal ONE</title>
+  	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  	<meta charset="utf-8">
+	<script src="../js/common/jquery.js?open"></script>
+	<style>
+		html, body {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			overflow: hidden;
+			display: flex;
+			flex-direction: column;
+		}
+		iframe {
+			border: none;
+			flex: 1;
+		}
+
+		.loading {
+			position: relative;
+			top: 15px;
+			display: flex;
+			width: 154px;
+		}
+		.loading span {
+			position: absolute;
+			bottom: 0;
+			display: inline-block;
+			width: 35px;
+			height: 30px;
+			background-color: #AAAAAA;
+			border-radius: 30px;
+		}
+
+		.loading span:first-child {
+			animation: loading-span1 1.3s infinite;
+			left: 0;
+		}
+
+		.loading span:nth-child(2) {
+			animation: loading-span2 1.3s infinite;
+			left: 55px;
+		}
+
+		.loading span:nth-child(3){
+			animation: loading-span3 1.3s infinite;
+			left: 110px;
+		}
+
+		@keyframes loading-span1 {
+			0% {
+				height: 70px;
+			}
+			25% {
+				height: 100px;
+			}
+			50% {
+				height: 70px;
+			}
+			100% {
+				height: 70px;
+			}
+		}
+
+		@keyframes loading-span2 {
+			0% {
+				height: 70px;
+			}
+			25% {
+				height: 70px;
+			}
+			50% {
+				height: 100px;
+			}
+			75% {
+				height: 70px;
+			}
+			100% {
+				height: 70px;
+			}
+		}
+
+		@keyframes loading-span3 {
+			0% {
+				height: 70px;
+			}
+			25% {
+				height: 70px;
+			}
+			50% {
+				height: 70px;
+			}
+			75% {
+				height: 100px;
+			}
+			100% {
+				height: 70px;
+			}
+		}		
+	</style>
+
+	<script>
+		var alarm_popup = "T";
+
+		window.addEventListener('message', function(event) {
+			if (event.data && event.data.url) {
+				openCenteredPopup(event.data.url, 1200, 800);
+			}
+		});
+		
+		function getCookie(c_name){
+			var i,x,y,ARRcookies=document.cookie.split(";");
+			for (i=0;i<ARRcookies.length;i++){
+			  x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+			  y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+			  x=x.replace(/^\s+|\s+$/g,"");
+			  if (x==c_name){
+				  return unescape(y);
+			  }
+			}
+		}
+		
+		function openCenteredPopup(url, width, height) {
+			// 현재 화면의 너비와 높이
+			const screenWidth = window.screen.width;
+			const screenHeight = window.screen.height;
+
+			// 화면 중앙 좌표 계산
+			const left = (screenWidth - width) / 2;
+			const top = (screenHeight - height) / 2;
+
+			// 팝업 옵션 문자열 생성
+			const options = `width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes`;
+
+			// 팝업 열기
+			const popupWindow = window.open(url, '_blank', options);
+
+			setTimeout(function() {
+				// 현재창 닫기
+				window.close();				
+			}, 100);
+		}			
+	</script>
+</head>
+<body>
+    <div id="loading" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
+        <div style="display: flex; flex-direction: column; gap: 100px; justify-content: center; align-items: center; width: 100%; height: 100%;">
+            <div style="display: flex; flex-direction: column; gap: 28px;">
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div class="loading">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div style="text-align: center; font-size: 24px; font-weight: 600;">Loading...</div>
+            </div>
+        </div>
+    </div>
+	<iframe id="appFrame" src=""></iframe>
+</body>
+
+<script>
+	// URL에서 파라미터 추출
+	function getURLParameter(name) {
+		const urlParams = new URLSearchParams(window.location.search);
+		return urlParams.get(name);
+	}
+
+	// 특정 파라미터 뒤를 전부 추출
+	function RightBack(val, sep){
+		const strA = val.trim().split(sep);
+		return strA[strA.length - 1];
+	}
+
+	// 파라미터 값을 받아서 iframe src에 설정
+	function setIframeSrc() {
+		const iframe = document.getElementById("appFrame");
+		//const urlParam = getURLParameter("url"); // 예시: ?url=https://example.com
+		const urlParam = RightBack(window.location.search, "url="); // 예시: ?url=https://example.com
+
+		if (urlParam) {
+			iframe.src = decodeURIComponent(urlParam); // iframe의 src 속성에 파라미터 값 할당
+		} else {
+			iframe.src = "https://" + document.domain; // 기본 URL 설정
+		}
+	}
+
+	// 페이지가 로드되면 iframe의 src를 설정
+	//window.onload = setIframeSrc;
+	
+	function callURL() {
+		var is_dev = false;
+		try{
+			is_dev = document.location.host.search(/dev/i) != -1;
+		}catch(err){}
+		const urlString = location.href;
+		const url = new URL(urlString);
+		const params = url.searchParams;
+		// 각각의 파라미터 값 추출
+		const p_sid = params.get('p_sid');
+		const p1 = params.get('p1');
+		const p2 = params.get('p2');
+		const p3 = params.get('p3');
+		const p4 = params.get('p4');
+		const u_ty = params.get('u_ty');	// URL이 호출된 위치 (openurl : 미처리, notiurl : 알림)
+		const redirect_uri = decodeURIComponent( RightBack(urlString, "redirect_uri=") );
+		const iframe = document.getElementById("appFrame");
+		
+		const xhr = new XMLHttpRequest();		
+		const check_url = "https://one.kmslab.com/kwa01/sso.nsf/check.txt?open?open&t=" + (new Date().getTime()); // 호출할 URL
+		xhr.open("GET", check_url, true); // 비동기 GET 요청	
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === 4) { // 요청 완료
+				if (xhr.status === 200) { // 성공					
+					if (xhr.responseText == "OK"){	
+					//	location.href = redirect_uri;
+						if (u_ty == "openurl"){
+							// 미처리에서 호출된 URL은 바로 열어준다.
+							location.href = redirect_uri;
+						}
+					}else{
+						const ssourl = "http://one.kmslab.com/sso_link.do?p1=" + p1 + "&p2=" + p2 + "&p3=" + p3 + "&p4=" + p4 + "&p5=" + encodeURIComponent(redirect_uri);
+					//	location.href = ssourl
+						if (u_ty == "openurl"){
+							location.href = ssourl;
+						}
+					}
+				} else {
+					console.error("sso.html -> Error:", xhr.status, xhr.statusText);
+				}
+			}
+		};
+		xhr.send(); // 요청 전송
+	}
+	// 함수 실행
+	callURL();
+</script>
+</html>

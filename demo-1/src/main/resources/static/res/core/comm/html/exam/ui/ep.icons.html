@@ -1,0 +1,76 @@
+<div class="frm_wrap frm_page_scroll">
+	<div class="formpage ">
+		<form class="">			
+			<fieldset class="epiconclass">
+				<legend>ep-icon Classes</legend>
+				<table class="table-form">
+				<colgroup><col width="100px" /><col /></colgroup>
+				<tr>
+					<th class="first">ep-icon</th>
+				</tr>
+				<tr>
+					<td class="first">
+						<ul class="iconlist" />
+					</td>
+				</tr>
+				</table>
+				<span class="source">source</span>
+				<pre id="src"></pre>
+<script>
+(function() {
+	var _iconlist = $(".epiconclass .iconlist");
+	var _epicon = [
+	    { classes : "ep-input-icondatepicker",css : {display:"inline-block",position : "inherit",verticalAlign: "middle"}}
+	    ,{ classes : "ep-input-iconsearch",css : {display:"inline-block",position : "inherit",verticalAlign: "middle"}}
+	    ,{ classes : "attachment"}
+	    ,{ classes : "delete"}
+	    ,{ classes : "btn-add"}
+	    ,{ classes : "down"}
+	    ,{ classes : "up"}
+	    ,{ classes : "cancel"}
+	    ,{ classes : "arrow-right"}
+	    ,{ classes : "organ"}
+	    /* ,{ classes : "replay"} */
+	    ,{ classes : "organ-s"}
+	    ,{ classes : "person-s"}
+	    ,{ classes : "bt-close"}
+	    ,{ classes : "arrow-down"}
+	    ,{ classes : "arrow-down off"}
+		,{ classes : "arrow-up"}		
+		,{ classes : "arrow-up off"}
+		,{ classes : "cont"}
+		,{ classes : "cont fold"}
+		
+	];
+	
+	$.each(_epicon, function(idx,v) {
+		var _icon = $('<span class="ep-icon" />').addClass(v.classes).wrap('<span style="display:inline-block;width:100px;padding-right:10px;text-align:center;vertical-align:middle;" />').parent();
+		v.css && _icon.find(".ep-icon").css(v.css);
+		
+		$('<li style="line-height:30px;height:30px" />').appendTo(_iconlist)
+		.append('<span style="display:inline-block;width:150px;padding-right:10px;">' + v.classes +'</span>')
+		.append(_icon)
+		.append('<span style="display:inline-block;width:350px;padding-right:10px;">'+_icon.clone().find(".ep-icon").removeAttr("style").outerHTML().toEscape()+'</span>');
+	});
+	
+})();
+</script>
+			</fieldset>
+		</form>
+		
+	</div>
+	
+
+</div>
+ <script>
+(function(){
+	$("fieldset .source").on("click", function(e) {
+		var _fieldset = $(e.target).closest("fieldset")
+			,_src = $("#src",_fieldset);
+		if($(e.target).hasClass("open")) {_src.empty();$(e.target).removeClass("open");return;}
+		_src.html($("script",_fieldset).html().replace(/</g,"&lt;").replace(/>/g,"&gt;"));
+		$(e.target).addClass("open");
+	});
+})();
+</script> 
+ 

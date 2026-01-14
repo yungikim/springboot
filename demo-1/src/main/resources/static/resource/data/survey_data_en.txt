@@ -1,0 +1,15 @@
+[
+	{
+		"title": "Please select a candidate location for the 2024 workshop!",
+		"writer": {
+			"name": "Lee Ahmo",
+			"dept": "Management Support Team",
+			"hierarchy": "Assistant Manager"
+		},
+		"period": {
+			"start": "2024.4.26",
+			"end": "2024.5.3"
+		},
+		"anonymous": "yes"
+	}
+]

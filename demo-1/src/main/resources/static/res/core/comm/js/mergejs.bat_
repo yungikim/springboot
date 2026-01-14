@@ -1,0 +1,23 @@
+@echo OFF
+@del ep.core.all.js
+@type ep.jslib.js >> ep.core.all.js
+@type ep.core.js >> ep.core.all.js
+@type ep.core.plugin.js >> ep.core.all.js
+@type ep.core.ui.js >> ep.core.all.js
+
+
+@del ep.jquery.plugin.all.js
+@type ..\..\jquery\layout\jquery.layout.js >> ep.jquery.plugin.all.js
+@type ..\..\jquery\jquery.form.js >> ep.jquery.plugin.all.js
+@type ..\..\jquery\qtip\jquery.qtip.js >> ep.jquery.plugin.all.js
+@type ..\..\jquery\fancytree\jquery.fancytree-all.js >> ep.jquery.plugin.all.js
+@type ..\..\jquery\fileupload\jquery.fileupload.js >> ep.jquery.plugin.all.js
+
+
+@echo OFF
+@java -jar C:\Project\compressor\yui\yuicompressor-2.4.8.jar --preserve-semi --charset utf-8 --type js -o ep.core.min.js ep.core.js
+@java -jar C:\Project\compressor\yui\yuicompressor-2.4.8.jar --preserve-semi --charset utf-8 --type js -o ep.core.plugin.min.js ep.core.plugin.js
+@java -jar C:\Project\compressor\yui\yuicompressor-2.4.8.jar --preserve-semi --charset utf-8 --type js -o ep.core.ui.min.js ep.core.ui.js
+@java -jar C:\Project\compressor\yui\yuicompressor-2.4.8.jar --preserve-semi --charset utf-8 --type js -o ep.jslib.min.js ep.jslib.js
+@java -jar C:\Project\compressor\yui\yuicompressor-2.4.8.jar --preserve-semi --charset utf-8 --type js -o ep.core.all.min.js ep.core.all.js
+@java -jar C:\Project\compressor\yui\yuicompressor-2.4.8.jar --preserve-semi --charset utf-8 --type js -o ep.jquery.plugin.all.min.js ep.jquery.plugin.all.js

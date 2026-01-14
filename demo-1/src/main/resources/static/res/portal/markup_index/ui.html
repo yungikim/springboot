@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xml:lang="ko" lang="ko">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Web Standard Guide</title>
+	<link type="text/css" rel="stylesheet" href="/res/core/jquery/jquery-ui/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="/res/core/jquery/customscroll/jquery.scroll.css">
+	<link rel="stylesheet" type="text/css" href="wsg.css" />
+	<link rel="stylesheet" type="text/css" href="/res/portal/css/portal.css" />
+
+	
+	<script type="text/javascript" src="/res/core/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/customscroll/jquery.scroll.js"></script>
+	<script type="text/javascript" src="/res/core/newep.js"></script>
+	<script type="text/javascript" src="/res/portal/js/portal_common.js"></script>
+	
+	<script type="text/javascript">
+		jQuery(function(){
+			var totalCount = $('.state').size();
+			var successCount = 0;
+			$('.state').each(function(){
+				if($(this).text() == '완료') {
+					successCount += 1;
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id="wsg_wrap">
+		<h1><em>AMOREPACIFIC</em> 글로벌 통합기업 포탈(New EP) 프로젝트</h1>
+		<div class="option_area">
+			<span class="fr date">화면정의 Version 6.0 반영</span>
+			<span class="fl option"><a href="markup.html">Mark Up</a></span>
+			<span class="fl option"><a href="ui.html" class="on">UI Library </a></span>
+			<span class="fclear"></span>
+		</div>
+		<div id="content">
+			<div class="progress-list" id="progressList">
+				<!-- 예정:undecided / 진행:working / 완료:complete / 수정:modify -->
+				<table class="data-table">
+					<colgroup>
+						<col style="width:50px" />
+						<col style="width:150px" />
+						<col style="width:" />
+						<col style="width:100px" />
+						<col style="width:" />
+					</colgroup>
+					<thead>
+						<tr>
+							<th>No.</th>
+							<th>TYPE</th>
+							<th>SRC</th>
+							<th>DIRECTORY</th>
+							<th>URL</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- <tr>
+							<td></td>
+							<td>typography</td>
+							<td class="left">제목(title) / 안내및 가이드글</td>
+							<td class="center">&nbsp;</td>
+							<td class="left">&nbsp;</td>
+						</tr> -->
+						<tr>
+							<td></td>
+							<td>button</td>
+							<td class="left"></td>
+							<td class="center"><a href="button.html" target="_blank">button.html</a></td>
+							<td class="left">&nbsp;</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>fotm</td>
+							<td class="left"></td>
+							<td class="center">***</td>
+							<td class="left">&nbsp;</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>tab</td>
+							<td class="left">탭스타일</td>
+							<td class="center"><a href="tab.html" target="_blank">tab.html</a></td>
+							<td class="left">&nbsp;</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>table</td>
+							<td class="left"></td>
+							<td class="center">***</td>
+							<td class="left">&nbsp;</td>
+						</tr>
+                        <tr>
+							<td></td>
+							<td>list(board)</td>
+							<td class="left"></td>
+							<td class="center"><a href="list.html" target="_blank">list.html</a></td>
+							<td class="left">&nbsp;</td>
+						</tr>
+                        <tr>
+							<td></td>
+							<td>icon/bullet</td>
+							<td class="left"></td>
+							<td class="center">***</td>
+							<td class="left">&nbsp;</td>
+						</tr>
+                        <!-- <tr>
+							<td></td>
+							<td>&nbsp;</td>
+							<td class="left"></td>
+							<td class="center">***</td>
+							<td class="left">&nbsp;</td>
+						</tr> -->
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="wsg.js"></script>
+</body>
+</html>

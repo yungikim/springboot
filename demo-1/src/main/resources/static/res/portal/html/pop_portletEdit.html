@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<html xml:lang="ko" lang="ko">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<meta name="format-detection" content="telephone=no, address=no, email=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<title>...</title>
+	<link rel="apple-touch-icon-precomposed" href="../img/favicomImg.png" />  
+	<link rel="shortcut icon" href="../img/favicomImg.ico" />
+	<link rel="icon" type="image/x-icon" href="../img/favicomImg.ico" />
+
+	<link rel="stylesheet" type="text/css" href="/res/portal/css/portal.css" />
+	<link type="text/css" rel="stylesheet" href="/res/core/jquery/jquery-ui/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="/res/core/jquery/customscroll/jquery.scroll.css">
+	
+	<script type="text/javascript" src="/res/core/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/customscroll/jquery.scroll.js"></script>
+	<script type="text/javascript" src="/res/core/newep.js"></script>
+	<script type="text/javascript" src="/res/portal/js/portal_common.js"></script>
+	<script type="text/javascript" src="/res/portal/js/owl.carousel.js"></script>
+	<!--[if lt IE 9]>
+		<script type="text/javascript" src="/res/portal/js/HTML5forIE.js"></script>
+		<script type="text/javascript" src="/res/portal/js/respond.min.js"></script>
+	<![endif]-->
+	<script type="text/javascript">
+		$(function() {
+			//탭
+			//$( "#portlet_divisionTab" ).tabs();
+			
+			//안내창 팝업
+			$( "#pop_portletGuide" ).dialog({
+				autoOpen: false,
+				width: 450,
+				height: 330,
+				modal: true,
+				resizable: false,
+				buttons: {
+					Ok : {text : "확인", highlight:true, click : function() {}}
+				}
+			});
+			$( ".ico_guide" ).click(function() {
+				$( "#pop_portletGuide" ).dialog( "open" );
+			});
+		}); 
+	</script>
+</head>
+
+<body>
+	<!-- 포틀릿 편집 -->
+	<div class="portlet_editPop">
+		<!-- 로딩 <div class="loading_area">
+			<div class="ico_loading" title="Please wait ..."></div>
+		</div> -->
+		<div class="portlet_editArea">
+			<div style="height:480px;">
+				<div>
+					<!-- 포틀릿 미리보기 -->
+					<!-- <div class="pop_portletPreview">
+						<img src="/res/portal/img/thum_view01.png" alt=""/>
+						<span class="btn_area"><button type="button" class="btype01">닫기</button></span>
+					</div> -->
+					<!-- //포틀릿 미리보기 -->
+					<!-- 포틀릿 이용안내 -->
+					<button type="button" class="btn ico_guide" title="이용방법안내"></button>
+					<div id="pop_portletGuide" title="포틀릿 편집 도움말">
+						
+						<!-- 포틀릿 편집 도움말 스타일 추가 20150324 -->
+						<div class="guide_type01">
+							<p class="msg">별도 메뉴 이동 없이 메인 화면에서 쉽고 빠른 업무 처리가 가능한 포틀릿을 편집하여 업무의 효율성을 높일 수 있습니다.</p>
+							<p class="msg">최대 6개의 포틀릿을 메인 화면에 추가할 수 있으며, 기본으로 <br />제공되는 <strong>[APG News Square]</strong>를 제외한 5개 포틀릿 편집이 가능합니다.</p>
+							<ul class="lst">
+								<li>
+									<strong>1. 포틀릿 검색하기</strong>
+									대표 메뉴와 동일한 구성을 가진 상단의 탭을 통하여 포틀릿을 빠르게 찾을 수 있으며, 돋보기 아이콘을 선택하여 미리보기 할 수 있습니다.
+								</li>
+								<li>
+									<strong>2. 포틀릿 추가하기</strong>
+									포틀릿을 하단 영역의 원하는 위치로 끌어당겨 추가할 수 있습니다.
+								</li>
+								<li>
+									<strong>3. 포틀릿 순서 변경하기</strong>
+									끌어당겨 놓는 방식으로 포틀릿간의 순서를 변경할 수 있습니다.
+								</li>
+								<li>
+									<strong>4. 포틀릿 제거하기</strong>
+									추가된 포틀릿의 빼기(-)버튼을 선택하여 제거할 수 있습니다.
+								</li>
+							</ul>
+						</div>
+						<!-- //포틀릿 편집 도움말 스타일 추가 20150324 -->
+
+						<!-- <ul class="guide_type01">
+							<li>※ 드래그 앤 드랍으로 포틀릿 추가 및 순서 변경을 할 수 있습니다.</li>
+							<li>※ 클릭하여 자주 사용하지 않는 포틀릿을 삭제 할 수 있습니다.<br />
+							   <span>&nbsp;&nbsp;&nbsp;(News Square는 삭제/이동 불가)</span></li>
+							<li>※ 최대 8개의 포틀릿을 메인 화면에 추가할 수 있습니다.</li>
+							<li>※ 포틀릿 초기설정
+								<ul class="guide_type0lChild">
+									<li>1) News Square </li>
+									<li>2) E-mail</li>
+									<li>3) 일정관리</li>
+									<li>4) 전자결재</li>
+									<li>5) 게시판</li>
+								</ul>
+							</li>  
+						</ul> -->
+					</div>
+					<!-- //포틀릿 이용안내 -->
+					<!-- portlet list -->
+					<div id="portlet_divisionTab" class="portlet_listArea">
+						<div>
+							<ul class="tab_type01">
+								<li class="active"><a href="">My Apps</a></li>
+								<li><a href="">Workplace</a></li>
+								<li><a href="">One AP</a></li>
+								<li><a href="">Support</a></li>
+								<li><a href="">ETC</a></li>
+							</ul>
+							<!-- mypage -->
+							<ul id="" class="portlet_list">
+								<li class="select">
+									<span class="portlet_icon board">게시판</span>
+									<span class="btn ico_add" title="추가"></span>
+									<span class="btn ico_view" title="미리보기"></span>
+								</li>
+								<li class="select">
+									<span class="portlet_icon insight">경영 Insight</span>
+									<span class="btn ico_view" title="미리보기"></span>
+								</li>
+								<li class="select">
+									<span class="portlet_icon favoriteApp">Favorite App</span>
+									<span class="btn ico_view" title="미리보기"></span>
+								</li>
+								<li class="select">
+									<span class="portlet_icon socialPortal">사회공헌포털</span>
+									<span class="btn ico_view" title="미리보기"></span>
+								</li>
+								<li class="select">
+									<span class="portlet_icon schedule">일정관리</span>
+									<span class="btn ico_view" title="미리보기"></span>
+								</li>
+								<li>
+									<span class="portlet_icon approval">전자결재</span>
+									<span class="btn ico_add" title="추가"></span>
+									<span class="btn ico_view" title="미리보기"></span>
+								</li>
+								<li>
+									<span class="portlet_icon customerBest">주간고객관심 BEST5</span>
+									<span class="btn ico_view" title="미리보기"></span>
+								</li>
+								<li>
+									<span class="portlet_icon voc">주요VOC</span>
+									<span class="btn ico_view" title="미리보기"></span>
+								</li>
+								<li>
+									<span class="portlet_icon ap">AP 人</span>
+									<span class="btn ico_view" title="미리보기"></span>
+								</li>
+								<li>
+									<span class="portlet_icon connections">Connections</span>
+									<span class="btn ico_view" title="미리보기"></span>
+								</li>
+								<li class="require">
+									<span class="portlet_icon email">E-mail</span>
+									<span class="btn ico_add" title="추가"></span>
+									<span class="btn ico_view" title="미리보기"></span>
+								</li>
+								<li class="require">
+									<span class="portlet_icon globalNews">Global News Clipping</span>
+									<span class="btn ico_view" title="미리보기"></span>
+								</li>
+								<li class="require">
+									<span class="portlet_icon news">News<br />Clipping</span>
+									<span class="btn ico_view" title="미리보기"></span>
+								</li>
+								<li class="require">
+									<span class="portlet_icon newsSquare">News<br />Square</span>
+									<span class="btn ico_view" title="미리보기"></span>
+								</li>
+								<li class="require">
+									<span class="portlet_icon smartCampus">Smart<br />Campus</span>
+									<span class="btn ico_view" title="미리보기"></span>
+								</li>
+							</ul>
+							<!-- //mypage -->
+							<div class="div_line"></div>
+						</div>
+					</div>
+					<!-- //portlet list -->
+				</div>
+			</div>
+			<!-- slelct portlet 목록 -->
+			<div class="my_portlet">
+				<ul id="my_portlet_swipe" class="my_portlet_list">
+					<li class="require"><span class="portlet_icon newsSquare">News<br />Square</span></li>
+					<li><span class="portlet_icon board">게시판</span></li>
+					<li><span class="portlet_icon insight">경영 Insight</span><span class="btn ico_del" title="삭제"></span></li>
+					<li><span class="portlet_icon favoriteApp">Favorite App</span><span class="btn ico_del" title="삭제"></span></li>
+					<li><span class="portlet_icon defaultIcon"></li>
+					<li><span class="portlet_icon blankportlet"></span></li>
+				</ul>
+				<span class="portlet_icon editportlet">Edit</span>
+				<span class="btn ico_close2" title="닫기"></span>
+			</div>
+			<!-- //select portlet 목록 -->
+		</div>
+
+	</div>
+	<!-- //포틀릿 편집 -->
+</body>
+</html>

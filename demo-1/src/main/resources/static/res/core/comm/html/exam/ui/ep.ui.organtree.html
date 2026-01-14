@@ -1,0 +1,79 @@
+<style>
+
+.organ-tree,.organ-mailtree {width:45%;height:500px;float:left;}
+.organ-mailtree {float:right;}
+.fieldset {position:relative;border:2px solid gray;}
+.fieldset legend {position:absolute;top:-10px;left:10px;z-index:999;}
+</style>
+<div class="frm_wrap frm_page_scroll">
+	<div class="formpage ">
+		<form>	
+			<div style="display:inline-block;width:100%;">
+				<div class="fieldset organ-tree">
+					<legend>organ tree</legend>
+					<div id="organtree" class="orgType" style="width:100%;height:100%;overflow:auto;"/>
+				</div>
+				<div class="fieldset organ-mailtree">
+					<legend>organ mailtree</legend>
+					<div id="organmailtree" class="orgType"  style="width:100%;height:100%;overflow:auto;" />
+				</div>
+			</div>
+			<span class="source" style="float:none;">source</span>
+			<pre id="src"></pre>
+<script>
+$ep
+.wait(function() {
+	var _mail = $ep.ui.organ.mailtree($("form #organmailtree"),{ 
+		item : function(data) {
+			return {
+				title : data.lang != $ep.lang() ? data.ename ? "{ename}[/{eorgname}]" : "{name}[/{orgname}]" : "{name}[/{orgname}]"
+				,tooltip : /*data.lang != $ep.lang() ? data.ename ? "{ename}[/{epost}][/{eorgname}]" :*/ "{name}[/{orgname}]"/* : "{name}[/{post}][/{orgname}]"*/
+			};
+		}
+	});
+	$ep.ui.organ.tree($("form #organtree"),{
+		display : "all"
+		,select : "all"
+		//,viewtype : "readviewentries"
+		,server : "devaphqapp" //대표서버
+		,expandTree :"1^00012018^00072551^00020397"
+		,itemRender : function(data) {
+			if(data.type == "D" && data.orgcode == "") {
+				data["unselectable"] = true;
+				data["hideCheckbox"] = true;
+			}
+		}
+		,item : function(data) {
+			return {
+				title : data.lang != $ep.lang() ? data.ename ? "{ename}[/{eorgname}]" : "{name}[/{orgname}]" : "{name}[/{orgname}]"
+				,tooltip : /*data.lang != $ep.lang() ? data.ename ? "{ename}[/{epost}][/{eorgname}]" :*/ "{name}[/{orgname}]"/* : "{name}[/{post}][/{orgname}]"*/
+			};
+		}
+		,dblclick : function(organtree,tree) {
+			_mail.addChildrenByKey("to",$.extend(true,{},tree.node.data));
+		}
+		,clickFolderMode : 1
+		,checkbox : false
+	});
+	
+
+	
+});
+</script>		
+		</form>
+		
+	</div>
+	
+
+</div>
+ <script>
+(function(){
+	$("form .source").on("click", function(e) {
+		var _src = $("#src");
+		if($(e.target).hasClass("open")) {_src.empty();$(e.target).removeClass("open");return;}
+		_src.html($("script",_fieldset).html().replace(/</g,"&lt;").replace(/>/g,"&gt;"));
+		$(e.target).addClass("open");
+	});
+})();
+</script> 
+ 

@@ -1,0 +1,144 @@
+[
+	{
+		"name": "MY APP",
+		"apps": [
+					{
+						"app_name": "메일",
+						"key": "item-mail",
+						"select": "on",
+						"img": "./resource/images/personal_app/mail.svg"
+					},
+					{
+						"app_name": "일정",
+						"key": "item-schedule",
+						"select": "on",
+						"img": "./resource/images/personal_app/calendar_month.svg"
+						
+					},
+					{
+						"app_name": "채팅",
+						"key": "item-chat",
+						"select": "on",
+						"img": "./resource/images/personal_app/archive.svg"
+					},
+					{
+						"app_name": "Files",
+						"key": "item-files",
+						"select": "off",
+						"img": "./resource/images/personal_app/local_mall.svg"
+					},
+					{
+						"app_name": "K-GPT",
+						"key": "item-kgpt",
+						"select": "off",
+						"img": "./resource/images/personal_app/category.svg"
+					}
+				]
+			},
+	{
+		"name": "WORKPLACE",
+		"apps": [
+			{
+				"app_name": "결재",
+				"key": "item-appr",
+				"select": "on",
+				"img": "./resource/images/personal_app/contract.svg"
+			},
+			{
+				"app_name": "게시판",
+				"key": "item-board",
+				"select": "on",
+				"img": "./resource/images/personal_app/contract.svg"
+			},
+			{
+				"app_name": "주간업무보고",
+				"key": "item-business_report",
+				"select": "off",
+				"img": "./resource/images/personal_app/language.svg"
+			},
+			{
+				"app_name": "회사규정",
+				"key": "item-company_regulations",
+				"select": "off",
+				"img": "./resource/images/personal_app/language.svg"
+			},
+			{
+				"app_name": "광장",
+				"key": "item-square",
+				"select": "off",
+				"img": "./resource/images/personal_app/language.svg"
+			}
+		]
+	},
+	{
+		"name": "Co-Work",
+		"apps": [
+			{
+				"app_name": "채널",
+				"key": "item-channel",
+				"select": "off",
+				"img": "./resource/images/personal_app/history_edu.svg"
+			},
+			{
+				"app_name": "TO DO",
+				"key": "item-todo",
+				"select": "off",
+				"img": "./resource/images/personal_app/captive_portal.svg"
+				
+			},
+			{
+				"app_name": "취합",
+				"key": "item-collection",
+				"select": "off",
+				"img": "./resource/images/personal_app/captive_portal.svg"
+				
+			},
+			{
+				"app_name": "회의실 예약",
+				"key": "item-meet_reservations",
+				"select": "off",
+				"img": "./resource/images/personal_app/captive_portal.svg"
+				
+			}
+		]
+	},
+	{
+		"name": "기타",
+		"apps": [
+			{
+				"app_name": "나의 연차",
+				"key": "item-holiday",
+				"select": "on",
+				"img": "./resource/images/personal_app/history_edu.svg"
+			},
+			{
+				"app_name": "직원 조회",
+				"key": "item-emp_search",
+				"select": "on",
+				"img": "./resource/images/personal_app/captive_portal.svg"
+				
+			},
+			{
+				"app_name": "즐겨찾는 APP",
+				"key": "item-bookmark_app",
+				"select": "on",
+				"img": "./resource/images/personal_app/captive_portal.svg"
+				
+			},
+			{
+				"app_name": "진행중인 설문",
+				"key": "item-survey",
+				"select": "on",
+				"img": "./resource/images/personal_app/captive_portal.svg"
+				
+			},
+			{
+				"app_name": "날씨 정보",
+				"key": "item-weather",
+				"select": "on",
+				"img": "./resource/images/personal_app/captive_portal.svg"
+				
+			}
+		]
+	}
+]

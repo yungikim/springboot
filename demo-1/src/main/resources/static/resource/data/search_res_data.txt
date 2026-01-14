@@ -1,0 +1,8 @@
+[
+	{
+		"category": "emp"
+	},
+	{
+		"category": "board"
+	}
+]

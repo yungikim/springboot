@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+<div class="tab-wrap peraddr-tab">
+	<div class="srch-wrap">
+		<span class="organ-search">
+		<input type="text" name="organ_search" autocomplete="off"></span>
+	</div>
+	<div class="ep-organ-tab-grid" /></div>
+	<div class="ep-organ-tab-search">
+		<div class="search-header">
+			<span class="ep-organ-search-resultcount">{$CORE.ORGAN.TEXT.SEARCHRESULT}<span>(<strong>0</strong>)</span></span>
+			<span class="ep-organ-search-btnclose"></span>
+		</div>
+		<div class="ep-organ-search" /></div>
+	</div>
+</div>
+<script>
+(function(){
+	if(!window.NotesName){
+		window.NotesName = function (name){
+			this.keyword = this.origin = name;this.addr821 = "";this.addr822LocalPart = "";this.addr822Phrase = "";this.addr822Phrase2 = "";
+			this.addr822Comment1 = "";this.addr822Comment2 = "";this.addr822Comment3 = "";
+			this.abbreviated = "";this.canonical = "";this.common = "";this.country = "";
+			this.abbreviated2 = "";this.canonical2 = "";
+			this.isHierarchical = false;this.isInternetAddress = false;
+			this.organization = "";this.orgUnit1 = "";this.orgUnit2 = "";this.orgUnit3 = "";this.orgUnit4 = "";
+			this.domain = "";
+			if(NotesName.REGEXP_RFC822.test(this.origin)){ /* rfc822 */
+				var match = this.origin.match(NotesName.REGEXP_RFC822);
+				this.addr822Phrase2 = this.addr822Phrase = match[1].trim();
+				if(NotesName.REGEXP_RFC822Phrase.test(this.addr822Phrase2)){
+					var mt = this.addr822Phrase2.match(NotesName.REGEXP_RFC822Phrase);
+					this.addr822Phrase2 = mt[1];
+				}
+				this.addr821 = match[2].trim();
+				this.addr822LocalPart = match[3].trim();
+				this.domain = match[4].trim();
+				this.canonical2 = this.abbreviated2 = this.canonical = this.abbreviated = this.origin.trim();
+				this.common = this.addr822Phrase;
+				this.addr822Comment1 = (match[5]||"").trim();
+				this.addr822Comment2 = (match[6]||"").trim();
+				this.addr822Comment3 = (match[7]||"").trim();
+				this.isInternetAddress = true;
+			}else{ /* rfc821 or hierarchical or flat */
+				var localpart = this.origin;
+				if(this.origin.indexOf("@") != -1){
+					localpart = this.addr822LocalPart = this.origin.substring(0, this.origin.indexOf("@")).trim();
+					this.domain = this.origin.substring(this.origin.indexOf("@") + 1).trim();
+				}
+				if(this.origin.indexOf("@") != -1 && localpart.indexOf("/") == -1){/* rfc821 */
+					this.canonical2 = this.canonical = this.abbreviated2 = this.abbreviated = this.addr821 = this.origin.trim();
+					this.common = localpart;
+					this.isInternetAddress = true;
+				}else if(localpart.indexOf("/") == -1){ /* flat */
+					this.common = this.canonical2 = this.canonical = this.abbreviated2 = this.abbreviated = this.origin.trim();
+				}else{ /* hierarchical */
+					this.isHierarchical = true;
+					isAbbreviated = true;
+					if(this.origin.indexOf("@") != -1) this.addr821 = this.origin.trim();
+					var hierarch = localpart.split("/");
+					var hierarchType = [];		
+					for(var i = 0; i < hierarch.length; i++){
+						if(hierarch[i].indexOf("=") != -1){
+							isAbbreviated = false;
+							hierarchType.push(hierarch[i].substring(0, hierarch[i].indexOf("=")).trim().toUpperCase());
+							hierarch[i] = hierarch[i].substring(hierarch[i].indexOf("=") + 1).trim();
+						}else{
+							hierarchType.push("");
+						}
+					}
+					/* 처음은 무조건 CN으로 인식. */
+					this.common = hierarch.shift();
+					hierarchType.shift();
+					hierarch = hierarch.reverse();
+					hierarchType = hierarchType.reverse();
+					if(!isAbbreviated) this.keyword = hierarch.join("\\");
+					if(hierarch.length > 1 && (hierarchType[0] == "C" || hierarch[0].length == 2)){ /* C */
+						this.country = hierarch.shift();
+						hierarchType.shift();
+					}
+					this.organization = hierarch.shift();
+					var orgUnitsA = [], orgUnits = [];
+					if(hierarch.length >= 1){
+						for(var i = 1; i <= 4; i++){
+							if(hierarch[i - 1]){
+								orgUnits.push("OU=" + hierarch[i - 1]);
+								orgUnitsA.push(hierarch[i - 1]);
+								this["orgUnit" + i] = hierarch[i - 1];
+							}
+						}
+					}
+					orgUnitsA = orgUnitsA.reverse();orgUnits = orgUnits.reverse();
+					this.canonical2 = this.canonical = "CN=" + this.common + (orgUnits.length != 0?"/" + orgUnits.join("/"):"") + "/O=" + this.organization + (this.country?"/C=" + this.country:"");
+					this.abbreviated2 = this.abbreviated = this.common + (orgUnits.length != 0?"/" + orgUnitsA.join("/"):"") + "/" + this.organization + (this.country?"/" + this.country:"");
+					if(this.domain){
+						this.canonical += "@" + this.domain;
+						this.abbreviated += "@" + this.domain;
+					}
+				}
+			}
+		}
+		NotesName.REGEXP_RFC822 = /("[\S\s]*"|[^<]*)?\s*<(([^@]+)@([^>]+))>(?:\s*\(([^\)]*)\))?(?:\s*\(([^\)]*)\))?(?:\s*\(([^\)]*)\))?/;
+		NotesName.REGEXP_RFC822Phrase = /"([\S\s]*)"/;
+	}
+})();
+(function(){
+	var _dlg = $("#{$dialogid$}")  		/* dialog id */
+		,_tabid = "{$tabid$}"			/* tabid */
+		, _tab = $("#"+_tabid,_dlg)		
+		,_event = $.Event("ep.ui.organ.dialog.method")
+		,_dialog = null  		/* organ.dialog */
+		,_panel = null			/* active Tab */
+		//,_tree = null 			/* organ.tree */
+		,_grid = null
+		,_select = null 
+		,_search = null ;
+
+	_dlg.trigger(_event,["getInstance"]);		/* organ dialog의 instance  구하기 */
+	_dialog = _event.result;
+	_panel = _dialog.getActiveTab();  			/*현재 활성 탭*/ 
+	
+	/* Tree 초기화 */
+	function _initOrgan() {
+
+		try {
+			if (org_type == "" || org_type  == undefined || org_type == "undefined" ) {
+				org_type = "mail";
+			}	
+		} catch(e) {
+			org_type = "mail";
+		}
+
+		var mailpath = "";
+		if (typeof org_mail_path != "undefined") {
+			if (org_mail_path != undefined && org_mail_path != "") {
+				mailpath = org_mail_path;
+			}
+		}
+		if(_dialog.moduleName != "ep.ui.organ.dialog") {return;}
+		
+		if(_panel.options.grid){
+			/* 검색 결과 처리.*/
+			!_panel.options.grid.aftersearch && (_panel.options.grid.aftersearch = function(data) {$(".ep-organ-search-resultcount strong",_tab).html(data.length);});
+			/* 그리드 초기화 */
+			_panel.options.grid.item = function(data){
+				var notes_name = new NotesName(data.altname||data.notesid);
+				var result = {title:null, tooltip:null};
+				result.key = notes_name.abbreviated2||data.name;
+				result.title = notes_name.abbreviated2.toEscape();
+				result.tooltip = notes_name.abbreviated2;
+				return result;
+			};
+			_panel.options.grid.itemRender=function(data){
+				var notes_name = new NotesName(data.altname||data.notesid);
+				data.key = notes_name.abbreviated2||data.name;
+
+				if (data.type == "PC") {
+					var _name = '';
+					var _post = '';
+					var _orgname = '';
+					var _company = '';
+					var _t_uinfo = '';
+					_name = data.name;
+					_post = data.post;
+					_orgname = data.orgname;
+					_company = data.company;
+					_t_uinfo = _name + (_post == '' ? '' : "/" + _post) + (_orgname == '' ? '' : "/" + _orgname ) + (_company == '' ? '' : "/" + _company );
+					data.title = _t_uinfo.toEscape();
+					data.email =data.email;
+					data.notesid=data.notesid;
+					// data.email =data.tooltip;
+				} else {
+					data.title = notes_name.abbreviated2.toEscape();
+				}
+				
+				data.tooltip = notes_name.abbreviated2;
+				return data;
+			};
+			_panel.options.grid.search = {
+					type : "grid"
+					,target : ".ep-organ-tab-search .ep-organ-search"
+					,grid : {
+						keycode : "key"
+						,isduplicate :false
+						,draggable : false
+						,selectType : "checkbox"
+						,itemRender:_panel.options.grid.itemRender
+						,headers : [
+									{ id : "name" , label : "{$CORE.ORGAN.GRID.NAME}", 	width : "80px",  hcss : {"text-align":"left"}
+									   	 ,expression : function(td,colset,data) {return data.name.toEscape();}
+									   } 
+									   ,{ id : "email" , label : "EMail", width : "*", hcss : {"text-align":"left"}
+									   	,expression : function(td,colset,data) {return (data.title||data.notesid).toEscape();}}
+									   /*,{ id : "orgname" , label : "{$CORE.ORGAN.GRID.TEAM}", width : "50px" 
+										  ,expression : function(td,colset,data) {return data.orgname.toEscape();}}*/
+									]
+					}
+				};
+			
+			_grid =_dialog.api.tabs[_tabid] =  $ep.ui.organ.grid.apply(_dialog,[$(".ep-organ-tab-grid",_panel.panel),_panel.options.grid]);
+			_grid.getSelectedData = function(){
+				var _self = this,_opt = _self.options,getData = null,result = null;
+				if(_opt.issearch === true) {
+					return _self.api.search.getSelectedData();
+				}else{
+					return this._apply("getSelectedData");
+				}
+			};
+			
+			var search_ext = {
+				doSearch : function(query) {
+					return this._initSearch(query);		
+				}
+				,closeSearch : function() {
+					var _self = this
+						,_opt = _self.options
+					_opt.issearch = false;
+					_self.api.search && _self.api.search.destroy();
+					delete _self.api.search;
+				}
+				,_initSearch : function(query) {
+					var _self = this
+						,_opt = _self.options
+						;
+					if(!_opt.search) {return;}
+					_opt.issearch = true;
+					if(!_self.api) _self.api = {dialog:_dialog};
+					if(!_self.api.search) {
+						var _$srch = $(_opt.search.target,_self.api.dialog.getActiveTab().panel);
+						_self.api.search = $ep.ui.organ.grid.apply(_self.api.dialog,[_$srch,_opt.search.grid]);
+					} else {_self.api.search.removeAll();};
+					
+					this._doSearch.call(_self,query);
+					return;
+				}
+				,_doSearch : function(query) {
+					var _self = this,_opt = _self.options
+					, _uri = $.CURI(
+						(org_type == "etc" ? "/" + mailpath + "/api/data/collections/name/byorgan_tree_peraddr_etc?restapi"  : "/" + mailpath + "/api/data/collections/name/byorgan_tree_peraddr?restapi")
+						, {search : query, count : $ep._CONST.DATASERVICEMAXVIEWENTRIES,sortcolumn : "_name",sortorder : "ascending"}
+					).encode();
+					
+					return $ep.util.ajax({
+						type:"get"
+						,async : false
+						, url : _uri.url				
+					})
+					.done(function(_data,txt,xhr) {
+						var _result = [];
+						$.each(_data, function(index, data){
+							_result.push($ep.ui.organ.tree.prototype.convertEntry(data));
+						});
+						_self.trigger("aftersearch",_result);
+						if(_result.length != 0) _self.api.search.addData(_result);
+					})
+					.fail(function() {
+					
+					});
+					return;
+				}
+			};
+			$.extend(_grid, search_ext);
+			var _uri = $.CURI(
+					(org_type == "etc" ? "/" + mailpath + "/byorgan_tree_peraddr_etc?readviewentries"  : "/" + mailpath + "/byorgan_tree_peraddr?readviewentries" )
+					,{outputformat : "json" ,count : "9999"}
+			);
+			$ep.util.ajax({
+				type:"get"
+				,async : true
+				,url : _uri.url				
+			})
+			.done(function(_data,txt,xhr) {
+				if(!_data.viewentry || _data.viewentry.length == 0) return;
+				var _result = $ep.ui.organ.tree.prototype.convertViewEntry.apply(this,[_data,_panel.options]); 
+				_grid.addData(_result); 
+			})
+			.fail(function(){});
+		}
+		return;
+	}
+	function _closeSearch() {
+		$(".ep-organ-tab-search",_tab).hide();
+		_search && _search.val("");
+		_grid && _grid.closeSearch(); 
+	}
+	function _initPage() {
+		function _getQuery(q) {
+			var _v = q
+			,_query = $ep.util.patternCompletion(
+						'(&#91;form&#93;=Person) AND (&#91;fullname&#93;={query} OR &#91;altfullname&#93;={query} OR &#91;mailaddress&#93;={query})'
+						,{query : _v}
+				).replace(/&#91;/g,"[").replace(/&#93;/g,"]");
+			return _query;
+		};
+		_search = $ep.ui.input($('.organ-search',_tab), {
+			icon : "search"
+			,accesskey : "s"
+			,placeholder : "{$CORE.ORGAN.TEXT.ORGANSEARCHTEXT}" 
+			,title : "{$CORE.ORGAN.TEXT.ORGANSEARCHTEXT}"
+			,icoClick : function() {
+				var _v = this.val();
+				if(!_v.trim()) {_closeSearch();return;}
+				var _query = _getQuery(_v);
+				$(".ep-organ-tab-search",_tab).show();
+				_grid && _grid.doSearch(_query);				
+			}
+			,width: "100%" 
+			,event : "keydown"
+			,eventHandler : function(e) {
+				if(e.keyCode != 13) {return;}
+				var _v = this.val();
+				if(!_v.trim()) {_closeSearch();return;}
+				var _query = _getQuery(_v);
+				$(".ep-organ-tab-search",_tab).show();
+				_grid && _grid.doSearch(_query);
+			} 
+			,complete : function() {
+				$(this.elements.input).focus();
+			}
+		});
+		$($('.ep-organ-search-btnclose',_tab)).epbutton({
+			text : "{$CORE.ORGAN.BUTTON.BTNSEARCHCLOSE}"
+			,id : "btnsearchclose"
+			,show : true
+			,click : function() {_closeSearch();}
+		});
+	}
+	_initOrgan();
+	_initPage();
+
+	$("#peraddr .ep-epgrid-data").on('mousedown mousemove touchstart', function(event) {
+		event.preventDefault();
+	});
+
+})();
+</script>
+</body>
+</html>

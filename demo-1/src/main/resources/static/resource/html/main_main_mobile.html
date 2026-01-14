@@ -1,0 +1,73 @@
+<style>
+#qsearch_layer .xbtn-search-close {
+ 	cursor: pointer;   
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    right: 8px;
+    top: 8px;
+    background: url(resource/images/common/sprite_img.png) no-repeat -1180px -280px;
+}
+</style>
+
+<body class="mo_body" >
+	<div class="wrap">        
+        <div id="container" class="mu_mobile alar">
+            <section class="work" style='height:100vh; overflow:hidden'>
+                <div class="mo_topbox before_sec" id='top1' style='display:none'>
+                    <h2 id='alram_title'></h2>
+                    <div class="abs flex add-ico">
+                        <button class="ico close_btn"></button>                        
+                    </div>
+                </div>
+                <div class="top_btn_sec" id='top2' style='display:none'>
+					<button type="button" class="before_sec" id='alram_back'>
+						<span class="mo_ico" id='back_title'></span>
+						<span id='back_title2'>메세지</span>
+					</button>				
+				</div>
+                <div style='height:100%'>
+                    <div class="mo_tab_wr">
+                        <ul class="flex" id='sel_tabs'>
+                            <!-- 활성화시 class on추가 -->
+                            <li class="on" id='unread_count_title'></li>
+                            <li id='all_count_title'></li>
+                        </ul>
+                        <button type="button" class="all_read" id='allread'>모두읽음</button>
+                    </div>
+                    <div class="mail_s_sec work-search" id='qsearch_layer' style='display:none'>
+	                    <div class="top_sch_sec">
+	                        <div class="input_box">
+	                            <input type="text" id='qsearch' style='height:40px; width:100%' placeholder=""/>
+	                            <div class="xbtn-search-close" style="display:none;" id="query_btn_close"></div>
+	                            <div class="ico" id='qsearch_btn'></div>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="alar_wr" style='height:calc(100% - 50px)'>
+	                	<div class="alarm-list alar_list" id='alram_ul_top' style=' overflow:hidden'>
+                            <ul id='alram_list_ul' style='height:calc(100vh - 120px)'>
+                            	                         				             
+                            </ul>
+	                	</div>
+                	</div>
+                </div>
+            </section>    
+        </div>
+	</div>
+</body>
+
+<script language="javascript">
+	$LAB.script(cdbpath+"/js/main/main_bodyM.js?open?ver="+jsversion)
+	.script(cdbpath+"/js/main/main_mainM.js?open?ver="+jsversion).wait(function(){
+		gBodyM = new gBodyM();
+		gBodyM.init();
+		
+		gMainM = new gMainM();
+		gMainM.init();
+
+		//URL을 특정한 케이스로 치고 들어올때 해당 페이지로 바로 이동하는 함수
+		gMainM.changePage();
+	});
+</script>
+

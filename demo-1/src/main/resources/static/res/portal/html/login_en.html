@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+<html xml:lang="ko" lang="ko">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<meta name="format-detection" content="telephone=no, address=no, email=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<title>...</title>
+	<link rel="apple-touch-icon-precomposed" href="../img/favicomImg.png" />  
+	<link rel="shortcut icon" href="../img/favicomImg.ico" />
+	<link rel="icon" type="image/x-icon" href="../img/favicomImg.ico" />
+
+	<link rel="stylesheet" type="text/css" href="/res/portal/css/portal.css" />
+	<link type="text/css" rel="stylesheet" href="/res/core/jquery/jquery-ui/jquery-ui.css" />
+	<link type="text/css" rel="stylesheet" href="/res/core/jquery/qtip/jquery.qtip.css" />
+	<link rel="stylesheet" type="text/css" href="/res/core/jquery/customscroll/jquery.scroll.css">
+	
+	<script type="text/javascript" src="/res/core/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/qtip/jquery.qtip.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/customscroll/jquery.scroll.js"></script>
+	<script type="text/javascript" src="/res/core/newep.js"></script>
+	<script type="text/javascript" src="/res/portal/js/portal_common.js"></script>
+	<!-- <script type="text/javascript" src="/res/portal/js/owl.carousel.js"></script> -->
+	<!--[if lt IE 9]>
+		<script type="text/javascript" src="/res/portal/js/HTML5forIE.js"></script>
+		<script type="text/javascript" src="/res/portal/js/respond.min.js"></script>
+	<![endif]-->
+	<!-- <script> 
+		$(document).ready(function(){
+			$("button.h_search").click(function(){
+				$("#search_resultArea").show("");
+			});
+		});
+	</script> -->
+	<script type="text/javascript">
+		$(function() {
+			//셀렉트박스
+			$ep.wait(function() {
+				$ep.ui.select("#login_sel",{});
+			});
+		});
+	</script>
+	<style type="text/css">
+		@font-face {
+			font-family:'aritadm';
+			src: url('/res/portal/font/AritaDotumMedium.eot');
+			src: local(※), url('/res/portal/font/AritaDotumMedium.eot?#iefix') format('embedded-opentype'),
+				 url('/res/portal/font/AritaDotumMedium.woff') format('woff'),
+				 url('/res/portal/font/AritaDotumMedium.ttf') format('truetype');
+			font-weight: normal;
+			font-style: normal;
+		}
+		@font-face {
+			font-family:'aritadl';
+			src: url('/res/portal/font/AritaDotumLight.eot');
+			src: local(※), url('/res/portal/font/AritaDotumLight.eot?#iefix') format('embedded-opentype'),
+				 url('/res/portal/font/AritaDotumLight.woff') format('woff'),
+				 url('/res/portal/font/AritaDotumLight.ttf') format('truetype');
+			font-weight: normal;
+			font-style: normal;
+		}
+		@font-face {
+			font-family:'aritasm';
+			src: url('/res/portal/font/AritaSansMedium.eot');
+			src: local(※), url('/res/portal/font/AritaSansMedium.eot?#iefix') format('embedded-opentype'),
+				 url('/res/portal/font/AritaSansMedium.woff') format('woff'),
+				 url('/res/portal/font/AritaSansMedium.ttf') format('truetype');
+			font-weight: normal;
+			font-style: normal;
+		}
+		@font-face {
+			font-family:'aritadsb';
+			src: url('/res/portal/font/AritaDotumSemiBold.eot');
+			src: local(※), url('/res/portal/font/AritaDotumSemiBold.eot?#iefix') format('embedded-opentype'),
+				 url('/res/portal/font/AritaDotumSemiBold.woff') format('woff'),
+				 url('/res/portal/font/AritaDotumSemiBold.ttf') format('truetype');
+			font-weight: normal;
+			font-style: normal;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="wrap" class="login-wrap">
+		<!-- header -->
+		<div id="header">
+			<div class="header_area">
+				<h1><a href="">AMOREPACIFIC</a></h1>
+			</div>
+		</div>
+		<!-- //header -->
+
+		<!-- contents -->
+		<div id="content_area">
+			<div class="containerWrapper">
+				<div class="component-container myPageLayout login"><!-- 로그인 화면에서만 login 클래스 추가 20150319-->
+					<div class="login_container">
+						<div class="img_area"><img src="/res/portal/img/keyvisual_en.png" alt="" /></div>
+						<!-- 로그인 영역 -->
+						<div class="login_area">
+							<div>
+								<input type="text" name="" id="" placeholder="ID" />
+								<input type="password" name="" id="" placeholder="PASSWORD" />
+								<button type="button" class="common_btn01 btnH" style="width:100%;">Log in</button>
+							</div>
+							<div>
+								<span class="fl"><input type="checkbox" name="" id="" /><label for="">Remember my ID</label></span>
+								<span class="fr">
+									<select name="" id="login_sel">
+										<option value="">한국어</option>
+										<option value="">옵션 둘</option>
+										<option value="">옵션 셋</option>
+									</select>
+								</span>
+								<span class="fclear"></span>
+							</div>
+							<div class="link_option">
+								<span><a href="">Prerequisite</a></span>
+								<span><a href="">AP WAY Screen Saver</a></span>
+							</div>
+							<div class="anniversary">
+								<p><img src="/res/portal/img/anniversary.png" alt="70 Years of Beauty Creation" /></p>
+							</div>	
+						</div>
+						<!-- //로그인 영역 -->
+
+						<!-- 랜덤내용 영역 -->
+						<div class="src_area">
+							
+							<!-- 20150325 이미지 스타일 수정 -->
+							<div id="0">
+								<p class="s_tit"><span class="eng">Our Vacation</span></p>
+								<p class="fl"><img src="/res/portal/img/type1_en_left.png" alt="" /></p>
+								<p class="fr"><img src="/res/portal/img/type1_en_right.png" alt="" /></p>
+								<div class="fclear"></div>
+							</div>
+
+							<!-- <div id="1">
+								<p class="s_tit"><span class="eng">Our Values</span></p>
+								<p class="fl"><img src="/res/portal/img/type2_en_left.png" alt="" /></p>
+								<p class="fr"><img src="/res/portal/img/type2_en_right.png" alt="" /></p>
+								<div class="fclear"></div>
+							</div>
+
+							<div id="2">
+								<p class="s_tit"><span class="eng">Our Credo</span></p>
+								<p class="fl"><img src="/res/portal/img/type3_en_left.png" alt="" /></p>
+								<p class="fr"><img src="/res/portal/img/type3_en_right.png" alt="" /></p>
+								<div class="fclear"></div>
+							</div> -->
+							<!-- //20150325 이미지 스타일 수정 -->
+
+
+
+
+							
+
+
+
+							<!-- 20150325 시스템폰트 스타일 삭제함 
+							<div id="0">
+								<p class="s_tit"><span class="eng">Our Vacation</span></p>
+								<div class="fl">
+									<p><img src="/res/portal/img/banner_1.png" alt="" /></p>
+									<p>
+										<em>Reason for Being of AMOREPACIFIC GROUP</em><br />
+										We exist to change the world through beauty
+									</p>
+								</div>
+								<p class="fr">
+									We seek to push the boundaries of traditional beauty<br />
+									with innovative solutions drawn from our rich <br />
+									Asian heritage<br /><br />
+
+									We respect the diversity of all members of the <br />
+									AMOREPACIFIC family and are committed to helping<br />
+									each and every member achieve her/his dream<br /><br />
+
+									We help people realize their ultimate dreams <br />
+									of living a healthy  and beautiful life<br />
+									by bridging both their inner and outer beauty<br /><br />
+
+									The world will know us as the <em>‘Asian Beauty Creator’</em>
+								</p>
+								<div class="fclear"></div>
+							</div>
+
+							<div id="1">
+								<p class="s_tit"><span class="eng">Our Values</span></p>
+								<div class="fl">
+									<p><img src="/res/portal/img/banner_2.png" alt="" /></p>
+									<p>
+										<em>The Standard Behavior of Asian Beauty Creator</em><br />
+										We are to judge and act as required by<br />
+										Openness, Integrity, Innovation, Proximity, Challenge
+									</p>
+								</div>
+								<p class="fr">
+									<img src="/res/portal/img/type2_en.png" alt="">
+								</p>
+								<div class="fclear"></div>
+							</div>
+
+							<div id="2">
+								<p class="s_tit"><span class="eng">Our Credo</span></p>
+								<div class="fl">
+									<p><img src="/res/portal/img/banner_3.png" alt="" /></p>
+									<p>
+										<em>The Song We Sing Together</em><br />
+										We determine through Our Credo ‘Why’ we work, <br />
+										for ‘What’, and ‘How’ we work
+									</p>
+								</div>
+								<p class="fr">
+									I BELIEVE <br />
+									That top priority should always be given to our Customers <br />
+									That my place should always be next to our Customers <br />
+									That honesty and morality enhances my own values <br />
+									That benevolence multiplies abundance <br /><br />
+
+									I WORK <br />
+									For mankind who will become more beautiful <br />
+									and healthier through me <br />
+									For my family who will become happier through me <br />
+									For my colleagues who are carrying out the same holy mission <br />
+									For my future that grows in concert with the Company <br /><br />
+
+									I CHALLENGE <br />
+									As I am not afraid of failure <br />
+									As the world is my stage <br /><br />
+
+									I CREATE <br />
+									The first ripples in the sea of Beauty where no one <br />
+									has visited before <br /><br />
+
+									I INNOVATE, AND INNOVATE <br />
+									Ceaselessly changing with an open mind <br />
+									I, <span class="my"></span> , am the Asian Beauty Creator
+								</p>
+								<div class="fclear"></div>
+							</div> 
+							-->
+
+						</div>
+						<!-- //랜덤내용 영역 -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- //contents -->
+		
+		<!-- footer -->
+		<div id="footer">
+			<div class="copyright">AMOREPACIFIC GROUP. ALL RIGHTS RESERVED.</div>
+		</div>
+		<!-- //footer -->
+	</div>
+</body>
+</html>

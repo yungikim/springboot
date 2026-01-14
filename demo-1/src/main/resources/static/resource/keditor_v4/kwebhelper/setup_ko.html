@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<head>
+<title>KWebHelper Installer</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+<link rel="stylesheet" type="text/css" href="./css/setup.css" />
+<script>
+function download(){
+	location.href = "./KWebHelper_Installer.exe?open&ver=" + new Date().getTime()
+}
+//setTimeout(function(){download()}, 1000) // 1초 후 자동 다운로드
+</script>
+</head>
+<body>
+	<header>
+		<h1><img src="./images/logo.png" alt="kmslab" /></h1>
+	</header>
+	<section>
+		<div class="contents">
+			<h2>KWebHelper</h2>
+			<p>
+				KWebHelper는 MS Office 제품군(Word, Excel 등)에서 2개 이상의 이미지를 복사하여 Web Editor에 붙여넣기 시 이미지가 정상적으로 표시될 수 있도록 도와주는 Windows 전용 제품입니다.
+			</p>
+			<div class="setup_descript"><strong>아래의 파일을 다운로드하여 설치</strong>한 후 Web Editor를 다시 로드합니다.</div>
+			<div class="setup_file">
+				<span>KWebHelper_Installer.exe</span>
+				<button onclick="download();">다운로드</button>
+			</div>
+		</div>
+	</section>
+	<footer><address>ⓒ KMSLab. ALL RIGHTS RESERVED.</address></footer>
+</body>
+</html>

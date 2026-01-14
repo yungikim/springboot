@@ -1,0 +1,36 @@
+[{
+    "user_data": {
+        "name": "홍길동",
+        "dept": "전략기획팀",
+        "empno": "km99",
+        "img": "./resource/images/user_img.png"
+    },
+	"emp_data": [
+		{
+					"empno": "km100",
+					"img": "./resource/images/emp01_img.jpg",
+	                "status": "on"
+		},
+		{			
+					"empno": "km101",
+                	"img": "./resource/images/emp02_img.jpg",
+	                "status": "on"
+		},
+		{			
+					"empno": "km102",
+                	"img": "./resource/images/emp03_img.jpg",
+	                "status": "on"
+		},
+		{			
+					"empno": "km103",
+                	"img": "./resource/images/emp04_img.jpg",
+	                "status": "off"
+		},
+		{
+					"empno": "km104",
+                	"img": "./resource/images/emp05_img.jpg",
+	                "status": "off"
+		}
+	]
+}
+]

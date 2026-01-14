@@ -1,0 +1,99 @@
+
+<style>
+	body {overflow-y:auto; overflow-x : hidden;}
+	section {padding : 0 0 0 3px}
+	/*.talk {overflow: auto}*/
+	.mCSB_inside>.mCSB_container{
+		margin-right:15px;
+	}
+	.highlight{background:#ffc000;color:#202020;}
+	
+	.md-bottom-grid.mbsc-ms-c {
+	    border: 0;
+	}
+	
+	.md-content-scroll .mbsc-fr-c {
+        height: 330px;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .md-content-scroll .mbsc-popup {
+        filter: blur(8px);
+    }
+
+</style>
+
+
+<body>
+<div id="dis"></div>
+
+<!-- 이미지 미리보기 -->
+<div class="wrap preview" id='preview_img' data="_layer" style="display:none">
+<!--<h1 id='preview_title'></h1>
+	<button class="ico btn-close" id='img_close_btn'>닫기</button>  -->
+
+	<div class="preview-contents" style="text-align:center;">
+		<span><img id='preview_img_src' style='max-width:99%' src="" alt="" /></span>
+	</div>
+</div>
+
+<!-- 동영상 미리보기 -->
+<div class="wrap preview" id='preview_video' data="_layer" style="display:none">
+<!--<h1 id='video_title'></h1>
+	<button class="ico btn-close" id='video_close_btn'>닫기</button>  -->
+	
+	<div class="preview-contents">
+		<span><video id='video_play_div_mp4' class="video"  style='width:100%;height:100%' controls=''></video></span>
+	</div>
+</div>
+
+<!-- Block UI -->
+<div id="blockui" class="blockui" style="display:none;">
+	<iframe style="width:100%;height:100%;border:0"></iframe>
+</div>
+
+<div id="vertical" class="mbsc-cloak" style="display:none">
+	<ul id="listview" class="mbsc-cloak">
+		<li data='0' id="li_col_temp"><h3 id='li0'></h3></li>
+		<li data='1' id="li_col_wait"><h3 id='li1'></h3></li>
+		<li data='2' id="li_col_continue"><h3 id='li2'></h3></li>
+		<li data='3' id="li_col_complete"><h3 id='li3'></h3></li>
+		<li data='4' id='s_archive'><h3 id='li4'></h3></li>
+	</ul>
+</div>
+
+<div id="list" class="mbsc-cloak" style="display:none">
+    <ul id="action_list">
+        <li data-role="list-divider" >Actions</li>
+        <li data-icon="copy" data='1' id='t01'></li>
+        <li data-icon="pencil" data='2' id='t02'></li>
+        <li data-icon="remove2" data='3' id='t03'></li>
+    </ul>
+</div>
+
+<div id="memberlist" class="mbsc-cloak" style="display:none;">
+	<ul id="members" class="mbsc-cloak">	
+	</ul>
+</div>
+
+
+</body>
+<script language="javascript">
+	$LAB.script(cdbpath+"/js/main/main_bodyM.js?open?ver="+jsversion).script(cdbpath+"/js/main/main_collectM.js?open?ver="+jsversion).wait(function(){
+		gBodyM = new gBodyM();
+		gBodyM.init();
+		
+		gColM = new gColM();
+		gColM.init();
+
+		//URL을 특정한 케이스로 치고 들어올때 해당 페이지로 바로 이동하는 함수
+		gColM.changePage();
+
+		$("#li_col_temp").html('<img src="' + cdbpath + '/images/temp.png" />');
+		$("#li_col_wait").html('<img src="' + cdbpath + '/images/wait.png" />');
+		$("#li_col_continue").html('<img src="' + cdbpath + '/images/continue.png" />');
+		$("#li_col_complete").html('<img src="' + cdbpath + '/images/complete.png" />');
+		$("#s_archive").html('<img src="' + cdbpath + '/images/complete.png" />');
+	});
+</script>

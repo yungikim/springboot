@@ -1,0 +1,334 @@
+<html>
+	<head>
+	<meta charset="utf-8"> 
+	<link rel="stylesheet" type="text/css" href="css/style.css?open&ver=2.0.0.32"/>
+	<script src="js/etc/jquery.min.js"></script>
+	<script src="js/xam.pageinit.js?open&ver=2.0.0.37"></script>
+	<script src="js/xam.init.js?open&ver=2.0.0.37"></script>
+	</head>
+	<body>
+		<div style="width:100%; overflow:hidden;">
+			<form name="fileupload" id="fileupload" method="POST" enctype="multipart/form-data" style="margin:0px">
+				<input type="hidden" name="__Click" value="0">
+				<input type="hidden" name="Body" value="">
+				<input type="hidden" name="unique" value="">
+				<input type="hidden" name="unid" value="">
+				<input type="hidden" name="idx" value="0">				
+				<input type="hidden" name="attachType" value="xam">
+	
+				<div class="row fileupload-buttonbar" style="display:none"><div class="col-lg-7" ><button type="submit" class="btn btn-primary start" id="submit_start"><i class="glyphicon glyphicon-upload"></i><span>Start upload</span></button></div></div>
+				<span class="fileinput-button"> <input type="file" name="%%File" multiple style="display:none"></span>
+	
+				<div id="file_add">
+					<!-- S:버튼 -->
+					<div class="file_btn"> <!-- 감싸는 태그 추가 -->	
+						<a href="javascript:void(0)" id="btn_preview" class="btn1" style="float:left;display:none" lang="am_preview">&nbsp;</a>
+						<a href="javascript:void(0)" id="btn_zip_down" class="btn1" style="float:left;display:none" lang="am_all_file_download">&nbsp;</a>					
+						<a href="javascript:void(0)" id="btn_mypc" class="btn1" style="float:left;display:none" lang="am_file_add">&nbsp;</a>
+						<a href="javascript:void(0)" id="btn_delete_read" class="btn1" style="display:none" lang="am_delete_read">&nbsp;</a>
+						<a href="javascript:void(0)" id="btn_history_read" class="btn1" style="display:none" lang="am_history_read">&nbsp;</a>							
+						<a href="javascript:void(0)" id="btn_delete" class="btn1" style="float:left;margin-left:5px;display:none" lang="am_file_delete">&nbsp;</a>
+						<a href="javascript:void(0)" id="up" class="btn-top-file btn" style="display:none">&nbsp;</a>
+						<a href="javascript:void(0)" id="down" class="btn-bottom-file btn" style="display:none">&nbsp;</a>
+					</div>
+					<!-- S:첨부사이즈 표시 -->
+					<div class="file_sizedisplay">
+						<span id="total_file_size"></span>
+						<span id="total_large_file_size"></span>
+					</div>
+					<!-- E:첨부사이즈 표시 -->						
+					<!-- E:버튼 -->
+		
+					<!-- S:전체 파일 상태 진행바  -->					
+	                <div id="more_info" style="display:none;">
+	                    <div class="fileupload-progress fade">
+	                        <div class="progress progress-striped active" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" style="height: 18px;">
+	                            <div class="progress-bar progress-bar-success" style="width: 0%; height: 18px;"></div>
+	                            <span class="txt"></span>
+	                        </div>
+	                    </div>
+	                    <ul class="file_info">
+	                        <li><span class="send_file" style="width:33%"></span><em></em></li>
+	                        <li><span class="send_speed" style="width:23%"></span><em></em></li>
+	                        <li><span class="send_time" style="width:22%"></span><em></em></li>
+	                        <li><span class="remain_time" style="width:22%"></span><em></em></li>
+	                    </ul>
+	                </div>  					
+					<!-- E:전체 파일 상태 진행바 -->
+	
+					<!-- S:첨부파일 리스트 테이블 -->
+					<div id="file_list">
+						<table summary="첨부파일 리스트 테이블">
+							<colgroup>
+								<col width="20px">
+								<col width="20px">
+								<col width="*">
+								<col width="90px">
+								<col width="80px">
+								<col width="70px">
+								<col width="70px">
+							</colgroup>		
+							<thead>											
+								<tr>
+									<th style="min-width:25px;" class="coloured">
+						                <div class="checkbox" style="display:">
+						                  <label><input type="checkbox" id="file_select"><span class="checkbox-material"><span class="check"></span></span></label>
+						                </div>
+									</th>
+									<th style="min-width:25px;"></th>
+									<th class="t_file_name" style="text-align:center;" lang="kam_file_name"></th>
+									<th style="text-align:center;" lang="kam_upload_status"></th>
+									<th style="text-align:center;" lang="kam_file_size"></th>
+									<th style="text-align:center;" lang="kam_file_type"></th>
+									<th style="text-align:center;" lang="kam_file_period"></th>
+								</tr>
+							</thead>
+							<tbody id="files"></tbody>
+						</table>
+					</div>
+					<!-- E:첨부파일 리스트 테이블 -->
+	
+				</div>  
+			</form>
+		</div>
+	
+	<!-- 파일 추가 전 대기 상태 file_upload_before -->
+	<script id="template-empty" type="text/x-tmpl">
+    <tr class="template-empty fade">
+        <td>
+            <div class="empty">
+                <span>
+                    <img src="img/ico_file.png" alt="" />
+                    {%=_XAM.xamlang.propStr("file_upload_before")%}
+                </span>
+            </div>
+        </td>
+    </tr>
+	</script>
+	
+	<!-- 파일 업로드 할 때의 JS -->
+	<script id="template-upload" type="text/x-tmpl">
+	{% for (var i=0, file; file=o.files[i]; i++) { %}
+		<tr class="template-upload fade">
+       	    <td class="coloured">
+                <div class="checkbox">
+                  <label><input type="checkbox"><span class="checkbox-material"><span class="check"></span></span></label>
+                </div>
+            </td>
+			<td>
+		{% var ext = check_ext(file.name); %}
+				<img src="img/file_icon/att_{%=ext %}.png" border=0>
+			</td>
+			<td class="t_file_name file_name" title="{%=file.name%}">
+				<p class="name">{%=file.name%}</p>
+		{% if (file.error) { %}
+				<div><span class="label label-danger">Error</span></div>
+		{% } %}
+			</td>
+	
+			<td width="100">
+		{% if (!o.files.error) { %}
+				<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+					<div class="progress-bar progress-bar-success" style="width:0%;"></div>
+				</div>
+		{% } %}
+				<button class="btn btn-primary start" style="display:none">
+					<i class="glyphicon glyphicon-upload"></i>
+					<span>Start</span>
+				</button>
+				<button class="btn btn_cancel cancel" style="display:none">{%=_XAM.xamlang.propStr("MAIL_BTN_CANCEL")%}</button>
+			</td>
+			<td class="file_size">
+				<p class="size">{%=o.formatFileSize(file.size)%}</p>
+			</td>
+	
+			{% if(_XAM.env.is_large_file_upload){ %}
+				{% if((parseInt(_XAM.env.large_file_size) * 1024 * 1024)< file.size){ %}
+					<td>
+                   		{% if(_XAM.env.lang == "eng"){ %}
+		                     <button class="btn btn_bigfile_eng bigfile" onFocus="this.blur()">{%=_XAM.xamlang.propStr("kam_big_file")%}</button>
+                   		{% } else { %}
+		                     <button class="btn btn_bigfile_kor bigfile" onFocus="this.blur()">{%=_XAM.xamlang.propStr("kam_big_file")%}</button>
+                   		{% } %}
+					</td>
+				{% }  else { %}
+					<td>
+                   		{% if(_XAM.env.lang == "eng"){ %}
+	                        <button class="btn btn_change_eng bigfile" onFocus="this.blur()">{%=_XAM.xamlang.propStr("kam_normal")%}</button>
+                   		{% } else { %}
+	                        <button class="btn btn_change_kor bigfile" onFocus="this.blur()">{%=_XAM.xamlang.propStr("kam_normal")%}</button>
+                   		{% } %}
+					</td>
+				{% } %}
+	
+				{% if(_XAM.env.is_limit_period){ %}
+					<td>
+						<span class="download-date">
+							{% if((parseInt(_XAM.env.large_file_size) * 1024 * 1024)< file.size) { %}
+								{%=end_period()%}
+							{% } else { %}
+								{%=_XAM.xamlang.propStr("am_file_nolimit")%}
+							{% } %}
+						</span>
+					</td>
+				{% } %}
+			{% } %}        
+	
+		</tr>
+	{% } %}
+	</script>
+	
+	<!--  업로드 완료시 때 -->
+	<script id="template-download" type="text/x-tmpl">
+	{% for (var i=0, file; file=o.files[i]; i++) { %}
+		<tr class="template-download fade">
+            <td class="coloured">
+                <div class="checkbox">
+                  <label><input type="checkbox"><span class="checkbox-material"><span class="check"></span></span></label>
+                </div>
+            </td>
+			<td>
+				{% var ext = check_ext(file.name); %}
+				<img src="img/file_icon/att_{%=ext %}.png" border=0>
+			</td>
+			<td class="t_file_name file_name" title="{%=file.name%}">
+			{% if (file.type && file.type == 'read') { %}
+			{% var trans_file = $('#fileTrans').text(file.name).html(); %}
+				<a class="t_file name" href="{%=file.downloadpath%}" download="{%=file.name%}">{%=file.name%}</a>
+			{% } else { %}
+				 <p class="name">{%=file.name%}</p>
+			{% } %}
+			</td>
+			<td>
+				{% if (file.error) { %}
+					<span class="upload-status label label-danger error">Error</span>
+					<button class="btn btn_cancel cancel" style="display:none"/>
+				{% } else { %}
+					<span class="upload-status complete">Complete</span>
+					<button class="btn btn_cancel cancel" style="display:none"/>
+				{% } %}
+			</td>
+			<td class="file_size">
+				<span class="size">{%=o.formatFileSize(file.size)%}</span>
+			</td>
+	
+			{% if(_XAM.env.is_large_file_upload){  %}
+         	   {% if(file.isBigfile || ((parseInt(_XAM.env.large_file_size) * 1024 * 1024)< file.size)){  %}
+                	<td>
+                   	{% if(_XAM.env.lang == "eng"){ %}
+                        	<button class="btn btn_bigfile_eng bigfile" onFocus="this.blur()">{%=_XAM.xamlang.propStr("kam_big_file")%}</button>
+                   	{% } else { %}
+                        	<button class="btn btn_bigfile_kor bigfile" onFocus="this.blur()">{%=_XAM.xamlang.propStr("kam_big_file")%}</button>
+                   	{% } %}
+                	</td>
+            	{% }  else { %}
+	                <td>
+                   	{% if(_XAM.env.lang == "eng"){ %}
+                        	<button class="btn btn_change_eng bigfile" onFocus="this.blur()">{%=_XAM.xamlang.propStr("kam_normal")%}</button>
+                   	{% } else { %}
+                        	<button class="btn btn_change_kor bigfile" onFocus="this.blur()">{%=_XAM.xamlang.propStr("kam_normal")%}</button>
+                   	{% } %}
+                	</td>
+            	{% } %}
+	
+				{% if(_XAM.env.is_limit_period){ %}
+					<td>
+						<span class="download-date">
+						{% if(file.isBigfile || (parseInt(_XAM.env.large_file_size) * 1024 * 1024)< file.size) { %}
+							{%=end_period()%}
+						{% } else { %}
+							{%=_XAM.xamlang.propStr("am_file_nolimit")%}
+						{% } %}
+						</span>
+					</td>
+				{% } %}
+	
+			{% } %}
+	
+		</tr>
+	{% } %}
+	</script>
+	
+	<!--  조회 할 때 -->
+	<script id="template-read" type="text/x-tmpl">
+	{% for (var i=0, file; file=o.files[i]; i++) { %}
+		<tr class="template-download fade read">
+			{% if(_XAM.args.deleteCallback!=undefined&&_XAM.args.deleteCallback!=''){ %}
+            <td class="coloured">
+                <div class="checkbox">
+                  <label><input type="checkbox"><span class="checkbox-material"><span class="check"></span></span></label>
+                </div>
+            </td>
+			{% } %}
+			<td>
+			{% var ext = check_ext(file.name); %}
+			{% var trans_file = $('#fileTrans').text(file.name).html(); %}
+				<img src="img/file_icon/att_{%=ext %}.png" border=0>
+			</td>
+			<td class="t_file_name file_name" title="{%=trans_file%}">
+				<p class="name">
+					<!-- 파일명에 / 기호가  포함된 경우 인코딩값 %2F를 &5C로 변경  -->
+					{% var file_encoding = encodeURIComponent(file.origname).replace(/%2F/gi, '%5C'); %}
+					{% if(file.origname.indexOf('.txt') > -1){ %}
+						<a class="t_file" href="{%=file.downloadpath.replace(/$File/g, '$FILE').slice(0,file.downloadpath.lastIndexOf("/")) +"/"+ file_encoding%}" download="{%=trans_file%}" target="new">{%=trans_file%}</a>
+					{% } else { %}
+						<a class="t_file" href="{%=file.downloadpath.replace(/$File/g, '$FILE').slice(0,file.downloadpath.lastIndexOf("/")) +"/"+ file_encoding%}" download="{%=trans_file%}">{%=trans_file%}</a>
+					{% } %}
+					
+				</p>
+			</td>
+			<td class="file_size" data-size="{%=file.size%}">
+				<span class="size">{%=o.formatFileSize(file.size)%}</span>
+			</td>
+		</tr>
+	{% } %}
+	</script>
+	
+	
+	<!--  대용량 첨부 본문 HTML -->
+	<script id="template-large-file" type="text/x-tmpl">
+	<div style="position:relative;width:100%;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;background-color:#f3f3f3; font-family:Segoe UI, 'Malgun Gothic', dotum, arial, sans-serif; color:#333; padding: 5px 15px 25px 15px;">
+		<div>
+			<div style="border-bottom: 2px solid #e7366a; font-size: 13px; line-height:30px;">
+				<strong><span style="color:#e7366a">Attachment</span></strong>{% if(_XAM.env.is_limit_period){ %}&nbsp;&nbsp;|&nbsp;&nbsp;Download Period :  {% end_period(); }%}
+			</div>
+			<div style="background-color:#FFF;">
+				<table style="width:100%; padding:10px 15px 5px;" border="0" cellspacing="0" cellpadding="0">
+	
+	{% for (var i=0, file; file=o.files[i]; i++) { %}
+				<tr>
+					<td width='71%' height='22'>
+						<p style="margin:0px 0px 0px 0px;">
+								<a href='{%=file.url.slice(0,file.url.lastIndexOf("/")) +"/"+ encodeURIComponent(file.url.slice(file.url.lastIndexOf("/")+1, file.url.length))%}' target='_blank'>
+									<span style="font-weight:600; color:#000; word-break:break-all;">{%=file.name%}</span>
+								</a>
+						</p>
+					</td>
+					<td width='16%' align='right' style='font-size:12px; color: #555; text-decoration: none;'>
+						<p style=" font-weight:bold; margin-right:10px">{%=o.formatFileSize(file.size)%}</p>
+					</td>
+					<td width='13%' align='center'>
+						<p style="margin-top:0pt;margin-bottom:0pt;"> 
+							<a href='{%=file.url.slice(0,file.url.lastIndexOf("/")) +"/"+ encodeURIComponent(file.url.slice(file.url.lastIndexOf("/")+1, file.url.length))%}' target='_blank'>
+								<span style="display: inline-block; white-space: nowrap; padding: 1px 11px 2px; border-radius: 2px; background: #e3e4e6; color: #555; cursor: pointer; font-size: 13px; font-weight:bold;">Download</span>
+							</a>
+						</p>
+					</td>
+				</tr>
+	{% } %}
+				</table>
+	
+				<div style="border-top: 2px solid #ddd;margin: 0px 15px;">
+					<div style="padding-top:15px; padding-bottom:10px; font-size:12px;">
+						대용량 첨부파일 샘플입니다. 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	</script>
+	
+	<div id="fileTrans" style="display:none;"></div>
+	</body> 
+</html>

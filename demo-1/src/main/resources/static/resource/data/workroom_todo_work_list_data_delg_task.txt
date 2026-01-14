@@ -1,0 +1,52 @@
+[			
+	{
+		"work_type": "delg_task",
+		"persons": [
+						{	
+							"manager": "홍길동",
+							"list": [
+								{	
+									"name": "새로운 업무방 생성 가이드라인 [2024-05-05]",
+									"comment": 0,
+									"state": "temporary",
+									"state_ko": "임시저장",
+									"manager": "./resource/images/chat_emp00.png",
+									"start_date": "2024-05-29",
+									"deadline_date": "2025-04-11",
+									"priority": "high",
+									"priority_ko": "높음",
+									"progress_rate": "60%",
+									"file": 2
+								},
+								{
+									"name": "UI/UX 구조 개선 프로젝트 [2024-05-05]",
+									"comment": 1,
+									"state": "wait",
+									"state_ko": "대기",
+									"manager": "./resource/images/chat_emp03.png",
+									"start_date": "2024-05-15",
+									"deadline_date": "2025-04-10",
+									"priority": "medium",
+									"priority_ko": "보통",
+									"progress_rate": "20%",
+									"file": 3
+								},
+								{
+									"name": "부서별 관리 전략 [2024-05-05]",
+									"comment": 3,
+									"state": "wait",
+									"state_ko": "대기",
+									"manager": "./resource/images/chat_emp02.png",
+									"start_date": "2024-05-07",
+									"deadline_date": "2024-06-14",
+									"priority": "medium",
+									"priority_ko": "보통",
+									"progress_rate": "50%",
+									"file": 0
+								}
+							]
+						}
+					]		
+			
+		}
+]

@@ -1,0 +1,33 @@
+<div id="view-wrap">
+	<div id="viewpage">
+		<!-- title 영역 -->
+		<div class="view-header titlebar">
+			<span class="view-title">아카이빙</span>
+			<span class="view-counter"><strong>555</strong></span>
+		</div>
+		<!-- action 영역 -->
+		<div class="view-action actionbar">
+			<span class="view-button" id="buttonbar"></span>
+			<span class="view-search">
+				<div class="ep-widget ep-epinput">
+						<span class="epinput select"></span>
+						<input type="text" value="검색">
+						<span class="epinput ico-input search"></span>
+				</div>
+			</span>
+		</div>
+		<!-- view list 영역 -->
+		<div class="view-body">
+			<div id="viewlist"></div>
+			<div id="viewnavigator"></div>
+		</div>
+	</div>
+</div>
+
+<script language="javascript">
+$ep
+.script("/res/ngw/mail/archive/js/mail_archive.js","mail.archive")
+.wait(function(){
+	mail_archive.viewInit({});
+});
+</script>

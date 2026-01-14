@@ -1,0 +1,30 @@
+[{
+    "user_data": {
+        "name": "Hong Gildong",
+        "dept": "Leading Tech. Team",
+        "img": "./resource/images/user_img.png"
+    },
+	"emp_data": [
+		{
+					"img": "./resource/images/emp01_img.jpg",
+	                "status": "on"
+		},
+		{
+                	"img": "./resource/images/emp02_img.jpg",
+	                "status": "on"
+		},
+		{
+                	"img": "./resource/images/emp03_img.jpg",
+	                "status": "on"
+		},
+		{
+                	"img": "./resource/images/emp04_img.jpg",
+	                "status": "off"
+		},
+		{
+                	"img": "./resource/images/emp05_img.jpg",
+	                "status": "off"
+		}
+	]
+}
+]

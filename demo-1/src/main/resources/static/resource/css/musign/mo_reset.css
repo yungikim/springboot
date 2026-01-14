@@ -1,0 +1,284 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;500;700;900&display=swap');
+
+body {
+    min-width: 320px;
+}
+body *, * {
+    font-family: 'Quicksand', 'Nanum Gothic', 'Malgun Gothic', '맑은고딕', arial, sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
+    letter-spacing: -0.68px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #000;
+    line-height: 1.35;
+    box-sizing: border-box;
+    outline: 0;
+}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0;padding: 0;border: 0;font-size: 100%;vertical-align: baseline; } 
+article, aside, details, figcaption, figure, main, aside, footer, header, hgroup, menu, nav, section { display: block; } 
+button {border:0; padding:0; cursor:pointer; background: none;}
+table { border-collapse: collapse;border-spacing: 0;width:100%; } 
+img { border: 0; max-width: 100%; vertical-align: middle; } 
+a, a:hover, a:focus { text-decoration: none; color: inherit;} 
+span, em, strong, b { font-size: inherit; color: inherit; font-family: inherit; } 
+ul, ol, li { list-style: none; } 
+select { -webkit-appearance: none; -moz-appearance: none; appearance: none; } 
+
+.dn { display: none; } 
+.dis-no { display: none !important; } 
+
+.mu_mobile input,
+.mu_mobile textarea { 
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    appearance: none; 
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 2px 22px 5px rgba(0, 0, 0, 0.02);
+    border: solid 1px #e5e5e5;
+    background: #fcfcfc;
+    transition: all .3s ease;
+} 
+.mu_mobile textarea:focus { 
+    border: solid 1px #fff !important;
+    background: #fff !important;
+    box-shadow: 0px 2px 22px 5px rgba(0, 0, 0, 0.08) !important;
+} 
+.mu_mobile input[type=text],
+.mu_mobile textarea {
+    font-size: 15px;
+}
+.mu_mobile input::placeholder, select,
+.mu_mobile textarea::placeholder,
+.mu_mobile .input-field input[type="text"]::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+    /* font-weight: bold; */
+    font-size: 15px;
+}
+
+.mu_mobile .mini-font input[type=text],
+.mu_mobile .mini-font textarea {
+    font-size: 14px;
+}
+.mu_mobile .mini-font input::placeholder, select,
+.mu_mobile .mini-font textarea::placeholder,
+.mu_mobile .mini-font.input-field input[type="text"]::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+    /* font-weight: bold; */
+    font-size: 14px;
+}
+
+/* class */
+.mu_mobile .abs {
+    position: absolute;
+}
+.mu_mobile .rel {
+    position: relative;
+}
+.mu_mobile .cf:after {
+	content:'';
+	display:block;
+	clear:both;
+}
+.mu_mobile .fl {
+    float: left;
+}
+.mu_mobile .fr {
+    float: right;
+}
+.f_center {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+.f_between {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: flex-start;
+}
+.f_middle {
+    display: flex;
+    align-items: center;
+}
+.flex {
+    display: flex;
+}
+.f_end {
+    display: flex;    
+    justify-content: flex-end;
+}
+.f_col {
+    display: flex;
+    flex-flow: column;
+}
+.fwbold {
+    font-weight: bold !important;
+}
+.text-elips {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* layout.css 추가하기 */
+/* 연한딤 */
+#layerDimSoft {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 200;
+    background: rgba(0,0,0,0.2);
+} 
+/* 진한딤 */
+#layerDimDark { 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 200;
+    background: rgba(0,0,0,0.6);
+}
+/* 팝업딤 */
+#layerDimHard { 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 300;
+    background: rgba(0,0,0,0.6);
+}
+
+
+/* mobile */
+.mo-btn {
+    width: 130px;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    font-size: 14.5px;
+    font-weight: 500;
+    color: #fff;
+    margin: 19px auto 0;  
+    border-radius: 10px;
+    background-color: #4f4d56;
+    display: block;  
+}
+.mu_mobile {
+    background-color: #f7f7f7;
+    min-height: 100vh;
+}
+.mu_mobile .mo_gathering,
+.mu_mobile .gathering,
+.mu_mobile .work {    
+    padding: 16px;
+}
+.mu_mobile .f-right {
+    display: flex;
+    justify-content: end;
+}
+/* 모바일 상단 */
+.mu_mobile .mo_topbox {
+    margin-bottom: 20px;
+}
+.mu_mobile .ico {
+    text-indent: -5000px;
+    background: url(../../images/common/mo_sprite_img.png) no-repeat;
+    background-size: 600px auto;
+    overflow: hidden;
+    vertical-align: middle;
+}
+.mo_topbox .ico {
+    margin-right: 6px;
+    background-position: -89px -132px;
+    display: inline-block;
+}
+.mo_topbox .ico-tit {
+    display: inline-block;
+    width: 23px;
+    height: 23px;
+}
+.mu_mobile h2 {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+/* 모바일 탭박스 */
+.mo_tab_wr li {
+    padding: 0 19px;
+    width: 33.33%;
+    position: relative;
+    padding-bottom: 11px;
+    text-align: center;
+    cursor: pointer;  
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 17px;
+    font-weight: 600;
+}
+.mo_tab_wr li::after {
+    position: absolute;
+    left: 0;
+    bottom: 0;   
+    height: 1px;
+    background-color: #e5e5e5;
+    width: 100%;
+    content: '';
+}
+.mo_tab_wr li.on {
+    color: #000;
+}
+.mo_tab_wr li.on::after {    
+    height: 2px;
+    background-color: #71368d;
+}
+.mo_tab_wr li::before {
+    position: absolute;
+    top: 7px;
+    right: 0;
+    width: 1px;
+    background-color: #e5e5e5;
+    height: 11px;
+    content: '';
+}
+.mo_tab_wr li:last-child:before {
+    display: none;
+}
+/* 모바일 셀렉트 박스 */
+.mu_mobile .selectbox {
+    width: 110px;    
+    padding-top: 11px;
+    margin-bottom: 6px;
+}
+.mu_mobile .select-wrapper input.select-dropdown {       
+    height: 44px; 
+    border-radius: 16px;
+    border: solid 1px #e8e8e8;
+    padding: 0 13px;
+    line-height: 44px;  
+    background-color: #fcfcfc;  
+    color: rgba(0, 0, 0, 0.5);
+}
+.mu_mobile .select-wrapper .caret {
+    right: 16px;    
+    background: url(../../images/common/mo_sprite_img.png) no-repeat -267px -50px;
+    background-size: 600px auto;
+    z-index: 99;
+}
+.mu_mobile .select-wrapper .caret:after {
+    display: none;
+}
+.mu_mobile .dropdown-content li {
+    min-height: 32px;
+}
+.mu_mobile .dropdown-content li > span {    
+    padding: 0 13px !important;
+    height: 36px;
+    line-height: 36px;
+}

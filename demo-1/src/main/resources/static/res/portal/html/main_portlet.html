@@ -1,0 +1,2352 @@
+﻿<!DOCTYPE html>
+<html xml:lang="ko" lang="ko">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<meta name="format-detection" content="telephone=no, address=no, email=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<title>...</title>
+	<link rel="apple-touch-icon-precomposed" href="../img/favicomImg.png" />  
+	<link rel="shortcut icon" href="../img/favicomImg.ico" />
+	<link rel="icon" type="image/x-icon" href="../img/favicomImg.ico" />
+
+	<link rel="stylesheet" type="text/css" href="/res/portal/css/portal.css" />
+	<link type="text/css" rel="stylesheet" href="/res/core/jquery/jquery-ui/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="/res/core/jquery/customscroll/jquery.scroll.css">
+	
+	<script type="text/javascript" src="/res/core/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/res/core/jquery/customscroll/jquery.scroll.js"></script>
+	<script type="text/javascript" src="/res/core/newep.js"></script>
+	<script type="text/javascript" src="/res/portal/js/portal_common.js"></script>
+	<script type="text/javascript" src="/res/portal/js/owl.carousel.js"></script>
+	<!--[if lt IE 9]>
+		<script type="text/javascript" src="/res/portal/js/HTML5forIE.js"></script>
+		<script type="text/javascript" src="/res/portal/js/respond.min.js"></script>
+	<![endif]-->
+	
+	<!-- main portal swipe option -->
+	<script type="text/javascript">
+		$(function() {
+			// portlet swipe
+			$(".component-container").owlCarousel({
+				items :2,
+				itemsDesktop : [1360, 2],
+				itemsDesktopSmall : [1024, 2],
+				itemsTablet : [1000, 1],
+				itemsTabletSmall : [768, 1],
+				//itemsMobile : [479, 1],
+				lazyLoad : true,
+				mouseDrag : false,
+				touchDrag : false,
+				navigation : true,
+				rewindNav : false,
+				pagination:false
+			});
+
+			//사회공헌포탈 썸네일이미지 스와이프
+			$(".img_swipeArea").owlCarousel({
+				items :1,
+				singleItem : true,
+				autoPlay : true,
+				rewindSpeed : 700,
+				pagination:true,
+				navigation : false,
+				mouseDrag : true,
+				touchDrag : true,
+				responsive : true,
+				pagination : true
+			});
+
+
+			//셀렉트박스
+			$ep.wait(function() {
+				$ep.ui.select("#fileAdd_sel",{});
+				$ep.ui.select("#connection_file",{});
+				$ep.ui.select("#connection_community",{});
+				$ep.ui.select("#connection_active",{});
+				$ep.ui.select("#favorite_app",{});
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<div id="wrap">
+		<!-- header -->
+		<div id="header">
+			<div class="header_area">
+				<h1><a href="">AMOREPACIFIC</a></h1>
+				<div class="info_area">
+					<div class="fl">
+						<span class="btn ico_sitemap" title="사이트맵"><a href="" ></a></span>
+						<span class="btn ico_search" title="검색"><a href=""></a></span>
+					</div>
+					<!--
+					<div class="fr">
+						<span class="btn ico_mail" title="메일"><img src="/res/portal/img/i_mail.png" alt="" /><a href=""><em class="count_info">99</em></a></span>
+						<span class="btn ico_schedule" title="일정"><a href=""><em class="count_info">99</em></a></span>
+						<span class="btn ico_works" title="업무"><a href=""><em class="count_info">99</em></a></span>
+						<span class="user_thum">
+							<span class="thum_border"></span>
+							<img src="/res/portal/img/img01.png" alt="" />
+						</span>
+						<span class="btn ico_arrowview" title="개인설정"><a href=""></a></span>
+					</div>
+					-->
+					<div class="fr">
+						<!-- 20150310 알림 버튼 추가 -->
+						<div class="header_layer">
+							<span class="btn ico_notice" title="알림">
+								<em class="count_info wid-none"><strong>N</strong></em><!-- 알림 숫자가 N일 경우 wid-none클래스 추가 -->
+							</span>
+							<!-- 알림 layerPop 추후 디자인 적용
+							<div class="header_layerWrap tip01">
+								<div class="header_layerContent"></div>
+								<div class="btn_footArea">
+									<span class="fl btn_t01"><a href="">알림 이동</a></span>
+									<span class="fr btn_t02"><a href="">닫기 X</a></span>
+								</div>
+							</div>
+							-->
+						</div>
+						<!-- //20150310 알림 버튼 추가 -->
+
+						<div class="header_layer">
+							<span class="btn ico_mail" title="메일"><em class="count_info"><strong>99</strong></em></span>
+							<!-- 메일확인 layerPop -->
+							<div class="header_layerWrap tip01">
+								<div class="header_layerContent">
+									<h2>읽지 않은 메일 <em>12</em>건</h2>
+									<ul class="list_board011 tf_border">
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="fl writer">000사내커뮤니케이션팀</span>
+													<span class="fr date">AM 09:45</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[상주투입인력] 교육확인서 동의 요합니다.합니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="fl writer">000사내커뮤니케이션팀</span>
+													<span class="fr date">AM 09:45</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[상주투입인력] 교육확인서 동의 요합니다.합니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="fl writer">000사내커뮤니케이션팀</span>
+													<span class="fr date">AM 09:45</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[상주투입인력] 교육확인서 동의 요합니다.합니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="fl writer">000사내커뮤니케이션팀</span>
+													<span class="fr date">AM 09:45</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[상주투입인력] 교육확인서 동의 요합니다.합니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="btn_footArea">
+									<span class="fl btn_t01"><a href="">메일함 이동</a></span>
+									<span class="fr btn_t02"><a href="">닫기 X</a></span>
+								</div>
+							</div>
+							<!-- //메일확인 layerPop -->
+						</div>
+
+						<div class="header_layer">
+							<span class="btn ico_schedule" title="일정" class="header_layer"></span>
+							<!-- 금주일정확인 layerPop --> 
+							<div class="header_layerWrap tip02">
+								<div class="header_layerContent">
+									<h2>금중의 일정 <em>12</em>건</h2>
+									<ul class="list_board011 tf_border">
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="date">AM 09:45 ~ Am1 11:00</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[상주투입인력] 교육확인서 동의 요합니다.합니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="date">AM 09:45 ~ Am1 11:00</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[회의] NEW EP 프로토타입 설계화면입니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="date">AM 09:45 ~ Am1 11:00</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[회의] NEW EP 프로토타입 설계화면입니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="date">AM 09:45 ~ Am1 11:00</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[회의] NEW EP 프로토타입 설계화면입니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="btn_footArea">
+									<span class="fl btn_t01"><a href="">일정관리 이동</a></span>
+									<span class="fr btn_t02"><a href="">닫기 X</a></span>
+								</div>
+							</div>
+							<!-- //금주일정확인 layerPop -->
+						</div>
+
+						<div class="header_layer">
+							<span class="btn ico_works" title="업무" class="header_layer"></span>
+							<!-- 결재대기문서확인 layerPop -->
+							<div class="header_layerWrap tip03">
+								<div class="header_layerContent">
+									<h2>결재대기 문서 <em>12</em>건</h2>
+									<ul class="list_board011 tf_border">
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="writer">Diana Peters</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[상주투입인력] 교육확인서 동의 요합니다.합니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="writer">Diana Peters</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[회의] NEW EP 프로토타입 설계화면입니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="writer">Diana Peters</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[회의] NEW EP 프로토타입 설계화면입니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<span class="write2">
+													<span class="writer">Diana Peters</span>
+													<span class="fclear"></span>
+													<span class="subject">
+														<span class="txt">[회의] NEW EP 프로토타입 설계화면입니다.</a>
+													</span>
+												</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="btn_footArea">
+									<span class="fl btn_t01"><a href="">전자결재 이동</a></span>
+									<span class="fr btn_t02"><a href="">닫기 X</a></span>
+								</div>
+							</div>
+							<!-- //결재대기문서확인 layerPop -->
+						</div>
+
+						<!-- 20150310 쉐어박스 버튼 추가 -->
+						<div class="header_layer">
+							<span class="btn ico_sharebox" title="알림"><em class="count_info"><strong>99</strong></em></span>
+						</div>
+						<!-- //20150310 쉐어박스 버튼 추가 -->
+
+						<!-- 20150319 게시판 바로가기 버튼 추가 -->
+						<div class="header_layer">
+							<span class="btn ico_post" title="게시판"></span>
+						</div>
+						<!-- //20150319 게시판 바로가기 버튼 추가 -->
+
+						<div class="header_layer">
+							<span>
+								<span class="user_thum">
+									<span class="thum_border"></span>
+									<img src="/res/portal/img/img01.png" alt="" />
+								</span>
+								<span class="btn ico_arrowview" title="개인설정"></span>
+							</span>
+							<!-- 개인설정 -->
+							<div class="header_layerWrap tip04">
+								<div class="header_layerContent">
+									<ul class="p_list_type01">
+										<li><a href="" class="tbold"><span class="btn bult_setting"></span> 환경설정</a></li>
+										<li><a href="" class="tbold"><span class="btn bult_logout"></span> 로그아웃</a></li>
+										<li><a href="" class="tbold"><span class="btn bult_default"></span> 일반리스트</a></li>
+									</ul>
+								</div>
+							</div>
+							<!-- //개인설정 -->
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- //header -->
+		<!-- contents -->
+		<div id="content_area">
+			<div class="containerWrapper">
+				<div class="component-container myPageLayout">
+					
+					<!-- 월간일정관리 20150319 추가-->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span>일정관리</span></h2>
+							<em class="count_info">12</em>
+							<span class="fr">
+								<span class="btn ico_monthworks active" title="월간일정관리"><a href=""></a></span><!-- 클릭해서 활성화시 active 클래스 추가 -->
+								<span class="btn ico_weekworks" title="주간일정관리"><a href=""></a></span>
+								<span class="btn ico_dayworks" title="월간일정관리"><a href=""></a></span>
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+							</span>
+						</div>
+						<div class="article_view article_padding" >
+							<div class="calendar_board01 type-month"><!-- 월간일정 full Calendar는 type-month 클래스 추가 -->
+								<div class="article_padding">
+									<!-- 일자 영역 -->
+									<div class="date_top_area">
+										<div class="day">2015/04</div>
+										<span class="weeks_prev" title="전주"></span>
+										<span class="weeks_next" title="다음주"></span>
+									</div>
+									<!-- 일자 영역 -->
+
+									<!-- 월간달력 -->
+									<div class="weeks_calendar">
+										<ul class="weeks_name">
+											<li>S</li><li>M</li><li>T</li><li>W</li><li>T</li><li>F</li><li class="sat">S</li>
+										</ul>
+										<ul class="weeks_day">
+											<li>1</li>
+											<li class="today">2<!-- 당일 날짜 li에 today 클래스 추가 -->
+												<span class="schedule_on"></span><!-- 일정이 있다면 schedule_on 추가 -->
+											</li>
+											<li class="active">3<!-- 클릭해서 날짜 선택시 active 클래스 -->
+												<span class="schedule_on"></span><!-- 일정이 있다면 schedule_on 추가 -->
+											</li>
+											<li>4</li>
+											<li >5</li>
+											<li>6</li>
+											<li>7</li>
+											<!-- //1주 -->
+											
+											<li>8</li>
+											<li>9
+												<span class="schedule_on"></span><!-- 일정이 있다면 schedule_on 추가 -->
+											</li>
+											<li>10
+												<span class="schedule_on"></span><!-- 일정이 있다면 schedule_on 추가 -->
+											</li>
+											<li>11</li>
+											<li>12</li>
+											<li>13</li>
+											<li>14</li>
+											<!-- //2주 -->
+											
+											<li>15</li>
+											<li>16</li>
+											<li>17</li>
+											<li>18</li>
+											<li>17</li>
+											<li>20</li>
+											<li>21</li>
+											<!-- //3주 -->
+											
+											<li>22</li>
+											<li>23</li>
+											<li>24</li>
+											<li>25</li>
+											<li>26</li>
+											<li>27</li>
+											<li>28</li>
+											<!-- //4주 -->
+
+											<li class="last">29</li><!-- 마지막주 날짜에 last클래스 추가 -->
+											<li class="last next_monthDay">30</li><!-- 마지막주 날짜에 last클래스 추가 / 다음달 날짜 next_monthDay 클래스로 구분-->
+											<!-- //5주 -->
+										</ul>
+									</div>
+									<!-- //월간달력 -->
+								</div>
+							</div>
+							<div class="view_scroll">
+								<br /><br />
+								<div class="calendar_board01">
+										<!-- 일정 리스트 -->
+										<ul class="time_schedule view_scroll view_scroll">
+											<li>
+												<div class="time">AM09:45 ~ AM10:45</div>
+												<div class="info_area">
+													<span class="subject"><a href="">[회의] NEW EP 프로토타입 화면설계 2차 리뷰[회의] NEW EP 프로토타입 화면설계 2차 리뷰</a></span>
+													<span class="site">동관 6층 회의실 506호</span>
+													<span class="member">고준희,이나영,제임스 + 3</span>
+												</div>
+											</li>
+											<li>
+												<div class="time">AM09:45 ~ AM10:45</div>
+												<div class="info_area">
+													<span class="subject"><a href="">[회의] NEW EP 프로토타입 화면설계 2차 리뷰</a></span>
+													<span class="site">동관 6층 회의실 506호</span>
+													<span class="member">고준희,이나영,제임스 + 3</span>
+												</div>
+											</li>
+											<li>
+												<div class="time">AM09:45 ~ AM10:45</div>
+												<div class="info_area">
+													<span class="subject"><a href="">[회의] NEW EP 프로토타입 화면설계 2차 리뷰</a></span>
+													<span class="site">동관 6층 회의실 506호</span>
+													<span class="member">000고준희,이나영,제임스 + 3</span>
+												</div>
+											</li>
+										</ul>
+										<div class="portlet_bottom_blank"></div>
+										<!-- //일정 리스트 -->
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 월간일정관리 20150319 추가-->
+					
+					<!-- Connections-내네트워크 -->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span class="eng">Connections</span></h2>
+							<span class="view-counter"><strong>139</strong></span>
+							<span class="fr">
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+								<span class="btn ico_go" title="바로가기"><a href=""></a></span><!-- 20150224 버튼 추가 -->
+							</span>
+						</div>
+						<div class="article_view" >
+							<!------------------------파일추가 레이어 팝업 --------------------------->
+							<div class="common_popStyle01 pop_fileAdd">
+								<div class="common_popHeader">
+									<h2>파일추가</h2>
+									<span class="btn ico_popclose" title="닫기"></span>
+								</div>
+								<div class="common_popContainer">
+									<div>
+										<span class="radio-chk-area">
+											<span><input type="radio" name="" id="" /><label for="">내파일</label></span>
+											<span><input type="radio" name="" id="" /><label for="">내컴퓨터</label></span>
+										</span>
+									</div>
+									<br />
+									<div class="select_area">
+										<span class="fl">
+											<select name="" id="fileAdd_sel" style="width:140px">
+												<option value="">다른사용자의 파일</option>
+												<option value="">옵션 둘</option>
+												<option value="">옵션 셋</option>
+											</select>
+										</span>
+										<span class="fr organ-search ep-widget ep-epinput hasicon" style="width:140px">
+											<input type="text" name="" id="" class="box-size" title="검색어" placeholder="검색어">
+											<span class="ep-icon ep-input-iconsearch"></span>
+										</span>
+										<span class="fr complete_box" style="width:140px">
+											<ul>
+												<li>111</li>
+												<li>222</li>
+												<li>333</li>
+											</ul>
+										</span>
+										<span class="fclear"></span>
+									</div>
+									<br />
+									<ul class="btop2 bbottom2 border_noneList01" style="height:160px; overflow:hidden; overflow-y:auto">
+										<li><a href="">000.pdf</a></li>
+										<li><a href="">001.pdf</a></li>
+										<li><a href="">002.pdf</a></li>
+										<li><a href="">003.pdf</a></li>
+										<li><a href="">004.pdf</a></li>
+										<li><a href="">005.pdf</a></li>
+										<li><a href="">006.pdf</a></li>
+										<li><a href="">007.pdf</a></li>
+									</ul>
+								</div>
+								<div class="common_popBtn">
+									<button type="button" class="common_btn01 btnH">확인</button>
+									<button type="button" class="common_btn02 btnH">취소</button>
+								</div>
+							</div>
+							<!------------------------//파일추가 레이어 팝업------------------------->
+							<div class="view_scroll">
+								<div style="padding:15px 20px">
+									<textarea name="" id="" style="width:100%; height:40px;" placeholder="무엇을 공유하시겠습니까?"></textarea>
+									<br /><br />
+									<ul class="tab_type03">
+										<li class="active"><a href="">내 네트워크</a></li>
+										<li><a href="">파일</a></li>
+										<li><a href="">커뮤니티</a></li>
+										<li><a href="">활동</a></li>
+									</ul>
+								</div>
+								<div class="notice_warning">
+									<span class="src"><strong>Warning</strong>Portlet이 존재하지 않습니다.</span>
+									<span class="date"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- //Connections-내네트워크 -->
+
+					<!-- portal존재않함-국문 -->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span>AP 人</span></h2>
+							<em class="count_info"><strong>139</strong></span></em>
+							<!-- 20150316 스타일 변경으로 주석 제거 <em class="count_info">45</em>-->
+							<span class="fr">
+								<span class="btn ico_f" title="f"><a href=""></a></span>
+								<span class="btn ico_mypage" title="마이페이지"><a href=""></a></span>
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+								<span class="btn ico_go" title="바로가기"><a href=""></a></span><!-- 20150224 버튼 추가 -->
+							</span>
+						</div>
+						<div class="article_view view_scroll">
+							<div class="notice_warning">
+								<span class="src"><strong>Warning</strong>Portlet이 존재하지 않습니다.</span>
+								<span class="date"></span>
+							</div>
+						</div>
+					</div>
+					<!-- //portal존재않함-국문 -->
+
+					<!-- portal 에러 메세지 추가 (국문) 20150323 -->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span>AP 人</span></h2>
+							<em class="count_info"><strong>139</strong></span></em>
+							<!-- 20150316 스타일 변경으로 주석 제거 <em class="count_info">45</em>-->
+							<span class="fr">
+								<span class="btn ico_f" title="f"><a href=""></a></span>
+								<span class="btn ico_mypage" title="마이페이지"><a href=""></a></span>
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+								<span class="btn ico_go" title="바로가기"><a href=""></a></span><!-- 20150224 버튼 추가 -->
+							</span>
+						</div>
+						<div class="article_view view_scroll">
+							<div class="notice_error">
+								<div class="error-msg">
+									<span class="src">
+										<strong>사이트 안내 메세지</strong>
+										일시적인 현상으로 서비스가 중지되었습니다.<br />
+										사이트 이용에 불편을 드려 죄송합니다.
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- //portal 에러 메세지 추가 (국문) 20150323 -->
+
+					<!-- portal 에러 메세지 추가 (국문) 20150323 -->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span>AP 人</span></h2>
+							<em class="count_info"><strong>139</strong></span></em>
+							<!-- 20150316 스타일 변경으로 주석 제거 <em class="count_info">45</em>-->
+							<span class="fr">
+								<span class="btn ico_f" title="f"><a href=""></a></span>
+								<span class="btn ico_mypage" title="마이페이지"><a href=""></a></span>
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+								<span class="btn ico_go" title="바로가기"><a href=""></a></span><!-- 20150224 버튼 추가 -->
+							</span>
+						</div>
+						<div class="article_view view_scroll">
+							<div class="notice_error">
+								<div class="error-msg type02">
+									<span class="src">
+										<strong>Service Temporarily Unavailable</strong>
+										The server is temporarily unable service your <br />
+										request due to maintenance downtime or capacity <br />
+										problems, Please tyy again latter.
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- //portal 에러 메세지 추가 (국문) 20150323 -->
+
+					<!-- 사용불가-국문 -->
+					<div class="portletWrap hidden_bg">
+						<div class="notice_noUsed">
+							<span class="src"><strong>시스템 점검중</strong>더 나은 서비스를 위해 시스템 점검 중입니다.</span>
+							<span class="date">2014-10-20 AM 24:00 ~ 2014-10-21 AM 24:00</span>
+						</div>
+					</div>
+					<!-- //사용불가-국문 -->
+
+					<!-- 사용불가-영문 -->
+					<div class="portletWrap hidden_bg">
+						<div class="notice_noUsed">
+							<span class="src"><strong>Under Construction</strong>We are doing something better and will be back sooner or later.</span>
+							<span class="date">Nov. 3 2014 24:00 ~ Nov. 3 2014 24:00</span>
+						</div>
+					</div>
+					<!-- //사용불가-영문 -->
+
+					<!-- AP 人 -->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span>AP 人</span></h2>
+							<em class="count_info">45</em>
+							<span class="fr">
+								<span class="btn ico_f" title="f"><a href=""></a></span>
+								<span class="btn ico_mypage" title="마이페이지"><a href=""></a></span>
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+								<span class="btn ico_go" title="바로가기"><a href=""></a></span><!-- 20150224 버튼 추가 -->
+							</span>
+						</div>
+						<div class="article_view article_padding view_scroll">
+							<div class="news_title">
+								<span class="sub-title2">이벤트</span>
+								<button type="button" class="fr btype01">더보기 ></button>
+							</div>
+							<br />
+							<div class="webzine_type01">
+								<ul class="fl img_swipeArea">     
+									<li class="item"><a href=""><img src="/res/portal/img/img041.png" alt="" /></a></li>
+								</ul>
+								<ul class="fr list_board03">
+									<li>
+										<span class="subject"><a href="">2014 서울 빛초롱축제 응원합니다.2014 서울 빛초롱축제 응원합니다.</a></span>
+										<span class="date">2014-00-00</span>
+									</li>
+									<li>
+										<span class="subject"><a href="">그린사이클, 공병수거 캠페인</a></span>
+										<span class="date">2014-00-00</span>
+									</li>
+									<li>
+										<span class="subject"><a href="">2014 서울 빛초롱축제 응원합니다.2014 서울 빛초롱축제 응원합니다.</a></span>
+										<span class="date">2014-00-00</span>
+									</li>
+								</ul>
+							</div>
+							<br /><br />
+							<div class="news_title">
+								<span class="sub-title2">최신 컨텐츠</span>
+								<button type="button" class="fr btype01">더보기 ></button>
+							</div>
+							<br />
+							<ul class="webzine_type02">
+								<li>
+									<div class="fl"><a href=""><img src="/res/portal/img/500.jpg" alt="" /></a></div>
+									<div class="fr">
+										<a href="">
+											<span class="subject">개선제안</span>
+											<span class="date">2014-00-00</span>
+											<span class="src">현재 전사적으로 보고 템플릿을 통일하여 사용하고 있습니다. 덕분에 보고서 작성 시 고민과 시간을 줄여주어 도움이 되고 있습니다.  하지만 아쉬운 점이 하나 있습니다.</span>
+										</a>
+									</div>
+									<div class="fclear"></div>
+								</li>
+								<li>
+									<div class="fl"><a href=""><img src="/res/portal/img/img052.png" alt="" /></a></div>
+									<div class="fr">
+										<a href="">
+											<span class="subject">전체 공유글</span>
+											<span class="date">2014-00-00</span>
+											<span class="src">미생작가 윤태호님의 강연이 있었던 SERIPRO 스파크 세미나를 다녀왔습니다. " 꿈이란 직업을 갖는 것을 의미하는 것이 아니라, 어떠한 사람이 되고자 하는 것이다"라고 했던.</span>
+										</a>
+									</div>
+									<div class="fclear"></div>
+								</li>
+							</ul>
+							<div class="portlet_bottom_blank3"></div>
+						</div>
+					</div>
+					<!-- //AP 人 -->
+
+					<!-- Connections-내네트워크 -->
+					<div class="portletWrap">
+						<!------------------------파일추가 레이어 팝업 - 내파일 --------------------------->
+						<div class="common_popStyle01 pop_fileAdd">
+							<div class="common_popHeader">
+								<h2>파일추가</h2>
+								<span class="btn ico_popclose" title="닫기"></span>
+							</div>
+							<div class="common_popContainer">
+								<div>
+									<span class="radio-chk-area">
+										<span><input type="radio" name="" id="" /><label for="">내파일</label></span>
+										<span><input type="radio" name="" id="" /><label for="">내컴퓨터</label></span>
+									</span>
+								</div>
+								<br />
+								<div class="select_area">
+									<span class="fl">
+										<select name="" id="fileAdd_sel" style="width:140px">
+											<option value="">다른사용자의 파일</option>
+											<option value="">옵션 둘</option>
+											<option value="">옵션 셋</option>
+										</select>
+									</span>
+									<span class="fr organ-search ep-widget ep-epinput hasicon" style="width:140px">
+										<input type="text" name="" id="" class="box-size" title="검색어" placeholder="검색어">
+										<span class="ep-icon ep-input-iconsearch"></span>
+									</span>
+									<span class="fr complete_box" style="width:140px">
+										<ul>
+											<li>111</li>
+											<li>222</li>
+											<li>333</li>
+										</ul>
+									</span>
+									<span class="fclear"></span>
+								</div>
+								<br />
+								<ul class="btop2 bbottom2 border_noneList01" style="height:160px; overflow:hidden; overflow-y:auto">
+									<li><a href="">000.pdf</a></li>
+									<li><a href="">001.pdf</a></li>
+									<li><a href="">002.pdf</a></li>
+									<li><a href="">003.pdf</a></li>
+									<li><a href="">004.pdf</a></li>
+									<li><a href="">005.pdf</a></li>
+									<li><a href="">006.pdf</a></li>
+									<li><a href="">007.pdf</a></li>
+								</ul>
+							</div>
+							<div class="common_popBtn">
+								<button type="button" class="common_btn01 btnH">확인</button>
+								<button type="button" class="common_btn02 btnH">취소</button>
+							</div>
+						</div>
+						<!------------------------//파일추가 레이어 팝업------------------------->
+						<!------------------------파일추가 레이어 팝업 - 내컴퓨터------------------------>
+						<!-- <div class="common_popStyle01 pop_fileAdd">
+							<div class="common_popHeader">
+								<h2>파일추가</h2>
+								<span class="btn ico_popclose" title="닫기"></span>
+							</div>
+							<div class="common_popContainer">
+								<div>
+									<span class="radio-chk-area">
+										<span><input type="radio" name="" id="" /><label for="">내파일</label></span>
+										<span><input type="radio" name="" id="" /><label for="">내컴퓨터</label></span>
+									</span>
+								</div>
+								<br />
+								<p>
+									파일
+									<input type="text" name="" id="" style="width:180px;"/>
+									<button type="button" class="common_btn03 btnM">파일찾기</button>
+								</p>
+								<p>
+									파일
+									<input type="text" name="" id="" style="width:230px;"/>
+									<button type="button" class="common_btn00 btnM" title="삭제"> X </button>
+								</p>
+								<br >
+								<p>
+									태그
+									<input type="text" name="" id="" style="width:230px;"/>
+								</p>
+							</div>
+							<div class="common_popBtn">
+								<button type="button" class="common_btn01 btnH">확인</button>
+								<button type="button" class="common_btn02 btnH">취소</button>
+							</div>
+						</div> --> 
+						<!------------------------//파일추가 레이어 팝업------------------------->
+						<div class="title_header">
+							<h2><span class="eng">Connections</span></h2>
+							<span class="fr">
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+							</span>
+						</div>
+						<div class="article_view" >
+							<div class="view_scroll">
+								<div style="padding:15px 20px">
+									<textarea name="" id="" style="width:100%; height:40px;" placeholder="무엇을 공유하시겠습니까?"></textarea>
+									<br /><br />
+									<ul class="tab_type03">
+										<li class="active"><a href="">내 네트워크</a></li>
+										<li><a href="">파일</a></li>
+										<li><a href="">커뮤니티</a></li>
+										<li><a href="">활동</a></li>
+									</ul>
+								</div>
+								<ul class="comment_board01 list_padding">
+									<li>
+										<div class="photo_area">
+											<span class="fl user_thum">
+												<span class="thum_border"></span>
+												<img src="/res/portal/img/no_photo.png" alt="">
+											</span>
+										</div>
+										<div class="board_area">
+											<p>
+												<span class="name">홍길동</span>
+											</p>
+											<p class="src">어르신들께 저희들이 직접 만든 만두를 드시게 했더니 정말 맛있 다고 좋아하셨고... 덕분에 활동처에서도 감사의 메시지를 보내주셨습니다.^^ 앞으로도 이렇게 보람된 나눔 활동을 계속 진행해야 겠습니다.</p>
+											<p class="pb10">첨부파일 : <a href="">000.000.jpg</a></p>
+											<p class="state">
+												<span class="fl like"><span class="ico ico_like"></span><em>1234567</em></span>
+												<span class="fl"><button type="button" class="btype01">좋아요</button></span>
+												<span class="fl"><button type="button" class="btype01">좋아요취소</button></span>
+												<span class="fl"><button type="button" class="btype01">댓글</button></span>
+												<span class="fl"><button type="button" class="btype01">재게시</button></span>
+												<span class="fr date">2014-00-00</span>
+												<span class="fclear"></span>
+											</p>
+										<div>
+										<div class="fclear"></div>
+										<br />
+										<p class="tit_comment">
+											<span class="ico ico_replay"></span>
+											<span class="tit">이전댓글 표시...</span>
+											<span class="comment_count"><em>2</em>/3</span>
+										</p>
+										<!-- 댓글목록 -->
+										<ul class="comment_list">
+											<li>
+												<div class="photo_area">
+													<div class="member_infoArea">
+														<span class="fl user_thum">
+															<span class="thum_border"></span>
+															<img src="/res/portal/img/img01.png" alt="">
+														</span>
+														<!-- 직원정보 미리보기 레이어 -->
+														<div class="layer_memberPreview Last">
+															<span class="btn ico_close3" title="닫기"></span>
+															<div class="photo">
+																<span class="user_thum">
+																	<span class="thum_border"></span>
+																	<img src="/res/portal/img/img01.png" alt="">
+																</span>
+															</div>
+															<div class="info">
+																<span class="name_ko">홍길동</span>
+																<span class="name_eng">Gil-Dong-Hong</span>
+																<span class="mail">amore@amorepacific.com</span>
+																<span class="phone">02-1234-1234 / 010-1234-1345</span>
+																<span class="group">정보전략팀 / AMOREPACIFIC</span>
+																<span class="state">
+																	<span class="icon mailC" title="메일"></span>
+																	<span class="icon pc_onLine" title="온라인"></span>
+																	<span class="icon tel_callPossible" title="통화가능"></span>
+																</span>
+															</div>
+															<div class="fclear"></div>
+														</div>
+														<!-- //직원정보 미리보기 레이어 -->
+													</div>
+												</div>
+												<div class="board_area">
+													<p>
+														<span class="name">고준희</span>
+														<span class="state time">20분전</span>
+														<span class="state like"><span class="ico ico_like"></span><em>10234</em></span>
+														<span class="state"><button type="button" class="btype01">좋아요</button></span>
+													</p>
+													<p class="src">어르신들께 저희들이 직접 만든 만두를 드시게 했더니 정말 맛있 다고 좋아하셨고... 덕분에 활동처에서도 감사의 메시지를 보내주셨습니다.^^ 앞으로도 이렇게 보람된 나눔 활동을 계속 진행해야 겠습니다.</p>
+												</div>
+												<div class="fclear"></div>
+											</li>
+											<li>
+												<div class="photo_area">
+													<span class="fl user_thum">
+														<span class="thum_border"></span>
+														<img src="/res/portal/img/img01.png" alt="">
+													</span>
+												</div>
+												<div class="board_area">
+													<p>
+														<span class="name">고준희</span>
+														<span class="time">20분전</span>
+														<span class="like">10</span>
+														<button type="button" class="btype01">좋아요</button>
+													</p>
+													<p class="src">어르신들께 저희들이 직접 만든 만두를 드시게 했더니 정말 맛있 다고 좋아하셨고... 덕분에 활동처에서도 감사의 메시지를 보내주셨습니다.^^ 앞으로도 이렇게 보람된 나눔 활동을 계속 진행해야 겠습니다.</p>
+												</div>
+												<div class="fclear"></div>
+											</li>
+										</ul>
+										<!-- //댓글목록 -->
+										<!-- 댓글작성영역 -->
+										<div class="write_commentArea">
+											<textarea name="" id="" style="width:100%; height:40px;" placeholder="댓글추가..."></textarea>
+											<textarea name="" id="" style="width:100%; height:80px;"></textarea>
+											<div class="state">
+												<span class="fl">
+													<button type="button" class="btype01">게시</button>
+													<button type="button" class="btype01">지우기</button>
+													<button type="button" class="btype01">취소</button>
+												</span>
+												<span class="fr">
+													<span class="">000.0001.jpg <button type="button" class="btn ico_del2"></button></span>
+													<span>
+														<span class="btn ico_fileAdd"></span>
+														<button type="button" class="btype01">파일추가</button>
+													</span>
+												</span>
+												<span class="fclear"></span>
+											</div>
+										</div>
+										<!-- //댓글작성영역 -->
+									</li>
+
+									<li>
+										<div class="photo_area">
+											<span class="fl user_thum">
+												<span class="thum_border"></span>
+												<img src="/res/portal/img/no_photo.png" alt="">
+											</span>
+										</div>
+										<div class="board_area">
+											<p>
+												<span class="name">홍길동</span>
+											</p>
+											<p class="src">어르신들께 저희들이 직접 만든 만두를 드시게 했더니 정말 맛있 다고 좋아하셨고... 덕분에 활동처에서도 감사의 메시지를 보내주셨습니다.^^ 앞으로도 이렇게 보람된 나눔 활동을 계속 진행해야 겠습니다.</p>
+											<p class="state">
+												<span class="fl like"><span class="ico ico_like"></span><em>1234567</em></span>
+												<span class="fl"><button type="button" class="btype01">좋아요</button></span>
+												<span class="fl"><button type="button" class="btype01">좋아요취소</button></span>
+												<span class="fl"><button type="button" class="btype01">댓글</button></span>
+												<span class="fl"><button type="button" class="btype01">재게시</button></span>
+												<span class="fr date">2014-00-00</span>
+												<span class="fclear"></span>
+											</p>
+										<div>
+										<div class="fclear"></div>
+										<br />
+										<p class="tit_comment">
+											<span class="ico ico_replay"></span>
+											<span class="tit">이전댓글 표시...</span>
+											<span class="comment_count"><em>2</em>/3</span>
+										</p>
+										<!-- 댓글목록 -->
+										<ul class="comment_list">
+											<li>
+												<div class="photo_area">
+													<span class="fl user_thum">
+														<span class="thum_border"></span>
+														<img src="/res/portal/img/img01.png" alt="">
+													</span>
+												</div>
+												<div class="board_area">
+													<p>
+														<span class="name">고준희</span>
+														<span class="state time">20분전</span>
+														<span class="state like"><span class="ico ico_like"></span><em>10234</em></span>
+														<span class="state"><button type="button" class="btype01">좋아요</button></span>
+													</p>
+													<p class="src">어르신들께 저희들이 직접 만든 만두를 드시게 했더니 정말 맛있 다고 좋아하셨고... 덕분에 활동처에서도 감사의 메시지를 보내주셨습니다.^^ 앞으로도 이렇게 보람된 나눔 활동을 계속 진행해야 겠습니다.</p>
+												</div>
+												<div class="fclear"></div>
+											</li>
+											<li>
+												<div class="photo_area">
+													<span class="fl user_thum">
+														<span class="thum_border"></span>
+														<img src="/res/portal/img/img01.png" alt="">
+													</span>
+												</div>
+												<div class="board_area">
+													<p>
+														<span class="name">고준희</span>
+														<span class="time">20분전</span>
+														<span class="like">10</span>
+														<button type="button" class="btype01">좋아요</button>
+													</p>
+													<p class="src">어르신들께 저희들이 직접 만든 만두를 드시게 했더니 정말 맛있 다고 좋아하셨고... 덕분에 활동처에서도 감사의 메시지를 보내주셨습니다.^^ 앞으로도 이렇게 보람된 나눔 활동을 계속 진행해야 겠습니다.</p>
+												</div>
+												<div class="fclear"></div>
+											</li>
+										</ul>
+										<!-- //댓글목록 -->
+										<!-- 댓글작성영역 -->
+										<div class="write_commentArea">
+											<textarea name="" id="" style="width:100%; height:40px;" placeholder="댓글추가..."></textarea>
+											<textarea name="" id="" style="width:100%; height:80px;"></textarea>
+											<div class="state">
+												<span class="fl">
+													<button type="button" class="btype01">게시</button>
+													<button type="button" class="btype01">지우기</button>
+													<button type="button" class="btype01">취소</button>
+												</span>
+												<span class="fr">
+													<span class="">000.0001.jpg <button type="button" class="btn ico_del2"></button></span>
+													<span>
+														<span class="btn ico_fileAdd"></span>
+														<button type="button" class="btype01">파일추가</button>
+													</span>
+												</span>
+												<span class="fclear"></span>
+											</div>
+										</div>
+										<!-- //댓글작성영역 -->
+									</li>
+								</ul>
+								<div class="portlet_bottom_blank3"></div>
+							</div>
+						</div>
+					</div>
+					<!-- //Connections-내네트워크 -->
+
+					<!-- 내 즐겨찾기 App -->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span>내 즐겨찾기 App</span></h2>
+							<span class="fr">
+								<span class="btn ico_edit" title="에디트"><a href=""></a></span>
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+							</span>
+						</div>
+						<div class="article_view view_scroll" >
+							<div style="padding:15px 20px">
+								<select name="" id="favorite_app" style="width:250px">
+									<option value="">전체</option>
+									<option value="">옵션 둘</option>
+									<option value="">옵션 셋</option>
+								</select>
+							</div>
+							<!-- 목록 -->
+							<ul class="app_list list_padding">
+								<li>
+									<a href="">
+										<span><img src="/res/portal/img/icon01.png" alt="" ></span>
+										<span class="tit">게시판</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span><img src="/res/portal/img/icon02.png" alt="" ></span>
+										<span class="tit">경영Insight</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span><img src="/res/portal/img/icon03.png" alt="" ></span>
+										<span class="tit">공정거래도우미</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span><img src="/res/portal/img/icon04.png" alt="" ></span>
+										<span class="tit">내부회계관리</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span><img src="/res/portal/img/icon05.png" alt="" ></span>
+										<span class="tit">웰빙센터</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span><img src="/res/portal/img/icon03.png" alt="" ></span>
+										<span class="tit">000</span>
+									</a>
+								</li>
+								<li>
+									등록된 이미지아이콘의 사이즈는 42*42로 해야 합니다. 반드시~~~ 그래야 안밀려요~
+								</li>
+							</ul>
+							<!-- //목록 -->
+							<div class="portlet_bottom_blank3"></div>
+						</div>
+					</div>
+					<!-- //내 즐겨찾기 App -->
+
+					<!-- Connections-파일 -->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span class="eng">Connections</span></h2>
+							<span class="fr">
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+							</span>
+						</div>
+						<div class="article_view view_scroll" >
+							<div style="padding:15px 20px">
+								<textarea name="" id="" style="width:100%; height:40px;" placeholder="무엇을 공유하시겠습니까?"></textarea>
+								<br /><br />
+								<ul class="tab_type03">
+									<li><a href="">내 네트워크</a></li>
+									<li class="active"><a href="">파일</a></li>
+									<li><a href="">커뮤니티</a></li>
+									<li><a href="">활동</a></li>
+								</ul>
+							</div>
+							<div style="padding:0 20px">
+								<select name="" id="connection_file" style="width:250px;">
+									<option value="">나와 공유된 파일</option>
+									<option value="">옵션 둘</option>
+									<option value="">옵션 셋</option>
+								</select>
+							</div>
+							<!-- 목록 -->
+							<ul class="list_board01 list_padding">
+								<li>
+									<span class="fl img_thum">
+										<span class="lconn-ftype32 lconn-ftype32-link"></span>
+									</span>
+									<span class="fl write">
+										<span class="subject">
+											<a href=""><span class="txt">뷰티 실태조사.zip</span></a>
+											<span class="blank5"></span>
+											<span class="writer">하성구이(가) 14-11-7에 작성함</span>
+										</span>
+									</span>
+									<span class="fclear"></span>
+								</li>
+								<li>
+									<span class="fl img_thum">
+										<span class="lconn-ftype32 lconn-ftype32-odg"></span>
+									</span>
+									<span class="fl write">
+										<span class="subject">
+											<a href=""><span class="txt">국내 다문화 가정 및 여성.zip</span></a>
+											<span class="blank5"></span>
+											<span class="writer">하성구이(가) 14-11-7에 작성함</span>
+										</span>
+									</span>
+									<span class="fclear"></span>
+								</li>
+							</ul>
+							<!-- //목록 -->
+							<div class="portlet_bottom_blank3"></div>
+						</div>
+					</div>
+					<!-- //Connections-파일 -->
+
+					<!-- Connections-커뮤니티 -->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span class="eng">Connections</span></h2>
+							<span class="fr">
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+							</span>
+						</div>
+						<div class="article_view view_scroll" >
+							<div style="padding:15px 20px">
+								<textarea name="" id="" style="width:100%; height:40px;" placeholder="무엇을 공유하시겠습니까?"></textarea>
+								<br /><br />
+								<ul class="tab_type03">
+									<li><a href="">내 네트워크</a></li>
+									<li><a href="">파일</a></li>
+									<li class="active"><a href="">커뮤니티</a></li>
+									<li><a href="">활동</a></li>
+								</ul>
+							</div>
+							<div style="padding:0 20px">
+								<select name="" id="connection_community" style="width:250px">
+									<option value="">내가 소유한 커뮤니티</option>
+									<option value="">옵션 둘</option>
+									<option value="">옵션 셋</option>
+								</select>
+							</div>
+							<!-- 목록 -->
+							<ul class="list_board01 list_padding">
+								<li>
+									<span class="fl img_thum">
+										<img src="/res/portal/img/ico_community.png" alt="" />
+									</span>
+									<span class="fl write">
+										<span class="subject">
+											<a href=""><span class="txt">뷰티 커뮤니티</span></a>
+											<span class="write_info">
+												<span class="used_num">1명의 사용자</span>
+												<span class="writer">하성구</span>
+												<span class="date">2014-00-00</span>
+											</span>
+										</span>
+									</span>
+									<span class="fclear"></span>
+								</li>
+								<li>
+									<span class="fl img_thum">
+										<img src="/res/portal/img/ico_community.png" alt="" />
+									</span>
+									<span class="fl write">
+										<span class="subject">
+											<a href=""><span class="txt">뷰티 커뮤니티</span></a>
+											<span class="write_info">
+												<span class="used_num">1명의 사용자</span>
+												<span class="writer">하성구</span>
+												<span class="date">2014-00-00</span>
+											</span>
+										</span>
+									</span>
+									<span class="fclear"></span>
+								</li>
+							</ul>
+							<!-- //목록 -->
+							<div class="portlet_bottom_blank3"></div>
+						</div>
+					</div>
+					<!-- //Connections-커뮤니티 -->
+
+					<!-- Connections-활동 -->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span class="eng">Connections</span></h2>
+							<span class="fr">
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+							</span>
+						</div>
+						<div class="article_view view_scroll" >
+							<div style="padding:15px 20px">
+								<textarea name="" id="" style="width:100%; height:40px;" placeholder="무엇을 공유하시겠습니까?"></textarea>
+								<br /><br />
+								<ul class="tab_type03">
+									<li><a href="">내 네트워크</a></li>
+									<li><a href="">파일</a></li>
+									<li><a href="">커뮤니티</a></li>
+									<li class="active"><a href="">활동</a></li>
+								</ul>
+							</div>
+							<div style="padding:0 20px">
+								<select name="" id="connection_active" style="width:250px">
+									<option value="">내활동</option>
+									<option value="">옵션 둘</option>
+									<option value="">옵션 셋</option>
+								</select>
+							</div>
+							<!-- 목록 -->
+							<ul class="list_board01 list_padding">
+								<li>
+									<span class="fl img_thum">
+										<span class="ico bult_active"></span>
+									</span>
+									<span class="fl write">
+										<span class="subject">
+											<a href=""><span class="txt">아모레퍼시픽 본사 건물 디자인 공개</span></a>
+											<span class="write_info">
+												<span class="writer pn">하성구</span>
+												<span class="date">화요일 오후 1:23</span>
+												<span class="etc">태그 : <em><a href="">건물1</a></em> <em><a href="">건물2</a></em> <em><a href="">건물3</a></em> <em><a href="">건물4</a></em></span>
+												<span class="time_limit">기한 : <em>목요일</em></span>
+											</span>
+										</span>
+									</span>
+									<span class="fclear"></span>
+								</li>
+								<li>
+									<span class="fl img_thum">
+										<span class="ico bult_active"></span>
+									</span>
+									<span class="fl write">
+										<span class="subject">
+											<a href=""><span class="txt">아모레퍼시픽 본사 건물 디자인 공개</span></a>
+											<span class="write_info">
+												<span class="writer pn">하성구</span>
+												<span class="date">화요일 오후 1:23</span>
+												<span class="etc">태그 : <em><a href="">건물1</a></em> <em><a href="">건물2</a></em> <em><a href="">건물3</a></em> <em><a href="">건물4</a></em></span>
+												<span class="time_limit">기한 : <em>목요일</em></span>
+											</span>
+										</span>
+									</span>
+									<span class="fclear"></span>
+								</li>
+							</ul>
+							<!-- //목록 -->
+							<div class="portlet_bottom_blank3"></div>
+						</div>
+					</div>
+					<!-- //Connections-활동 -->
+
+					<!-- 주간 고객관심 베스트 10 -->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span>주간 고객관심 베스트 10</span></h2>
+							<em class="count_info">12</em>
+							<span class="fr">
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+							</span>
+						</div>
+						<div class="article_view article_padding view_scroll" >
+							<ul class="tab_type03">
+								<li class="active"><a href="">Mass</a></li>
+								<li><a href="">신성장</a></li>
+								<li><a href="">Luxury</a></li>
+								<li><a href="">Premium</a></li>
+							</ul>
+							<ul class="list_board05 list_padding">
+								<li>
+									<span class="fl lanking">1</span>
+									<span class="fl info">
+										<span class="name"><a href="">리리코스</a></span>
+										<span class="src"><a href="">마린링클톡신앰플(홈) 7ml*6마린링클톡신앰플(홈) 7ml*6마린링클톡신앰플(홈) 7ml*6마린링클톡신앰플(홈) 7ml*6</a></span>
+									</span>
+									<span class="fr state"><span class="ico ico_nochange" title="변동사항없음"></span></span>
+									<span class="fclear"></span>
+								</li>
+								<li>
+									<span class="fl lanking">2</span>
+									<span class="fl info">
+										<span class="name"><a href="">리리코스</a></span>
+										<span class="src"><a href="">마린링클톡신앰플(홈) 7ml*6마린링클톡신앰플(홈) 7ml*6마린링클톡신앰플(홈) 7ml*6마린링클톡신앰플(홈) 7ml*6</a></span>
+									</span>
+									<span class="fr state"><span class="ico ico_high" title="증가"></span> 8</span>
+									<span class="fclear"></span>
+								</li>
+								<li>
+									<span class="fl lanking">3</span>
+									<span class="fl info">
+										<span class="name"><a href="">리리코스</a></span>
+										<span class="src"><a href="">마린링클톡신앰플(홈) 7ml*6마린링클톡신앰플(홈) 7ml*6마린링클톡신앰플(홈) 7ml*6마린링클톡신앰플(홈) 7ml*6</a></span>
+									</span>
+									<span class="fr state"><span class="ico ico_low" title="감소"></span> 3</span>
+									<span class="fclear"></span>
+								</li>
+								<li>
+									<span class="fl lanking">4</span>
+									<span class="fl info">
+										<span class="name"><a href="">리리코스</a></span>
+										<span class="src"><a href="">마린링클톡신앰플(홈) 7ml*6마린링클톡신앰플(홈) 7ml*6마린링클톡신앰플(홈) 7ml*6마린링클톡신앰플(홈) 7ml*6</a></span>
+									</span>
+									<span class="fr state"><span class="ico ico_new" title="NEW"></span></span>
+									<span class="fclear"></span>
+								</li>
+								<li>
+									<span class="fl lanking">4</span>
+									<span class="fl info">
+										<span class="name"><a href="">리리코스</a></span>
+										<span class="src"><a href="">마린링클톡신앰플(홈) 7ml*6마린링클톡신앰플(홈) 7ml*6마린링클톡신앰플(홈) 7ml*6마린링클톡신앰플(홈) 7ml*6</a></span>
+									</span>
+									<span class="fr state"><span class="ico ico_nochange" title="변동사항없음"></span></span>
+									<span class="fclear"></span>
+								</li>
+							</ul>
+							<div class="portlet_bottom_blank3"></div>
+						</div>
+					</div>
+					<!-- //주간 고객관심 베스트 10 -->
+
+					<!-- 주간 VOC -->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span>주간 VOC</span></h2>
+							<em class="count_info">12</em>
+							<span class="fr">
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+							</span>
+						</div>
+						<div class="article_view view_scroll" >
+							<div style="padding:15px 20px">
+								<select style="width:200px;">
+									<option value="">선택</option>
+									<option value="">222</option>
+									<option value="">333</option>
+									<option value="">444</option>
+								</select>
+							</div>
+							<ul class="list_board04 btop3">
+								<li>
+									<a href="">
+										<span class="name">Premium BU VOC</span>
+										<span class="subject2">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+										<span class="date">2014-00-00</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span class="name">Premium BU VOC</span>
+										<span class="subject2">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+										<span class="date">2014-00-00</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span class="name">Premium BU VOC</span>
+										<span class="subject2">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+										<span class="date">2014-00-00</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span class="name">Premium BU VOC</span>
+										<span class="subject2">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+										<span class="date">2014-00-00</span>
+									</a>
+								</li>
+							</ul>
+							<div class="portlet_bottom_blank3"></div>
+						</div>
+					</div>
+					<!-- //주간 VOC -->
+
+					<!-- 경영 Insight -->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span>경영 Insight</span></h2>
+							<em class="count_info">12</em>
+							<span class="fr">
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+							</span>
+						</div>
+						<div class="article_view article_padding view_scroll" >
+							<ul class="tab_type03">
+								<li><a href="">전체보기</a></li>
+								<li class="active"><a href="">IR Report</a></li>
+								<li><a href="">China Report</a></li>
+								<li><a href="">Others</a></li>
+							</ul>
+							<ul class="list_board04">
+								<li>
+									<a href="">
+										<span class="subject">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+										<span class="date">2014-00-00</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span class="subject">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+										<span class="date">2014-00-00</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span class="subject">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+										<span class="date">2014-00-00</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span class="subject">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+										<span class="date">2014-00-00</span>
+									</a>
+								</li>
+							</ul>
+							<div class="portlet_bottom_blank3"></div>
+						</div>
+					</div>
+					<!-- //경영 Insight -->
+
+					<!-- 경영 Insight-전체보기 -->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span>경영 Insight</span></h2>
+							<em class="count_info">12</em>
+							<span class="fr">
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+							</span>
+						</div>
+						<div class="article_view article_padding view_scroll" >
+							<ul class="tab_type03">
+								<li class="active"><a href="">전체보기</a></li>
+								<li><a href="">IR Report</a></li>
+								<li><a href="">China Report</a></li>
+								<li><a href="">Others</a></li>
+							</ul>
+							<br />
+							<!-- IR Report -->
+							<div class="news_title pb10">
+								<span class="sub-title eng">IR Report</span>
+							</div>
+							<ul class="list_board04 btop3 bbottom2">
+								<li>
+									<a href="">
+										<span class="subject">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+										<span class="date">2014-00-00</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span class="subject">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+										<span class="date">2014-00-00</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span class="subject">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+										<span class="date">2014-00-00</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span class="subject">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+										<span class="date">2014-00-00</span>
+									</a>
+								</li>
+							</ul>
+							<!-- //IR Report -->
+							<br /><br />
+							<!-- China Report -->
+							<div class="news_title pb10">
+								<span class="sub-title eng">China Report</span>
+							</div>
+							<ul class="list_board04 btop3 bbottom2">
+								<li>
+									<a href="">
+										<span class="subject">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+										<span class="date">2014-00-00</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span class="subject">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+										<span class="date">2014-00-00</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span class="subject">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+										<span class="date">2014-00-00</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span class="subject">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+										<span class="date">2014-00-00</span>
+									</a>
+								</li>
+							</ul>
+							<!-- //China Report -->
+							<br /><br />
+							<!--Others -->
+							<div class="news_title pb10">
+								<span class="sub-title eng">Others</span>
+							</div>
+							<ul class="list_board04 btop3 bbottom2">
+								<li>
+									<a href="">
+										<span class="subject">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+										<span class="date">2014-00-00</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span class="subject">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+										<span class="date">2014-00-00</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span class="subject">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+										<span class="date">2014-00-00</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span class="subject">2014년 3분기 아모레퍼시픽 그룹 실적발표2014년 3분기 아모레퍼시픽 그룹 실적발표</span>
+										<span class="date">2014-00-00</span>
+									</a>
+								</li>
+							</ul>
+							<!-- //Others -->
+							<div class="portlet_bottom_blank3"></div>
+						</div>
+					</div>
+					<!-- //경영 Insight-전체보기 -->
+
+					<!-- News Clipping -->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span class="eng">News Clipping</span></h2>
+							<em class="count_info">12</em>
+							<span class="fr">
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+							</span>
+						</div>
+						<div class="article_view" >
+							<ul class="list_board01 view_scroll">
+								<li>
+									<span class="fl write2">
+										<span class="fl writer"><a href="">Diane Peters</a></span>
+										<span class="fr str_val">
+											<img src="/res/portal/img/bult_strOn.png" alt="" />
+											<img src="/res/portal/img/bult_strOn.png" alt="" />
+											<img src="/res/portal/img/bult_strOn.png" alt="" />
+											<img src="/res/portal/img/bult_strOn.png" alt="" />
+											<img src="/res/portal/img/bult_strOff.png" alt="" />
+										</span>
+										<span class="fclear"></span>
+										<span class="subject">
+											<a href="">
+												<span class="txt">신규사업팀 홍길동 8월 휴가 결재신규사업팀 홍길동 8월 휴가 결재신규사업팀 홍길동 8월 휴가 결재신규사업팀 홍길동 8월</span>
+											</a>
+										</span>
+									</span>
+									<span class="fclear"></span>
+								</li>
+								<li>
+									<span class="fl write2">
+										<span class="fl writer"><a href="">Diane Peters</a></span>
+										<span class="fr str_val">
+											<img src="/res/portal/img/bult_strOn.png" alt="" />
+											<img src="/res/portal/img/bult_strOn.png" alt="" />
+											<img src="/res/portal/img/bult_strOn.png" alt="" />
+											<img src="/res/portal/img/bult_strOn.png" alt="" />
+											<img src="/res/portal/img/bult_strOn.png" alt="" />
+										</span>
+										<span class="fclear"></span>
+										<span class="subject">
+											<a href="">
+												<span class="txt">신규사업팀 홍길동 8월 휴가 결재신규사업팀 홍길동 8월 휴가 결재신규사업팀 홍길동 8월 휴가 결재신규사업팀 홍길동 8월</span>
+											</a>
+										</span>
+									</span>
+									<span class="fclear"></span>
+								</li>
+								<li>
+									<span class="fl write2">
+										<span class="fl writer"><a href="">Diane Peters</a></span>
+										<span class="fr str_val">
+											<img src="/res/portal/img/bult_strOn.png" alt="" />
+											<img src="/res/portal/img/bult_strOn.png" alt="" />
+											<img src="/res/portal/img/bult_strOn.png" alt="" />
+											<img src="/res/portal/img/bult_strOff.png" alt="" />
+											<img src="/res/portal/img/bult_strOff.png" alt="" />
+										</span>
+										<span class="fclear"></span>
+										<span class="subject">
+											<a href="">
+												<span class="txt">신규사업팀 홍길동 8월 휴가 결재신규사업팀 홍길동 8월 휴가 결재신규사업팀 홍길동 8월 휴가 결재신규사업팀 홍길동 8월</span>
+											</a>
+										</span>
+									</span>
+									<span class="fclear"></span>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!-- //News Clipping -->
+
+					<!-- Global News Clipping -->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span class="eng">Global News Clipping</span></h2>
+							<em class="count_info">12</em>
+							<span class="fr">
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+							</span>
+						</div>
+						<div class="article_view" >
+							<ul class="list_board01 view_scroll">
+								<li>
+									<span class="fl write2">
+										<span class="fl writer"><a href="">[자사] China/中国质量新闻网 중국질량신문망</a></span>
+										<span class="fr date">2014.09.15</span>
+										<span class="fclear"></span>
+										<span class="subject">
+											<a href="">
+												<span class="txt">中国的大型偏航“，韩国企业主不能忽略的上升的影响</span>
+											</a>
+											<a href="">
+												<span class="txt">중국 '요우커', 한국기업 주가 상승에 대한 영향력 무시 못해</span>
+											</a>
+										</span>
+									</span>
+									<span class="fclear"></span>
+								</li>
+								<li>
+									<span class="fl write2">
+										<span class="fl writer"><a href="">[업계] America/Marketing Magazine 마케팅매거진</a></span>
+										<span class="fr date">2014.09.15</span>
+										<span class="fclear"></span>
+										<span class="subject">
+											<a href="">
+												<span class="txt">Unilever offers £30,000 to winner of sustainability hackath…</span>
+											</a>
+											<a href="">
+												<span class="txt">유니레버는 지속가능한 경영으로 30,000파운드를 제공하는유니레버는 지속가능한 경영으로</span>
+											</a>
+										</span>
+									</span>
+									<span class="fclear"></span>
+								</li>
+								<li>
+									<span class="fl write2">
+										<span class="fl writer"><a href="">[자사] China/인민망</a></span>
+										<span class="fr date">2014.09.15</span>
+										<span class="fclear"></span>
+										<span class="subject">
+											<a href="">
+												<span class="txt">中国的大型偏航“，韩国企业主不能忽略的上升的影响</span>
+											</a>
+											<a href="">
+												<span class="txt">중국 '요우커', 한국기업 주가 상승에 대한 영향력 무시 못해</span>
+											</a>
+										</span>
+									</span>
+									<span class="fclear"></span>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!-- //Global News Clipping -->
+
+					<!-- Smart Campus -->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span class="eng">Smart Campus</span></h2>
+							<em class="count_info">45</em>
+							<span class="fr">
+								<span class="btn ico_mypage" title="마이페이지"><a href=""></a></span>
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+							</span>
+						</div>
+						<div class="article_view view_scroll">
+							<!-- 당월교육과정 -->
+							<div class="inline_board bbottom3">
+								<span class="fl title">마감임박 과정 <em>(15)</em></span>
+								<span class="fl subject"><a href="">※ 교육 시작일 D-30 과정 목록입니다 교육 시작일 D-30 과정 목록입니다</a></span>
+								<button type="button" class="fr btype01">더보기 ></button>
+							</div>
+							<!-- //당월교육과정 -->
+							<ul class="list_board02 list_padding">
+								<li>
+									<a href="">
+										<span class="fl subject">[핵심직무역량] AP Logical[핵심직무역량] AP Logical[핵심직무역량] AP Logical</span>
+										<span class="fr date">2014.09.15</span>
+										<span class="fclear"></span>
+										<span class="src site">동관 6층 회의실 506호</span>
+										<span class="src member_cap">인재교육팀(APG, 사용중지), 김휘찬</span>
+										<span class="src member">신청인원 : <strong>0 / 40</strong>명</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span class="fl subject">[핵심직무역량] AP Logical[핵심직무역량] AP Logical[핵심직무역량] AP Logical</span>
+										<span class="fr date">2014.09.15</span>
+										<span class="fclear"></span>
+										<span class="src site">동관 6층 회의실 506호</span>
+										<span class="src member_cap">인재교육팀(APG, 사용중지), 김휘찬</span>
+										<span class="src member">신청인원 : <strong>0 / 40</strong>명</span>
+									</a>
+								</li>
+							</ul>
+							<div class="portlet_bottom_blank"></div>
+						</div>
+						<!-- 하단뉴스 --> 
+						<!-- 
+						<div class="bottom_newsArea">
+							<div class="inline_board">
+								<span class="fl btn bult_notice"></span>
+								<span class="fl title eng">Notice</span>
+								<span class="fl subject_bold"><a href="">[리뷰이벤트]9월도서안내입니다.9월도서안내입니다.9월도서안내입니다.</a></span>
+								<span class="fl date">2014-01-11</a></span>
+								<button type="button" class="fr btype01">더보기 ></button>
+							</div>
+						</div> -->
+						<div class="bottom_newsArea">
+							<div class="inline_board">
+								<span class="fl btn bult_notice"></span>
+								<span class="fl title eng">Notice</span>
+								<div id="rolling_news2" class="rolling_newsArea">
+									<div class="rolling_news">
+										<ul class="news_list">
+											<li><a href=""><span class="subject">하이~하이~하이~하이~하이~하이~하이~하이~하이~</span><span class="date">2014-01-11</span></a></li>
+											<li><a href=""><span class="subject">안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요</span><span class="date">2014-01-11</span></a></li>
+											<li><a href=""><span class="subject">반가워!!!!반가워!!!!1반가워!!!!1반가워!!!!1반가워!!!!1</span><span class="date">2014-01-11</span></a></li>
+											<li><a href=""><span class="subject">라라라 랄 ㅏㄹ라라랄 가각</span><span class="date">2014-01-11</span></a></li>
+										</ul>
+									</div>
+									<script type="text/javascript">fn_article('rolling_news2','',true);</script>
+									<button type="button" class="fr btype01">더보기 ></button>
+								</div>
+							</div>
+						</div>
+						<!-- //하단뉴스 -->
+					</div>
+					<!-- //Smart Campus -->
+
+					<!-- 사회공헌포탈 -->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span>사회공헌포탈</span></h2>
+							<em class="count_info">45</em>
+							<span class="fr">
+								<span class="btn ico_f" title="f"><a href=""></a></span>
+								<span class="btn ico_mypage" title="마이페이지"><a href=""></a></span>
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+							</span>
+						</div>
+						<div class="article_view article_padding view_scroll">
+							<div class="news_title">
+								<span class="sub-title2">사회공헌 참여</span>
+								<button type="button" class="fr btype01">더보기 ></button>
+							</div>
+							<br />
+							<div class="webzine_type01">
+								<ul class="fl img_swipeArea">     
+									<li class="item"><a href=""><img src="/res/portal/img/img041.png" alt="" /></a></li>
+									<li class="item"><a href=""><img src="/res/portal/img/img042.png" alt="" /></a></li>
+									<li class="item"><a href=""><img src="/res/portal/img/img043.png" alt="" /></a></li>
+								</ul>
+								<ul class="fr list_board03">
+									<li>
+										<span class="subject"><a href="">2014 서울 빛초롱축제 응원합니다.2014 서울 빛초롱축제 응원합니다.</a></span>
+										<span class="date">2014-00-00</span>
+									</li>
+									<li>
+										<span class="subject"><a href="">그린사이클, 공병수거 캠페인</a></span>
+										<span class="date">2014-00-00</span>
+									</li>
+									<li>
+										<span class="subject"><a href="">2014 서울 빛초롱축제 응원합니다.2014 서울 빛초롱축제 응원합니다.</a></span>
+										<span class="date">2014-00-00</span>
+									</li>
+								</ul>
+							</div>
+							<br /><br />
+							<div class="news_title">
+								<span class="sub-title2">아리따운 나눔 활동</span>
+								<button type="button" class="fr btype01">더보기 ></button>
+							</div>
+							<br />
+							<ul class="webzine_type02">
+								<li>
+									<div class="fl"><a href=""><img src="/res/portal/img/img051.png" alt="" /></a></div>
+									<div class="fr">
+										<span class="subject"><a href="">칠곡 효성 실버타운 어른신들을 찾아뵈었습니다칠곡 효성 실버타운 어른신들을 찾아뵈었습니다</a></span>
+										<span class="date">2014-00-00</span>
+										<span class="src">어르신들께 저희들이 직접 만든 만두를 드시게 했더니 정말 맛있다고 좋아하셨고... 덕분에 활동처에서도 
+										감사의 메시지를 보내주셨습니다.</span>
+									</div>
+									<div class="fclear"></div>
+								</li>
+								<li>
+									<div class="fl"><a href=""><img src="/res/portal/img/img052.png" alt="" /></a></div>
+									<div class="fr">
+										<span class="subject"><a href="">칠곡 효성 실버타운 어른신들을 찾아뵈었습니다칠곡 효성 실버타운 어른신들을 찾아뵈었습니다</a></span>
+										<span class="date">2014-00-00</span>
+										<span class="src">어르신들께 저희들이 직접 만든 만두를 드시게 했더니 정말 맛있다고 좋아하셨고... 덕분에 활동처에서도 
+										감사의 메시지를 보내주셨습니다.덕분에 활동처에서도 
+										감사의 메시지를 보내주셨습니다.</span>
+									</div>
+									<div class="fclear"></div>
+								</li>
+							</ul>
+							<div class="portlet_bottom_blank2"></div>
+						</div>
+						<!-- 하단뉴스 -->
+						<div class="bottom_newsArea">
+							<div class="inline_board">
+								<div id="rolling_news" class="rolling_newsArea">
+									<div class="rolling_news">
+										<ul class="news_list">
+											<li>
+												<a href="">
+													<span class="title">감사편지</span>
+													<span class="subject">1덕분에 조향사의 꿈에 조금더 다가갈 수 있게 되었습니다되었습니다되었습니다되었습니다</span>
+												</a>
+											</li>
+											<li>
+												<a href="">
+													<span class="title">도와주세요</span>
+													<span class="subject">2물품지원 부탁드립니다.물품지원 부탁드립니다.물품지원 </span>
+												</a>
+											</li>
+											<li>
+												<a href="">
+													<span class="title">111</span>
+													<span class="subject">3칠곡 효성 실버타운 어른신들을 찾아뵈었습니다칠곡 효성 실버타운 어른신들을 찾아뵈었습니</span>
+												</a>
+											</li>
+											<li>
+												<a href="">
+													<span class="title">222</span>
+													<span class="subject">4어르신들께 저희들이 직접 만든 만두를 드시게 했더니 정말 맛있다고 좋아하셨다</span>
+												</a>
+											</li>
+											<li>
+												<a href="">
+													<span class="title">333</span>
+													<span class="subject">5덕분에 활동처에서도 감사의 메시지를 보내주셨습니다.</span>
+												</a>
+											</li>
+										</ul>
+									</div>
+									<script type="text/javascript">fn_article('rolling_news','',true);</script>
+								</div>
+							</div>
+						</div>
+						<!-- //하단뉴스 -->
+					</div>
+					<!-- //사회공헌포탈 -->
+
+					<!-- 주간일정관리 -->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span>일정관리</span></h2>
+							<em class="count_info">12</em>
+							<span class="fr">
+								<span class="btn ico_weekworks" title="주간일정관리"><a href=""></a></span>
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+							</span>
+						</div>
+						<div class="article_view article_padding view_scroll" >
+							<ul class="calendar_board01">
+								<li>
+									<!-- 일자 영역 -->
+									<div class="date_area">
+										<div class="day">24</div>
+										<div class="weeks">Dec 2014<em>Thursday</em></div>
+									</div>
+									<!-- //일자 영역 -->
+									<!-- 일정 리스트 -->
+									<ul class="time_schedule">
+										<li>
+											<div class="time">AM09:45 ~ AM10:45</div>
+											<div class="info_area">
+												<span class="subject"><a href="">[회의] NEW EP 프로토타입 화면설계 2차 리뷰</a></span>
+												<span class="site">동관 6층 회의실 506호</span>
+												<span class="fl user_thum">
+													<span class="thum_border"></span>
+													<img src="/res/portal/img/img01.png" alt="" />
+												</span>
+												<span class="fl user_thum">
+													<span class="thum_border"></span>
+													<img src="/res/portal/img/img01.png" alt="" />
+												</span>
+												<span class="fl user_thum">
+													<span class="thum_border"></span>
+													<img src="/res/portal/img/img01.png" alt="" />
+												</span>
+												<span class="add_member">+ 3</span>
+											</div>
+										</li>
+										<li>
+											<div class="time"></div>
+											<div class="info_area">
+												<span class="subject"><a href="">[약속] 아모레퍼시픽 신규사업 관련 개인 미팅</a></span>
+												<span class="site">동관 6층 회의실 506호</span>
+											</div>
+										</li>
+									</ul>
+									<!-- //일정 리스트 -->
+								</li>
+								<li>
+									<!-- 일자 영역 -->
+									<div class="date_area">
+										<div class="day current">23</div><!-- 금일날짜 색상 변경 클래서 current 추가 20150323-->
+										<div class="weeks">Dec 2014<em>Thursday</em></div>
+									</div>
+									<!-- //일자 영역 -->
+									<!-- 일정 리스트 -->
+									<ul class="time_schedule">
+										<li>
+											<div class="time">AM09:45 ~ AM10:45</div>
+											<div class="info_area">
+												<span class="subject"><a href="">[회의] NEW EP 프로토타입 화면설계 2차 리뷰</a></span>
+												<span class="site">동관 6층 회의실 506호</span>
+												<span class="fl user_thum">
+													<span class="thum_border"></span>
+													<img src="/res/portal/img/img01.png" alt="" />
+												</span>
+												<span class="fl user_thum">
+													<span class="thum_border"></span>
+													<img src="/res/portal/img/img01.png" alt="" />
+												</span>
+												<span class="fl user_thum">
+													<span class="thum_border"></span>
+													<img src="/res/portal/img/img01.png" alt="" />
+												</span>
+												<span class="add_member">+ 3</span>
+											</div>
+										</li>
+										<li>
+											<div class="time">AM09:45 ~ AM10:45</div>
+											<div class="info_area">
+												<span class="subject"><a href="">[약속] 아모레퍼시픽 신규사업 관련 개인 미팅</a></span>
+												<span class="site">동관 6층 회의실 506호</span>
+											</div>
+										</li>
+									</ul>
+									<!-- //일정 리스트 -->
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!-- //주간일정관리 -->
+
+					<!-- 일간일정관리 -->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span>일정관리</span></h2>
+							<em class="count_info">12</em>
+							<span class="fr">
+								<span class="btn ico_dayworks" title="일간일정관리"><a href=""></a></span>
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+							</span>
+						</div>
+						<div class="article_view article_padding" >
+							<div class="calendar_board01">
+								<div class="article_padding">
+									<!-- 일자 영역 -->
+									<div class="date_area">
+										<div class="day">24</div>
+										<div class="weeks2">Dec 2014<em>Thursday</em></div>
+									</div>
+									<!-- 일자 영역 -->
+									<!-- 주간달력 -->
+									<div class="weeks_calendar">
+										<ul class="weeks_name">
+											<li>S</li><li>M</li><li>T</li><li>W</li><li>T</li><li>F</li><li class="sat">S</li><!-- 20150325 토요일은 클래스 sat 추가 -->
+										</ul>
+										<ul class="weeks_day">
+											<li><span class="active">1</span><!-- 날짜 클릭시 active 클래스 추가 20150323 --></li>
+											<li><span class="today">2</span></li>
+											<li class="next_monthDay">3</li>
+											<li>4</li>
+											<li>5</li>
+											<li>6</li>
+											<li>7</li>
+										</ul>
+										<span class="weeks_prev" title="전주"></span>
+										<span class="weeks_next" title="다음주"></span>
+									</div>
+									<!-- //주간달력 -->
+								</div>
+							</div>
+							<div class="view_scroll">
+								<br /><br />
+								<div class="calendar_board01">
+										<!-- 일정 리스트 -->
+										<ul class="time_schedule view_scroll view_scroll">
+											<li>
+												<div class="time">AM09:45 ~ AM10:45</div>
+												<div class="info_area">
+													<span class="subject"><a href="">[회의] NEW EP 프로토타입 화면설계 2차 리뷰[회의] NEW EP 프로토타입 화면설계 2차 리뷰</a></span>
+													<span class="site">동관 6층 회의실 506호</span>
+													<span class="member">고준희,이나영,제임스 + 3</span>
+												</div>
+											</li>
+											<li>
+												<div class="time">AM09:45 ~ AM10:45</div>
+												<div class="info_area">
+													<span class="subject"><a href="">[회의] NEW EP 프로토타입 화면설계 2차 리뷰</a></span>
+													<span class="site">동관 6층 회의실 506호</span>
+													<span class="member">고준희,이나영,제임스 + 3</span>
+												</div>
+											</li>
+											<li>
+												<div class="time">AM09:45 ~ AM10:45</div>
+												<div class="info_area">
+													<span class="subject"><a href="">[회의] NEW EP 프로토타입 화면설계 2차 리뷰</a></span>
+													<span class="site">동관 6층 회의실 506호</span>
+													<span class="member">000고준희,이나영,제임스 + 3</span>
+												</div>
+											</li>
+										</ul>
+										<div class="portlet_bottom_blank"></div>
+										<!-- //일정 리스트 -->
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- //일간일정관리 -->
+
+					<!-- News -->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span class="eng">News</span></h2>
+							<em class="count_info">45</em>
+							<span class="fr">
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+							</span>
+						</div>
+						<div class="article_view article_padding view_scroll" >
+							<div class="news_title">
+								<p class="sub-title"><em>10월</em>CEO Message</p>
+								<p class="src">이제는 크고 작은것의 경쟁이 아니라 빠른것과 느린 것이 경쟁하는 시대입니다!</p>
+								<p class="date">Oct 2, 2014</p>
+							</div>
+							<br />
+							<p class="sub-title">News Square Now <button type="button" class="fr btype01">더보기 ></button></p>
+							<table class="thum_board01">
+								<tr>
+									<td>
+										<a href="">
+											<span class="thum_img"><img src="/res/portal/img/img02.png" alt="" /></span>
+											<span class="subject">제 2화, 부산국제영화제(BIFF)의 모든 것제 2화, 부산국제영화제(BIFF)의 모든 것</span>
+											<span class="date">Oct 2, 2014</span>
+										</a>
+									</td>
+									<td class="blank"></td>
+									<td>
+										<a href="">
+											<span class="thum_img"><img src="/res/portal/img/img02.png" alt="" /></span>
+											<span class="subject">제 2화, 부산국제영화제(BIFF)의 모든 것</span>
+											<span class="date">Oct 2, 2014</span>
+										</a>
+									</td>
+								</tr>
+							</table>
+							<br /><br />
+							<ul class="list_board02 btop">
+								<li>
+									<a href="">
+										<span class="fl subject">제 3화. 소유에서 소비로, 소비에서 소통으로!제 3화. 소유에서 소비로, 소비에서 소통으로!제 3화. </span>
+										<span class="fr date">2014.09.15</span>
+										<span class="fclear"></span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span class="fl subject">제 3화. 소유에서 소비로, 소비에서 소통으로!제 3화. 소유에서 소비로, 소비에서 소통으로!제 3화. </span>
+										<span class="fr date">2014.09.15</span>
+										<span class="fclear"></span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span class="fl subject">제 3화. 소유에서 소비로, 소비에서 소통으로!제 3화. 소유에서 소비로, 소비에서 소통으로!제 3화. </span>
+										<span class="fr date">2014.09.15</span>
+										<span class="fclear"></span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span class="fl subject">제 3화. 소유에서 소비로, 소비에서 소통으로!제 3화. 소유에서 소비로, 소비에서 소통으로!제 3화. </span>
+										<span class="fr date">2014.09.15</span>
+										<span class="fclear"></span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!-- //News -->
+
+					<!-- 게시판 -->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span>게시판</span></h2>
+							<em class="count_info">12</em>
+							<span class="fr">
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+							</span>
+						</div>
+						<div class="article_view" >
+							<ul class="list_board01 view_scroll">
+								<li>
+									<span class="fl write2">
+										<span class="fl writer"><a href="">Diane Peters</a></span>
+										<span class="fr date">2014.09.15</span>
+										<span class="fclear"></span>
+										<span class="subject">
+											<a href="">
+												<span class="txt">신규사업팀 홍길동 8월 휴가 결재신규사업팀 홍길동 8월 휴가 결재신규사업팀 홍길동 8월 휴가 결재신규사업팀 홍길동 8월</span>
+											</a>
+										</span>
+									</span>
+									<span class="fclear"></span>
+								</li>
+								<li>
+									<span class="fl write2">
+										<span class="fl writer"><a href="">Diane Peters</a></span>
+										<span class="fr date">2014.09.15</span>
+										<span class="fclear"></span>
+										<span class="subject">
+											<a href="">
+												<span class="txt">신규사업팀 홍길동 8월 휴가 결재</span>
+											</a>
+										</span>
+									</span>
+									<span class="fclear"></span>
+								</li>
+								<li>
+									<span class="fl write2">
+										<span class="fl writer"><a href="">Diane Peters</a></span>
+										<span class="fr date">2014.09.15</span>
+										<span class="fclear"></span>
+										<span class="subject">
+											<a href="">
+												<span class="txt">신규사업팀 홍길동 8월 휴가 결재</span>
+											</a>
+										</span>
+									</span>
+									<span class="fclear"></span>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!-- //게시판 -->
+
+					<!-- E-mail -->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span class="eng">E-mail</span></h2>
+							<em class="count_info">45</em>
+							<span class="fr">
+								<span class="btn ico_go" title="바로가기"><a href=""></a></span><!-- 20150224 버튼 추가 -->
+								<span class="btn ico_write" title="작성"><a href=""></a></span>
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+							</span>
+						</div>
+						<div class="article_view view_scroll" >
+							<ul class="list_board01">
+								<li>
+									<a href="">
+										<span class="fl user_thum">
+											<span class="thum_border"></span>
+											<img src="/res/portal/img/img01.png" alt="" />
+										</span>
+									</a>
+									<span class="fl write">
+										<span class="fl writer"><a href="">000사내커뮤니케이션팀</a></span>
+										<span class="fr date">AM 09:45</span>
+										<span class="fclear"></span>
+										<span class="subject">
+											<a href="">
+												<span class="btn ico_fileAdd" title="파일첨부"></span>
+												<span class="txt">[NSN] 에뛰드, ‘일의 의미 찾기 - My Way’ 워크숍 진행 & APG, 외국인 워크숍 진행 & APG, 외국인</span>
+											</a>
+										</span>
+										<span class="fr btn ico_importantSel" title="중요"></span>
+										<span class="fr btn ico_trash" title="휴지통으로 이동"></span><!-- 20150410 휴지통 버튼 추가 -->
+									</span>
+									<span class="fclear"></span>
+								</li>
+								<li>
+									<a href="">
+										<span class="fl user_thum">
+											<span class="thum_border"></span>
+											<img src="/res/portal/img/img01.png" alt="" />
+										</span>
+									</a>
+									<span class="fl write">
+										<span class="fl writer"><a href="">000사내커뮤니케이션팀</a></span>
+										<span class="fr date">AM 09:45</span>
+										<span class="fclear"></span>
+										<span class="subject">
+											<a href="">
+												<span class="txt">[NSN] 에뛰드, ‘일의 의미 찾기 - My Way’ 워크숍 진행 & APG, 외국인 워크숍 진행 & APG, 외국인</span>
+											</a>
+										</span>
+										<span class="fr btn ico_important" title="중요"></span>
+										<span class="fr btn ico_trash" title="휴지통으로 이"></span><!-- 20150410 휴지통 버튼 추가 -->
+									</span>
+									<span class="fclear"></span>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!-- //E-mail -->
+
+					<!-- 전자결재 -->
+					<div class="portletWrap">
+						<div class="title_header">
+							<h2><span>전자결재</span></h2>
+							<em class="count_info">12</em>
+							<span class="fr">
+								<span class="btn ico_write" title="작성"><a href=""></a></span>
+								<span class="btn ico_reload" title="새로고침"><a href=""></a></span>
+							</span>
+						</div>
+						<div class="article_view" >
+							<ul class="tab_type02">
+								<li><a href=""><em>1</em><br />대기</a></li>
+								<li class="active"><a href=""><em>96<span class="btn bult_new" title="새글"></span></em><br />진행</a></li>
+								<li><a href=""><em>2</em><br />반려</a></li>
+								<li><a href=""><em>4</em><br />최근완료</a></li>
+							</ul>
+							<div class="view_scroll">
+								<ul class="list_board01">
+									<li>
+										<span class="fl write2">
+											<span class="fl writer"><a href="">Diane Peters</a></span>
+											<span class="fr date">2014.09.15</span>
+											<span class="fclear"></span>
+											<span class="subject">
+												<a href="">
+													<span class="txt">신규사업팀 홍길동 8월 휴가 결재신규사업팀 홍길동 8월 휴가 결재신규사업팀 홍길동 8월 휴가 결재신규사업팀 홍길동 8월</span>
+												</a>
+											</span>
+										</span>
+										<span class="fclear"></span>
+									</li>
+									<li>
+										<span class="fl write2">
+											<span class="fl writer"><a href="">Diane Peters</a></span>
+											<span class="fr date">2014.09.15</span>
+											<span class="fclear"></span>
+											<span class="subject">
+												<a href="">
+													<span class="txt">신규사업팀 홍길동 8월 휴가 결재</span>
+												</a>
+											</span>
+										</span>
+										<span class="fclear"></span>
+									</li>
+									<li>
+										<span class="fl write2">
+											<span class="fl writer"><a href="">Diane Peters</a></span>
+											<span class="fr date">2014.09.15</span>
+											<span class="fclear"></span>
+											<span class="subject">
+												<a href="">
+													<span class="txt">신규사업팀 홍길동 8월 휴가 결재</span>
+												</a>
+											</span>
+										</span>
+										<span class="fclear"></span>
+									</li>
+								</ul>
+								<div class="portlet_bottom_blank"></div>
+							</div>
+						</div>
+					</div>
+					<!-- //전자결재 -->
+				</div>
+			</div>
+		</div>
+		<!-- //contents -->
+
+		<!-- footer -->
+		<div id="footer">
+			<div class="copyright">AMOREPACIFIC GROUP. ALL RIGHTS RESERVED.</div>
+		</div>
+		<!-- //footer -->
+	</div>
+</body>
+</html>

@@ -1,0 +1,540 @@
+@charset "UTF-8";
+
+#kgpt_mobile {
+	height: 100%;
+	overflow: hidden;
+}
+
+/*** 상단 타이틀 ***/
+#kgpt_main_title_box {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 8px 12px;
+	border-bottom: 1px solid #E4E4E4;
+}
+#kgpt_main_title_box .title_wrap {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+#kgpt_main_title_box .title_btn,
+#layer_gpt_history .title_btn {
+	padding: 4px;
+    border-radius: 50px;
+}
+
+#kgpt_main_title_box .title_btn:active,
+#layer_gpt_history .title_btn:active {
+    background: #eee;
+}
+
+#kgpt_main_title_box .arrow_back_ico {
+	display: block;
+	min-width: 24px;
+	height: 24px;
+	background: url("../images/mobile/kgpt/ico-back.png") center center / cover no-repeat;
+}
+#kgpt_main_title_box .title_txt {
+	line-height: 100%;
+	color: #000;
+	font-size: 16px;
+	font-weight: 700;
+}
+
+/*** 우측 유틸 버튼 영역 ***/
+#kgpt_main_title_box .util_btn_wrap {
+    display: flex;
+    align-items: center;
+}
+#kgpt_main_title_box .new_ico {
+	display: block;
+	min-width: 24px;
+	height: 24px;
+	background: url("../images/mobile/kgpt/ico-new.png") center center / cover no-repeat;
+}
+#kgpt_main_title_box .history_ico {
+	display: block;
+	min-width: 24px;
+	height: 24px;
+	background: url("../images/mobile/kgpt/ico-history.png") center center / cover no-repeat;
+}
+#kgpt_main_title_box .template_ico {
+	display: block;
+	min-width: 24px;
+	height: 24px;
+	background: url("../images/mobile/kgpt/ico-template.png") center center / cover no-repeat;
+}
+/*** 우측 유틸 버튼 영역 ***/
+
+/*** 상단 타이틀 ***/
+
+
+/** K-GPT 메인 영역 **/
+
+#kgpt_mobile_main {
+	position: relative;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 50px);
+    padding: 64px 12px;
+    border-right: 1px solid #EEEEEE;
+    background: #fff;
+    transition: 0.2s;
+    overflow: auto;
+}
+
+#kgpt_mobile_main .logo_wrap {
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+	gap: 10px;
+}
+#kgpt_mobile_main .logo_txt {
+    line-height: 100%;
+	text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+}
+#kgpt_mobile_main .logo_txt.blue {
+	color: #3079C3;
+}
+
+#kgpt_mobile_main .ai_result_area {
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+    flex: 1;
+}
+
+#kgpt_mobile_main .template_wrap {
+    display: grid;
+    grid-template-columns: repeat(1, 100%);
+    gap: 16px;
+    width: 100%;
+}
+
+/* 중앙컨텐츠 안에 템플릿 */
+#kgpt_mobile_main .template_wrap .template_box {
+    position: relative;
+    display: inline-block;
+    height: 48px;
+    padding: 12px 8px;
+    border: 1px solid #E4E4E4;
+    border-radius: 8px;
+    cursor: pointer;
+}
+#kgpt_mobile_main .template_wrap .template_box:active {
+	background: #F5F5F5;
+}
+	
+#kgpt_mobile_main .template_wrap .temp_inner {
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+	gap: 8px;
+}
+#kgpt_mobile_main .template_wrap .temp_name_wrap {
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    overflow: hidden;
+}
+
+/* 템플릿 앞에 아이콘 */
+#kgpt_mobile_main .template_box .temp_img {
+	width: 24px;
+	min-width: 24px;
+	height: 24px;
+	background: center center / cover no-repeat;
+}
+
+#kgpt_mobile_main .template_box.mail .temp_img {
+	/* background-image: url("../images/mobile/kgpt/ico-mail.png"); */
+	background-image: url(../images/temp_mail.svg);
+}
+#kgpt_mobile_main .template_box.calendar .temp_img {
+	/* background-image: url("../images/mobile/kgpt/ico-schedule.png"); */
+	background-image: url(../images/temp_calendar_month.svg);
+}
+#kgpt_mobile_main .template_box.approval .temp_img {
+	/* background-image: url("../images/mobile/kgpt/ico-approval.png"); */
+	background-image: url(../images/temp_description.svg);
+}
+#kgpt_mobile_main .template_box.hr .temp_img {
+	/* background-image: url("../images/mobile/kgpt/ico-meeting.png"); */
+	background-image: url(../images/temp_group.svg);
+}
+#kgpt_mobile_main .template_box.webresearch .temp_img {
+	/* background-image: url("../images/mobile/kgpt/ico-meeting.png"); */
+	background-image: url(../images/temp_webresearch.svg);
+}
+
+#kgpt_mobile_main .template_box .temp_name {
+	line-height: 100%;
+    color: #777777;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+}
+
+#kgpt_mobile_main .template_wrap .template_box .btn_temp {
+	min-width: 24px;
+    width: 24px;
+    height: 24px;
+    background: url("../images/mobile/kgpt/ico-arrow.png") center center / cover no-repeat;
+}
+
+/* 검색창 감싸는 영역 */
+#kgpt_mobile_main .search_work_wrap {
+    position: fixed;
+    left: 427px;
+    bottom: 5.5px;
+    display: flex;
+    width: calc(100% - 427px - calc(22.5% - 18px) - 48px);
+    height: 94.5px;
+    border-radius: 10px 10px 0 0;
+    background: linear-gradient(0deg, #fff, transparent);
+    gap: 16px;
+    transition: 0.2s;
+    z-index: 1;
+}
+
+
+/* 질문 입력창 */
+#kgpt_mobile_main .search_work_wrap {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    background: #fff;
+    border-top: 1px solid #E4E4E4;
+    border-radius: 0;
+}
+#kgpt_mobile_main .search_work_box {
+    display: flex;
+    justify-content: center;
+	align-items: flex-end;
+	gap: 3px;
+    width: 100%;
+	min-height: 54px;
+	padding: 12px 16px;
+    border: 1px solid #E7E7E7;
+    border-radius: 10px;
+    background: #F5F5F5;
+}
+
+
+/*** 웹리서치 관련 ***/
+
+#kgpt_mobile_main .btn_web_research {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    /* width: 30px; */
+    height: 29px;
+    padding: 0 10px;
+    margin-right: 4px;
+    border-radius: 50px;
+    transition: 0.2s;
+}
+#kgpt_mobile_main .btn_web_research:active {
+    background: #AAAAAA26;
+}
+
+#kgpt_mobile_main .btn_web_research.select {
+    width: auto;
+    background: #EAEFF4;
+}
+
+#kgpt_mobile_main #web_research_popup {
+	bottom: 67px;
+}
+
+#kgpt_mobile_main .btn_web_research .btn_deselect_engine {
+	display: block;
+    width: 20px;
+    min-width: 24px;
+    height: 24px;
+    border-radius: 50px;
+	background: url("../images/web_research/cancel.svg") center center / cover no-repeat;
+	cursor: pointer;
+    transition: 0.2s;
+}
+#kgpt_mobile_main .btn_web_research .btn_deselect_engine:hover {
+	background-color: #ddd;
+}
+
+/*** 툴팁 ***/
+#kgpt_mobile_main #btn_web_research #btn_bubble_box {
+    position: absolute;
+    bottom: -2px;
+	line-height: inherit;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+#kgpt_mobile_main #btn_bubble_box:before {
+    position: absolute;
+    left: 50%;
+    top: -2px;
+    display: block;
+    width: 13px;
+    height: 8px;
+    background: #000;
+    content: '';
+    transform: rotate(-45deg) translate(-50%, -5px);
+}
+/*** 툴팁 ***/
+
+/*** 웹리서치 관련 ***/
+
+#kgpt_mobile_main .btn_web_research .btn_ico {
+    display: block;
+	min-width: 17px;
+    height: 18px;
+    background: url(../images/web_research/language.svg) center center / cover no-repeat;
+    transition: 0.2s;
+}
+
+#kgpt_mobile_main .input_search_work {
+    width: 100%;
+    height: 20px;
+    line-height: 150%;
+	margin: 4.5px 0;;
+    padding: 0;
+    border: 0;
+    background: #F5F5F5;
+    color: #303030;
+    font-size: 14px;
+    font-weight: 500;
+    outline: 0;
+    resize: none;
+	overflow-x: hidden;
+    overflow-y: auto;
+}
+#kgpt_mobile_main .input_search_work::placeholder {
+    color: #929292;
+}
+
+#kgpt_mobile_main #btn_work_req {
+    display: block;
+    width: 30px;
+    min-width: 30px;
+    height: 30px;
+    background: url('../images/mobile/kgpt/ico-typing.png') center center / cover no-repeat;
+    transition: 0.2s;
+}
+
+#kgpt_mobile_main #btn_work_req.active {
+    filter: brightness(0);
+}
+#kgpt_mobile_main #btn_work_req:active {
+    filter: brightness(0.7);
+}
+
+#modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: #000000B2;
+    z-index: 111;
+}
+
+#layer_gpt_history {
+	position: absolute;
+	left: -95%;
+	top: 0;
+	width: 95%;
+	height: 100%;
+	background: #fff;
+	opacity: 0;
+}
+
+#layer_gpt_history .layer_inner {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+    height: 100%;
+    padding: 24px 16px;
+}
+
+#layer_gpt_history .title_box {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+#layer_gpt_history .top_btn_wrap {
+	display: flex;
+	gap: 12px;
+}
+
+#layer_gpt_history .go_to_gpt_btn {
+	padding: 8px 12px 8px 8px;
+	border: 1px solid transparent;
+	background: #EBF2F9;
+	color: #3079C3;
+}
+#layer_gpt_history .go_to_gpt_btn:active {
+	background: #e2eaf1;
+}
+#layer_gpt_history .ai_note_btn {
+	padding: 8px 12px 8px 8px;
+	border: 1px solid #777777;
+	background: #fff;
+	color: #777777;
+}
+#layer_gpt_history .ai_note_btn:active {
+	background: #efefef;
+}
+#layer_gpt_history .btn_inner {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	line-height: 100%;
+	border-radius: 8px;
+	font-size: 14px;
+	font-weight: 700;
+}
+
+#layer_gpt_history .new_ico_blue {
+	display: block;
+	width: 20px;
+	min-width: 20px;
+	height: 20px;
+	background: url("../images/mobile/kgpt/ico-new-blue.png") center center / cover no-repeat;
+}
+#layer_gpt_history .ai_note_ico {
+	display: block;
+	width: 20px;
+	min-width: 20px;
+	height: 20px;
+	background: url("../images/mobile/kgpt/ico-ai-notebook.png") center center / cover no-repeat;
+}
+
+#layer_gpt_history .close_ico {
+	display: block;
+	width: 24px;
+	min-width: 24px;
+	height: 24px;
+	background: url("../images/mobile/kgpt/ico-close.png") center center / cover no-repeat;
+}
+
+
+/* KGPT 업무목록 */
+#layer_gpt_history .work_list_box_wrap {
+	display: flex;
+    flex-direction: column;
+    gap: 16px;
+	flex: 1;
+}
+#layer_gpt_history .work_list_box {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+#layer_gpt_history .divider {
+	width: 100%;
+	height: 1px;
+	background: #D9D9D9;
+}
+
+#layer_gpt_history .work_title {
+    color: #121212;
+    font-size: 14px;
+    font-weight: 700;
+}
+#layer_gpt_history .work_ul {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#layer_gpt_history .work_li {
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 6px 12px 12px;
+    border: 1px solid #E4E4E4;
+    border-radius: 8px;
+}
+
+#layer_gpt_history .work_li_title {
+	flex: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#layer_gpt_history .btn_more {
+	display: flex;
+    justify-content: center;
+	align-items: center;
+	width: 30px;
+	min-width: 30px;
+    height: 30px;
+    border: 0;
+    background-color: transparent;
+}
+
+#layer_gpt_history .btn_more .more_img {
+	display: block;
+    width: 20px;
+    height: 20px;
+    background: url(../images/mobile/kgpt/ico-more.png) center center / cover no-repeat;
+}   
+
+
+/* layout.css 추가하기 */
+/* 연한딤 */
+#layerDimSoft {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 200; 
+    background: rgba(0,0,0,0.2);
+} 
+/* 진한딤 */
+#layerDimDark { 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1003;
+    background: rgba(0,0,0,0.6);
+}
+/* 팝업딤 */
+#layerDimHard { 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 300;
+    background: rgba(0,0,0,0.6);
+}
+
+#kgpt_mobile_main::-webkit-scrollbar {
+    display: block; /* 스크롤바 보이게 설정 */
+    width: 3px; /* 스크롤바 너비 조절 (선택 사항) */
+}
