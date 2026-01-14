@@ -33,7 +33,7 @@ public class RestApiController {
 	}	
 	
 	@PostMapping("/save/{collectionName}")
-	public Map<String, Object> saveRawJson(@PathVariable("collectionName") String collectionName,@RequestBody Map<String, Object> jsonData){		
+	public Map<String, Object> saveRawJson(@PathVariable("collectionName") String collectionName, @RequestBody Map<String, Object> jsonData){		
 		testTemplate.insert(jsonData, collectionName);
 		return jsonData;
 	}	
