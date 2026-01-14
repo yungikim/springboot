@@ -19,6 +19,9 @@ repositories {
 }
 
 dependencies {
+	// 1. Thymeleaf 엔진 추가 (이것이 없어서 .html을 못 읽었던 것입니다)
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    
 	// Web & Tomcat
     implementation 'org.springframework.boot:spring-boot-starter-web' // webmvc 대신 web 사용 권장
     //providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
@@ -32,7 +35,7 @@ dependencies {
     implementation 'org.mongodb:bson:4.11.1'
 
     // Mustache & JSP/JSTL
-    implementation 'org.springframework.boot:spring-boot-starter-mustache'
+    //implementation 'org.springframework.boot:spring-boot-starter-mustache'
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
     implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
     implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:2.0.0'
