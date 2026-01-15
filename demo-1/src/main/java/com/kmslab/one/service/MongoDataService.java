@@ -26,10 +26,12 @@ public class MongoDataService {
 			//1. $or 조건 생성 (lid == userid OR em == userid)
 			Criteria criteria = new Criteria().orOperator(
 					Criteria.where("lid").is(userid),
-					Criteria.where("em").is(userid)
+					Criteria.where("em").is(userid),
+					Criteria.where("ky").is(userid)
 			);			
 			//2. 쿼리 객체 생성
 			Query query = new Query(criteria);			
+			query.fields().exclude("search");
 			//3. 조회 실행 (첫 번재 결과 리턴)
 			return UserTemplate.findOne(query, Document.class, usercol);					
 		}catch(Exception e) {

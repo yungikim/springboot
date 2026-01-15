@@ -73,12 +73,603 @@
 				width: 100%;
 			}
 		</style>
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			var kap;
+			var gcom;
+			var gap;
+		 	var gma;
+			var gsn;
+			var gps;
+			var gnote;
+			var gbuilder;
+			var gBody = "";
+			var gBody3 = "";
+			var gBody2 = "";
+			var gBody4 = "";
+			var gTodo = "";
+			var gTodoC = "";
+			var gRM = "";
+			var gptpt = "";
+			var gptmd = "";
+			var gport = "";
+			var gAct = "";
+			var cssversion = /*[[${cssVer}]]*/ "1.0.0";
+			var jsversion = /*[[${jsVer}]]*/ "1.0.0";
+		 	var _wsocket;
+		 	var userlang = "";
+		 	var call_key = /*[[${key}]]*/ "";
+		 	var call_view = /*[[${view}]]*/ "";
+		 	var isma = "";
+		 	var userinfo = /*[[${userInfo}]]*/ "1.0.0";
+			userinfo = JSON.parse(userinfo);
+			var useMention = "T";
+		 	
+			var userky = userinfo.ky;
+		 	var userid = userinfo.lid;
+			var mailserver = userinfo.ms;
+			var maildbpath = userinfo.mf;
+			var mailfile = userinfo.mf;
+			var companycode = userinfo.cpc;
+			var fulldeptcode = userinfo.adc;
+			var depts = userinfo.adc;
+			var profiledbpath = "ngw/core/profile.nsf";
+			var aprvdbpath = "work/2002.nsf";
+			var noticedbpath = "board/common.nsf";
+			var boarddbpath = "board/freeboard.nsf";
+			var tipdbpath = "board/tipntech.nsf";
+			var caldbpath = "kwa01/cal/calendar.nsf";	
+		 	
+			var root_path = /*[[@{/}]]*/ "";
+			var role_admin = "T";	// admin 여부	
+			var manual_admin = "";
+			var arch_admin = "";
+			var menu_admin = "T";
+			var cal_admin = "";
+			var stat_admin = "";
+			var filelog_admin = "";
+			var archlog_admin = "";
+			var dswlog_admin = "";
+			var chagegpt_user = "";	
+			var role = "T";
+			var use_tel = "1";
+			var hasSchAuth = "T";
+			var cur_mailserver = "CN=mail2/O=kmslab/C=kr";
+			var lpath = location.pathname.split("/");
+			lpath.pop();
+			var cpath = lpath.join("/");
+			var opath = lpath[1];
+			opath = "kwa01";
+			var cdbpath = root_path + "/resource";
+			ismobile = "F";
+			var browserWidth = $(window).width();
+			
+			// --- 상태 관리 ---
+		    var uploadedFiles = [];
+		    var isGenerating = false;
+		 	
+		 	(function(loader){
+				var queue = loader 
+				.script(/*[[@{/resource/js/common/jquery-ui.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/jquery.base64.min.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/merge.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/jquery.highlight-3.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/autolink.js?(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/materialize.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/moment.min.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/moment/locale/ko.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/imagesloaded.pkgd.min.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/masonry.pkgd.min.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/packery.pkgd.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/gridstack-all.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/owl.carousel.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/underscore-min.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/jquery.mentionsInput.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/jquery.elastic.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/jquery.hangul.min.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/jquery.fancytree-all.min.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/jquery.tablesorter.min.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/main/apcommon.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/main/samename.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/main/main_alarm.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/main/main_body_new.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/main/main_body4.js?(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/main/main_todo.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/main/main_todo_compose.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/chart/chart.min.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/chart/chartjs-plugin-datalabels.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/chart/utils.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/aes.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/jquery.blockUI.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/jszip.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/downloadzip.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/jquery.titlealert.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/panzoom.min.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/sse.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/websocket/websocket.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/Sortable.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/typed.umd.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/portlet.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/gsap.min.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/tinycolor-min.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/main/kgpt_apps.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/main/kgpt_portal.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/main/kgpt_mydata.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/main/ai_notebook.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/main/ai_builder.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/main/alarm_center.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/common.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/main/kgpt_portalsearch.js(open, ver=${jsVer})}]]*/ "")
+				.script(/*[[@{/resource/js/common/audioplayer.js(open, ver=${jsVer})}]]*/ "")
+					
+
+				queue.wait(function(){
+					
+		 			gap = new gapcommon();
+					gsn = new gSameName();	// 동명이인 처리
+					gma = new gMainAlarm();
+					gport = new gPortlet();  //포틀릿 그리는 함수
+					gnote = new gnotebook();
+					gbuilder = new gBuilder();  //ai builder 관련 함수
+					gAct = new gAlarmCenter();
+					gps = new kgptsearch();
+					//kap = new kapcommon();
+
+					/* 브라우저에 파일을 드래그 & 드롭할 때, 새 창으로 파일여는 이벤트 막기 */
+					// 문서 전체에 드래그 오버 이벤트 리스너 추가
+					document.addEventListener('dragover', function(e){e.preventDefault();});
+
+					// 문서 전체에 드롭 이벤트 리스너 추가
+					document.addEventListener('drop', function(e){e.preventDefault();});
+
+					//////////////////////로그인 상태를 하고 언어 정보를 가져온다.    //////////////////////////////////////////////
+				/* 	if (!gap.logincheck()) {
+						gap.gAlert("Login Error !");
+						return false;
+					}else{
+					//	gap.gAlert("로그인 아이디는 : " + gap.userinfo.userid + "/" + gap.userinfo.userLang);
+					} */
+					////////////////////////////////////////////////////////////////////////////////////////////
+
+				//	gap.init_auth();	
+					
+					var param = gap.getParam("v");
+					if (param == "" || typeof(param) == "undefined"){
+						//인자 없이 들어올 경우 초기화 해준다.
+						//history.replaceState("abc2",null, location.pathname + "?readform&home");
+						history.replaceState("abc2",null, location.pathname);
+					}
+				
+					gap.browser = gap.browser_check(); 
+					/*
+					gap.userinfo.rinfo = {
+							cp : userinfo.split("-spl-")[9],
+							cpc : companycode,
+							dg : userinfo.split("-spl-")[6],
+							dp : userinfo.split("-spl-")[6],
+							du : userinfo.split("-spl-")[11],
+							ecp : userinfo.split("-spl-")[10],
+							edp : userinfo.split("-spl-")[7],
+							edu : userinfo.split("-spl-")[12],
+							ejt : userinfo.split("-spl-")[5],
+							dpc : userinfo.split("-spl-")[18],
+							el : userinfo.split("-spl-")[16],
+							em : userinfo.split("-spl-")[0],
+							emp : userinfo.split("-spl-")[3],
+							enm : userinfo.split("-spl-")[2],
+							fx : "",
+							id : userid,
+							iptno : "",
+							jt : userinfo.split("-spl-")[4],
+							jtc : "",
+							ky : userky,
+							mp : userinfo.split("-spl-")[14],
+							nm : userinfo.split("-spl-")[1],
+							ocp : userinfo.split("-spl-")[9],
+							odp : userinfo.split("-spl-")[6],
+							odu : userinfo.split("-spl-")[11],
+							ojt : userinfo.split("-spl-")[4],
+							onm : userinfo.split("-spl-")[1],
+							op : userinfo.split("-spl-")[13],
+							adc : userinfo.split("-spl-")[23],
+							m365 : userinfo.split("-spl-")[24],
+							ms : mailserver,
+							mf : mailfile
+					}
+					*/
+					gap.userinfo.rinfo = userinfo;
+					
+					if (gap.etc_info.ct){
+						if (typeof(gap.etc_info.ct.enter) == "undefinded" || gap.etc_info.ct.enter == "1" || gap.etc_info.ct.enter == ""){
+							gap.enter_opt = "1";
+						}else{
+							gap.enter_opt = "2";
+						}		
+					}else{
+						gap.enter_opt = "1";
+					}
+					
+					_wsocket = new _websocket();
+					_wsocket.init_websocket();
+					
+
+				});
+				
+			})($LAB);
+		 	
+		 	function portal_init(){
+
+		 		//소켓이 연결된 다음에 호출 함
+		 		gcom = new gcommon();
+				
+				if (call_view != "portal" && call_view != ""){
+					//common.js에 분기 처리한다. menu_data_load 함수
+					gcom.load_sub_start(call_view);				
+				}else{
+					gcom.init();
+				}
+
+				
+				//kgpt 영역////////////////////////////
+				gptmd = new kgptmydata();
+				//gptmd.init();
+				
+				gptapps = new kgptapps();		
+				
+				gptpt = new kgptportal();
+			//	gptpt.init();
+				////////////////////////////////////
+				gma.init();
+				gma.hideChatButton();
+				// 채팅 레이어
+				gma.showChatButton();	
+				
+				gBody = new gBodyFN();
+				gBody4 = new gBodyFN4();
+				gTodo = new gBodyTODO();
+				gTodoC = new gBodyTODOCompose();			
+				gap.cur_el = gap.userinfo.rinfo.el;   //팝업으로 띄워질 경우 해당 정보가 세팅되지 않아 영문으로 버디리스트가 띄워지는 오류 처리
+				setTimeout(function(){
+					_wsocket.load_buddy_list();
+
+					gap.getUserStatus(gcom.favorite_list, "portal_favorite");
+				}, 800);
+				
+				//브라우저 히스토리 기록 시키기
+				gap.history_save("portal");
+		 	
+		 	}
+			/*]]>*/
+		</script>
+
+		</head>
 		
 		
 		
 	</head>
 	<body>
+	<div class="wrapper">
+		<div id="area_top">
+			<div class="left_content_wrap">
+				<div id="btn_all_menu_open" class="btn_top_menu">
+					<div class="btn btn_top_menu_inner">
+						<span class="menu_line"></span>
+						<span class="menu_line"></span>
+						<span class="menu_line"></span>
+					</div>
+				</div>
+				<a id='main_logo' th:href="@{/v/portal}" target="_self">
+					<img th:src='@{/resource/images/logo_subtit.svg}' alt='KMSLab' style='height: 24px;'></a>
+			</div>
+			<div class="right_content_wrap">
+				<a class='btn_error_regist' href='https://one.kmslab.com/office/681abf3c524be5529686e2ba/files' target='_blank'><span>오류 및 개선사항 등록</span></a>
+				<div class="btn_wrap">
+					<button type="button" id="btn_search_layer_open" class='search_btn'><span class='search_img'></span></button>
+					<button type="button" id="btn_notification" class='notify_btn'><span class='notification_img'></span></button>
+				</div>
+				<div id="area_top_status" class="user_status_wrap">
+					<div class="user_name"></div>
+					<div class="user_img">
+						<span class="user_status online">
+							<span class="status_circle"></span>
+						</span>
+					</div>
+				</div>
+			</div>
+			
+			<div id="alarm_center_layer" style="display:none"></div>
+			<!-- 전체 메뉴 레이어 -->
+			<div id='all_menu_layer'></div>	
+	
+
+		</div>
 		
-		여기는 index.html페이지 입니다.
+		<div id="area_mid">
+			<div id="area_left">
+	               <div class="menu_wrap"></div><div class='menu_bot'></div>
+	           </div>
+			<div id='area_content'>
+			</div>
+		</div>
+	</div>
+	<div id="body_content">
+	<!-- Layer 영역 : Start -->
+	<div class="schedule_wr r_wr alram mu_work" id="alram_layer" style="display:none">
+		<div class="close_box"><button type="button" class="pop_btn_close" id='alram_close_btn'></button></div>
+		<h2 id="alram_title" style='padding-bottom:5px'></h2>
+		<div class="aside-inner">	
+			<div class="nav-tab" style='margin-bottom:0px; '>
+				<ul class="tabs" id='sel_tabs_main'>
+					<li class="tab on" id='unread_count_title_main'><a href="#" class="active"><p id='unck'></p></a></li>
+					<li class="tab" id='all_count_title_main'><a href="#"><p id='allck'></p></a></li>				
+				</ul>
+			</div>	
+			<div class="input-field" style='margin-top:5px'>
+	           <div class="rel" style="position: relative" id='qsearch_layer'>
+	               <span class="ico ico-search"></span>
+	               <input type="text" class="formInput" id="qsearch" autocomplete="off" />
+	               <div class='xbtn-search-close' style='right:5px; top:8px; display:none' id='alram_query_btn_close'></div>
+	           </div>
+	       </div>      
+	       <div class="alarm-list" id='alram_list_main' style=' padding-right:10px' >
+	                  <!-- <div class="mo_tab_wr">
+	                        <ul class="flex" id='sel_tabs'>
+	                            <li class="on" id='unread_count_title'></li>
+	                            <li id='all_count_title'></li>
+	                        </ul>
+	                        <button type="button" class="all_read" id='allread'>모두읽음</button>
+	                    </div> -->
+	       		<ul id="alram_list_ul" style='height: calc(100% - 100px)'></ul>       		
+	       </div>
+		</div>
+	</div>
+	<!-- 신규 알람센터 레이어 2025.02.13 S -->
+	<div id="alarm_center_layer" style="display:none"></div>
+	<!-- 신규 알람센터 레이어 2025.02.13 E -->
+	<div id="portal_search" class="mu_container mu_work" style='display:none'>
+		<div class="contents scroll">
+			<div class="search_wr">
+				<div class="left_tab_cont" id="portal_search_result">				
+				</div>
+				<div class="right_info" id='portal_search_right'>			
+				</div>
+			</div>
+		</div>
+	</div>
+	<aside id="right_menu" style="display:none; top:68px">
+		<ul>
+			<li><button class="ico btn-right-fold" id="right_menu_collpase_btn"></button></li> 
+			<li><button class="ico btn-right-attach" id="show_attach_layer"></button></li>
+			<li><button class="ico btn-right-link" id="show_link_layer"></button></li>
+			<!--  <li><button class="ico btn-right-memo" id="show_memo_layer"></button></li>-->
+			<!-- <li><button class="ico btn-right-video" id="show_video_layer"></button></li> -->
+		</ul>
+	</aside>
+	<div id="previews" style="display:none;"></div>
+	<div id="fileupload_temp" style="display:none"><button id='open_attach_temp'></button></div>
+	<div class="preview" id='preview_img' style="display:none; width:100vw">
+		<header style='z-index:10'>
+			<h1 id='preview_title'><h1>
+			<button class="ico btn-download" id='preview_download' ></button>
+			<button class="ico btn-close" onclick='gap.close_preview_img()'></button>
+		</header>
+		<div class="wrap-preview" id="img_preview_layer" style='z-index:1'>
+			<img id='preview_img_src' style='max-width:95%; background-color:white' src="" alt="" />
+		</div>
+		<div id='img_next_btn'></div>
+	</div>
+	<div class="manual" id='preview_manual' style="display:none">
+		<header>
+			<h1 id='manual_title'><h1> 
+			<button class="ico btn-close" id='manual_close_btn'></button>
+		</header>
+		<ul class="manual-menu">
+			<li id='manual_1'><a href="" id="manual_t1"></a></li>  
+			<li id='manual_2'><a href="" id="manual_t2"></a></li>    
+			<li id='manual_3'><a href="" id="manual_t3"></a></li>   
+			<li id='manual_4'><a href="" id="manual_t4"></a></li>  
+			<li id='manual_5'><a href="" id="manual_t5"></a></li>  
+			<li id='manual_6'><a href="" id="manual_t6"></a></li>        
+			<li id='manual_7'><a href="" id="manual_t7"></a></li>    
+			<li id='manual_8'><a href="" id="manual_t8"></a></li>        
+			<li id='manual_9'><a href="" id="manual_t9"></a></li>  
+		</ul>
+		<div class="manual-contents">
+		<div class="wrap-manual">
+			<div class="wrap-video"><video id='video_play_div' class="video"  style='width:100%;height:100%' controls></video></div> 
+		</div>
+		</div>
+	</div>
+	<div class="manual" id='preview_video' style="display:none">
+		<header>
+			<h1 id='video_title'><h1> 
+			<button class="ico btn-close" id='manual_close_btn2'></button>
+		</header>	
+		<div class="manual-contents">
+		<div class="wrap-manual">
+			<div class="wrap-video"><video id='video_play_div_mp4' class="video"  style='width:100%;height:100%' controls></video></div> 
+		</div>
+		</div>
+	</div>
+	<div class="preview doc-view" id="fullscreen_file_info" style="display: none">
+	</div>
+	<div class="manual" id='preview_install' style="display:none">
+		<header>
+			<h1 ><span id='xxmanual_title'></span><h1> 	
+		</header>	
+		<div class='pop_usedGuide' id='preview_announce'   >
+			<span class='btn ico_popclose ico' id='ann_close' ></span>
+			<div class='usedGuide_content' >
+				<div class='capture_imgArea'><img id='ann_img' src='../resource/images/intro01_en.jpg' alt=''></div>
+				<div class='guide_textArea'>
+					<div class='title' id='ann_title'></div>
+					<div class='src_area' >
+						<p id='ann_desc'></p><br><br>
+						<strong id='ann_s1'></strong><br>
+						<strong id='ann_s2'></strong><br>
+						<strong id='ann_s3'></strong><br>
+						<strong id='ann_s4'></strong><br>
+						<strong id='ann_s5'></strong><br>
+						<strong id='ann_s6'></strong><br>
+						<strong id='ann_s7'></strong><br>
+						<strong id='ann_s8'></strong><br>
+						<strong id='ann_s9'></strong><br>
+					</div>
+				</div>
+			</div>
+		</div>	
+	</div>
+	<div style="display:none">
+		<div id="preview-template" class="dz-preview dz-file-preview">	
+			<ul>
+				<li>
+					<span class="attach-name" data-dz-name></span> (<span class="attach-size" data-dz-size></span>)
+					<span><button class="btn-memo-file-del ico" data-dz-remove></button></span>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div id='chat_history_dialog' style="display:none"></div>
+	<!-- Block UI -->
+	<div id="blockui" class="blockui" style="display:none;">
+		<iframe style="width:100%;height:100%;border:0"></iframe>
+	</div>
+	<div id="blockui_todo" class="blockui" style="display:none;">
+		<iframe style="width:100%;height:100%;border:0"></iframe>
+	</div>
+	<div id="blockui_org" class="blockui" style="display:none;">
+		<iframe style="width:100%;height:100%;border:0"></iframe>
+	</div>
+	<div id='past_image_viewer' style="display:none">
+		<div id='past_image_head'></div>
+		<canvas style="border:1px solid grey; max-width:1000px" id="mycanvas">
+		<div id='past_image_btn'></div>
+	</div>
+	<div id='past_image_viewer_channel' style="display:none">
+		<div id='past_image_head_channel'></div>
+		<canvas style="border:1px solid grey; max-width:1000px" id="mycanvas_channel">
+		<div id='past_image_btn_channel'></div>
+	</div>
+	<div class="layer-channel-create" id="create_channel_layer" style="display:none;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+	<div class="layer-move" id="move_file_layer" style="display:none;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+	<div id="orgModal" class="modalpop" style="display:none;background-color:white"></div>
+	<div class="layer-upload2" id='fileupload_layer' style="display:none;">
+		<div class="layer layer-upload2-view">
+			<h2 id='f_u1'></h2>
+			<button class="ico btn-close" id='p_close_channel'></button>		
+			<div class="input-field select-share">
+				<h3 id='f_u2'></h3>
+				<select id="share_channel_list_popup">
+				</select>
+			</div>
+			<button class="btn-attach-add" id="file_upload_add"><span id='add_file_text'></span></button>
+			<ul class="attach-list" id="upload_file_list_edit" style="max-height:190px; margin-bottom:5px ; display:none"></ul>
+			<ul class="attach-list" id="upload_file_list"></ul>		
+			<div class="upload-emoticon" id="up_emoticon" style="display:none">
+				<img src="" alt="" id="up_emoticon_img" />
+			</div>		
+			<div id="ex_body_dis" style="display:none"></div>		
+			<div class="input-field">
+				<textarea class="formInput" id='fileupload_content' style='line-height:20px;' ></textarea>
+				<span class="bar"></span>
+			</div>
+			<div class="layer-bottom">
+				<button id='fileupload_start'><strong id="f_s_btn"></strong></button>
+				<button id='fileupload_cancel_new'><span id="f_c_btn"></span></button>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="layer layer-upload layer-drive" id='drive_fileupload_layer' style="display:none; top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+	<div class="layer layer-exit mu_work" id='exit_info_layer' style="display:none; top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+	<div id="open_attach_window22" style="display:none"></div>
+	<div id="total-progress" class="" style='height:1px;width: calc(100% - 20px); margin-left:10px'>
+		<div class="progress-bar" style="width:0%;background:#337ab7" data-dz-uploadprogress></div>
+	</div>	
+	<div id='open_attach_window_popup' style='display:none'></div>
+	<div class="layer-channel-create" id="open_mail" style="display:none;top:50%;left:50%;transform:translate(-50%,-50%); max-width: 1000px;"></div>
+	<div id="editor_upload_dis" style="display:none"></div>
+	<div id="plugin_dis" class='layer layer-plugin' style='top:50%;left:50%;transform:translate(-50%,-50%); height: 700px;  display:none'></div>
+
+	<!-- invite_video -->
+	<div id="invite_video" class='layer layer-invite' style='top:50%;left:50%;transform:translate(-50%,-50%);  display:none'></div>
+
+	<!-- Reply modifiy -->
+	<div class="layer layer-upload reply-edit" id='rmlayer' style="display:none; top:50%;left:50%;transform:translate(-50%,-50%);">
+		<h2 id='rmtitle'></h2><button class="ico btn-close" id='rmclose'></button>	
+		<div class="input-field"><textarea class="formInput" id='rmtext'></textarea><span class="bar"></span></div>
+		<div id='rm_attachment_dis' style='display:none; margin-bottom:10px; text-align:left; line-height:40px'></div>
+		<div class="layer-bottom">
+			<button id='add_reply_file'><strong ></strong></button>
+			<button id='rmsave'><strong ></strong></button>
+			<button id='rmcancel'><span ></span></button>
+		</div>
+	</div>
+
+	<!-- Reply write -->
+	<div class="layer layer-upload reply-edit" id='	' style="display:none; top:50%;left:50%;transform:translate(-50%,-50%);">
+		<h2 id='rmtitle_write'></h2><button class="ico btn-close" id='rmclose_write'></button>
+		<div class="input-field"><textarea class="formInput" id='rmtext_write'></textarea><span class="bar"></span></div>
+		<div class="layer-bottom"><button id='rmsave_write'><strong ></strong></button><button id='rmcancel_write'><span ></span></button></div>
+	</div>
+
+	<!-- modify job layer -->
+	<div class="layer layer-upload reply-edit" id='bslayer' style="display:none; top:50%;left:50%;transform:translate(-50%,-50%);">
+		<h2 id='bstitle'></h2><button class="ico btn-close" id='bsclose'></button>
+		<div class="input-field"><textarea class="formInput" id='bstext'></textarea><span class="bar"></span><div id='bsbottom' style='text-align:left; margin-top:15px'></div></div>
+		
+		<div class="layer-bottom"><button><strong id='bssave'></strong></button><button><span id='bscancel'></span></button></div>
+	</div>
+
+	<!-- TODO -->
+	<div id="create_todo_layer" class="layer layer-todo-create" style="display:none; top:50%;left:50%;transform:translate(-50%,-50%);">
+	</div>
+
+	<!-- TODO TODO -->
+	<div class='layer-todo' id='compose_todo' style='display:none; '>
+	</div>
+
+	<!-- TODO -->
+	<div class='layer layer-calendar' id='compose_todo_calendar' style='display:none; top:50%;left:50%;transform:translate(-50%,-50%);'>
+	</div>
+
+	<!-- Reply modifiy TODO -->
+	<div class="layer layer-upload reply-edit" id='rmlayer_reply_todo' style="display:none; top:50%;left:50%;transform:translate(-50%,-50%);">
+		<h2 id='rmtitle_reply_todo'></h2><button class="ico btn-close" id='rmclose_reply_todo'></button>
+		<div class="input-field"><textarea class="formInput" id='rmtext_reply_todo'></textarea><span class="bar"></span></div>
+		<div class="layer-bottom"><button id='rmsave_reply_todo'><strong ></strong></button><button id='rmcancel_reply_todo'><span ></span></button></div>
+	</div>
+
+	<!-- Checklist modifiy TODO -->
+	<div class="layer layer-upload reply-edit" id='rmlayer_checklist_todo' style="display:none; top:50%;left:50%;transform:translate(-50%,-50%);">
+		<h2 id='rmtitle_checklist_todo'></h2><button class="ico btn-close" id='rmclose_checklist_todo'></button>
+		<div class="input-field"><textarea class="formInput" id='rmtext_checklist_todo'></textarea><span class="bar"></span></div>
+		<div class="layer-bottom"><button id='rmsave_checklist_todo'><strong ></strong></button><button id='rmcancel_checklist_todo'><span ></span></button></div>
+	</div>
+
+	<!-- Collect -->
+	<button class="btn-attach-add" id="upload_collect_add_file" style="display:none;"></button>
+	<button class="btn-attach-add" id="response_collect_add_file" style="display:none;"></button>
+
+	<!-- Memo Popup -->
+	<button class="btn-attach-add" id="memo_add_file" style="display:none;"></button>
+
+	<!--  Manual  -->
+	<button class="btn-attach-add" id="upload_manual_add_file" style="display:none;"></button>
+
+	<div id="common_work_layer" class="mu_container mu_work" style="top:50%;left:50%;display:none;position:absolute"></div>
+	<div id="common_plugin_layer" ></div>
+	<!-- Layer 영역 : End -->
+
+	<div id='previews_channel' style='display:none'></div>
+		<!-- Modal -->
+		<div id='dark_layer'></div>
+	</div>
+
+	<div id='previews_channel_graph' style='display:none'></div>
+		<!-- Modal -->
+		<div id='dark_layer_graph'></div>
+	</div>
 	</body>
 </html>

@@ -105,6 +105,7 @@ gcommon.prototype = {
 		}			
 		
 		gap.curLang = userlang;
+		root_path = "";
 		$.ajax({
 			method : "get",
 			url : root_path + "/resource/lang/" + userlang + ".json?open&ver=" + window.jsversion,
