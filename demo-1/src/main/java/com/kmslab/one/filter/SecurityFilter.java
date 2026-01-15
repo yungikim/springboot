@@ -61,8 +61,8 @@ public class SecurityFilter implements Filter{
 					//토큰이 유효하면 사용자 정보를 파싱하여 요청(request) 객체에 담아둘 수 있습니다.
 					//이를 통해 컨트롤러에서 토큰을 다시 파싱할 필요 없이 사용자 정보를 꺼내 쓸수 있습니다.
 					var claims = jwtProvider.getClaims(token);
-					httpRequest.setAttribute("userId", claims.get("userId"));
-					httpRequest.setAttribute("userEmail", claims.get("email"));
+					httpRequest.setAttribute("userId", claims.get("email"));
+					httpRequest.setAttribute("userEmail", claims.get("userid"));
 				}else {
 					httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "유효하지 않거나 만료된 토큰입니다.");
 					return;
