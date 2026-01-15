@@ -80,10 +80,12 @@ $("#btn_login").on("click", function(e){
 
 				gap.setCookie("language", $("#language_selectmenu").val());
 				gap.setCookie("userid", res.id);
-
+				gap.setCookie("Authorization", res.auth);
 		
 				localStorage.setItem('auth', res.auth);
 				localStorage.setItem('auth_create_time', gap.get_current_datetime());
+				
+				
 				
 				if($("#guide_login_fail").is(":visible")){
 					$("#guide_login_fail").addClass("success").html("로그인에 성공하였습니다.");

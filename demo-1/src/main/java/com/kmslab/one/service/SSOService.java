@@ -4,19 +4,15 @@ import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.sql.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonObject;
-import com.kmslab.one.webchat.MongoData;
+import com.kmslab.one.config.AppConfig;
+import com.kmslab.one.config.AppConfig.JwtProvider;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.HttpSession;
 
 @Service
@@ -25,11 +21,17 @@ public class SSOService {
 	private final String ssoDomain = "https://mail2.kmslab.com";
 	
 	@Autowired
-	private MongoData mongoData;
+	private MongoDataService mongoData;	
+	
+	@Autowired
+	private AppConfig.JwtProvider jwtProvider;
+	
 	
 	public JsonObject processSSO(String id, String pw, HttpSession session) {
 		JsonObject rex = new JsonObject();
 		HttpURLConnection con = null;
+		
+		
 
 		try {
             System.out.println("----------------------------");
@@ -79,7 +81,7 @@ public class SSOService {
                     if (email == null || email.isEmpty()) {
                         rex.addProperty("result", "ERROR");
                     } else {
-                        String auth = createToken(email, depths, userid);
+                        String auth = jwtProvider.createToken(email, depths, userid);
                         rex.addProperty("auth", auth);
                     }
                 }
@@ -104,25 +106,5 @@ public class SSOService {
         return sb.toString();
     }
 
-    public String createToken(String email, String depths, String userid) {
-        Map<String, Object> headers = new HashMap<>();
-        headers.put("typ", "JWT");
-        headers.put("alg", "HS256");
 
-        Map<String, Object> payloads = new HashMap<>();
-        payloads.put("email", email);
-        payloads.put("depths", depths);
-        payloads.put("userid", userid);
-
-        Long expiredTime = 1000 * 60L * 60L * 15L; // 15시간
-        Date ext = new Date(System.currentTimeMillis() + expiredTime);
-
-        return Jwts.builder()
-                .setHeader(headers)
-                .setClaims(payloads)
-                .setSubject("auth")
-                .setExpiration(ext)
-                .signWith(SignatureAlgorithm.HS256, authkey.getBytes())
-                .compact();
-    }
 }

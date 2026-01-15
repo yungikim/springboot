@@ -31,6 +31,5 @@ public class MongoConfig {
 	public MongoTemplate UserdbTemplate() {
 		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "im_org_info");
 		return new MongoTemplate(factory);
-	}
-	
+	}	
 }
