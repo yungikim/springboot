@@ -8,7 +8,11 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.kmslab.one.config.AppConfig;
+import com.kmslab.one.util.DocumentConverter;
 
 
 @Service
@@ -16,10 +20,17 @@ public class MongoDataService {
 	@Autowired
 	@Qualifier("userdb")
 	private MongoTemplate UserTemplate;
-	private String usercol = "user_info";
+	
+	
+	@Autowired
+	@Qualifier("portaldb")
+	private MongoTemplate  PortalDB;
 	
 	@Autowired
 	private AppConfig appConfig;
+	
+	private String usercol = "user_info";
+	private String portal_favorite = "favorite";
 		
 	public Document search_user_all_sso(String userid) {
 		try {
@@ -38,5 +49,32 @@ public class MongoDataService {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public ResInfo portal_favorite_info(String ky) {
+		ResInfo res = new ResInfo();
+		try {
+			Criteria criteria = new Criteria().where("ky").is(ky);
+			Query query = new Query(criteria);
+			
+			Document doc = PortalDB.findOne(query, Document.class, portal_favorite);
+			if (doc != null) {
+				res.setData(DocumentConverter.toCleanMap(doc));
+			}
+			res.setResult("OK");
+			
+		}catch(Exception e) {
+			res.setResult("ERROR");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	
+	public ResInfo my_space_portal(String ky) {
+		ResInfo res = new ResInfo();
+		
+		
+		return res;
 	}
 }

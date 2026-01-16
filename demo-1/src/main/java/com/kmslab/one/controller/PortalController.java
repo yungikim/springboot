@@ -61,4 +61,5 @@ public class PortalController {
 		model.addAttribute("cssVer", "1.0");
 		return "page/login";
 	}
+	
 }

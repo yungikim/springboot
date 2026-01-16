@@ -32,4 +32,28 @@ public class MongoConfig {
 		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "im_org_info");
 		return new MongoTemplate(factory);
 	}	
+	
+	@Bean(name="portaldb")
+	public MongoTemplate PortalDB() {
+		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "portal");
+		return new MongoTemplate(factory);
+	}
+	
+	@Bean(name="todoMain")
+	public MongoTemplate TodoMain() {
+		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "todo_main");
+		return new MongoTemplate(factory);
+	}
+	
+	@Bean(name="collection")
+	public MongoTemplate CollectionDB() {
+		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "collection");
+		return new MongoTemplate(factory);
+	}
+	
+	@Bean(name="channeInfo")
+	public MongoTemplate channeInfo() {
+		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "channel_info");
+		return new MongoTemplate(factory);
+	}
 }

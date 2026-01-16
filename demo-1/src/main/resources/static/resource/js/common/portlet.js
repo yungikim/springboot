@@ -4417,7 +4417,6 @@ gPortlet.prototype = {
 				if (res.result == "OK"){
 					var org_popup_data = [];
 					$("#emp_bookmark .emp_img_wrap").empty();
-					
 					var list = [];
 					if (res.data != null){
 						for (var i = 0; i < res.data.list.length; i++) {
