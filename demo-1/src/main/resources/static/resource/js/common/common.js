@@ -958,13 +958,13 @@ gcommon.prototype = {
 			}
 		});			
 		
-		gap.work_info = rr.data.data;
+		gap.work_info = rr.list;
 		var wait_count = 0;
 		var process_count = 0;
 		var delay_count = 0;
 		
-		for (var i = 0; i < rr.data.data.length; i++){
-			var item = rr.data.data[i];
+		for (var i = 0; i < gap.work_info.length; i++){
+			var item = gap.work_info[i];
 			
 			if (item.enddate){
 				var dateToCheck = moment(item.enddate);

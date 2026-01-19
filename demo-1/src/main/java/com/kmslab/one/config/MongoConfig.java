@@ -62,4 +62,10 @@ public class MongoConfig {
 		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "appstore");
 		return new MongoTemplate(factory);
 	}
+	
+	@Bean(name="TODO")
+	public MongoTemplate TODO() {
+		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "TODO");
+		return new MongoTemplate(factory);
+	}
 }

@@ -22,8 +22,10 @@ import com.kmslab.one.util.DocumentConverter;
 public class My_space_portal implements ApiHandler{
 	
 	@Autowired
-	@Qualifier("portaldb")
-	private MongoTemplate portaldb;
+	@Qualifier("TODO")
+	private MongoTemplate TODO;
+	
+	private final static String COLLECTION_NAME = "data";
 	
 	@Override
 	public Object handle(Map<String, Object> requestData, String userId, String depts) {
@@ -58,7 +60,7 @@ public class My_space_portal implements ApiHandler{
 			
 			//System.out.println("query : " + query);
 			//MongoDB 조회하기
-			List<Document> docs = portaldb.find(query, Document.class, "todo");
+			List<Document> docs = TODO.find(query, Document.class, COLLECTION_NAME);
 			
 			//Document를 Map으로 변환
 			List<Map<String, Object>> items = DocumentConverter.toMapList(docs);

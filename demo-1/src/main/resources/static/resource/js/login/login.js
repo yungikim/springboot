@@ -72,10 +72,10 @@ $("#btn_login").on("click", function(e){
 				var exdays = 1;
 				var exdate=new Date();
 				exdate.setDate(exdate.getDate() + exdays);
-				//var c_value= escape(res.token.replace("LtpaToken=","")) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+				var c_value= escape(res.token.replace("LtpaToken=","")) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
 				//var c_value= escape(res.token.replace("LtpaToken=",""));
-				//document.cookie= "LtpaToken=" + c_value;
-				//document.cookie= res.token;
+				document.cookie= "LtpaToken=" + c_value;
+				document.cookie= res.token;
 				
 
 				gap.setCookie("language", $("#language_selectmenu").val());
