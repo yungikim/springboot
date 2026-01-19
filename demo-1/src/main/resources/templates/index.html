@@ -46,6 +46,7 @@
 		</script>
 		<script type="text/javascript" th:src="@{/resource/js/common/mobiscroll.jquery.min.js(ver=${jsVer})}"></script>
 		<script type="text/javascript" th:src="@{/resource/js/common/marked.min.js(ver=${jsVer})}"></script>
+		<script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=6poaiim9xb&submodules=geocoder"></script>
 		<script src="https://unpkg.com/lucide@latest"></script>
 		<script>
 			// mobiscroll theme global setting
@@ -299,11 +300,10 @@
 			})($LAB);
 		 	
 		 	function portal_init(){
-
+				
 		 		//소켓이 연결된 다음에 호출 함
 		 		gcom = new gcommon();
-				
-				if (call_view != "portal" && call_view != ""){
+				if (call_view != "portal" && call_view != "" && call_view != null){
 					//common.js에 분기 처리한다. menu_data_load 함수
 					gcom.load_sub_start(call_view);				
 				}else{

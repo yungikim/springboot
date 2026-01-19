@@ -3,6 +3,7 @@ package com.kmslab.one.handler;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.kmslab.one.service.ApiHandler;
@@ -15,7 +16,7 @@ public class Portal_favorite_info implements ApiHandler{
 	private MongoDataService mongoDataService;
 	
 	@Override
-	public Object handle(Map<String, Object> requestData, String userId) {
+	public Object handle(Map<String, Object> requestData, String userId, String depts) {
 		ResInfo result = mongoDataService.portal_favorite_info(userId);
 		return result;
 	}

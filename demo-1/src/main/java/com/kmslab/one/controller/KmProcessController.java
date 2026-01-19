@@ -28,14 +28,14 @@ public class KmProcessController {
     public ResponseEntity<?> handleKmRequest(
             @PathVariable("action") String action,
             @RequestBody(required = false) Map<String, Object> requestData,
-            @RequestAttribute("userId") String userId) {
+            @RequestAttribute("userId") String userId,
+            @RequestAttribute("depts") String depts
+    		) {
         
         try {
             // 디스패처 서비스로 위임
-        	System.out.println("====================================");
-        	System.out.println("action : " + action);
-        	System.out.println("====================================");
-            Object response = dispatchService.dispatch(action, requestData, userId);
+        	System.out.println("action ==> " + userId + "/" + action);
+            Object response = dispatchService.dispatch(action, requestData, userId, depts);
             return ResponseEntity.ok(response);
             
         } catch (IllegalArgumentException e) {

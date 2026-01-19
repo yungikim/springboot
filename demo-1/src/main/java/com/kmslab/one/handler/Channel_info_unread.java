@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -21,8 +22,10 @@ import com.kmslab.one.service.ResInfo;
 public class Channel_info_unread implements ApiHandler{
 
     private final AppConfig.JwtProvider jwtProvider;
+    
 	@Autowired
-	private MongoTemplate channeInfo;
+	@Qualifier("channelInfo")
+	private MongoTemplate channelInfo;
 	
 	private static final String COLLECTION_NAME = "channel";
 
@@ -31,7 +34,7 @@ public class Channel_info_unread implements ApiHandler{
     } 
 	
 	@Override
-	public Object handle(Map<String, Object> requestData, String userId) {
+	public Object handle(Map<String, Object> requestData, String userId, String depts) {
 		try {
 			//파리메터 검증
 			requestData.put("email", userId);
@@ -39,14 +42,15 @@ public class Channel_info_unread implements ApiHandler{
 				return ResInfo.error("email parameter is required");
 			}
 			
-			String email = requestData.get("email").toString();
-			String depts = requestData.getOrDefault("depts", "").toString();
+			//String email = requestData.get("email").toString();
+			//String depts = requestData.getOrDefault("depts", "").toString();
+			String email = userId;
 			
 			//쿼리 생성
 			Query query = buildQuery(email, depts);
 			
 			//MongoDB 조회
-			List<Document> channels = channeInfo.find(query, Document.class, COLLECTION_NAME);
+			List<Document> channels = channelInfo.find(query, Document.class, COLLECTION_NAME);
 			
 			//읽지 않은 메시지 카운트 계산
 			UnreadResult result = calculateUnreadCount(channels, email);

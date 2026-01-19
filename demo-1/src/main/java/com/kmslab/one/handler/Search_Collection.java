@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -19,13 +20,15 @@ import com.kmslab.one.util.DocumentConverter;
 
 @Component("search_collection")
 public class Search_Collection implements ApiHandler{
+	
 	@Autowired
+	@Qualifier("collection")
 	private MongoTemplate collection;
 	
 	private static final String COLLECTION_NAME = "data"; 
 	
 	@Override
-	public Object handle(Map<String, Object> requestData, String userId) {
+	public Object handle(Map<String, Object> requestData, String userId, String depts) {
 		try {
 			requestData.put("email", userId);
 			CollectionSearchRequest request = parseRequest(requestData);
@@ -231,7 +234,6 @@ public class Search_Collection implements ApiHandler{
 		query.limit(request.perpage);
 		query.with(org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.DESC, "GMT"));
 		
-		System.out.println("Final Query : " + query);
 		return collection.find(query,  Document.class, COLLECTION_NAME);
 	}
 	

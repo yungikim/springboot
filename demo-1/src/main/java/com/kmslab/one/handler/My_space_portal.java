@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -21,10 +22,11 @@ import com.kmslab.one.util.DocumentConverter;
 public class My_space_portal implements ApiHandler{
 	
 	@Autowired
-	private MongoTemplate PortalDB;
+	@Qualifier("portaldb")
+	private MongoTemplate portaldb;
 	
 	@Override
-	public Object handle(Map<String, Object> requestData, String userId) {
+	public Object handle(Map<String, Object> requestData, String userId, String depts) {
 		
 		try {
 			String email = userId;
@@ -54,9 +56,9 @@ public class My_space_portal implements ApiHandler{
 				);
 			}
 			
-			System.out.println("query : " + query);
+			//System.out.println("query : " + query);
 			//MongoDB 조회하기
-			List<Document> docs = PortalDB.find(query, Document.class, "todo");
+			List<Document> docs = portaldb.find(query, Document.class, "todo");
 			
 			//Document를 Map으로 변환
 			List<Map<String, Object>> items = DocumentConverter.toMapList(docs);

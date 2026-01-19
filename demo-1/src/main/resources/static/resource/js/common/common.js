@@ -41,7 +41,6 @@ function gcommon(){
 gcommon.prototype = {
 	
 	"init": function(){
-		
 		gcom.set_lang();
 	
 		call_key = "";
@@ -1137,9 +1136,9 @@ gcommon.prototype = {
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},
 			success : function(res){
-			//	console.log("res >>>", res);
+			//	console.log("res >>>", res);			
 				if (res.result == "OK"){
-					var data = res.data.response;
+					var data = res.list;
 					var html = "";
 					// 오늘 할 일 입력창
 					html += "<div id='todo_input_wrap'>";

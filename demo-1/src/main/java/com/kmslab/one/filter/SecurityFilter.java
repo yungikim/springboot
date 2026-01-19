@@ -63,6 +63,7 @@ public class SecurityFilter implements Filter{
 					var claims = jwtProvider.getClaims(token);
 					httpRequest.setAttribute("userId", claims.get("email"));
 					httpRequest.setAttribute("userEmail", claims.get("userid"));
+					httpRequest.setAttribute("depts", claims.get("depths"));
 				}else {
 					httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "유효하지 않거나 만료된 토큰입니다.");
 					return;

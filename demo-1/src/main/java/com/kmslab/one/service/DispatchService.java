@@ -11,7 +11,7 @@ public class DispatchService {
 	@Autowired
 	private Map<String, ApiHandler> handlerMap;
 
-	public Object dispatch(String action, Map<String, Object> requestData, String userId) {
+	public Object dispatch(String action, Map<String, Object> requestData, String userId, String depts) {
 		//핸들러 앱에서 적절한 핸들러 찾기
 		ApiHandler handler = handlerMap.get(action);
 		
@@ -20,6 +20,6 @@ public class DispatchService {
 		}
 		
 		//핸들러 실행
-		return handler.handle(requestData, userId);
+		return handler.handle(requestData, userId, depts);
 	}
 }

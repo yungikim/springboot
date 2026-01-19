@@ -35,20 +35,20 @@ public class ResInfo {
     // 정적 팩토리 메서드
     public static ResInfo success() {
         ResInfo res = new ResInfo();
-        res.setResult("success");
+        res.setResult("OK");
         return res;
     }
     
     public static ResInfo success(Object data) {
         ResInfo res = new ResInfo();
-        res.setResult("success");
+        res.setResult("OK");
         res.setData(data);
         return res;
     }
     
     public static ResInfo success(String message, Object data) {
         ResInfo res = new ResInfo();
-        res.setResult("success");
+        res.setResult("OK");
         res.setMessage(message);
         res.setData(data);
         return res;
@@ -56,14 +56,14 @@ public class ResInfo {
     
     public static ResInfo successList(List<Map<String, Object>> list) {
         ResInfo res = new ResInfo();
-        res.setResult("success");
+        res.setResult("OK");
         res.setList(list);
         return res;
     }
     
     public static ResInfo error(String message) {
         ResInfo res = new ResInfo();
-        res.setResult("error");
+        res.setResult("ERROR");
         res.setMessage(message);
         return res;
     }

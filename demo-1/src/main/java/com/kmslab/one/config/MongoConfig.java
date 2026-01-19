@@ -51,9 +51,15 @@ public class MongoConfig {
 		return new MongoTemplate(factory);
 	}
 	
-	@Bean(name="channeInfo")
-	public MongoTemplate channeInfo() {
+	@Bean(name="channelInfo")
+	public MongoTemplate channelInfo() {
 		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "channel_info");
+		return new MongoTemplate(factory);
+	}
+	
+	@Bean(name="appstore")
+	public MongoTemplate appstore() {
+		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "appstore");
 		return new MongoTemplate(factory);
 	}
 }

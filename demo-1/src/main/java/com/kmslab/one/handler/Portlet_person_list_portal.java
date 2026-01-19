@@ -1,6 +1,5 @@
 package com.kmslab.one.handler;
 
-import java.util.List;
 import java.util.Map;
 
 import org.bson.Document;
@@ -15,32 +14,34 @@ import com.kmslab.one.service.ApiHandler;
 import com.kmslab.one.service.ResInfo;
 import com.kmslab.one.util.DocumentConverter;
 
-@Component("todo_list")
-public class Todo_list implements ApiHandler{
+@Component("portlet_person_list_portal")
+public class Portlet_person_list_portal implements ApiHandler{
 
 	@Autowired
-	@Qualifier("todoMain")
-	private MongoTemplate todoMain;
-
-   	
+	@Qualifier("portaldb")
+	private MongoTemplate portaldb;
+	
+	private static final String COLLECT_NAME = "user";
+	
 	@Override
 	public Object handle(Map<String, Object> requestData, String userId, String depts) {
-		try {
-			String ky = requestData.get("ky").toString();
+		try {			
 			Query query = new Query();
-			Criteria criteria = new Criteria().andOperator(
-					Criteria.where("complete").is("F"),
-					Criteria.where("ky").is(userId)
-			);
-			query.addCriteria(criteria);
-			List<Document> docs = todoMain.find(query,  Document.class, "data");
-			//Document를 Map으로 변환
-			List<Map<String, Object>> items = DocumentConverter.toMapList(docs);		
-			return ResInfo.successList(items);
+			query.addCriteria(Criteria.where("ky").is(userId));			
+			Document doc = portaldb.findOne(query, Document.class, COLLECT_NAME);
+			
+			if (doc != null) {				
+				return ResInfo.success(DocumentConverter.toCleanMap(doc));
+			}else {
+				Query query2 = new Query();
+				query2.addCriteria(Criteria.where("ky").is("default"));
+				Document sdoc = portaldb.findOne(query2,  Document.class, COLLECT_NAME);
+				return ResInfo.success(DocumentConverter.toCleanMap(sdoc));
+			}
 			
 		}catch(Exception e) {
 			e.printStackTrace();
-			return ResInfo.error(e.getMessage());
+			return ResInfo.error("Error : " + e.getMessage());
 		}
 	}
 }

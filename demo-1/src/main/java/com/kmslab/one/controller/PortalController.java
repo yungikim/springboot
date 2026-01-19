@@ -32,8 +32,8 @@ public class PortalController {
 		
 		String userId = (String) request.getAttribute("userId");
 		String userEmail = (String) request.getAttribute("userEmail");
-		System.out.println("PortalController userId : " + userId);
-		System.out.println("PortalController userEmail : " + userEmail);
+//		System.out.println("PortalController userId : " + userId);
+//		System.out.println("PortalController userEmail : " + userEmail);
 		
 		if (userId == null) {
 			return "redirect:/page/login";
