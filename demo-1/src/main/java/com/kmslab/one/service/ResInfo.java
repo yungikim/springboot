@@ -3,8 +3,10 @@ package com.kmslab.one.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.JsonObject;
 
 /**
  * 레거시 호환을 위한 응답 클래스
@@ -51,6 +53,17 @@ public class ResInfo {
         res.setResult("OK");
         res.setMessage(message);
         res.setData(data);
+        return res;
+    }
+    
+    /**
+     * 성공 응답 (메시지 + JsonObject)
+     */
+    public static ResInfo success(JsonObject jsonObject) {
+    	System.out.println("11111111111111111111");
+        ResInfo res = new ResInfo();
+        res.setResult("success");
+        res.setData(jsonObject);
         return res;
     }
     

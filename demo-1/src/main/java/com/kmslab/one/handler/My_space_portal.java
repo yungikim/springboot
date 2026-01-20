@@ -25,7 +25,7 @@ public class My_space_portal implements ApiHandler{
 	@Qualifier("TODO")
 	private MongoTemplate TODO;
 	
-	private final static String COLLECTION_NAME = "data";
+	private final String COLLECTION_NAME = "data";
 	
 	@Override
 	public Object handle(Map<String, Object> requestData, String userId, String depts) {

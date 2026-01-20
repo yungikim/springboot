@@ -68,4 +68,16 @@ public class MongoConfig {
 		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "TODO");
 		return new MongoTemplate(factory);
 	}
+	
+	@Bean(name="portlet")
+	public MongoTemplate portlet() {
+		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "portlet");
+		return new MongoTemplate(factory);
+	}
+	
+	@Bean(name="TODO_Folder")
+	public MongoTemplate TODO_Folder() {
+		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "TODO_Folder");
+		return new MongoTemplate(factory);
+	}
 }

@@ -25,7 +25,7 @@ public class Search_Collection implements ApiHandler{
 	@Qualifier("collection")
 	private MongoTemplate collection;
 	
-	private static final String COLLECTION_NAME = "data"; 
+	private final String COLLECTION_NAME = "data"; 
 	
 	@Override
 	public Object handle(Map<String, Object> requestData, String userId, String depts) {

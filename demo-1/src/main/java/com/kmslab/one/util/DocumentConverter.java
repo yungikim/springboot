@@ -9,11 +9,15 @@ import java.util.stream.Collectors;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 /**
  * MongoDB Document를 JSON 직렬화 가능한 Map으로 변환하는 유틸리티
  */
 public class DocumentConverter {
-    
+	private static final Gson gson = new Gson();
+	
     /**
      * 단일 Document를 Map으로 변환 (간단 버전)
      * @param document MongoDB Document
@@ -64,6 +68,15 @@ public class DocumentConverter {
         });
         
         return result;
+    }
+    
+    @SuppressWarnings("unchecked")
+    public static Map<String, Object> jsonObjectToMap(JsonObject jsonObject) {
+        if (jsonObject == null) {
+            return new HashMap<>();
+        }
+        // Gson을 사용하여 JsonObject를 Map으로 변환
+        return gson.fromJson(jsonObject, Map.class);
     }
     
     /**

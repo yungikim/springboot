@@ -27,7 +27,7 @@ public class Appstore_list implements ApiHandler{
 	@Qualifier("appstore")
 	private MongoTemplate appstore;
 	
-	private static final String COLLECTION_NAME = "app";
+	private final String COLLECTION_NAME = "app";
 
    	
 	@Override

@@ -1,0 +1,18 @@
+1. .km 함수 호출 프로세스
+
+   - controller > KmProcessController.java
+   - service > DispatchService
+   - handler > ...java로 함수 별로 구성됨
+
+2. SSO 방법
+   - controller > SSOController.java에서 ==> 전달
+   - service > SSOService.java 에서 처리
+     => ltpa토큰 값과 jwt값을 생성해서 브라우저로 전송
+     ==> 리턴 받은 브라우저 소스 (login.js)에서 쿠키값에 ltpaToken값을 설정하여 도미노인증을 진행한다.
+
+3. 서버로 URL 전송시 참고사항
+   - 브라우저에서 ajax로 호출하면
+   - filter > SecurityFilter.java에서 
+     ==> Authorization 헤더의 jwt값을 체크해서 유효한지 확인한다.
+     ==> 유효한 경우 userId, userEmail, depts값을 request에 포함해서 서버로 전송한다.
+     

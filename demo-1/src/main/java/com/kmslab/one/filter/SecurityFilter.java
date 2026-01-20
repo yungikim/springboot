@@ -29,6 +29,7 @@ public class SecurityFilter implements Filter{
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException{
+//		System.out.println("SecurityFilter.....");
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		String path = httpRequest.getRequestURI();
@@ -56,6 +57,7 @@ public class SecurityFilter implements Filter{
 			}
 			if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
 				String token = bearerToken.substring(7);				
+//				System.out.println("token : " + token);
 				//토큰 유효성 검증
 				if (jwtProvider.validateToken(token)) {
 					//토큰이 유효하면 사용자 정보를 파싱하여 요청(request) 객체에 담아둘 수 있습니다.
@@ -65,7 +67,9 @@ public class SecurityFilter implements Filter{
 					httpRequest.setAttribute("userEmail", claims.get("userid"));
 					httpRequest.setAttribute("depts", claims.get("depths"));
 				}else {
-					httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "유효하지 않거나 만료된 토큰입니다.");
+					System.out.println("token이 완료 되었습니다.");
+					//httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "유효하지 않거나 만료된 토큰입니다.");
+					httpResponse.sendRedirect(loginPage);
 					return;
 				}				
 			}else {

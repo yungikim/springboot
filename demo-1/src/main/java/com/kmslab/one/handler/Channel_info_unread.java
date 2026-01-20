@@ -27,7 +27,7 @@ public class Channel_info_unread implements ApiHandler{
 	@Qualifier("channelInfo")
 	private MongoTemplate channelInfo;
 	
-	private static final String COLLECTION_NAME = "channel";
+	private final String COLLECTION_NAME = "channel";
 
     Channel_info_unread(AppConfig.JwtProvider jwtProvider) {
         this.jwtProvider = jwtProvider;

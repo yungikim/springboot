@@ -3220,6 +3220,7 @@ gcommon.prototype = {
 		$.ajax({
 			type: "POST",
 			url: url,
+			data : JSON.stringify({}),
 			dataType: "json",
 			contentType : "application/json; charset=utf-8",
 			beforeSend : function(xhr){
@@ -3603,7 +3604,7 @@ gcommon.prototype = {
 			process_percent = parseInt((completecount / totalcount) * 100, 10);
 		}		
 		
-		html2 += "<div class='list_tr' data-id='"+itm._id.$oid+"'>";
+		html2 += "<div class='list_tr' data-id='"+itm._id+"'>";
 		
 		if (screen_size == "small"){
 			html2 += "	<div class='list_td' title='" + itm.title + "'>";

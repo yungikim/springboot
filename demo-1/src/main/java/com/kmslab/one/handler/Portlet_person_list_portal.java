@@ -18,24 +18,24 @@ import com.kmslab.one.util.DocumentConverter;
 public class Portlet_person_list_portal implements ApiHandler{
 
 	@Autowired
-	@Qualifier("portaldb")
-	private MongoTemplate portaldb;
+	@Qualifier("portlet")
+	private MongoTemplate portlet;
 	
-	private static final String COLLECT_NAME = "user";
+	private final String COLLECT_NAME = "user";
 	
 	@Override
 	public Object handle(Map<String, Object> requestData, String userId, String depts) {
 		try {			
 			Query query = new Query();
 			query.addCriteria(Criteria.where("ky").is(userId));			
-			Document doc = portaldb.findOne(query, Document.class, COLLECT_NAME);
+			Document doc = portlet.findOne(query, Document.class, COLLECT_NAME);
 			
 			if (doc != null) {				
 				return ResInfo.success(DocumentConverter.toCleanMap(doc));
 			}else {
 				Query query2 = new Query();
 				query2.addCriteria(Criteria.where("ky").is("default"));
-				Document sdoc = portaldb.findOne(query2,  Document.class, COLLECT_NAME);
+				Document sdoc = portlet.findOne(query2,  Document.class, COLLECT_NAME);
 				return ResInfo.success(DocumentConverter.toCleanMap(sdoc));
 			}
 			
