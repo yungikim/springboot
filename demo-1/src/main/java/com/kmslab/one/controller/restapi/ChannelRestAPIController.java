@@ -19,8 +19,8 @@ public class ChannelRestAPIController {
 		this.channelService = channelService;
 	}
 	
-	@PostMapping("/appstore_list.km")
-	public Object appstore_list(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+	@PostMapping("/channel_info_unread.km")
+	public Object channel_info_unread(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
 		requestData.put("email", userId);
 		requestData.put("depts", depts);
 		return channelService.channel_info_unread(requestData);
