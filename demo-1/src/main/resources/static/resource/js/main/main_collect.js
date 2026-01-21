@@ -403,7 +403,7 @@ gBodyCollect.prototype = {
 						$('#container_detail').fadeIn();
 						
 						// 취합 상세화면 정보 업데이트
-						var surl = gap.channelserver + "/search_collection_item.km";
+						var surl = gap.channelserver + "/api/collection/search_collection_item.km";
 						var postData = {
 								"key" : _folder
 							};	
@@ -752,7 +752,7 @@ gBodyCollect.prototype = {
 							var _info = $("#collect_detail_main").data("info");
 							var _folder = $("#collect_detail_main").data("folder");
 							
-							var surl = gap.channelserver + "/search_collection_item.km";
+							var surl = gap.channelserver + "/api/collection/search_collection_item.km";
 							var postData = {
 									"key" : _folder
 								};	
@@ -841,7 +841,7 @@ gBodyCollect.prototype = {
 							// 상세보기 다시 그림
 							var _folder = $("#collect_detail_main").data("folder");
 							
-							var surl = gap.channelserver + "/search_collection_item.km";
+							var surl = gap.channelserver + "/api/collection/search_collection_item.km";
 							var postData = {
 									"key" : _folder
 								};	
@@ -2144,7 +2144,7 @@ gBodyCollect.prototype = {
 		}
 		
 		gCol.start_skp = (parseInt(gCol.per_page) * (parseInt(page_no))) - (parseInt(gCol.per_page) - 1);
-		var surl = gap.channelserver + "/search_collection.km";
+		var surl = gap.channelserver + "/api/collection/search_collection.km";
 		
 		var postData = {
 				"start" : (gCol.start_skp - 1).toString(),
@@ -2541,7 +2541,7 @@ gBodyCollect.prototype = {
 				//	iconClass: 'remove',
 					contents: gap.lang.confirm_request_collection,
 					callback: function(){
-						var surl = gap.channelserver + "/search_collection_item.km";
+						var surl = gap.channelserver + "/api/collection/search_collection_item.km";
 						var postData = {
 								"key" : _folder
 							};	
@@ -2576,7 +2576,7 @@ gBodyCollect.prototype = {
 	},
 	
 	"showCollectDetailView" : function(_folder, is_direct){
-		var surl = gap.channelserver + "/search_collection_item.km";
+		var surl = gap.channelserver + "/api/collection/search_collection_item.km";
 		var postData = {
 				"key" : _folder
 			};	
@@ -2658,7 +2658,7 @@ gBodyCollect.prototype = {
 	
 	// 응답 작성
 	"createCollectResponse" : function(_folder, _res_type){
-		var surl = gap.channelserver + "/search_collection_item.km";
+		var surl = gap.channelserver + "/api/collection/search_collection_item.km";
 		var postData = {
 				"key" : _folder
 			};
@@ -2850,7 +2850,7 @@ gBodyCollect.prototype = {
 	
 	// 응답 수정
 	"editCollectResponse" : function(_folder){
-		var surl = gap.channelserver + "/search_collection_item.km";
+		var surl = gap.channelserver + "/api/collection/search_collection_item.km";
 		var postData = {
 				"key" : _folder
 			};	
@@ -3681,7 +3681,7 @@ gBodyCollect.prototype = {
 								$layer.find('.pop_btn_close').click();
 
 								// 상세보기 다시 그림
-								var surl = gap.channelserver + "/search_collection_item.km";
+								var surl = gap.channelserver + "/api/collection/search_collection_item.km";
 								var postData = {
 										"key" : _folder
 									};	
@@ -4434,7 +4434,7 @@ gBodyCollect.prototype = {
 		var submitter_group_list = [];
 		
 		// 일정 삭제를 위한 취합정보 가져오기
-		var surl = gap.channelserver + "/search_collection_item.km";
+		var surl = gap.channelserver + "/api/collection/search_collection_item.km";
 		var postData = {
 				"key" : _folder
 			};	
@@ -4553,7 +4553,7 @@ gBodyCollect.prototype = {
 		}
 		gCol.start_skp = (parseInt(gCol.per_page) * (parseInt(page_no))) - (parseInt(gCol.per_page) - 1);
 
-		var surl = gap.channelserver + "/search_collection_chat.km";
+		var surl = gap.channelserver + "/api/collection/search_collection_chat.km";
 		var postData = {
 				"start" : gCol.start_skp - 1,
 				"perpage" : "1000",	//gCol.per_page,

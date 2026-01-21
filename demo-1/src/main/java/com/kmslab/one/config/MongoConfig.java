@@ -14,70 +14,42 @@ public class MongoConfig {
 	@Autowired
 	private MongoClient mongoClient;
 	
-	@Bean(name="testMongoTemplate")
-	public MongoTemplate testMongoTemplate() {
-		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "test");
-		return new MongoTemplate(factory);
+	//공통 템플릿 생성 메서드
+	private MongoTemplate createTemplate(String dbname) {
+		return new MongoTemplate(new SimpleMongoClientDatabaseFactory(mongoClient, dbname));
 	}
+	
+	@Bean(name="testMongoTemplate")
+	public MongoTemplate testMongoTemplate() { return createTemplate("test");}
 	
 	@Bean(name="GPT")
 	@Primary
-	public MongoTemplate GPTMongoTemplate() {
-		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "GPT");
-		return new MongoTemplate(factory);
-	}
-	
+	public MongoTemplate GPTMongoTemplate() {return createTemplate("GPT");}
+			
 	@Bean(name="userdb")
-	public MongoTemplate UserdbTemplate() {
-		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "im_org_info");
-		return new MongoTemplate(factory);
-	}	
+	public MongoTemplate UserdbTemplate() {return createTemplate("im_org_info");}
 	
 	@Bean(name="portaldb")
-	public MongoTemplate PortalDB() {
-		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "portal");
-		return new MongoTemplate(factory);
-	}
+	public MongoTemplate PortalDB() {return createTemplate("portal");}
 	
 	@Bean(name="todoMain")
-	public MongoTemplate TodoMain() {
-		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "todo_main");
-		return new MongoTemplate(factory);
-	}
+	public MongoTemplate TodoMain() {return createTemplate("todo_main");}
 	
 	@Bean(name="collection")
-	public MongoTemplate CollectionDB() {
-		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "collection");
-		return new MongoTemplate(factory);
-	}
+	public MongoTemplate CollectionDB() {return createTemplate("collection");}
 	
 	@Bean(name="channelInfo")
-	public MongoTemplate channelInfo() {
-		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "channel_info");
-		return new MongoTemplate(factory);
-	}
+	public MongoTemplate channelInfo() {return createTemplate("channel_info");}
 	
 	@Bean(name="appstore")
-	public MongoTemplate appstore() {
-		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "appstore");
-		return new MongoTemplate(factory);
-	}
+	public MongoTemplate appstore() {return createTemplate("appstore");}
 	
 	@Bean(name="TODO")
-	public MongoTemplate TODO() {
-		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "TODO");
-		return new MongoTemplate(factory);
-	}
+	public MongoTemplate TODO() {return createTemplate("TODO");}
 	
 	@Bean(name="portlet")
-	public MongoTemplate portlet() {
-		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "portlet");
-		return new MongoTemplate(factory);
-	}
+	public MongoTemplate portlet() {return createTemplate("portlet");}
 	
 	@Bean(name="TODO_Folder")
-	public MongoTemplate TODO_Folder() {
-		SimpleMongoClientDatabaseFactory factory = new SimpleMongoClientDatabaseFactory(mongoClient, "TODO_Folder");
-		return new MongoTemplate(factory);
-	}
+	public MongoTemplate TODO_Folder() {return createTemplate("TODO_Folder");}
 }

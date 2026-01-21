@@ -3440,7 +3440,7 @@ gBodyHome.prototype = {
 			
 			$.ajax({
 				type: "POST",
-				url: gap.channelserver + "/save_person_portlet.km",
+				url: gap.channelserver + "/api/portal/save_person_portlet.km",
 				dataType : "text",	//"json",
 				data : JSON.stringify(_self.portlet_info),
 				beforeSend : function(xhr){
@@ -7274,7 +7274,7 @@ gBodyHome.prototype = {
 		// 포틀릿 정보 저장
 		return $.ajax({
 			type: "POST",
-			url: gap.channelserver + "/save_person_portlet.km",
+			url: gap.channelserver + "/api/portal/save_person_portlet.km",
 			dataType : "text",	//"json",
 			data : JSON.stringify(this.portlet_info),
 			beforeSend : function(xhr){

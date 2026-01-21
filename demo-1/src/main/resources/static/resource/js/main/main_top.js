@@ -5870,7 +5870,7 @@ gTop.prototype = {
 			});
 			
 		}else if (gTop.admin_log_menu == "menu_mng"){
-			var surl = gap.channelserver + "/appstore_list.km";
+			var surl = gap.channelserver + "/api/portal/appstore_list.km";
 			var postData = {
 					"start" : (gTop.start_skp - 1).toString(),
 					"perpage" : gTop.per_page,

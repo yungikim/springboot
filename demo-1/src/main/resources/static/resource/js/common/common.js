@@ -240,7 +240,7 @@ gcommon.prototype = {
 	
 	//전체메뉴 호출 & 그리기
 	"all_menu_data_load": function(){
-		var surl = root_path + "/appstore_list.km";
+		var surl = root_path + "/api/portal/appstore_list.km";
 		var postData = {
 				"start" : "0",
 				"perpage" : "100",
@@ -935,7 +935,7 @@ gcommon.prototype = {
 			graph_txt = gap.lang.ingwork2;	
 		}
 		
-		var url = root_path + "/my_space_portal.km";
+		var url = root_path + "/api/todo/my_space_portal.km";
 		var rr = await $.ajax({
 			type : "POST",
 			url : url,
@@ -1121,7 +1121,7 @@ gcommon.prototype = {
 	//todo_list 데이터 불러오는 함수
 	"todo_list_data_load": function(){
 		var _self = this;
-		var surl = root_path + "/todo_list.km";
+		var surl = root_path + "/api/todo/todo_list.km";
 		var postData = {
 			"ky" : gap.userinfo.rinfo.ky
 		};
@@ -3046,7 +3046,7 @@ gcommon.prototype = {
 	//즐겨찾기한 직원 목록 그리는 함수
 	"bookmark_emp_list_draw": function(empno){
 		var _self = this;
-		var surl = gap.channelserver + "/portal_favorite_info.km";
+		var surl = gap.channelserver + "/api/portal/portal_favorite_info.km";
 		var postData = JSON.stringify({});
 
 		$.ajax({
@@ -3196,7 +3196,7 @@ gcommon.prototype = {
 	//	console.log("calltype : " + calltype);
 		gap.calltype = calltype;
 		if (calltype == "receive"){
-			url = gap.channelserver + "/my_receive_work.km";
+			url = gap.channelserver + "/api/todo/my_receive_work.km";
 			
 			
 			var inp = $("#btn_nav_toggle").attr("class");
@@ -3211,7 +3211,7 @@ gcommon.prototype = {
 			
 			$("#todo_detail_work_nav").show();
 		}else{
-			url = gap.channelserver + "/my_asign_work.km";
+			url = gap.channelserver + "/api/todo/my_asign_work.km";
 			
 			$("#todo_work_area .todo_container").css("margin-right", "0px");
 			$("#todo_detail_work_nav").hide();
@@ -7493,7 +7493,7 @@ gcommon.prototype = {
 				}
 			});
 		}else if (gcom.admin_log_menu == "menu_mng"){
-			var surl = root_path + "/appstore_list.km";
+			var surl = root_path + "/api/portal/appstore_list.km";
 			var postData = {
 					"start" : (gcom.start_skp - 1).toString(),
 					"perpage" : gcom.per_page,

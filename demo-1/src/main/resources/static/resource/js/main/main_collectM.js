@@ -143,7 +143,7 @@ gColM.prototype = {
 	
 	"drawCollectList" : function(page_no){
 		gColM.start_skp = (parseInt(gColM.per_page) * (parseInt(page_no))) - (parseInt(gColM.per_page) - 1);
-		var surl = gap.channelserver + "/search_collection.km";
+		var surl = gap.channelserver + "/api/collection/search_collection.km";
 		
 		var postData = {
 				"start" : (gColM.start_skp - 1).toString(),
@@ -366,7 +366,7 @@ gColM.prototype = {
 	
 	// 응답 작성
 	"createCollectResponse" : function(_folder, _res_type){
-		var surl = gap.channelserver + "/search_collection_item.km";
+		var surl = gap.channelserver + "/api/collection/search_collection_item.km";
 		var postData = {
 				"key" : _folder
 			};
@@ -594,7 +594,7 @@ gColM.prototype = {
 	
 	// 응답 수정
 	"editCollectResponse" : function(_folder, _res_type){
-		var surl = gap.channelserver + "/search_collection_item.km";
+		var surl = gap.channelserver + "/api/collection/search_collection_item.km";
 		var postData = {
 				"key" : _folder
 			};	
@@ -889,7 +889,7 @@ gColM.prototype = {
 	},
 	
 	"callCollectDetailView" : function(_folder){
-		var surl = gap.channelserver + "/search_collection_item.km";
+		var surl = gap.channelserver + "/api/collection/search_collection_item.km";
 		var postData = {
 				"key" : _folder
 			};	
@@ -1406,7 +1406,7 @@ gColM.prototype = {
 		}
 		gColM.start_skp = (parseInt(gColM.per_page) * (parseInt(page_no))) - (parseInt(gColM.per_page) - 1);
 
-		var surl = gap.channelserver + "/search_collection_chat.km";
+		var surl = gap.channelserver + "/api/collection/search_collection_chat.km";
 		var postData = {
 				"start" : gColM.start_skp - 1,
 				"perpage" : gColM.per_page,
@@ -1542,7 +1542,7 @@ gColM.prototype = {
 	 * 첨부파일 데이터 가져오기
 	 */
 	"downloadFileListGet" : function(_folder, _id){
-		var surl = gap.channelserver + "/search_collection_item.km";
+		var surl = gap.channelserver + "/api/collection/search_collection_item.km";
 		var postData = {
 				"key" : _folder
 			};	

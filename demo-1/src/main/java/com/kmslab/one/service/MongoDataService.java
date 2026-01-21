@@ -20,17 +20,8 @@ public class MongoDataService {
 	@Autowired
 	@Qualifier("userdb")
 	private MongoTemplate UserTemplate;
-	
-	
-	@Autowired
-	@Qualifier("portaldb")
-	private MongoTemplate  PortalDB;
-	
-	@Autowired
-	private AppConfig appConfig;
-	
+		
 	private String usercol = "user_info";
-	private String portal_favorite = "favorite";
 		
 	public Document search_user_all_sso(String userid) {
 		try {
@@ -51,30 +42,5 @@ public class MongoDataService {
 		}
 	}
 	
-	public ResInfo portal_favorite_info(String ky) {
-		ResInfo res = new ResInfo();
-		try {
-			Criteria criteria = new Criteria().where("ky").is(ky);
-			Query query = new Query(criteria);
-			
-			Document doc = PortalDB.findOne(query, Document.class, portal_favorite);
-			if (doc != null) {
-				res.setData(DocumentConverter.toCleanMap(doc));
-			}
-			res.setResult("OK");
-			
-		}catch(Exception e) {
-			res.setResult("ERROR");
-			e.printStackTrace();
-		}
-		return res;
-	}
-
 	
-	public ResInfo my_space_portal(String ky) {
-		ResInfo res = new ResInfo();
-		
-		
-		return res;
-	}
 }

@@ -55,7 +55,7 @@ gPortlet.prototype = {
 		var _self = this;
 		var grid = gport.main_grid_init();
 		
-		var surl = gap.channelserver + "/portlet_person_list_portal.km";
+		var surl = gap.channelserver + "/api/portal/portlet_person_list_portal.km";
 		var postData = JSON.stringify({});
 		$.ajax({
 			type : "POST",
@@ -338,7 +338,7 @@ gPortlet.prototype = {
 			delete save_data[i].content;
 		}
 		
-		var surl = gap.channelserver + "/save_person_portlet.km";
+		var surl = gap.channelserver + "/api/portal/save_person_portlet.km";
 		var postData = JSON.stringify({
 			"ky" : gap.userinfo.rinfo.ky,
 			"position" : save_data
@@ -379,7 +379,7 @@ gPortlet.prototype = {
 		var _self = this;
 		var grid = gport.main_grid_init();
 		
-		var surl = gap.channelserver + "/portlet_person_list_portal.km";
+		var surl = gap.channelserver + "/api/portal/portlet_person_list_portal.km";
 		var postData = JSON.stringify({});
 		$.ajax({
 			type : "POST",
@@ -4401,7 +4401,7 @@ gPortlet.prototype = {
 	
 	"draw_favorite_info": function(){
 		var _self = this;
-		var surl = gap.channelserver + "/portal_favorite_info.km";
+		var surl = gap.channelserver + "/api/portal/portal_favorite_info.km";
 		var postData = JSON.stringify({});
 
 		$.ajax({
@@ -4511,7 +4511,7 @@ gPortlet.prototype = {
 	//사용자 개인영역(왼쪽영역)에 앱 목록 데이터 불러오는 함수
 	"app_area_data_load": function(_qry){
 		var _self = this;
-		var surl = root_path + "/appstore_list.km";
+		var surl = root_path + "/api/portal/appstore_list.km";
 		var postData = {
 				"start" : "0",
 				"perpage" : "100",

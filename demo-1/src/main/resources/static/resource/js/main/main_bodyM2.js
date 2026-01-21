@@ -5874,7 +5874,7 @@ gBodyM2.prototype = {
 			"depts" : gap.full_dept_codes()
 		});
 		
-		var url = gap.channelserver + "/channel_info_unread.km";
+		var url = gap.channelserver + "/api/channel/channel_info_unread.km";
 		$.ajax({
 			type : "POST",
 			data : data,

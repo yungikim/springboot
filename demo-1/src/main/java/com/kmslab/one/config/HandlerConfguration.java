@@ -1,29 +1,34 @@
 package com.kmslab.one.config;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.kmslab.one.service.ApiHandler;
+import com.kmslab.one.service.MultiActionHandler;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Configuration
 public class HandlerConfguration {
 	@Bean
-	public Map<String, ApiHandler> handlerMap(ApplicationContext context){
-		Map<String, ApiHandler> handlerMap = new HashMap<>();
+	public Map<String, MultiActionHandler> handlerMap(List<MultiActionHandler> handlers){
+		Map<String, MultiActionHandler> map = new HashMap<>();
 		
-		//Spring 컨텍스트에서 ApiHandler 타입의 모든 빈 가져오기
-		Map<String, ApiHandler> handlers = context.getBeansOfType(ApiHandler.class);
+		for (MultiActionHandler handler : handlers) {
+			for (String action : handler.getSupportedActions()) {
+				if (map.containsKey(action)) {
+					log.warn("중복 action 발견 : {} - 덥어씌워집니다.", action);
+				}
+				map.put(action, handler);
+				log.info("핸들러 등록 : {} -> {}", action, handler.getClass().getSimpleName());
+			}
+		}
 		
-		//빈 이름을 키로, 핸들러 인스턴스를 값으로 저장
-		handlers.forEach((beanName, handler) ->{
-			handlerMap.put(beanName, handler);
-			System.out.println("Registered handler : " + beanName + " -> " + handler.getClass().getSimpleName() );
-		});
-		
-		return handlerMap;
+		log.info("총 {} 개의 action이 등록되었습니다.", map.size());
+		return map;
 	}
 }

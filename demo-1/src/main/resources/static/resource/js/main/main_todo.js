@@ -5347,7 +5347,7 @@ gBodyTODO.prototype = {
 							key : select_todo_id
 						});
 						
-						var url = gap.channelserver + "/search_item_todo.km";
+						var url = gap.channelserver + "/api/todo/search_item_todo.km";
 						$.ajax({
 							type : "POST",
 							dataType : "json",
@@ -6758,7 +6758,7 @@ gBodyTODO.prototype = {
 					key : select_todo_id
 				});	
 				
-				var url = gap.channelserver + "/search_item_todo.km";
+				var url = gap.channelserver + "/api/todo/search_item_todo.km";
 				$.ajax({
 					type : "POST",
 					dataType : "json",
@@ -7055,7 +7055,7 @@ gBodyTODO.prototype = {
 							key : sid
 						});
 						
-						var url = gap.channelserver + "/search_item_todo.km";
+						var url = gap.channelserver + "/api/todo/search_item_todo.km";
 						$.ajax({
 							type : "POST",
 							dataType : "json",
@@ -7124,7 +7124,7 @@ gBodyTODO.prototype = {
 			var data = JSON.stringify({
 				key : id
 			});
-			var url = gap.channelserver + "/search_item_todo.km";
+			var url = gap.channelserver + "/api/todo/search_item_todo.km";
 			$.ajax({
 				type : "POST",
 				dataType : "json",
@@ -12767,7 +12767,7 @@ gBodyTODO.prototype = {
 			var data = JSON.stringify({
 				key : id
 			});
-			var url = gap.channelserver + "/search_item_todo.km";
+			var url = gap.channelserver + "/api/todo/search_item_todo.km";
 			$.ajax({
 				type : "POST",
 				dataType : "json",

@@ -2249,7 +2249,7 @@ gTodoM.prototype = {
 		var data = JSON.stringify({
 			key : id
 		});
-		var url = gap.channelserver + "/search_item_todo.km";
+		var url = gap.channelserver + "/api/todo/search_item_todo.km";
 		$.ajax({
 			type : "POST",
 			dataType : "json",

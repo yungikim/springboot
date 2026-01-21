@@ -8998,7 +8998,7 @@ gBodyFN3.prototype = {
 		if (loc == "dev" || loc == "ko"){		
 			if (localStorage.getItem("auth") != null){
 				var data = JSON.stringify({});				
-				var url = gap.channelserver + "/channel_info_unread.km";
+				var url = gap.channelserver + "/api/channel/channel_info_unread.km";
 				$.ajax({
 					type : "POST",
 					data : data,
@@ -13270,13 +13270,13 @@ gBodyFN3.prototype = {
 		
 		//opt : my_task (나에게 할당된 업무) delg_task (내가 지시한 업무) ref_task (내가 참조로 들어간 업무)
 			
-		var url = gap.channelserver + "/my_receive_work.km";		
+		var url = gap.channelserver + "/api/todo/my_receive_work.km";		
 		if (opt == "delg_task"){
 			//내가 지시한 업무
-			url = gap.channelserver + "/my_asign_work.km";
+			url = gap.channelserver + "/api/todo/my_asign_work.km";
 		}else if (opt == "ref_task"){
 			//내가 참조인 업무
-			url = gap.channelserver + "/my_asign_work.km";
+			url = gap.channelserver + "/api/toto/my_asign_work.km";
 		}
 		
 		var data = JSON.stringify({

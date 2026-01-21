@@ -19968,7 +19968,7 @@ gBodyFN.prototype = {
 	},	
 	
 	"unread_collec_count_check" : function(){
-		var surl = gap.channelserver + "/search_collection.km";
+		var surl = gap.channelserver + "/api/collection/search_collection.km";
 		var postData = {
 				"start" : 0,
 				"perpage" : 1,
@@ -20000,7 +20000,7 @@ gBodyFN.prototype = {
 	},
 	
 	"unread_channel_count_check" : function(){
-		var surl = gap.channelserver + "/channel_info_unread.km";
+		var surl = gap.channelserver + "/api/channel/channel_info_unread.km";
 		var postData = {};
 		$.ajax({
 			type : "POST",
@@ -21368,7 +21368,7 @@ gBodyFN.prototype = {
 		};		
 		return $.ajax({
 			type: "POST",
-			url: gap.channelserver + "/appstore_list.km",
+			url: gap.channelserver + "/api/portal/appstore_list.km",
 			dataType : "text",	//"json",
 			data : JSON.stringify(postData),
 			beforeSend : function(xhr){
