@@ -17,7 +17,8 @@ import jakarta.servlet.http.HttpSession;
 
 @Service
 public class SSOService {
-	private final String authkey = "kmslabbox2022_must_be_over_32_bytes_long_key";
+	//private final String authkey = "kmslabbox2022_must_be_over_32_bytes_long_key";
+	//private final String authkey = "kmslabbox2022";
 	private final String ssoDomain = "https://mail2.kmslab.com";
 	
 	@Autowired

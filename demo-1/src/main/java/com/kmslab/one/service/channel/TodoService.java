@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,15 +14,20 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonObject;
+import com.kmslab.one.controller.restapi.ChannelRestAPIController;
 import com.kmslab.one.service.ResInfo;
 import com.kmslab.one.util.DocumentConverter;
+import com.kmslab.one.util.Utils;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.Sorts;
+import com.mongodb.client.result.UpdateResult;
 
 @Service
 public class TodoService {
+
+    private final ChannelRestAPIController channelRestAPIController;
 	private final MongoTemplate todo;
 	private final MongoTemplate todo_folder;
 	private final MongoTemplate todoMain;
@@ -29,10 +35,11 @@ public class TodoService {
 			@Qualifier("TODO") MongoTemplate todo,
 			@Qualifier("TODO_Folder") MongoTemplate todo_folder,
 			@Qualifier("todoMain") MongoTemplate todoMain
-			) {		
+			, ChannelRestAPIController channelRestAPIController) {		
 		this.todo = todo;
 		this.todo_folder = todo_folder;
 		this.todoMain = todoMain;
+		this.channelRestAPIController = channelRestAPIController;
 	}
 	
 	public Object my_asign_work(Map<String, Object> requestData) {
@@ -263,7 +270,11 @@ public class TodoService {
 
 			FindIterable<Document> docs = col.find(query).sort(new Document("GMT", -1));
 			List<Document> ar = new ArrayList<>();
-			docs.into(ar);
+			for (Document doc : docs) {
+				doc.put("_id", doc.get("_id").toString());
+				ar.add(doc);
+			}
+			//docs.into(ar);
 			Map<String, Object> item = new HashMap<>();
 			item.put("response", ar);
 			return ResInfo.success(item);
@@ -271,5 +282,80 @@ public class TodoService {
 			e.printStackTrace();
 			return ResInfo.error(e.getMessage());
 		}
+	}
+	
+	public Object todo_save(Map<String, Object> responseData) {
+		try {
+			MongoCollection<Document> appcol = todoMain.getCollection("data");				
+			
+			responseData.put("complete","F");
+
+			Document doc = new Document(responseData);
+			doc.put("GMT", Utils.GMTDate());	
+			try{			
+				appcol.insertOne(doc);	
+				
+//				JsonObject px = new JsonObject();
+				ObjectId id = doc.getObjectId("_id");
+//
+//				px.addProperty("id", id.toString());
+				
+				Map<String, Object> item = new HashMap<>();
+				item.put("id", id.toString());
+				
+				return ResInfo.success(item);
+
+			}catch(Exception e){			
+				e.printStackTrace();
+				return ResInfo.error("Code alreay exist");
+			}		
+
+		}catch(Exception e) {
+			e.printStackTrace();
+			return ResInfo.error("Code alreay exist");
+		}		
+	}
+	
+	private Object change_doc(String id, MongoCollection<Document> col) {
+		
+		//JsonObject res = new JsonObject();
+		Map<String, Object> res = new HashMap<>();
+		
+		Document query = new Document();
+		query.put("_id", new ObjectId(id));
+		
+		List<String> arx = new ArrayList<>();
+		arx.add("file.content");
+		arx.add("file.meta");
+		
+		Document sdoc = col.find(query).projection(Projections.exclude(arx)).first();
+		if (sdoc != null) {
+		//	res = DocumnetConvertJsonObject(sdoc);
+			res = DocumentConverter.toCleanMap(sdoc);
+		}
+		
+		return res;
+	}
+	
+	public Object todo_complete(Map<String, Object> responseData) {
+		boolean res = true;
+		MongoCollection<Document> appcol = todoMain.getCollection("data");		
+		String key = responseData.get("key").toString();
+		
+		Document query = new Document();
+		query.put("_id", new ObjectId(key));
+		Document data = new Document();
+		data.append("complete", "T");
+		Document se = new Document();
+		se.put("$set", data);
+		try{						
+			appcol.updateOne(query, se);
+		}catch(Exception e){
+			e.printStackTrace();
+			res = false;
+		}
+		
+		return ResInfo.success();
+
 	}
 }

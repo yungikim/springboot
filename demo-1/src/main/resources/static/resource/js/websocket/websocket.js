@@ -38,7 +38,7 @@ function _websocket(){
 	this._time = null;
 	this.connect = true;
 	this.version = "2.0.1";
-	this.log = false;
+	this.log = true;
 	
 	// 재접속 간격 설정 (ms)
     this.initialReconnectInterval = 1000;    // 첫 시도: 1초

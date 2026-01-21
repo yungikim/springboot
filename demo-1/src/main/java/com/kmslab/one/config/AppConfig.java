@@ -15,7 +15,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
@@ -52,7 +51,8 @@ public class AppConfig {
 		@Value("${jwt.secret}") //properties에 정의된 비밀키
 		private String secretKey;
 		
-		private Key key;
+	//	private Key key;
+		private byte[] key;
 		
 		@Value("${jwt.expiration-ms}")
 		private long tokenValidityInMilliseconds;
@@ -60,8 +60,9 @@ public class AppConfig {
 		@PostConstruct
 		public void init() {
 			//비밀키를 기반으로 HMAC SHA 키 생성
-			byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
-			this.key = Keys.hmacShaKeyFor(keyBytes);
+		//	byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
+		//	this.key = Keys.hmacShaKeyFor(keyBytes);
+			this.key = secretKey.getBytes(StandardCharsets.UTF_8);
 		}
 		
 		//1. 토큰 생성 (로그인시 사용)
@@ -69,7 +70,7 @@ public class AppConfig {
 			 Map<String, Object> headers = new HashMap<>();
 			    headers.put("typ", "JWT");
 			    headers.put("alg", "HS256");
-			
+			    
 			    Map<String, Object> payloads = new HashMap<>();
 			    payloads.put("email", email);
 			    payloads.put("depths", depths);
@@ -83,15 +84,15 @@ public class AppConfig {
 			            .setClaims(payloads)
 			            .setSubject("auth")
 			            .setExpiration(ext)
-			            .signWith(this.key, SignatureAlgorithm.HS256)
+			        //    .signWith(this.key, SignatureAlgorithm.HS256)
+			            .signWith(SignatureAlgorithm.HS256, secretKey.getBytes())
 			            .compact();
 		}	
 		
 		//2. 토큰에서 정보 추출
 		public Claims getClaims(String token) {
-			return Jwts.parserBuilder()
+			return Jwts.parser()
 					.setSigningKey(key)
-					.build()
 					.parseClaimsJws(token)
 					.getBody();
 		}
@@ -99,13 +100,15 @@ public class AppConfig {
 		//3. 토큰 유효성 검증 (인터셉터/필터에서 사용)
 		public boolean validateToken(String token) {
 			try {
-				Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+				Jwts.parser().setSigningKey(key).parseClaimsJws(token);
 				return true;
 			}catch(JwtException | IllegalArgumentException e) {
 				//토큰 만료 변조, 형식 오류등
 				return false;
 			}
 		}
+		
+		
 		
 	}
 

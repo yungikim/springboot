@@ -957,8 +957,8 @@ gcommon.prototype = {
 				return false;
 			}
 		});			
-		
-		gap.work_info = rr.list;
+
+		gap.work_info = rr.data.data;
 		var wait_count = 0;
 		var process_count = 0;
 		var delay_count = 0;
@@ -1138,7 +1138,7 @@ gcommon.prototype = {
 			success : function(res){
 			//	console.log("res >>>", res);			
 				if (res.result == "OK"){
-					var data = res.list;
+					var data = res.data.response;
 					var html = "";
 					// 오늘 할 일 입력창
 					html += "<div id='todo_input_wrap'>";
@@ -1149,7 +1149,7 @@ gcommon.prototype = {
 					for(var i = 0; i < data.length; i++){
 						var info = data[i];
 						var todo_obj = new Object();
-						todo_obj.key = info._id.$oid;
+						todo_obj.key = info._id;
 						todo_obj.title = info.title;
 						
 						html += _self.draw_todo_list_today(todo_obj);
@@ -1179,7 +1179,7 @@ gcommon.prototype = {
 							return false;
 						}
 			
-						var surl = root_path + "/todo_save.km";
+						var surl = root_path + "/api/todo/todo_save.km";
 						var postData = {
 							"ky" : gap.userinfo.rinfo.ky,
 							"title" : _title
@@ -1232,7 +1232,7 @@ gcommon.prototype = {
 			var _key = $(this).attr("id");
 			
 			// 완료처리
-			var surl = root_path + "/todo_complete.km";
+			var surl = root_path + "/api/todo/todo_complete.km";
 			var postData = {
 				"key" : _key
 			};

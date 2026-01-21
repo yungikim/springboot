@@ -53,7 +53,20 @@ private final TodoService todoService;
 		requestData.put("depts", depts);
 		return todoService.todo_list(requestData);
 	}
+
+	@PostMapping("/todo_save.km")
+	public Object todo_save(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return todoService.todo_save(requestData);
+	}
 	
+	@PostMapping("/todo_complete.km")
+	public Object todo_complete(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return todoService.todo_complete(requestData);
+	}
 	
 	
 }

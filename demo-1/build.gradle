@@ -50,10 +50,25 @@ dependencies {
     // Gson
     implementation 'com.google.code.gson:gson:2.11.0'
     
-    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
-
-    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
-    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5' 
+    //implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    //runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    //runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+    
+    // 기존 0.11.5 버전을 삭제하고 아래 내용을 추가합니다.
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    
+    // [중요] jjwt 0.9.1은 내부적으로 javax.xml.bind (JAXB)를 사용합니다.
+    // Java 11 이상(현재 Java 21 사용 중)에서는 JAXB가 기본 JDK에서 제거되었으므로 
+    // 아래 라이브러리를 반드시 추가해야 'NoClassDefFoundError'가 발생하지 않습니다.
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    implementation 'com.sun.xml.bind:jaxb-impl:2.3.3'
+    implementation 'com.sun.xml.bind:jaxb-core:2.3.0.1'
+    implementation 'javax.activation:activation:1.1.1' 
+    
+    // Joda-Time 2.9.5 추가
+    implementation 'joda-time:joda-time:2.9.5'
+    
+    implementation 'org.apache.commons:commons-lang3:3.14.0'
 }
 
 tasks.named('test') {
