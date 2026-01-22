@@ -10,8 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonObject;
-import com.kmslab.one.config.AppConfig;
-import com.kmslab.one.config.AppConfig.JwtProvider;
+import com.kmslab.one.config.JwtProvider;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -25,7 +24,7 @@ public class SSOService {
 	private MongoDataService mongoData;	
 	
 	@Autowired
-	private AppConfig.JwtProvider jwtProvider;
+	private JwtProvider jwtProvider;
 	
 	
 	public JsonObject processSSO(String id, String pw, HttpSession session) {

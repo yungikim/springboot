@@ -503,7 +503,7 @@ gFilesFN.prototype = {
 			},
 			success : function(res){				
 				if (res.result == "OK"){					
-					var usesize = parseFloat(res.data.sum.$numberLong);
+					var usesize = parseFloat(res.data.sum);
 					var fullsize = parseFloat(res.data.dsize);
 					if (res.data.dsize == "0" || res.data.dsize== ""){
 						//값이 지정되지 않을 경우 10G로 설정한다.
@@ -738,7 +738,6 @@ gFilesFN.prototype = {
 		
 		this.start_skp = (parseInt(this.per_page) * (parseInt(page_no))) - (parseInt(this.per_page) - 1);
 		var surl = gap.channelserver + "/api/files/folder_list_main.km";
-		
 		//"dtype" : 은 파일 형식으로 필터링 할때 사용한다. ppt, xls, doc, pdf, image, movie, hwp, txt, etc
 	
 		var postData = {
@@ -832,7 +831,6 @@ gFilesFN.prototype = {
 	
 	"draw_main_data_list" : function(page_no, res){
 		var _self = this;
-		
 		if (this.query_str == "" && res.filelist.length == 0){
 			//데이터가 없는 경우
 			var html = '<div class="msg-empty"><img src="' + window.root_path + '/resource/images/empty.png" alt="" />' + gap.lang.no_upload_file + '</div>';
@@ -855,13 +853,14 @@ gFilesFN.prototype = {
 
 		for (var k = 0;  k < res.filelist.length; k++){
 			var file_info = res.filelist[k];
-			var file_id = file_info._id.$oid;
+			var file_id = file_info._id;
 			var user_info = gap.user_check(file_info.owner);
 			var disp_file_name = gap.get_bun_filename(file_info);
 			var disp_date = gap.change_date_default2(gap.change_date_localTime_only_date(typeof(file_info.lastupdate) != "undefined" ? file_info.lastupdate : file_info.GMT));
 			var disp_time = gap.change_date_localTime_only_time(String(typeof(file_info.lastupdate) != "undefined" ? file_info.lastupdate : file_info.GMT));
 			var icon_kind = gap.file_icon_check(file_info.filename);
-			var downloadurl = gap.search_file_convert_server(file_info.fserver) + "FDownload.do?id=" + file_info._id.$oid + "&ty=" + (this.select_left_menu == "4" ? "3" : "1") + "&ky="+gap.userinfo.rinfo.ky;
+			var downloadurl = gap.search_file_convert_server(file_info.fserver) + "FDownload.do?id=" + file_info._id + "&ty=" + (this.select_left_menu == "4" ? "3" : "1") + "&ky="+gap.userinfo.rinfo.ky;
+			var downloadurl = "/FDownload.do?id=" + file_info._id + "&ty=" + (this.select_left_menu == "4" ? "3" : "1") + "&ky="+gap.userinfo.rinfo.ky;
 			var show_thumb = false;
 			var file_html = '';
 			
@@ -875,10 +874,10 @@ gFilesFN.prototype = {
 					file_html += '		</div>';					
 				}
 					
-				file_html += '		<a style="cursor:pointer" id="file_' + file_id + '" owner="' + file_info.owner.ky + '" fserver="' + file_info.fserver + '" fname="' + disp_file_name + '" fsize="' + file_info.file_size.$numberLong + '" md5="' + file_info.md5 + '" furl="' + downloadurl + '" thmok="' + file_info.thumbOK + '">';
+				file_html += '		<a style="cursor:pointer" id="file_' + file_id + '" owner="' + file_info.owner.ky + '" fserver="' + file_info.fserver + '" fname="' + disp_file_name + '" fsize="' + file_info.file_size + '" md5="' + file_info.md5 + '" furl="' + downloadurl + '" thmok="' + file_info.thumbOK + '">';
 				file_html += '			<span class="ico ico-file ' + icon_kind + '"' + (this.select_left_menu == "3" ? " style='left:20px'" : "") + '></span>';
 				file_html += '			<dl>';
-				file_html += '				<dt class="files-main"><strong>' + disp_file_name + '</strong> <span>(' + gap.file_size_setting(file_info.file_size.$numberLong) + ')</span></dt>';
+				file_html += '				<dt class="files-main"><strong>' + disp_file_name + '</strong> <span>(' + gap.file_size_setting(file_info.file_size) + ')</span></dt>';
 				file_html += '				<dd><span>' + user_info.name + gap.lang.hoching + '</span><em>' + disp_date + ' ' + disp_time + '</em></dd>';
 				file_html += '				<dd><span class="channel-name">' + file_info.drive_name + '</span></dd>';
 				file_html += '			</dl>';
@@ -899,7 +898,7 @@ gFilesFN.prototype = {
 				}
 
 			//	file_html += '	<div class="thm' + (icon_kind == "video" ? " video-thm" : "") + '" id="file_' + file_id + '" fserver="' + file_info.fserver + '" fname="' + file_info.filename + '" md5="' + file_info.md5 + '" furl="' + downloadurl + '" thmok="' + file_info.thumbOK + '">';
-				file_html += '	<div class="thm" id="file_' + file_id + '" owner="' + file_info.owner.ky + '" fserver="' + file_info.fserver + '" fname="' + disp_file_name + '" fsize="' + file_info.file_size.$numberLong + '" md5="' + file_info.md5 + '" furl="' + downloadurl + '" thmok="' + file_info.thumbOK + '">';
+				file_html += '	<div class="thm" id="file_' + file_id + '" owner="' + file_info.owner.ky + '" fserver="' + file_info.fserver + '" fname="' + disp_file_name + '" fsize="' + file_info.file_size + '" md5="' + file_info.md5 + '" furl="' + downloadurl + '" thmok="' + file_info.thumbOK + '">';
 
 				if (this.disp_view_mode == "image" && icon_kind == "img"){
 					show_thumb = true;
@@ -915,7 +914,7 @@ gFilesFN.prototype = {
 				}
 				file_html += '	</div>';
 				file_html += '	<dl id="file_bottom_' + file_id + '" class="' + (show_thumb ? "gallery-attach" : "") + '">';
-				file_html += '		<dt>' + (show_thumb ? '<span class="ico ico-attach ' + icon_kind + '"></span>' : "") + '<strong title="' + disp_file_name + '">' + disp_file_name + '</strong><span>&nbsp;(' + gap.file_size_setting(file_info.file_size.$numberLong) + ')</span></dt>';
+				file_html += '		<dt>' + (show_thumb ? '<span class="ico ico-attach ' + icon_kind + '"></span>' : "") + '<strong title="' + disp_file_name + '">' + disp_file_name + '</strong><span>&nbsp;(' + gap.file_size_setting(file_info.file_size) + ')</span></dt>';
 				file_html += '		<dd><span>' + user_info.name + gap.lang.hoching + '</span><em>' + disp_date + ' ' + disp_time + '</em></dd>';
 				file_html += '		<dd><span class="channel-name">' + file_info.drive_name + '</span></dd>';
 				file_html += '	</dl>';
@@ -1146,7 +1145,7 @@ gFilesFN.prototype = {
 		for (var i = 0; i < res.length; i++){
 			var folder_info = res[i];
 			var drive_key = folder_info.drive_key;
-			var folder_id = folder_info._id.$oid;
+			var folder_id = folder_info._id;
 			var folder_name = folder_info.folder_name;
 			var parent_folder_key = folder_info.parent_folder_key;
 			var depth = folder_info.depth;
@@ -1218,7 +1217,7 @@ gFilesFN.prototype = {
 		}else{
 			for (var j = 0; j < this.cur_drive_folder_list_info.length; j++){
 				var folder_info = this.cur_drive_folder_list_info[j];
-				if (folder_info._id.$oid == folder_code){
+				if (folder_info._id == folder_code){
 					return this.get_file_fullpath(drive_code, folder_info.parent_folder_key, folder_info.folder_name);
 					break;
 				}
@@ -1241,7 +1240,7 @@ gFilesFN.prototype = {
 					}
 				}
 				
-			}else if (folder_info._id.$oid == folder_code){
+			}else if (folder_info._id == folder_code){
 				var ret_fullpath = folder_info.folder_name + " > " + fullpath;
 				return this.get_file_fullpath(drive_code, folder_info.parent_folder_key, ret_fullpath);
 				break;
@@ -1315,7 +1314,7 @@ gFilesFN.prototype = {
 				for (var i = 0; i < _self.cur_drive_folder_list_info.length; i++){
 					_self.parent_folder_info = "";
 					var _data = _self.cur_drive_folder_list_info[i];
-					if (parent_folder_id == _data._id.$oid){
+					if (parent_folder_id == _data._id){
 						_self.parent_folder_info = _data;
 						break;
 					}
@@ -1323,7 +1322,7 @@ gFilesFN.prototype = {
 				for (var j = 0; j < _self.cur_drive_folder_list_info.length; j++){
 					_self.cur_folder_info = "";
 					var _data = _self.cur_drive_folder_list_info[j];
-					if (cur_folder_id == _data._id.$oid){
+					if (cur_folder_id == _data._id){
 						_self.cur_folder_info = _data;
 						break;
 					}
@@ -1570,7 +1569,7 @@ gFilesFN.prototype = {
 		var members = new Object();		
 		for (var i = 0 ; i < infos.length; i++){
 			var info = infos[i];
-			if (info._id.$oid == folderid){
+			if (info._id == folderid){
 				var list = info.member;
 				var mlist = [];
 				for (var k = 0 ; k < list.length; k++){
@@ -3681,9 +3680,9 @@ gFilesFN.prototype = {
 		//////////////////////////////////////////////////////////////////////
 		
 		this.start_skp = (parseInt(this.per_page) * (parseInt(page_no))) - (parseInt(this.per_page) - 1);
-		
+	
 		//"dtype" : 은 파일 형식으로 필터링 할때 사용한다. ppt, xls, doc, pdf, image, movie, hwp, txt, etc
-		var surl = gap.channelserver + "/folder_list.km";
+		var surl = gap.channelserver + "/api/files/folder_list.km";
 		var postData = {
 				"ty" : (this.disp_view_mode == "list" ? "1" : (page_no == 1 ? "1" : "2")), //(page_no == 1 ? "1" : "2"),
 				"drive_key" : this.select_drive_code,
@@ -3940,7 +3939,6 @@ gFilesFN.prototype = {
 	
 	"draw_drive_data_list" : function(page_no, res){
 		var _self = this;
-		
 		if (page_no == 1){
 			if (this.select_folder_code == "root"){
 				if (this.query_str == "" && res.folderlist.length == 0 && res.datalist.length == 0){
@@ -4035,7 +4033,7 @@ gFilesFN.prototype = {
 			
 			for (var i = 0;  i < res.folderlist.length; i++){
 				var folder_info = res.folderlist[i];
-				var folder_id = folder_info._id.$oid;
+				var folder_id = folder_info._id;
 				var folder_name = folder_info.folder_name;
 				var user_info = gap.user_check(folder_info.owner);
 				var disp_date = gap.change_date_default2(gap.change_date_localTime_only_date(folder_info.GMT));
@@ -4155,16 +4153,16 @@ gFilesFN.prototype = {
 				$("#drive_data_gallery_area").hide();
 			}
 		}
-				
+			
 		for (var k = 0;  k < res.datalist.length; k++){
 			var file_info = res.datalist[k];
-			var file_id = file_info._id.$oid;
+			var file_id = file_info._id;
 			var user_info = gap.user_check(file_info.owner);
 			var disp_file_name = gap.get_bun_filename(file_info);
 			var disp_date = gap.change_date_default2(gap.change_date_localTime_only_date(typeof(file_info.lastupdate) != "undefined" ? file_info.lastupdate : file_info.GMT));
 			var disp_time = gap.change_date_localTime_only_time(String(typeof(file_info.lastupdate) != "undefined" ? file_info.lastupdate : file_info.GMT));
 			var icon_kind = gap.file_icon_check(file_info.filename);
-			var downloadurl = gap.search_file_convert_server(file_info.fserver) + "FDownload.do?id=" + file_info._id.$oid + "&ty=1&ky="+gap.userinfo.rinfo.ky;
+			var downloadurl = gap.search_file_convert_server(file_info.fserver) + "FDownload.do?id=" + file_info._id + "&ty=1&ky="+gap.userinfo.rinfo.ky;
 			var show_thumb = false;
 			var file_html = '';
 			
@@ -4175,10 +4173,10 @@ gFilesFN.prototype = {
 				file_html += '				<input type="checkbox" name="file_checkbox" value="' + file_id + '"><span class="checkbox-material"><span class="check"></span></span>';
 				file_html += '			</label>';
 				file_html += '		</div>';
-				file_html += '		<a style="cursor:pointer" id="file_' + file_id + '" owner="' + file_info.owner.ky + '" fserver="' + file_info.fserver + '" fname="' + disp_file_name + '" fsize="' + file_info.file_size.$numberLong + '" md5="' + file_info.md5 + '" furl="' + downloadurl + '" thmok="' + file_info.thumbOK + '">';
+				file_html += '		<a style="cursor:pointer" id="file_' + file_id + '" owner="' + file_info.owner.ky + '" fserver="' + file_info.fserver + '" fname="' + disp_file_name + '" fsize="' + file_info.file_size + '" md5="' + file_info.md5 + '" furl="' + downloadurl + '" thmok="' + file_info.thumbOK + '">';
 				file_html += '			<span class="ico ico-file ' + icon_kind + '"></span>';
 				file_html += '			<dl>';
-				file_html += '				<dt><strong>' + disp_file_name + '</strong> <span>(' + gap.file_size_setting(file_info.file_size.$numberLong) + ')</span></dt>';
+				file_html += '				<dt><strong>' + disp_file_name + '</strong> <span>(' + gap.file_size_setting(file_info.file_size) + ')</span></dt>';
 				file_html += '				<dd><span>' + user_info.name + gap.lang.hoching + '</span><em>' + disp_date + ' ' + disp_time + '</em></dd>';
 				file_html += '			</dl>';
 				file_html += '		</a>';
@@ -4195,7 +4193,7 @@ gFilesFN.prototype = {
 				file_html += '		</label>';
 				file_html += '	</div>';
 			//	file_html += '	<div class="thm' + (icon_kind == "video" ? " video-thm" : "") + '" id="file_' + file_id + '" owner="' + file_info.owner.em + '" fserver="' + file_info.fserver + '" fname="' + file_info.filename + '" md5="' + file_info.md5 + '" furl="' + downloadurl + '" thmok="' + file_info.thumbOK + '">';
-				file_html += '	<div class="thm" id="file_' + file_id + '" owner="' + file_info.owner.ky + '" fserver="' + file_info.fserver + '" fname="' + file_info.filename + '" fsize="' + file_info.file_size.$numberLong + '" md5="' + file_info.md5 + '" furl="' + downloadurl + '" thmok="' + file_info.thumbOK + '">';
+				file_html += '	<div class="thm" id="file_' + file_id + '" owner="' + file_info.owner.ky + '" fserver="' + file_info.fserver + '" fname="' + file_info.filename + '" fsize="' + file_info.file_size + '" md5="' + file_info.md5 + '" furl="' + downloadurl + '" thmok="' + file_info.thumbOK + '">';
 
 				if (this.disp_view_mode == "image" && icon_kind == "img"){
 					show_thumb = true;
@@ -4211,7 +4209,7 @@ gFilesFN.prototype = {
 				}
 				file_html += '	</div>';
 				file_html += '	<dl id="file_bottom_' + file_id + '" class="' + (show_thumb ? "gallery-attach" : "") + '">';
-				file_html += '		<dt>' + (show_thumb ? '<span class="ico ico-attach ' + icon_kind + '"></span>' : "") + '<strong title="' + disp_file_name + '">' + disp_file_name + '</strong><span>&nbsp;(' + gap.file_size_setting(file_info.file_size.$numberLong) + ')</span></dt>';
+				file_html += '		<dt>' + (show_thumb ? '<span class="ico ico-attach ' + icon_kind + '"></span>' : "") + '<strong title="' + disp_file_name + '">' + disp_file_name + '</strong><span>&nbsp;(' + gap.file_size_setting(file_info.file_size) + ')</span></dt>';
 				file_html += '		<dd><span>' + user_info.name + gap.lang.hoching + '</span><em>' + disp_date + ' ' + disp_time + '</em></dd>';
 				file_html += '	</dl>';
 				file_html += '	<button class="ico btn-more file-menu"></button>';
@@ -4398,7 +4396,7 @@ gFilesFN.prototype = {
 		}
 		if (is_continue){
 			this.start_skp = (parseInt(this.per_page) * (parseInt(page_no))) - (parseInt(this.per_page) - 1);
-			var surl = gap.channelserver + "/folder_list.km";
+			var surl = gap.channelserver + "/api/files/folder_list.km";
 			var postData = {
 					"ty" : (this.disp_view_mode == "list" ? "1" : (page_no == 1 ? "1" : "2")), //(page_no == 1 ? "1" : "2"),
 					"drive_key" : this.select_drive_code,
@@ -4641,7 +4639,7 @@ gFilesFN.prototype = {
 					
 				}else{
 					_parent_member = $.map(this.cur_drive_folder_list_info, function(ret, key) {
-						if (ret._id.$oid == obj.parent_folder_key){
+						if (ret._id == obj.parent_folder_key){
 							var ret_member = [];
 							ret_member = ret.member;
 							_owner = ret.owner;
@@ -4843,7 +4841,7 @@ gFilesFN.prototype = {
 				}
 				
 				postData.delete_members = delete_members_em;	// 하취 폴더에서 해당 사용자 삭제
-				postData.id = obj._id.$oid;
+				postData.id = obj._id;
 			}
 
 			
@@ -4858,7 +4856,7 @@ gFilesFN.prototype = {
 						var user_info = gap.user_check(gap.userinfo.rinfo);
 						var disp_date = gap.change_date_default2(gap.change_date_localTime_only_date(res.GMT));
 						var disp_time = gap.change_date_localTime_only_time(String(res.GMT));
-						var folder_id = (is_update ? obj._id.$oid : res.folder_id);
+						var folder_id = (is_update ? obj._id : res.folder_id);
 						var html = '';
 						if (is_update){
 							$("#" + folder_id).empty();
@@ -5120,7 +5118,7 @@ gFilesFN.prototype = {
 						for (var j = 0; j < gBody.cur_drive_folder_list_info.length; j++){
 							_self.cur_folder_info = "";
 							var _data = _self.cur_drive_folder_list_info[j];
-							if (folder_code == _data._id.$oid){
+							if (folder_code == _data._id){
 								_self.cur_folder_info = _data;
 								break;
 							}
@@ -5418,7 +5416,7 @@ gFilesFN.prototype = {
 	},
 	
 	"add_favorite_file" : function(_id, _md5, _ty){
-		var surl = gap.channelserver + "/copy_favorite.km";
+		var surl = gap.channelserver + "/api/files/copy_favorite.km";
 		var postData = {
 				"id" : _id,
 			    "md5" : _md5, 
@@ -5568,7 +5566,7 @@ gFilesFN.prototype = {
 		$("#move_file_layer").html(html);
 		
 		// 개인채널 (드라이브)리스트 정보 가져오기
-		var surl = gap.channelserver + "/drive_list.km";
+		var surl = gap.channelserver + "/api/files/drive_list.km";
 		var postData = {};
 
 		$.ajax({
@@ -5581,8 +5579,8 @@ gFilesFN.prototype = {
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},
 			success : function(res){
-				for (var i = 0; i < res.length; i++){
-					var data = res[i];
+				for (var i = 0; i < res.data.length; i++){
+					var data = res.data[i];
 					var _html = '';
 					_html += '		<li>';
 					_html += '			<div id="move_' + data.ch_code + '" data="root"><span class="ico-fold"></span><span class="ico ico-drive' + (data.ch_share == "Y" ? "-share-s" : "-s") + '"></span>' + data.ch_name + '</div>';
@@ -5713,7 +5711,7 @@ gFilesFN.prototype = {
 	
 	"draw_sub_folder" : function(drive_code, folder_code, padding_left, first_call){
 		var _self = this;
-		var surl = gap.channelserver + "/folder_list.km";
+		var surl = gap.channelserver + "/api/files/folder_list.km";
 		var postData = {
 				"ty" : "3", //폴더만
 				"drive_key" : drive_code,
@@ -5744,7 +5742,7 @@ gFilesFN.prototype = {
 					for (var i = 0; i < res.data.folderlist.length; i++){
 						var folder_info = res.data.folderlist[i];
 						var drive_key = folder_info.drive_key;
-						var folder_id = folder_info._id.$oid;
+						var folder_id = folder_info._id;
 						var folder_name = folder_info.folder_name;
 						var _html = '';
 						
@@ -5881,7 +5879,7 @@ gFilesFN.prototype = {
 					text : gap.lang.OK,
 					btnClass : "btn-default",
 					action : function(){
-						var surl = gap.channelserver + "/delete_file_list.km";
+						var surl = gap.channelserver + "/api/files/delete_file_list.km";
 						var postData = {
 								"folder_item" : folder_check.join("-spl-"),
 								"file_item" : file_check.join("-spl-"),
@@ -6269,7 +6267,7 @@ gFilesFN.prototype = {
 		$("#move_file_layer").html(html);
 		
 		// 드라이브 리스트 정보 가져오기
-		var surl = gap.channelserver + "/drive_list.km";
+		var surl = gap.channelserver + "/api/files/drive_list.km";
 		var postData = {};
 
 		$.ajax({
@@ -6282,8 +6280,8 @@ gFilesFN.prototype = {
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},
 			success : function(res){
-				for (var i = 0; i < res.length; i++){
-					var data = res[i];
+				for (var i = 0; i < res.data.length; i++){
+					var data = res.data[i];
 					var _html = '';
 					_html += '		<li>';
 					_html += '			<div id="move_' + data.ch_code + '" data="root"><span class="ico-fold"></span><span class="ico ico-drive' + (data.ch_share == "Y" ? "-share-s" : "-s") + '"></span>' + data.ch_name + '</div>';
@@ -6676,12 +6674,12 @@ gFilesFN.prototype = {
 		for (var k = 0;  k < res.data.length; k++){
 			var file_info = res.data[k];
 			
-			var file_id = file_info._id.$oid;
+			var file_id = file_info._id;
 			var disp_file_name = gap.get_bun_filename(file_info);
 			var disp_date = gap.change_date_default2(gap.change_date_localTime_only_date(typeof(file_info.lastupdate) != "undefined" ? file_info.lastupdate : file_info.GMT));
 			var disp_time = gap.change_date_localTime_only_time(String(typeof(file_info.lastupdate) != "undefined" ? file_info.lastupdate : file_info.GMT));
 			var icon_kind = gap.file_icon_check(file_info.filename);
-			var downloadurl = gap.search_file_convert_server(file_info.fserver) + "FDownload.do?id=" + file_info._id.$oid + "&ty=3&ky="+gap.userinfo.rinfo.ky;
+			var downloadurl = gap.search_file_convert_server(file_info.fserver) + "FDownload.do?id=" + file_info._id + "&ty=3&ky="+gap.userinfo.rinfo.ky;
 			var show_thumb = false;
 			var file_html = '';
 			
@@ -6692,10 +6690,10 @@ gFilesFN.prototype = {
 				file_html += '				<input type="checkbox" name="file_checkbox" value="' + file_id + '"><span class="checkbox-material"><span class="check"></span></span>';
 				file_html += '			</label>';
 				file_html += '		</div>';
-				file_html += '		<a style="cursor:pointer" id="file_' + file_id + '" fserver="' + file_info.fserver + '" fname="' + disp_file_name + '" fsize="' + file_info.size.$numberLong + '" md5="' + file_info.md5 + '" furl="' + downloadurl + '" thmok="' + file_info.thumbOK + '">';
+				file_html += '		<a style="cursor:pointer" id="file_' + file_id + '" fserver="' + file_info.fserver + '" fname="' + disp_file_name + '" fsize="' + file_info.size + '" md5="' + file_info.md5 + '" furl="' + downloadurl + '" thmok="' + file_info.thumbOK + '">';
 				file_html += '			<span class="ico ico-file ' + icon_kind + '"></span>';
 				file_html += '			<dl>';
-				file_html += '				<dt class="files-main"><strong>' + disp_file_name + '</strong> <span>(' + gap.file_size_setting(file_info.size.$numberLong) + ')</span></dt>';
+				file_html += '				<dt class="files-main"><strong>' + disp_file_name + '</strong> <span>(' + gap.file_size_setting(file_info.size) + ')</span></dt>';
 				file_html += '				<dd><span>' + user_info.name + gap.lang.hoching  + '</span><em>' + disp_date + ' ' + disp_time + '</em></dd>';
 				file_html += '			</dl>';
 				file_html += '		</a>';
@@ -6712,7 +6710,7 @@ gFilesFN.prototype = {
 				file_html += '		</label>';
 				file_html += '	</div>';
 			//	file_html += '	<div class="thm' + (icon_kind == "video" ? " video-thm" : "") + '" id="file_' + file_id + '" fserver="' + file_info.fserver + '" fname="' + file_info.filename + '" md5="' + file_info.md5 + '" furl="' + downloadurl + '" thmok="' + file_info.thumbOK + '">';
-				file_html += '	<div class="thm" id="file_' + file_id + '" fserver="' + file_info.fserver + '" fname="' + disp_file_name + '" fsize="' + file_info.size.$numberLong + '" md5="' + file_info.md5 + '" furl="' + downloadurl + '" thmok="' + file_info.thumbOK + '">';
+				file_html += '	<div class="thm" id="file_' + file_id + '" fserver="' + file_info.fserver + '" fname="' + disp_file_name + '" fsize="' + file_info.size + '" md5="' + file_info.md5 + '" furl="' + downloadurl + '" thmok="' + file_info.thumbOK + '">';
 
 				if (this.disp_view_mode == "image" && icon_kind == "img"){
 					show_thumb = true;
@@ -6728,7 +6726,7 @@ gFilesFN.prototype = {
 				}
 				file_html += '	</div>';
 				file_html += '	<dl id="file_bottom_' + file_id + '" class="' + (show_thumb ? "gallery-attach" : "") + '">';
-				file_html += '		<dt>' + (show_thumb ? '<span class="ico ico-attach ' + icon_kind + '"></span>' : "") + '<strong title="' + disp_file_name + '">' + disp_file_name + '</strong><span>&nbsp;(' + gap.file_size_setting(file_info.size.$numberLong) + ')</span></dt>';
+				file_html += '		<dt>' + (show_thumb ? '<span class="ico ico-attach ' + icon_kind + '"></span>' : "") + '<strong title="' + disp_file_name + '">' + disp_file_name + '</strong><span>&nbsp;(' + gap.file_size_setting(file_info.size) + ')</span></dt>';
 				file_html += '		<dd><span>' + user_info.name + gap.lang.hoching + '</span><em>' + disp_date + ' ' + disp_time + '</em></dd>';
 				file_html += '	</dl>';
 				file_html += '	<button class="ico btn-more favorite-file-menu"></button>';
@@ -7130,10 +7128,10 @@ gFilesFN.prototype = {
 			var chcode = data.channel_code;
 			var chname = data.channel_name;
 			var owner_info = gap.user_check(data.owner);
-			var file_id = data._id.$oid;
+			var file_id = data._id;
 			var file_info = data.info;
 			var fname = file_info.filename;
-			var fsize = file_info.file_size.$numberLong;
+			var fsize = file_info.file_size;
 			var ftype = file_info.file_type;
 			var icon_kind = gap.file_icon_check(fname);
 			var url = gap.search_fileserver(file_info.nid);			
@@ -7478,7 +7476,7 @@ gFilesFN.prototype = {
 	//	var owner_img = gap.person_profile_uid(ty == "3" ? gap.search_cur_ky() : info.owner.ky);
 		
 		var filename = gap.get_bun_filename(info);	//info.filename;
-		var size = gap.file_size_setting(parseInt(typeof info.file_size == "undefined" ? info.size.$numberLong : info.file_size.$numberLong));
+		var size = gap.file_size_setting(parseInt(typeof info.file_size == "undefined" ? info.size : info.file_size));
 		var ext = gap.is_file_type_filter(filename);
 		var h = this.check_member_top_height();
 		
@@ -7518,7 +7516,7 @@ gFilesFN.prototype = {
 		html += "<div class='file-info'>";
 
 		if (info.thumbOK == "T"){
-			var thumbnail_url = gap.search_file_convert_server(info.fserver) + "/FDownload_thumb.do?id=" + (ty == "2" ? info._id.$oid + "&md5=" + info.md5 : info._id.$oid) + "&ty=" + ty;
+			var thumbnail_url = gap.search_file_convert_server(info.fserver) + "/FDownload_thumb.do?id=" + (ty == "2" ? info._id + "&md5=" + info.md5 : info._id) + "&ty=" + ty;
 			html += "	<div class='file-thm'>";
 			html += "		<img src='" + thumbnail_url + "' alt='' />";
 			html += "	</div>";
@@ -7616,7 +7614,7 @@ gFilesFN.prototype = {
 			
 			if (info.file_type == "mp4" || info.file_type == "mov"){
 			//	var download_url = info.fserver + "/FDownload_thumb.do?id=" + (ty == "2" ? info._id.$oid + "&md5=" + info.md5 : info._id.$oid) + "&ty=" + ty;
-				var download_url = gap.search_file_convert_server(info.fserver) + "FDownload.do?id=" + (ty == "2" ? info._id.$oid + "&md5=" + info.md5 : info._id.$oid) + "&ty=" + ty + "&ky="+gap.userinfo.rinfo.ky;
+				var download_url = gap.search_file_convert_server(info.fserver) + "FDownload.do?id=" + (ty == "2" ? info._id + "&md5=" + info.md5 : info._id) + "&ty=" + ty + "&ky="+gap.userinfo.rinfo.ky;
 				gap.show_video(download_url, filename);		
 				
 			}else{
@@ -7626,7 +7624,7 @@ gFilesFN.prototype = {
 				var fname = gap.get_bun_filename(info);	//info.filename;
 				var md5 = info.md5;
 			//	var id = (ty == "2" ? info.id : info._id.$oid);
-				var id = info._id.$oid;
+				var id = info._id;
 				var icon_kind = gap.file_icon_check(fname);
 				var file_type = info.file_type;
 				var upload_path = info.upload_path;
@@ -7665,7 +7663,7 @@ gFilesFN.prototype = {
 	//	var owner_img = gap.person_profile_uid(ty == "3" ? gap.search_cur_ky() : info.owner.ky);
 		var dis_date = gap.change_date_localTime_full2(info.GMT);
 		var filename = info.filename;
-		var size = gap.file_size_setting(parseInt(typeof info.file_size == "undefined" ? info.size.$numberLong : info.file_size.$numberLong));
+		var size = gap.file_size_setting(parseInt(typeof info.file_size == "undefined" ? info.size : info.file_size));
 		
 		if (ty == "3"){
 			var name = gap.user_check(gap.userinfo.rinfo).name;
@@ -7692,7 +7690,7 @@ gFilesFN.prototype = {
 		html += "<div class='file-info'>";
 
 		if (info.thumbOK == "T"){
-			var thumbnail_url = gap.search_file_convert_server(info.fserver) + "/FDownload_thumb.do?id=" + (ty == "2" ? info._id.$oid + "&md5=" + info.md5 : info._id.$oid) + "&ty=" + ty;
+			var thumbnail_url = gap.search_file_convert_server(info.fserver) + "/FDownload_thumb.do?id=" + (ty == "2" ? info._id + "&md5=" + info.md5 : info._id) + "&ty=" + ty;
 			html += "	<div class='file-thm'>";
 			html += "		<img src='" + thumbnail_url + "' alt='' />";
 			html += "	</div>";
@@ -7860,7 +7858,7 @@ gFilesFN.prototype = {
 	},
 	
 	"channel_favorite_file" : function(_id, _md5){
-		var surl = gap.channelserver + "/copy_favorite.km";
+		var surl = gap.channelserver + "/api/files/copy_favorite.km";
 	/*	var postData = {
 				"id" : _id,
 			    "md5" : _md5, 
@@ -8036,7 +8034,7 @@ gFilesFN.prototype = {
 				for (var i = 0; i < res.drive.length; i++){
 					var _data = res.drive[i];
 				//	if (_data.ch_share == "Y"){
-						drive_option_list += '<option value="' + _data._id.$oid + '">' + _data.ch_name + '</option>';
+						drive_option_list += '<option value="' + _data._id + '">' + _data.ch_name + '</option>';
 						drive_list.push(_data);
 				//	}
 				}
@@ -8054,7 +8052,7 @@ gFilesFN.prototype = {
 				});
 				
 				//드라이브 내 폴더 및 파일 리스트
-				var first_drive_code = drive_list[0]._id.$oid;
+				var first_drive_code = drive_list[0]._id;
 				if (typeof first_drive_code != "undefined"){
 					gFiles.select_drive_code = first_drive_code;
 					gFiles.select_drive_name = drive_list[0].ch_name;
@@ -8169,7 +8167,7 @@ gFilesFN.prototype = {
 		}
 
 		gFiles.start_skp = (parseInt(gFiles.per_page) * (parseInt(page_no))) - (parseInt(gFiles.per_page) - 1);
-		var surl = gap.channelserver + "/folder_list.km";
+		var surl = gap.channelserver + "/api/files/folder_list.km";
 	/*	var postData = {
 				"ty" : (page_no == 1 ? "1" : "2"),
 				"drive_key" : gFiles.select_drive_code,
@@ -8265,7 +8263,7 @@ gFilesFN.prototype = {
 			//폴더 리스트
 			for (var i = 0; i < res.folderlist.length; i++){
 				var folder_info = res.folderlist[i];
-				var folder_id = folder_info._id.$oid;
+				var folder_id = folder_info._id;
 				var folder_html = '';
 				
 				folder_html += '<li class="folder-list" id="fl_' + folder_id + '">';
@@ -8292,13 +8290,13 @@ gFilesFN.prototype = {
 			var file_info = res.datalist[k];
 			var file_name = gap.get_bun_filename(file_info);	//file_info.filename;
 			var icon_kind = gap.file_icon_check(file_name);
-			var file_size = gap.file_size_setting(file_info.file_size.$numberLong);
+			var file_size = gap.file_size_setting(file_info.file_size);
 			var file_html = '';
 			
 			file_html += '<li>';
 			file_html += '	<div class="checkbox folder-file">';
 			file_html += '		<label>';
-			file_html += '			<input type="checkbox" name="check_upload" id="chk_' + file_info._id.$oid + '" value="' + file_info._id.$oid + '" fname="' + file_name + '" fsize="' + file_size + '"><span class="checkbox-material"><span class="check"></span></span>';
+			file_html += '			<input type="checkbox" name="check_upload" id="chk_' + file_info._id + '" value="' + file_info._id + '" fname="' + file_name + '" fsize="' + file_size + '"><span class="checkbox-material"><span class="check"></span></span>';
 			file_html += '		</label>';
 			file_html += '	</div>';
 			file_html += '	<span class="ico ico-file ' + icon_kind + '"></span>';
@@ -8307,7 +8305,7 @@ gFilesFN.prototype = {
 			
 			$("#upload_folder_file_list").append(file_html);
 			
-			$("#chk_" + file_info._id.$oid).on("click", function(){
+			$("#chk_" + file_info._id).on("click", function(){
 				var file_id = $(this).attr("id").replace("chk_", "upload_");
 				if ($(this).prop("checked")){
 					var file_name = $(this).attr("fname");
@@ -9193,9 +9191,9 @@ gFilesFN.prototype = {
 							docid = item._id;
 							
 						}else{
-							docid = info._id.$oid;
-							if (info.like_count.$numberLong != undefined){
-								like_count = info.like_count.$numberLong;
+							docid = info._id;
+							if (info.like_count != undefined){
+								like_count = info.like_count;
 
 							}else{
 								like_count = info.like_count;
@@ -9350,7 +9348,7 @@ gFilesFN.prototype = {
 							if (image_files.length > 0){
 								for (var i = 0; i < image_files.length; i++){
 									var image = image_files[i];
-									var size = gap.file_size_setting(parseInt(image.file_size.$numberLong));
+									var size = gap.file_size_setting(parseInt(image.file_size));
 									var image_url = gap.search_file_convert_server(info.fserver) + "/FDownload_thumb.do?id=" + docid + "&md5=" + image.md5 + "&ty=2";
 									
 									html += "<div class='img-content' id='msg_file_"+ docid + "_" + image.md5.replace(".","_")+"'>";		
@@ -9379,7 +9377,7 @@ gFilesFN.prototype = {
 									var file_info = normal_files[i];
 									var fname = file_info.filename;
 									var md5 = file_info.md5;
-									var fsize = gap.file_size_setting(parseInt(file_info.file_size.$numberLong));
+									var fsize = gap.file_size_setting(parseInt(file_info.file_size));
 									var add_dt_html = "data1='" + info.fserver + "' data2='" + info.upload_path + "' data3='" + file_info.md5 + "' data4='" + info.email + "' data5='" + file_info.file_type + "' data6='" + docid + "' data7='" + info.channel_code + "' data8='" + info.channel_name + "' title='" + file_info.filename + "'"
 									var icon_kind = gap.file_icon_check(fname);
 									var show_video = gap.file_show_video(fname);
@@ -9595,7 +9593,7 @@ gFilesFN.prototype = {
 							if (image_files.length > 0){
 								for (var i = 0; i < image_files.length; i++){
 									var image = image_files[i];
-									var size = gap.file_size_setting(parseInt(image.file_size.$numberLong));
+									var size = gap.file_size_setting(parseInt(image.file_size));
 									var image_url = gap.search_file_convert_server(info.fserver) + "/FDownload_thumb.do?id=" + docid + "&md5=" + image.md5 + "&ty=2";
 									
 									html += "<div class='img-content' id='msg_file_"+ docid + "_" + image.md5.replace(".","_")+"'>";		
@@ -9624,7 +9622,7 @@ gFilesFN.prototype = {
 									var file_info = normal_files[i];
 									var fname = file_info.filename;
 									var md5 = file_info.md5;
-									var fsize = gap.file_size_setting(parseInt(file_info.file_size.$numberLong));
+									var fsize = gap.file_size_setting(parseInt(file_info.file_size));
 									var add_dt_html = "data1='" + info.fserver + "' data2='" + info.upload_path + "' data3='" + file_info.md5 + "' data4='" + info.email + "' data5='" + file_info.file_type + "' data6='" + docid + "' data7='" + info.channel_code + "' data8='" + info.channel_name + "' title='" + file_info.filename + "'"
 									var icon_kind = gap.file_icon_check(fname);
 									var show_video = gap.file_show_video(fname);
@@ -10198,7 +10196,7 @@ gFilesFN.prototype = {
 				};
 			
 			if (is_update){
-				postData.key = obj._id.$oid;
+				postData.key = obj._id;
 				postData.email = gap.search_cur_ky();
 			}
 			
@@ -10396,7 +10394,7 @@ gFilesFN.prototype = {
 			var _html = "";	
 			
 			if (_type == "folder"){
-				var _id = data._id.$oid;
+				var _id = data._id;
 				var _name = data.name;
 				var _owner = data.owner.ky;
 				
@@ -10797,7 +10795,7 @@ gFilesFN.prototype = {
 						var _html = '';
 						var _folder_html = '';
 						_folder_html += '<li>';
-						_folder_html += '	<div style=""><span class="ico ico-todo-folder"></span>' + _info.name + '<button class="btn-entry" id="enter_' + _info._id.$oid + '"><span>' + gap.lang.move + '</span></button></div>';
+						_folder_html += '	<div style=""><span class="ico ico-todo-folder"></span>' + _info.name + '<button class="btn-entry" id="enter_' + _info._id + '"><span>' + gap.lang.move + '</span></button></div>';
 						_folder_html += '</li>';
 						if (is_share){
 							if (_info.share == "Y"){
@@ -11362,20 +11360,20 @@ gFilesFN.prototype = {
 							'	<td class="mu_chk_box">' +
 							'		<!-- input id값 변경 가능, label for과 동일한 id값 사용필요 -->' +
 							'		<span class="chk_box">' +
-							'			<input type="checkbox" name="file_checkbox" id="' + info._id.$oid + '" value="' + downloadpath + '">' +
-							'			<label for="' + info._id.$oid + '"></label>' +
+							'			<input type="checkbox" name="file_checkbox" id="' + info._id + '" value="' + downloadpath + '">' +
+							'			<label for="' + info._id + '"></label>' +
 							'		</span>' +
 							'	</td>' +
-							'	<td><span class="ico ico-ex-min ico-' + gap.file_icon_check_mu(file_info.filename) + '"></span>' + file_info.filename + '&nbsp;<b class="size">(' + gap.file_size_setting(file_info.file_size.$numberLong) + ')</b></td>' +
+							'	<td><span class="ico ico-ex-min ico-' + gap.file_icon_check_mu(file_info.filename) + '"></span>' + file_info.filename + '&nbsp;<b class="size">(' + gap.file_size_setting(file_info.file_size) + ')</b></td>' +
 							'	<td>' + owner_info.name + '</td>' +
 							'	<td class="c08">' + gap.convertGMTLocalDateTime(info.GMT) + '</td>' +
 							'</tr>';
 						
 						$layer.find('#file_list').append(html);
 						
-						$layer.find('#' + info._id.$oid).data('fsize', file_info.file_size.$numberLong);
-						$layer.find('#' + info._id.$oid).data('fname', file_info.filename);
-						$layer.find('#' + info._id.$oid).data('md5', file_info.md5.split(".")[0]);
+						$layer.find('#' + info._id).data('fsize', file_info.file_size);
+						$layer.find('#' + info._id).data('fname', file_info.filename);
+						$layer.find('#' + info._id).data('md5', file_info.md5.split(".")[0]);
 					}
 
 					//페이징
@@ -11579,27 +11577,27 @@ gFilesFN.prototype = {
 					for (var i = 0; i < list.length; i++){
 						var file_info = list[i];
 						var owner_info = gap.user_check(file_info.owner);
-						var downloadpath = gap.search_file_convert_server(file_info.fserver) + "FDownload.do?id=" + file_info._id.$oid + "&ty=1&ky="+gap.userinfo.rinfo.ky;
+						var downloadpath = gap.search_file_convert_server(file_info.fserver) + "FDownload.do?id=" + file_info._id + "&ty=1&ky="+gap.userinfo.rinfo.ky;
 						
 						var html = 
 							'<tr class="type_file">' +
 							'	<td class="mu_chk_box">' +
 							'		<!-- input id값 변경 가능, label for과 동일한 id값 사용필요 -->' +
 							'		<span class="chk_box">' +
-							'			<input type="checkbox" name="file_checkbox" id="' + file_info._id.$oid + '" value="' + downloadpath + '">' +
-							'			<label for="' + file_info._id.$oid + '"></label>' +
+							'			<input type="checkbox" name="file_checkbox" id="' + file_info._id + '" value="' + downloadpath + '">' +
+							'			<label for="' + file_info._id + '"></label>' +
 							'		</span>' +
 							'	</td>' +
-							'	<td><span class="ico ico-ex-min ico-' + gap.file_icon_check_mu(file_info.filename) + '"></span>' + file_info.filename + '&nbsp;<b class="size">(' + gap.file_size_setting(file_info.file_size.$numberLong) + ')</b></td>' +
+							'	<td><span class="ico ico-ex-min ico-' + gap.file_icon_check_mu(file_info.filename) + '"></span>' + file_info.filename + '&nbsp;<b class="size">(' + gap.file_size_setting(file_info.file_size) + ')</b></td>' +
 							'	<td>' + owner_info.name + '</td>' +
 							'	<td class="c08">' + gap.convertGMTLocalDateTime(file_info.GMT) + '</td>' +
 							'</tr>';
 						
 						$layer.find('#file_list').append(html);
 						
-						$layer.find('#' + file_info._id.$oid).data('fsize', file_info.file_size.$numberLong);
-						$layer.find('#' + file_info._id.$oid).data('fname', file_info.filename);
-						$layer.find('#' + file_info._id.$oid).data('md5', file_info.md5.split(".")[0]);
+						$layer.find('#' + file_info._id).data('fsize', file_info.file_size);
+						$layer.find('#' + file_info._id).data('fname', file_info.filename);
+						$layer.find('#' + file_info._id).data('md5', file_info.md5.split(".")[0]);
 					}
 
 					//페이징
@@ -12793,7 +12791,7 @@ gFilesFN.prototype = {
 		// 상세보기
 		$layer.find('.btn-notice-detail').off().on('click', function(){
 			var info = $layer.data('info');
-			gap.noticeOpen(info._id.$oid, type);
+			gap.noticeOpen(info._id, type);
 			return false;
 		});
 		
@@ -12805,7 +12803,7 @@ gFilesFN.prototype = {
 		
 		// 삭제
 		$layer.find('.btn-notice-remove').off().on('click', function(){
-			var docid = $layer.data('info')._id.$oid;
+			var docid = $layer.data('info')._id;
 			_self.removeNotice(docid, type);
 			return false;
 		});
@@ -12957,7 +12955,7 @@ gFilesFN.prototype = {
 		var $list = $layer.find('.reply-list');
 		
 		var postData = {
-				"key" : info._id.$oid,
+				"key" : info._id,
 				"owner" : gap.userinfo.rinfo,
 				"content" : txt
 			};
@@ -12976,7 +12974,7 @@ gFilesFN.prototype = {
 			
 				var res = res.data;
 				
-				gHome.noticeAddReply(info._id.$oid, res);
+				gHome.noticeAddReply(info._id, res);
 				
 				// 스크롤 최상단
 				var reply_body = $layer.find('.cont-inner').get(0); 

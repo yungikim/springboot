@@ -66,7 +66,10 @@ public class DocumentConverter {
                 result.put(key, converted);
             }
         });
-        
+
+        if (document.containsKey("_id")) {
+        	result.put("_id", document.get("_id").toString());
+        }       
         return result;
     }
     

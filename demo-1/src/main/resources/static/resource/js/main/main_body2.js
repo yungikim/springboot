@@ -2814,7 +2814,7 @@ gBodyFN2.prototype = {
 		gBody2.start_skp = (parseInt(gBody2.per_page) * (parseInt(page_no))) - (parseInt(gBody2.per_page) - 1);
 		
 		//"dtype" : 은 파일 형식으로 필터링 할때 사용한다. ppt, xls, doc, pdf, image, movie, hwp, txt, etc
-		var surl = gap.channelserver + "/folder_list.km";
+		var surl = gap.channelserver + "/api/files/folder_list.km";
 	/*	var postData = {
 				"ty" : (gBody2.disp_view_mode == "list" ? "1" : (page_no == 1 ? "1" : "2")), //(page_no == 1 ? "1" : "2"),
 				"drive_key" : gBody2.select_drive_code,
@@ -3363,7 +3363,7 @@ gBodyFN2.prototype = {
 		}
 		if (is_continue){
 			gBody2.start_skp = (parseInt(gBody2.per_page) * (parseInt(page_no))) - (parseInt(gBody2.per_page) - 1);
-			var surl = gap.channelserver + "/folder_list.km";
+			var surl = gap.channelserver + "/api/files/folder_list.km";
 		/*	var postData = {
 					"ty" : (gBody2.disp_view_mode == "list" ? "1" : (page_no == 1 ? "1" : "2")), //(page_no == 1 ? "1" : "2"),
 					"drive_key" : gBody2.select_drive_code,
@@ -4604,7 +4604,7 @@ gBodyFN2.prototype = {
 	},
 	
 	"add_favorite_file" : function(_id, _md5, _ty){
-		var surl = gap.channelserver + "/copy_favorite.km";
+		var surl = gap.channelserver + "/api/files/copy_favorite.km";
 	/*	var postData = {
 				"id" : _id,
 			    "md5" : _md5, 
@@ -4761,7 +4761,7 @@ gBodyFN2.prototype = {
 		$("#move_file_layer").html(html);
 		
 		// 개인채널 (드라이브)리스트 정보 가져오기
-		var surl = gap.channelserver + "/drive_list.km";
+		var surl = gap.channelserver + "/api/files/drive_list.km";
 	/*	var postData = {
 				"email" : gap.userinfo.rinfo.em,
 				"depts" : gap.full_dept_codes()
@@ -4924,7 +4924,7 @@ gBodyFN2.prototype = {
 	},	
 	
 	"draw_sub_folder" : function(drive_code, folder_code, padding_left, first_call){
-		var surl = gap.channelserver + "/folder_list.km";
+		var surl = gap.channelserver + "/api/files/folder_list.km";
 	/*	var postData = {
 				"ty" : "3", //폴더만
 				"drive_key" : drive_code,
@@ -5101,7 +5101,7 @@ gBodyFN2.prototype = {
 					text : gap.lang.OK,
 					btnClass : "btn-default",
 					action : function(){
-						var surl = gap.channelserver + "/delete_file_list.km";
+						var surl = gap.channelserver + "/api/files/delete_file_list.km";
 						var postData = {
 								"folder_item" : folder_check.join("-spl-"),
 								"file_item" : file_check.join("-spl-"),
@@ -5560,7 +5560,7 @@ gBodyFN2.prototype = {
 		$("#move_file_layer").html(html);
 		
 		// 드라이브 리스트 정보 가져오기
-		var surl = gap.channelserver + "/drive_list.km";
+		var surl = gap.channelserver + "/api/files/drive_list.km";
 	/*	var postData = {
 				"email" : gap.userinfo.rinfo.em
 			};*/
@@ -7390,7 +7390,7 @@ gBodyFN2.prototype = {
 	},
 	
 	"channel_favorite_file" : function(_id, _md5){
-		var surl = gap.channelserver + "/copy_favorite.km";
+		var surl = gap.channelserver + "/api/files/copy_favorite.km";
 	/*	var postData = {
 				"id" : _id,
 			    "md5" : _md5, 
@@ -7699,7 +7699,7 @@ gBodyFN2.prototype = {
 		}
 
 		gBody2.start_skp = (parseInt(gBody2.per_page) * (parseInt(page_no))) - (parseInt(gBody2.per_page) - 1);
-		var surl = gap.channelserver + "/folder_list.km";
+		var surl = gap.channelserver + "/api/files/folder_list.km";
 	/*	var postData = {
 				"ty" : (page_no == 1 ? "1" : "2"),
 				"drive_key" : gBody2.select_drive_code,

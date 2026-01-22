@@ -1261,7 +1261,7 @@ gBodyM2.prototype = {
 	//	gBodyM2.draw_drive_title_path();
 	
 		gBodyM2.start_skp = (parseInt(gBodyM2.per_page) * (parseInt(page_no))) - (parseInt(gBodyM2.per_page) - 1);
-		var surl = gap.channelserver + "/folder_list.km";
+		var surl = gap.channelserver + "/api/files/folder_list.km";
 
 		//"dtype" : 은 파일 형식으로 필터링 할때 사용한다. ppt, xls, doc, pdf, image, movie, hwp, txt, etc
 		var postData = {
@@ -1541,7 +1541,7 @@ gBodyM2.prototype = {
 	"add_drive_data_list" : function(page_no){
 		if (gBodyM2.cur_file_total_count > gBodyM2.cur_file_count){
 			gBodyM2.start_skp = (parseInt(gBodyM2.per_page) * (parseInt(page_no))) - (parseInt(gBodyM2.per_page) - 1);
-			var surl = gap.channelserver + "/folder_list.km";
+			var surl = gap.channelserver + "/api/files/folder_list.km";
 			var postData = {
 					"ty" : (page_no == 1 ? "1" : "2"), //(gBodyM2.disp_view_mode == "list" ? "1" : (page_no == 1 ? "1" : "2")),
 					"drive_key" : gBodyM2.select_drive_code,
@@ -2347,7 +2347,7 @@ gBodyM2.prototype = {
 	"add_favorite_file" : function(_id, _md5, _ty){
 	//	gBodyM.mobile_finish();
 		
-		var surl = gap.channelserver + "/copy_favorite.km";
+		var surl = gap.channelserver + "/api/files/copy_favorite.km";
 		var postData = {
 				"id" : _id,
 			    "md5" : _md5, 
@@ -2442,7 +2442,7 @@ gBodyM2.prototype = {
 					text : gap.lang.OK,
 					btnClass : "btn-default",
 					action : function(){
-						var surl = gap.channelserver + "/delete_file_list.km";
+						var surl = gap.channelserver + "/api/files/delete_file_list.km";
 						var postData = {
 								"folder_item" : folder_check.join("-spl-"),
 								"file_item" : file_check.join("-spl-"),
@@ -2665,7 +2665,7 @@ gBodyM2.prototype = {
 		$("#move_file_layer").html(html);
 
 		// 개인채널 (드라이브)리스트 정보 가져오기
-		var surl = gap.channelserver + "/drive_list.km";
+		var surl = gap.channelserver + "/api/files/drive_list.km";
 		var postData = {
 				"email" : gap.userinfo.rinfo.ky
 			};			
@@ -2746,7 +2746,7 @@ gBodyM2.prototype = {
 		$("#move_file_layer").html(html);
 
 		// 개인채널 (드라이브)리스트 정보 가져오기
-		var surl = gap.channelserver + "/drive_list.km";
+		var surl = gap.channelserver + "/api/files/drive_list.km";
 		var postData = {
 				"email" : gap.userinfo.rinfo.ky
 			};			
@@ -2814,7 +2814,7 @@ gBodyM2.prototype = {
 	},	
 	
 	"draw_sub_folder" : function(drive_code, folder_code, padding_left, first_call){
-		var surl = gap.channelserver + "/folder_list.km";
+		var surl = gap.channelserver + "/api/files/folder_list.km";
 		var postData = {
 				"ty" : "3", //폴더만
 				"drive_key" : drive_code,
@@ -4824,7 +4824,7 @@ gBodyM2.prototype = {
 		}
 
 		gBodyM2.start_skp = (parseInt(gBodyM2.per_page) * (parseInt(page_no))) - (parseInt(gBodyM2.per_page) - 1);
-		var surl = gap.channelserver + "/folder_list.km";
+		var surl = gap.channelserver + "/api/files/folder_list.km";
 		var postData = {
 				"ty" : (page_no == 1 ? "1" : "2"),
 				"drive_key" : gBodyM2.select_drive_code,

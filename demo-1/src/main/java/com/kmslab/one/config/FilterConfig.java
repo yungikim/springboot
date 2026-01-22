@@ -9,9 +9,9 @@ import com.kmslab.one.filter.SecurityFilter;
 @Configuration
 public class FilterConfig {
 	
-	private final AppConfig.JwtProvider jwtProvider;
+	private final JwtProvider jwtProvider;
 	
-	public FilterConfig(AppConfig.JwtProvider jwtProvider) {
+	public FilterConfig(JwtProvider jwtProvider) {
 		this.jwtProvider = jwtProvider;
 	}
 	

@@ -5138,9 +5138,8 @@ gFilesFN.prototype = {
 		//////////////////////////////////////////////////////////////////////
 		
 		this.start_skp = (parseInt(this.per_page) * (parseInt(page_no))) - (parseInt(this.per_page) - 1);
-		
 		//"dtype" : 은 파일 형식으로 필터링 할때 사용한다. ppt, xls, doc, pdf, image, movie, hwp, txt, etc
-		var surl = gap.channelserver + "/folder_list.km";
+		var surl = gap.channelserver + "/api/files/folder_list.km";
 		var postData = {
 				"ty" : (this.disp_view_mode == "list" ? "1" : (page_no == 1 ? "1" : "2")), //(page_no == 1 ? "1" : "2"),
 				"drive_key" : this.select_drive_code,
@@ -5853,9 +5852,10 @@ gFilesFN.prototype = {
 				is_continue = true;
 			}
 		}
+
 		if (is_continue){
 			this.start_skp = (parseInt(this.per_page) * (parseInt(page_no))) - (parseInt(this.per_page) - 1);
-			var surl = gap.channelserver + "/folder_list.km";
+			var surl = gap.channelserver + "/api/files/folder_list.km";
 			var postData = {
 					"ty" : (this.disp_view_mode == "list" ? "1" : (page_no == 1 ? "1" : "2")), //(page_no == 1 ? "1" : "2"),
 					"drive_key" : this.select_drive_code,
@@ -6875,7 +6875,7 @@ gFilesFN.prototype = {
 	},
 	
 	"add_favorite_file" : function(_id, _md5, _ty){
-		var surl = gap.channelserver + "/copy_favorite.km";
+		var surl = gap.channelserver + "/api/files/copy_favorite.km";
 		var postData = {
 				"id" : _id,
 			    "md5" : _md5, 
@@ -7025,7 +7025,7 @@ gFilesFN.prototype = {
 		$("#move_file_layer").html(html);
 		
 		// 개인채널 (드라이브)리스트 정보 가져오기
-		var surl = gap.channelserver + "/drive_list.km";
+		var surl = gap.channelserver + "/api/files/drive_list.km";
 		var postData = {};
 
 		$.ajax({
@@ -7170,7 +7170,7 @@ gFilesFN.prototype = {
 	
 	"draw_sub_folder" : function(drive_code, folder_code, padding_left, first_call){
 		var _self = this;
-		var surl = gap.channelserver + "/folder_list.km";
+		var surl = gap.channelserver + "/api/files/folder_list.km";
 		var postData = {
 				"ty" : "3", //폴더만
 				"drive_key" : drive_code,
@@ -7338,7 +7338,7 @@ gFilesFN.prototype = {
 					text : gap.lang.OK,
 					btnClass : "btn-default",
 					action : function(){
-						var surl = gap.channelserver + "/delete_file_list.km";
+						var surl = gap.channelserver + "/api/files/delete_file_list.km";
 						var postData = {
 								"folder_item" : folder_check.join("-spl-"),
 								"file_item" : file_check.join("-spl-"),
@@ -7726,7 +7726,7 @@ gFilesFN.prototype = {
 		$("#move_file_layer").html(html);
 		
 		// 드라이브 리스트 정보 가져오기
-		var surl = gap.channelserver + "/drive_list.km";
+		var surl = gap.channelserver + "/api/files/drive_list.km";
 		var postData = {};
 
 		$.ajax({
@@ -9317,7 +9317,7 @@ gFilesFN.prototype = {
 	},
 	
 	"channel_favorite_file" : function(_id, _md5){
-		var surl = gap.channelserver + "/copy_favorite.km";
+		var surl = gap.channelserver + "/api/files/copy_favorite.km";
 	/*	var postData = {
 				"id" : _id,
 			    "md5" : _md5, 
@@ -9626,7 +9626,7 @@ gFilesFN.prototype = {
 		}
 
 		gFiles.start_skp = (parseInt(gFiles.per_page) * (parseInt(page_no))) - (parseInt(gFiles.per_page) - 1);
-		var surl = gap.channelserver + "/folder_list.km";
+		var surl = gap.channelserver + "/api/files/folder_list.km";
 	/*	var postData = {
 				"ty" : (page_no == 1 ? "1" : "2"),
 				"drive_key" : gFiles.select_drive_code,

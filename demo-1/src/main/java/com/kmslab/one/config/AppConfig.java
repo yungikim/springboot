@@ -20,19 +20,28 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Component
-@ConfigurationProperties(prefix = "storage")
+//@ConfigurationProperties(prefix = "storage")
 @Getter @Setter
 public class AppConfig {
+	@Value("${storage.ffmpeg-path}")
 	private String ffmpegPath;
+	
+	@Value("${storage.media-info-path}")
 	private String mediaInfoPath;
+	
+	@Value("${storage.realdrive}")
 	private String realdrive;
+	
+	@Value("${storage.tempdrive}")
 	private String tempdrive;
+	
+	@Value("${storage.master-url}")
 	private String masterUrl;
 	
 	//계산된 경로들을 저장할 변수
-	private String thumbnailPath;
-	private String fileDownloadPath;
-	private String chatroomPath;
+	public String thumbnailPath;
+	public String fileDownloadPath;
+	public String chatroomPath;
 	
 	/**
 	 *의존성 주입이 완료딘 후, realdrive 값을 기반으로 하위 경로들을 자동으로 계산하여 설정합니다.
@@ -40,77 +49,20 @@ public class AppConfig {
 	
 	@PostConstruct
 	public void init() {
-		String sepa = File.separator;
+		String sepa = File.separator;	    
+		if (this.realdrive == null) {
+			return;
+		}
 		this.thumbnailPath = realdrive + sepa + "download" + sepa + "thumbnail" + sepa;
 		this.fileDownloadPath = realdrive + sepa + "upload";
 		this.chatroomPath = realdrive + sepa + "vol_epchat" + sepa + "data" + sepa + "upload_root";
 	}
 	
-	@Component
-	public class JwtProvider{
-		@Value("${jwt.secret}") //properties에 정의된 비밀키
-		private String secretKey;
-		
-	//	private Key key;
-		private byte[] key;
-		
-		@Value("${jwt.expiration-ms}")
-		private long tokenValidityInMilliseconds;
-		
-		@PostConstruct
-		public void init() {
-			//비밀키를 기반으로 HMAC SHA 키 생성
-		//	byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
-		//	this.key = Keys.hmacShaKeyFor(keyBytes);
-			this.key = secretKey.getBytes(StandardCharsets.UTF_8);
-		}
-		
-		//1. 토큰 생성 (로그인시 사용)
-		public String createToken(String email, String depths, String userid) {
-			 Map<String, Object> headers = new HashMap<>();
-			    headers.put("typ", "JWT");
-			    headers.put("alg", "HS256");
-			    
-			    Map<String, Object> payloads = new HashMap<>();
-			    payloads.put("email", email);
-			    payloads.put("depths", depths);
-			    payloads.put("userid", userid);
-			
-			    Long expiredTime = tokenValidityInMilliseconds; // 15시간
-			    Date ext = new Date(System.currentTimeMillis() + expiredTime);
-			
-			    return Jwts.builder()
-			            .setHeader(headers)
-			            .setClaims(payloads)
-			            .setSubject("auth")
-			            .setExpiration(ext)
-			        //    .signWith(this.key, SignatureAlgorithm.HS256)
-			            .signWith(SignatureAlgorithm.HS256, secretKey.getBytes())
-			            .compact();
-		}	
-		
-		//2. 토큰에서 정보 추출
-		public Claims getClaims(String token) {
-			return Jwts.parser()
-					.setSigningKey(key)
-					.parseClaimsJws(token)
-					.getBody();
-		}
-		
-		//3. 토큰 유효성 검증 (인터셉터/필터에서 사용)
-		public boolean validateToken(String token) {
-			try {
-				Jwts.parser().setSigningKey(key).parseClaimsJws(token);
-				return true;
-			}catch(JwtException | IllegalArgumentException e) {
-				//토큰 만료 변조, 형식 오류등
-				return false;
-			}
-		}
-		
-		
-		
+	public String getFileDownloadPath() {
+	    return this.fileDownloadPath;
 	}
-
-
+	
+	public String getChatroomPath() {
+		return this.chatroomPath;
+	}
 }

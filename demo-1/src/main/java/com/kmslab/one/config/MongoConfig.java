@@ -48,6 +48,9 @@ public class MongoConfig {
 	@Bean(name="channelInfo")
 	public MongoTemplate channelInfo() {return createTemplate("channel_info");}
 	
+	@Bean(name="channel_data")
+	public MongoTemplate channel_data() {return createTemplate("channel_data");}
+	
 	@Bean(name="folderdata")
 	public MongoTemplate folderdata() {return createTemplate("folder_data");}
 	
@@ -62,4 +65,12 @@ public class MongoConfig {
 	
 	@Bean(name="TODO_Folder")
 	public MongoTemplate TODO_Folder() {return createTemplate("TODO_Folder");}
+	
+	@Bean(name="log")
+	public MongoTemplate log() {return createTemplate("log");}
+	
+	@Bean(name="channel_favorite")
+	public MongoTemplate channel_favorite() {return createTemplate("channel_favorite");}
+	
+	
 }

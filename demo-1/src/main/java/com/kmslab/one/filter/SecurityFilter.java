@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import com.kmslab.one.config.AppConfig;
+import com.kmslab.one.config.JwtProvider;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -17,10 +17,10 @@ import jakarta.servlet.http.HttpServletResponse;
 public class SecurityFilter implements Filter{
 	
 	//JwtProvider 주입을 위한 필드 , final로 선언하면 생성자에서 초기화 해주어야 한다.
-	private final AppConfig.JwtProvider jwtProvider;
+	private final JwtProvider jwtProvider;
 	
 	//생성자를 통해 스프링 빈(JwtProvider)을 전달 받음
-	public SecurityFilter(AppConfig.JwtProvider jwtProvider) {
+	public SecurityFilter(JwtProvider jwtProvider) {
 		this.jwtProvider = jwtProvider;
 	}
 		

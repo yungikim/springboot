@@ -5771,7 +5771,7 @@ gBodyM.prototype = {
 					"email" : gap.userinfo.rinfo.ky,
 					"fserver" : fs
 				});
-				url = gap.channelserver + "/copy_favorite.km";
+				url = gap.channelserver + "/api/files/copy_favorite.km";
 				$.ajax({
 					type : "POST",
 					dataType : "json",

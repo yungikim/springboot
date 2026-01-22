@@ -1,5 +1,6 @@
 package com.kmslab.one.controller.restapi;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +28,10 @@ public class ChannelRestAPIController {
 	}
 	
 	@PostMapping("/channel_info_list.km")
-	public Object channel_info_list(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+	public Object channel_info_list(@RequestBody(required=false) Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		if (requestData == null) {
+			requestData = new HashMap<>();
+		}
 		requestData.put("email", userId);
 		requestData.put("depts", depts);
 		return channelService.channel_info_list(requestData);
