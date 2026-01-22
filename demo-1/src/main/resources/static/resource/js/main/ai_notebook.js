@@ -395,7 +395,7 @@ gnotebook.prototype = {
 		$("#dark_layer").append(html);		
 		$("#dark_layer").fadeIn(150);		
 		if (opt == "modify"){
-			var url = gap.channelserver + "/ai_notebook_info.km";
+			var url = gap.channelserver + "/api/kgpt/ai_notebook_info.km";
 			var data = JSON.stringify({
 				"id" : 	id	
 			});
@@ -453,7 +453,7 @@ gnotebook.prototype = {
 			"perpage" : 30,
 			"sort" : gnote.sort
 		});
-		var url = gap.channelserver + "/ai_notebook_list.km";
+		var url = gap.channelserver + "/api/kgpt/ai_notebook_list.km";
 		gap.ajaxCall(url, data, 
 			function(res){
 				var html = "";				
@@ -461,6 +461,7 @@ gnotebook.prototype = {
 				var share_count = res.data.share;
 				if( data.length > 0 && data !== undefined ){
 				///////////// 노트북이 존재할 때 //////////////
+
 					var share_key = gap.userinfo.rinfo.ky + "_share";
 					html += "<div class='item_border shared' data-id='"+share_key+"'>";
 					html += "	<div class='item_inner'>";					
@@ -486,10 +487,10 @@ gnotebook.prototype = {
 					html += "		</div>";					
 					html += "	</div>";
 					html += "</div>";									
-				
 					for (var i = 0; i < data.length; i++){						
 						var itm = data[i];
-						var id = itm._id.$oid;
+					//	var id = itm._id.$oid;
+						var id = itm._id;
 						var flen = 0;
 						if (itm.data){
 							flen = itm.data.length;
@@ -864,7 +865,7 @@ gnotebook.prototype = {
 		var data = JSON.stringify({
 			"notebook_code" : gnote.current_notebook
 		});
-		var url = gap.channelserver + "/ai_note_list.km";
+		var url = gap.channelserver + "/api/kgpt/ai_note_list.km";
 		gap.ajaxCall(url, data,
 			function(res){
 				var html = "";
@@ -1003,7 +1004,7 @@ gnotebook.prototype = {
 		///// 확인버튼 /////////
 		$("#btn_edit_title_ok").off().on("click", function(){			
 			var change_title = $("#input_edit_title").val();			
-			var url = gap.channelserver + "/ai_notebook_title_update.km";
+			var url = gap.channelserver + "/api/kgpt/ai_notebook_title_update.km";
 			var data = JSON.stringify({
 				"id" : gnote.current_notebook,
 				"notebook_name" : change_title
@@ -1842,7 +1843,7 @@ gnotebook.prototype = {
 			"perpage" : 10000,
 			"sort" : "1"
 		});
-		var url = gap.channelserver + "/ai_notebook_list.km";
+		var url = gap.channelserver + "/api/kgpt/ai_notebook_list.km";
 		gap.ajaxCall(url, data, 
 			function(res){
 				var html = "";				

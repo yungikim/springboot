@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kmslab.one.service.MongoDataService;
 
@@ -62,4 +63,18 @@ public class PortalController {
 		return "page/login";
 	}
 	
+	@GetMapping("/page/kgpt")
+	public String loginPage_kgpt(Model model) {
+		model.addAttribute("jsVer", "1.0");
+		model.addAttribute("cssVer", "1.0");
+		return "page/kgpt";
+	}
+	
+	@GetMapping("/v/kgpt")
+	public String loginPage_goto_kgpt(RedirectAttributes model) {
+		model.addFlashAttribute("jsVer", "1.0");
+		model.addFlashAttribute("cssVer", "1.0");
+		model.addFlashAttribute("view", "kgpt");
+		return "redirect:/v/portal";
+	}
 }

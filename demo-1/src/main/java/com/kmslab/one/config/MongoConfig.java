@@ -25,6 +25,13 @@ public class MongoConfig {
 	@Bean(name="GPT")
 	@Primary
 	public MongoTemplate GPTMongoTemplate() {return createTemplate("GPT");}
+	
+	@Bean(name="GPT_LOG")
+	public MongoTemplate GPT_LOGMongoTemplate() {return createTemplate("GPT_LOG");}
+	
+	@Bean(name="AI_Notebook")
+	public MongoTemplate AI_NotebookMongoTemplate() {return createTemplate("AI_Notebook");}
+	
 			
 	@Bean(name="userdb")
 	public MongoTemplate UserdbTemplate() {return createTemplate("im_org_info");}

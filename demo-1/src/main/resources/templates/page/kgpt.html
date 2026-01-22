@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+
+</head>
+<body>
+	<div id="kgpt_dis"></div>
+</body>
+
+
+<script>
+(function(loader){
+	var queue = loader 
+	.script("<%=request.getContextPath()%>/resource/js/main/main_body3.js?open?ver=<%=JS_VER %>");		
+	queue.wait(function(){
+		gBody3 = new gBodyFN3();
+		gBody3.init();
+	});
+	
+})($LAB);
+
+gptpt.init();
+//gptpt.check_brief();
+</script>
+
+</html>

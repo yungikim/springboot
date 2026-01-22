@@ -138,9 +138,10 @@ gcommon.prototype = {
 					gcom.delete_cookie_all("userid");		
 					gcom.delete_cookie_all("companycode");
 					gcom.delete_cookie_all("language");			
+					gcom.delete_cookie_all("Authorization");
 					
 					//메인 페이지로 이동한다.
-					location.href = root_path + "/";
+					location.href = root_path + "/page/login";
 				}else{
 					gap.error_alert();
 				}
@@ -580,7 +581,7 @@ gcommon.prototype = {
 				//AI Portal
 				$("#btn_menu_portal").on("click", function(){
 					gap.cur_window = "kgpt"	
-					gap.LoadPage("area_content", root_path + "/page/kgpt.jsp");
+					gap.LoadPage("area_content", root_path + "/page/kgpt");
 					gap.history_save("kgpt");
 				});
 				

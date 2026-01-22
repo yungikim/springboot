@@ -387,7 +387,7 @@ function kgptportal(){
 	},
 	
 	"brief_init" : function(opt){				
-		var surl = gap.channelserver + "/ai_brief_data.km";
+		var surl = gap.channelserver + "/api/kgpt/ai_brief_data.km";
 		var postData = JSON.stringify({
 		});
 		$.ajax({
@@ -2290,7 +2290,7 @@ function kgptportal(){
 				data = stext.join("-=spl=-");
 			}
 			
-			var surl = gap.channelserver + "/ai_brief_save.km";
+			var surl = gap.channelserver + "/api/kgpt/ai_brief_save.km";
 			var postData = JSON.stringify({
 				"data" : data,
 				"checked" : ischecked
@@ -2711,7 +2711,7 @@ function kgptportal(){
 	 	 var postData = JSON.stringify({
 	 	 	"category" : "pc"
 	 	 });
-		 var url = root_path + "/" + (opt == "template" ? "ai_list_template.km" : "ai_list_mydata.km");
+		 var url = root_path + "/api/kgpt/" + (opt == "template" ? "ai_list_template.km" : "ai_list_mydata.km");
 		 $.ajax({
 			type : "POST",
 			url : url,
@@ -2856,7 +2856,7 @@ function kgptportal(){
 	 	 	count = gptpt.real_max_count;
 	 	 }
 	 	 
-		 var url = root_path + "/ai_list_person_request.km";
+		 var url = root_path + "/api/kgpt/ai_list_person_request.km";
 		 var data = JSON.stringify({
 		 	"count" : count
 		 });
@@ -3056,7 +3056,7 @@ function kgptportal(){
 						$("#btn_cancel_work_list_search").show();
 						$("#more_work_list_ul").empty();
 						
-						var url = gap.channelserver + "/gpt_over_list.km";
+						var url = gap.channelserver + "/api/kgpt/gpt_over_list.km";
 						var data = JSON.stringify({
 							"ky" : gap.userinfo.rinfo.ky,
 							"query" : val
@@ -3292,7 +3292,7 @@ function kgptportal(){
 		
 	//// K-GPT 좌측 업무리스트 더보기 목록 그리는 함수
 	"draw_more_work_list" : function(){		
-		var url = gap.channelserver + "/gpt_over_list.km";
+		var url = gap.channelserver + "/api/kgpt/gpt_over_list.km";
 		var data = JSON.stringify({
 			"ky" : gap.userinfo.rinfo.ky,
 			"query" : "",
@@ -6701,7 +6701,7 @@ function kgptportal(){
 	},
 	
 	"draw_room_history" : function(roomkey, opt, room_name){		
-		var url = gap.channelserver + "room_history.km";
+		var url = gap.channelserver + "/api/kgpt/room_history.km";
 		var data = JSON.stringify({
 			"roomkey" : roomkey
 		});
