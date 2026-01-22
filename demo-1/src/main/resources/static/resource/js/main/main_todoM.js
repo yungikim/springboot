@@ -1135,7 +1135,7 @@ gTodoM.prototype = {
 		
 		if (gTodoM.todo_project_list == ""){
 		//	var surl = gap.channelserver + "/folder_list_todo.km";
-			var surl = gap.channelserver + "/channel_info_list.km";
+			var surl = gap.channelserver + "/api/channel/channel_info_list.km";
 			var postData = JSON.stringify({
 					email : gap.userinfo.rinfo.ky,
 					depths : fulldeptcode
@@ -1316,7 +1316,7 @@ gTodoM.prototype = {
 		$("#add_todo").html(html);
 		
 		if (gTodoM.todo_project_list == ""){
-			var surl = gap.channelserver + "/channel_info_list.km";
+			var surl = gap.channelserver + "/api/channel/channel_info_list.km";
 			var postData = JSON.stringify({
 					email : gap.userinfo.rinfo.ky,
 					depths : fulldeptcode

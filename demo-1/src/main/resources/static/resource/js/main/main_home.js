@@ -4067,7 +4067,7 @@ gBodyHome.prototype = {
 			type : "POST",
 			dataType : "json",
 			contentType : "application/json; charset=utf-8",
-			url : gap.channelserver + "/channel_info_list.km",
+			url : gap.channelserver + "/api/channel/channel_info_list.km",
 			beforeSend : function(xhr){
 				xhr.setRequestHeader("auth", gap.get_auth());
 			},

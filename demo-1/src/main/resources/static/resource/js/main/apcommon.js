@@ -6490,7 +6490,7 @@ gapcommon.prototype = {
 	
 	"pre_workroom_set" : function(){
 		if (gap.cur_channel_list_info == ""){
-			var url = gap.channelserver + "/channel_info_list.km";
+			var url = gap.channelserver + "/api/channel/channel_info_list.km";
 			$.ajax({
 				type : "POST",
 				url : url,

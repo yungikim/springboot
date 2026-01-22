@@ -466,7 +466,7 @@ gBodyFN3.prototype = {
 		//내 사이즈 체크해서 표시한다.
 		//gBody3.check_my_drive_size();
 		// 공유채널 리스트 정보 가져오기	
-		var surl = gap.channelserver + "/channel_info_list.km";
+		var surl = gap.channelserver + "/api/channel/channel_info_list.km";
 		var postData = JSON.stringify({});
 		$.ajax({
 			type : "POST",
@@ -8392,7 +8392,7 @@ gBodyFN3.prototype = {
 	"channel_item_add" : function(){
 		// 공유채널 리스트 정보 가져오기		
 		if (gap.cur_channel_list_info == ""){
-			var surl = gap.channelserver + "/channel_info_list.km";			
+			var surl = gap.channelserver + "/api/channel/channel_info_list.km";			
 			var postData = JSON.stringify({});	
 			$.ajax({
 				type : "POST",

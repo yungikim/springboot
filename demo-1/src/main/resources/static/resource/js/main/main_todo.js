@@ -5256,7 +5256,7 @@ gBodyTODO.prototype = {
 		});*/
 		
 		var data = JSON.stringify({});
-		var url = channelserver + "/channel_info_list.km";
+		var url = channelserver + "/api/channel/channel_info_list.km";
 		$.ajax({
 			type : "POST",
 			dataType : "json",

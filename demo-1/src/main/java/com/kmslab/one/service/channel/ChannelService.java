@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import com.kmslab.one.service.ResInfo;
+import com.kmslab.one.util.DocumentConverter;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 
@@ -128,5 +129,88 @@ public class ChannelService {
 			e.printStackTrace();
 			return ResInfo.error(e.getMessage());
 		}
+	}
+	
+	public Object channel_info_list(Map<String, Object> requestData) {
+		List<Map<String, Object>> ar = new ArrayList<>();
+		
+		try{
+			MongoCollection<Document> col = channelInfo.getCollection("channel");			
+			if (requestData.containsKey("email")) {				
+				Document query = new Document();	
+				String email = requestData.get("email").toString();
+				Pattern regex = Pattern.compile(email, Pattern.CASE_INSENSITIVE);					
+				if (requestData.containsKey("depts")) {
+					List<String> llk = new ArrayList<>();
+					llk.add(email);					
+					String lix = requestData.get("depts").toString();
+					if (!lix.equals("")) {
+						String[] lists = lix.split("-spl-");
+						for (int i = 0 ; i < lists.length; i++) {
+							String dept = lists[i];
+							llk.add(dept);
+						}
+					}			
+					query.put("readers", new Document("$in", llk));
+				}else {
+					query.put("readers", regex);
+				}			
+				//exit_user필드에는 포함되지 않아야 한다.
+				List<String> llk2 = new ArrayList<>();
+				llk2.add(email);		
+				Document query2 = new Document();
+				query2.put("exit_user", new Document("$nin", llk2));							
+				List<Document> sdoc = new ArrayList<Document>();
+				sdoc.add(query);
+				sdoc.add(query2);				
+				Document qq = new Document();
+				qq.append("$and", sdoc);				
+				Document sort = new Document();
+				sort.append("type", -1);
+				sort.append("ch_name", 1);			
+				
+				FindIterable<Document> list = col.find(qq).sort(sort);				
+				List<Document> items = new ArrayList<Document>();		
+				List<Document> folders = new ArrayList<Document>();				
+				for (Document doc : list){						
+					Document rt = new Document();
+					String rtime = "";
+					if (doc.containsKey("read_time")) {
+						items = doc.getList("read_time", Document.class);						
+						for (Document item : items) {	
+							if (item.get("email") != null) {
+								if (email.equals(item.get("email").toString())) {
+									rtime = item.get("time").toString();
+									break;
+								}
+							}					
+						}
+					}					
+					//2024.09.26 새로 만들어서 readtime이 아예 없는 경우 무조건 빨콩 표시를 위해 시간 추가
+					if(rtime.equals("")) {
+						rtime = "20010101000000";
+					}					
+					String folderkey = "";
+					if (doc.containsKey("folder_info")) {
+						folders = doc.getList("folder_info", Document.class);
+						for (Document folder : folders) {
+							if (folder.get("email") != null) {
+								if (email.equals(folder.get("email").toString())) {
+									folderkey = folder.get("fk").toString();
+									doc.put("folderkey", folderkey);
+									break;
+								}
+							}
+						}
+					}					
+					doc.append("read_time", rtime);	
+					ar.add(DocumentConverter.toCleanMap(doc));
+				}
+			}		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return ResInfo.success(ar);
 	}
 }

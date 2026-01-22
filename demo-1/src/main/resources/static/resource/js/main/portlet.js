@@ -606,7 +606,7 @@ gPtl.prototype = {
 	},	
 	
 	"load_channel_list_info" : function(){		
-		var url = gap.channelserver + "/channel_info_list.km";
+		var url = gap.channelserver + "/api/channel/channel_info_list.km";
 		var data = JSON.stringify({});
 		$.ajax({
 			type : "POST",

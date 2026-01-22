@@ -4765,7 +4765,7 @@ gFilesFN.prototype = {
 		
 		var is_member_update = (ch_code != undefined ? true : false);
 		var is_draw_left = (draw_left != undefined ? draw_left : false);
-		var surl = gap.channelserver + "/channel_info_list.km";
+		var surl = gap.channelserver + "/api/channel/channel_info_list.km";
 	/*	var postData = JSON.stringify({
 				"email" : gap.search_cur_em_sec(),
 				"depts" : gap.full_dept_codes()
@@ -12230,7 +12230,7 @@ gFilesFN.prototype = {
 
 		
 		//폴더 리스트 가져오기
-		var surl = gap.channelserver + "/channel_info_list.km";
+		var surl = gap.channelserver + "/api/channel/channel_info_list.km";
 	/*	var postData = JSON.stringify({
 			email : gap.search_cur_em_sec(),
 			depts : gap.full_dept_codes()
@@ -12853,7 +12853,7 @@ gFilesFN.prototype = {
 	
 	"get_channel_info_list" : function(){
 		var _self = this;
-		var url = gap.channelserver + "/channel_info_list.km";
+		var url = gap.channelserver + "/api/channel/channel_info_list.km";
 		var data = JSON.stringify({});
 		
 		$.ajax({
