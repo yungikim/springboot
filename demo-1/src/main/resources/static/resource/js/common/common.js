@@ -601,28 +601,28 @@ gcommon.prototype = {
 				
 				// 취합
 				$("#btn_menu_gathering").on("click", function(){
-					gap.LoadPage("area_content", root_path + "/page/collect.jsp"); 
+					gap.LoadPage("area_content", root_path + "/page/collect"); 
 					gap.cur_window = "collect";
 					gap.history_save("collect");
 				});
 				
 				// 조직도
 				$("#btn_menu_tree").on("click", function(){
-					gap.LoadPage("area_content", root_path + "/page/organ.jsp");
+					gap.LoadPage("area_content", root_path + "/page/organ");
 					gap.cur_window = "org";
 					gap.history_save("org");
 				});				
 				
 				//Files
 				$("#btn_menu_folder").on("click", function(e){
-					gap.LoadPage("area_content", root_path + "/page/files.jsp");
+					gap.LoadPage("area_content", root_path + "/page/files");
 					gap.cur_window = "drive";
 					gap.history_save("files");
 				});
 				
 				// 회의예약
 				$("#btn_menu_meeting").on("click", function(){
-					gap.LoadPage("area_content", root_path + "/page/meeting.jsp");
+					gap.LoadPage("area_content", root_path + "/page/meeting");
 					gap.cur_window = "meeting";
 					gap.history_save("meeting");
 				});
@@ -4939,7 +4939,7 @@ gcommon.prototype = {
 		var _company = '';
 		// 회사정보 가져오기
 		$.ajax({
-			url: root_path + "/search_company.km",
+			url: root_path + "/api/user/search_company.km",
 			async: false,
 			success: function(res){
 				$.each(res, function(){
@@ -5164,7 +5164,7 @@ gcommon.prototype = {
 		var _company = '';
 		// 회사정보 가져오기
 		$.ajax({
-			url: gap.channelserver + "/search_company.km",
+			url: gap.channelserver + "/api/user/search_company.km",
 			async: false,
 			success: function(res){
 				$.each(res, function(){
@@ -6347,7 +6347,7 @@ gcommon.prototype = {
 		var _company = '';
 		// 회사정보 가져오기
 		$.ajax({
-			url: gap.channelserver + "/search_company.km",
+			url: gap.channelserver + "/api/user/search_company.km",
 			async: false,
 			success: function(res){
 				$.each(res, function(){
@@ -8346,7 +8346,7 @@ gcommon.prototype = {
 		var _company = '';
 		// 회사정보 가져오기
 		$.ajax({
-			url: gap.channelserver + "/search_company.km",
+			url: gap.channelserver + "/api/user/search_company.km",
 			async: false,
 			success: function(res){
 				$.each(res, function(){
@@ -9080,7 +9080,7 @@ gcommon.prototype = {
 		var _company = '';
 		// 회사정보 가져오기
 		$.ajax({
-			url: root_path + "/search_company.km",
+			url: root_path + "/api/user/search_company.km",
 			async: false,
 			success: function(res){
 				$.each(res, function(){

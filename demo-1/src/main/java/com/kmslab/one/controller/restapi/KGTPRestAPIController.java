@@ -13,7 +13,7 @@ import com.kmslab.one.service.kgpt.KGPTService;
 @RestController
 @RequestMapping("/api/kgpt")
 public class KGTPRestAPIController {
-private final KGPTService kgptService;
+	private final KGPTService kgptService;
 	
 	public KGTPRestAPIController(KGPTService kgptService) {
 		this.kgptService = kgptService;

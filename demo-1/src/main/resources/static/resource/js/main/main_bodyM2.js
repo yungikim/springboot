@@ -112,7 +112,7 @@ gBodyM2.prototype = {
 		}
 
 		gBodyM2.start_skp = (parseInt(gBodyM2.per_page) * (parseInt(page_no))) - (parseInt(gBodyM2.per_page) - 1);
-		var surl = gap.channelserver + "/folder_list_main.km";
+		var surl = gap.channelserver + "/api/files/folder_list_main.km";
 		
 		//"dtype" : 은 파일 형식으로 필터링 할때 사용한다. ppt, xls, doc, pdf, image, movie, hwp, txt, etc
 		var postData = {
@@ -291,7 +291,7 @@ gBodyM2.prototype = {
 	"add_drive_main_data_list" : function(page_no){
 		if (gBodyM2.cur_file_total_count > gBodyM2.cur_file_count){
 			gBodyM2.start_skp = (parseInt(gBodyM2.per_page) * (parseInt(page_no))) - (parseInt(gBodyM2.per_page) - 1);
-			var surl = gap.channelserver + "/folder_list_main.km";
+			var surl = gap.channelserver + "/api/files/folder_list_main.km";
 			var postData = {
 					"email" : gap.userinfo.rinfo.ky,
 				//	"email" : gap.search_cur_em_sec(),
@@ -1049,7 +1049,7 @@ gBodyM2.prototype = {
 		gBodyM2.query_str = (query_str == undefined ? "" : query_str);
 		gBodyM2.click_filter_image = "";
 		
-		var surl = gap.channelserver + "/drive_list_all.km";
+		var surl = gap.channelserver + "/api/files/drive_list_all.km";
 		var postData = JSON.stringify({
 				"email" : gap.userinfo.rinfo.ky,
 				"depts" : gap.full_dept_codes()
@@ -1082,7 +1082,7 @@ gBodyM2.prototype = {
 
 		if (gBodyM2.cur_folder_list_info == ""){
 			//폴더 리스트 - 최초 1번만 실행
-			var surl = gap.channelserver + "/drive_list_all.km";
+			var surl = gap.channelserver + "/api/files/drive_list_all.km";
 			var postData = JSON.stringify({
 					"email" : gap.userinfo.rinfo.ky,
 					"depts" : gap.full_dept_codes()
@@ -4648,7 +4648,7 @@ gBodyM2.prototype = {
 		$('#share_channel_option_list').material_select();
 		
 		//드라이브 리스트
-		var surl = gap.channelserver + "/drive_list_all.km";
+		var surl = gap.channelserver + "/api/files/drive_list_all.km";
 		var postData = JSON.stringify({
 				"email" : gap.userinfo.rinfo.ky,
 				"depts" : gap.full_dept_codes()
@@ -5190,7 +5190,7 @@ gBodyM2.prototype = {
 		//gap.gAlert("drive_code >> " + drive_code + " / folder_code >> " + folder_code);
 		gBodyM2.load_folder_info = "";
 		var is_update = false;
-		var surl = gap.channelserver + "/drive_list_all.km";
+		var surl = gap.channelserver + "/api/files/drive_list_all.km";
 		var postData = JSON.stringify({
 				"email" : gap.userinfo.rinfo.ky,
 				"depts" : gap.full_dept_codes()

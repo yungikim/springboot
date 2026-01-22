@@ -10,10 +10,15 @@
 </body>
 
 
-<script>
+<script th:inline="javascript">
+	/*<![CDATA[*/
 (function(loader){
-	var queue = loader 
-	.script("<%=request.getContextPath()%>/resource/js/main/main_body3.js?open?ver=<%=JS_VER %>");		
+//	var queue = loader 
+//	.script("<%=request.getContextPath()%>/resource/js/main/main_body3.js?open?ver=<%=JS_VER %>");		
+	
+	var scriptPath = /*[[@{/resource/js/main/main_body3.js(ver=${jsVer})}]]*/ "/resource/js/main/main_body3.js";
+	var queue = loader.script(scriptPath);
+	
 	queue.wait(function(){
 		gBody3 = new gBodyFN3();
 		gBody3.init();
@@ -23,6 +28,8 @@
 
 gptpt.init();
 //gptpt.check_brief();
+
+/*]]>*/
 </script>
 
 </html>

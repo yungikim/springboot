@@ -72,16 +72,16 @@ gSameName.prototype = {
 			name: nm_arr.join(','),
 			companycode: cp
 		}
-		
 		$.ajax({
 			type: 'POST',
-			url: gap.channelserver + "/search_user_multi.km",
+			url: gap.channelserver + "/api/user/search_user_multi.km",
 			beforeSend: function(){
 				_self.search_req = setTimeout(function(){gap.showBlock();}, 200);
 				//gap.showBlock();
 			},
 			data: JSON.stringify(data),
 			success: function(data){
+				
 				clearTimeout(_self.search_req);
 				_self.search_result = data;
 				_self.reqSameNameLayer();
@@ -96,9 +96,10 @@ gSameName.prototype = {
 	
 	"reqSameNameLayer" : function(){
 		var _self = this;
-		var users = this.search_result[this.nth_cnt];
-		var term = this.search_user[this.nth_cnt];
 		
+		var users = this.search_result.data;
+		var term = this.search_user[this.nth_cnt];
+	
 		if (users.length == 0) {
 			// 검색된 사용자가 없는 경우
 			this.selectUser(false);
@@ -109,6 +110,7 @@ gSameName.prototype = {
 			// 검색된 사용자가 2명 이상인 경우 팝업창 표시
 			this.showSameNameLayer(users, term);
 		}
+		
 	},
 	
 	"selectUser" : function(userinfo){

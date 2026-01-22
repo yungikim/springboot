@@ -48,6 +48,9 @@ public class MongoConfig {
 	@Bean(name="channelInfo")
 	public MongoTemplate channelInfo() {return createTemplate("channel_info");}
 	
+	@Bean(name="folderdata")
+	public MongoTemplate folderdata() {return createTemplate("folder_data");}
+	
 	@Bean(name="appstore")
 	public MongoTemplate appstore() {return createTemplate("appstore");}
 	

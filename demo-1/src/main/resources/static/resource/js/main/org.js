@@ -388,7 +388,7 @@ $ep
 						});
 						
 						if (_ky.length > 0){
-							var surl = parent.gap.channelserver + "/search_user_multi.km";
+							var surl = parent.gap.channelserver + "/api/user/search_user_multi.km";
 							var postData = {
 									"name" : _ky.join(','),
 									"companycode" : ""

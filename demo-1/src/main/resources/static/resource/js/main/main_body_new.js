@@ -20816,7 +20816,7 @@ gBodyFN.prototype = {
 		}
 		
 		gap.start_skp = (parseInt(gap.per_page) * (parseInt(page_no))) - (parseInt(gap.per_page) - 1);
-		var surl = gap.channelserver + "/folder_list_main.km";
+		var surl = gap.channelserver + "/api/files/folder_list_main.km";
 		
 		var postData = {
 			"start" : (gap.start_skp - 1).toString(),

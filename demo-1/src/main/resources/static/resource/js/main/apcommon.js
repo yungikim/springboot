@@ -6510,7 +6510,7 @@ gapcommon.prototype = {
 	
 	"pre_drive_set" : function(){
 		if (gBody.cur_drive_folder_list_info == ""){
-			var url = gap.channelserver + "/drive_list_all.km";
+			var url = gap.channelserver + "/api/files/drive_list_all.km";
 			$.ajax({
 				type : "POST",
 				url : url,
@@ -9363,7 +9363,7 @@ gapcommon.prototype = {
 
 		// 회사정보 가져오기
 		$.ajax({
-			url: gap.channelserver + "/search_company.km",
+			url: gap.channelserver + "/api/user/search_company.km",
 			cache: false,
 			async: false,
 			success: function(res){

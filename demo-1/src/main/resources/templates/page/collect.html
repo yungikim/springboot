@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+</head>
+<body>
+	<nav id='left_main' style="display:none">
+		<div class="nav-wide" id='nav_left_menu'>		
+		</div>	
+		<div class="nav-wide" id='nav_left_menu_todo'>
+		</div>	
+		<div class="nav-narrow" style="display:none" id='todo_left_col'> <!-- 20210408 -->
+			<button class="ico btn-left-fold on"></button>
+		</div>	
+		<div class="nav-narrow" id='nav_left_sub_menu'>  
+			<button class="ico btn-left-fold on" id='left_frame_collapse_sub_btn'></button>
+			<button class="ico btn-favorite" id='favorite_sub_show' style='display:none'></button>
+			<ul class="favorite-narrow" id="favorite_small" style="display:none">			
+			</ul>
+			<div class="narrow-btns">
+				<button class="ico btn-buddy" id="left_sub_buddylist"></button>
+				<button class="ico btn-room" id="left_sub_chatroom"></button>
+				<span id="left_sub_chatroom_new_dis" ></span>
+			</div>
+		</div>
+	</nav>
+	<section id="main_body">
+		<article class="left-area search-result full-area" id="user_search_content" style="display:none; width:100%; overflow:hidden">
+			<div id="user_search_result"></div>
+		</article>
+		<article class="left-area chatting channel" id="sub_channel_content" style="display:none">		
+		</article>	
+		<div id='previews_channel' style='display:none'></div>	
+		<article class="chatting channel files left-area box-search" id="box_search_content" style="display:none;"></article>	
+		<article class="left-area" id="channel_main" style="/*padding:25px 45px;*/ overflow:hidden">
+			<div class="section_inner mu_work mu_container" style='display:none;'>
+	             <div class="work-tab">
+	                 <ul class="flex">
+                 	    <!-- 활성화 on 클래스 추가 -->
+                 	    <li class="on" id='p1'><span>요청 받은 업무</span></li>
+                 		    <li id='p2'><span>요청한 업무</span></li>
+                     <li id='p3'><span>업무 검색</span></li>
+	                 </ul>
+	             </div>
+	             <div class="work-order">
+	            	 <div class="work-search flex" id='work_search' style='display:none'>
+	                      <div class="input-field selectbox">
+	                          <select id='select_my_channel_combo'>
+	                             <!--  <option value="" selected>�쟾泥� �뾽臾대갑</option>
+	                              <option value="" >DSW PJT</option>
+	                              <option value="" >JS PJT</option> -->
+	                          </select>
+	                      </div>
+	                      <input type="text" id="cMain_query" style='padding-left:5px'>
+	                      <div class="type_icon flex" id="cMain_org"><span></span></div>
+	                  </div>
+	                 <div class="work-filter on" id="work_filter"></div>
+	                 <ul class="flex order-ul">                               
+	                      <li>우선순위 현황</li>
+	                     <li class="color order-1st red">1st <span id='pri_1'>0</span></li>
+	                     <li class="color order-2nd orange">2nd <span  id='pri_2'>0</span></li>                               
+	                     <li class="color order-3th blue">3th <span  id='pri_3'>0</span></li>
+	                     <li class="color order-4th purple">4th <span id='pri_4'>0</span></li>
+	                </ul>
+	             </div> 
+	             <div class="work-requested  custom-scroll-row" id='work_show_card' style='display:none'>             	
+	             </div>                    
+	         </div> 
+			<div id='show_mypage' style='display:none; margin-top:16px; width:calc(100% - 8px);  max-height:calc(100% - 100px);'></div>		
+		</article>
+
+		<article class="left-area room-list" id="center_content" style="display:none">
+			<div id="center_content_main"></div>		
+		</article>		
+	             
+		
+		<article class="left-area search-result invite" id="sub_search_content" style="display:none"></article>
+		<article class="right-area invite-member" id="sub_search_profile" style="display:none"></article>	
+		<article class="right-area" id="ext_body"  style="display:none; z-index: 2000; position: absolute;  right: 10px;  top: 0; "></article>
+		<article class="right-area" id="ext_body_search"  style="display:none;  z-index: 2000; position: absolute;  right: 10px;  top: 0;"></article>
+		<article class="right-area" id="ext_body_more"  style="display:none; z-index: 2010; position: absolute;  right: 10px;  top: 0;"></article>
+		<article class="right-area channel-info" id="channel_right" style="display:none; overflow:hidden">
+		</article>
+	</section>
+</body>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+(function(loader){
+	//var queue = loader 
+	//.script("<%=request.getContextPath()%>/resource/js/main/main_collect.js?open?ver=<%=JS_VER %>");	
+	
+	var scriptPath = /*[[@{/resource/js/main/main_collect.js(ver=${jsVer})}]]*/ "/resource/js/main/main_collect.js";
+	var queue = loader.script(scriptPath);
+	queue.wait(function(){
+		gCol = new gBodyCollect();
+		gCol.showMainCollect();
+	});
+	
+})($LAB);
+/*]]>*/
+</script>
+</html>

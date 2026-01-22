@@ -124,7 +124,7 @@ gBodyFN2.prototype = {
 		$("#chat_profile").hide();
 		//////////////////////////////////////////////////////////////////////		
 		gBody2.start_skp = (parseInt(gBody2.per_page) * (parseInt(page_no))) - (parseInt(gBody2.per_page) - 1);
-		var surl = gap.channelserver + "/folder_list_main.km";		
+		var surl = gap.channelserver + "/api/files/folder_list_main.km";		
 		//"dtype" : 은 파일 형식으로 필터링 할때 사용한다. ppt, xls, doc, pdf, image, movie, hwp, txt, etc		
 		var postData = {
 				"start" : (gBody2.start_skp - 1).toString(),
@@ -457,7 +457,7 @@ gBodyFN2.prototype = {
 		}
 		if (is_continue){
 			gBody2.start_skp = (parseInt(gBody2.per_page) * (parseInt(page_no))) - (parseInt(gBody2.per_page) - 1);
-			var surl = gap.channelserver + "/folder_list_main.km";			
+			var surl = gap.channelserver + "/api/files/folder_list_main.km";			
 			var postData = {
 					"start" : (gBody2.start_skp - 1).toString(),
 					"perpage" : gBody2.per_page,
@@ -1344,7 +1344,7 @@ gBodyFN2.prototype = {
 	"update_drive_info" : function(ch_code){
 		// 드라이브 리스트 정보 가져오기
 		var is_member_update = (ch_code != undefined ? true : false);
-		var surl = gap.channelserver + "/drive_list_all.km";
+		var surl = gap.channelserver + "/api/files/drive_list_all.km";
 		var postData = JSON.stringify({});		
 		$.ajax({
 			type : "POST",
@@ -4214,7 +4214,7 @@ gBodyFN2.prototype = {
 	"update_folder_info" : function(folder_code){
 		// 드라이브/폴더 리스트 정보 가져오기
 		var is_member_update = (folder_code != undefined ? true : false);
-		var surl = gap.channelserver + "/drive_list_all.km";
+		var surl = gap.channelserver + "/api/files/drive_list_all.km";
 	/*	var postData = JSON.stringify({
 				"email" : gap.userinfo.rinfo.em,
 				"depts" : gap.full_dept_codes()
@@ -7542,7 +7542,7 @@ gBodyFN2.prototype = {
 		$('#share_channel_option_list').material_select();
 		
 		//드라이브 리스트
-		var surl = gap.channelserver + "/drive_list_all.km";
+		var surl = gap.channelserver + "/api/files/drive_list_all.km";
 	/*	var postData = JSON.stringify({
 				"email" : gap.userinfo.rinfo.em,
 				"depts" : gap.full_dept_codes()
@@ -10981,7 +10981,7 @@ gBodyFN2.prototype = {
 		}
 		
 		gap.start_skp = (parseInt(gap.per_page) * (parseInt(page_no))) - (parseInt(gap.per_page) - 1);
-		var surl = gap.channelserver + "/folder_list_main.km";
+		var surl = gap.channelserver + "/api/files/folder_list_main.km";
 		
 		var postData = {
 			"start" : (gap.start_skp - 1).toString(),
@@ -11357,7 +11357,7 @@ gBodyFN2.prototype = {
 		total_height = (120 * list.length) + default_height;
 		
 		// 사용자 메일정보 가져오기
-		var surl = gap.channelserver + "/search_user_multi.km";
+		var surl = gap.channelserver + "/api/user/search_user_multi.km";
 		var postData = {
 				"name" : members_ky_list,
 				"companycode" : ""
@@ -11535,7 +11535,7 @@ gBodyFN2.prototype = {
 	"add_user_schedule" : function(user){
 		// 사용자 1명 추가 userkey가 넘어옴	
 		if (gBody2.quick_cal){
-			var surl = gap.channelserver + "/search_user_multi.km";
+			var surl = gap.channelserver + "/api/user/search_user_multi.km";
 			var postData = {
 					"name" : user,
 					"companycode" : ""

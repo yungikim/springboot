@@ -489,7 +489,7 @@ gFilesFN.prototype = {
 	
 	"check_my_drive_size" : function(){
 		var _self = this;
-		var url = gap.channelserver + "/my_drive_size.km";
+		var url = gap.channelserver + "/api/files/my_drive_size.km";
 		var data = JSON.stringify({});
 		
 		$.ajax({
@@ -561,7 +561,7 @@ gFilesFN.prototype = {
 		this.check_my_drive_size();	
 			
 		// 드라이브 리스트 정보 가져오기
-		var surl = gap.channelserver + "/drive_list_all.km";
+		var surl = gap.channelserver + "/api/files/drive_list_all.km";
 		var postData = JSON.stringify({});
 		
 		$.ajax({
@@ -737,7 +737,7 @@ gFilesFN.prototype = {
 		//////////////////////////////////////////////////////////////////////		
 		
 		this.start_skp = (parseInt(this.per_page) * (parseInt(page_no))) - (parseInt(this.per_page) - 1);
-		var surl = gap.channelserver + "/folder_list_main.km";
+		var surl = gap.channelserver + "/api/files/folder_list_main.km";
 		
 		//"dtype" : 은 파일 형식으로 필터링 할때 사용한다. ppt, xls, doc, pdf, image, movie, hwp, txt, etc
 	
@@ -1103,7 +1103,7 @@ gFilesFN.prototype = {
 		}
 		if (is_continue){
 			this.start_skp = (parseInt(this.per_page) * (parseInt(page_no))) - (parseInt(this.per_page) - 1);
-			var surl = gap.channelserver + "/folder_list_main.km";
+			var surl = gap.channelserver + "/api/files/folder_list_main.km";
 			var postData = {
 					"start" : (this.start_skp - 1).toString(),
 					"perpage" : this.per_page,
@@ -2854,7 +2854,7 @@ gFilesFN.prototype = {
 		// 드라이브 리스트 정보 가져오기
 		var _self = this;
 		var is_member_update = (ch_code != undefined ? true : false);
-		var surl = gap.channelserver + "/drive_list_all.km";
+		var surl = gap.channelserver + "/api/files/drive_list_all.km";
 		var postData = JSON.stringify({});
 		
 		$.ajax({
@@ -5096,7 +5096,7 @@ gFilesFN.prototype = {
 		// 드라이브/폴더 리스트 정보 가져오기
 		var _self = this;
 		var is_member_update = (folder_code != undefined ? true : false);
-		var surl = gap.channelserver + "/drive_list_all.km";
+		var surl = gap.channelserver + "/api/files/drive_list_all.km";
 		var postData = JSON.stringify({});
 		
 		$.ajax({
@@ -8012,7 +8012,7 @@ gFilesFN.prototype = {
 		$('#share_channel_option_list').material_select();
 		
 		//드라이브 리스트
-		var surl = gap.channelserver + "/drive_list_all.km";
+		var surl = gap.channelserver + "/api/files/drive_list_all.km";
 	/*	var postData = JSON.stringify({
 				"email" : gap.userinfo.rinfo.em,
 				"depts" : gap.full_dept_codes()
@@ -10871,17 +10871,17 @@ gFilesFN.prototype = {
 	
 	"draw_drive_left" : function(res){
 		var _self = this;
-		
-		if (typeof(res.drive) != "undefined"){
-			this.cur_drive_list_info = res.drive;
-			this.cur_drive_folder_list_info = res.folder;
+	
+		if (typeof(res.data) != "undefined"){
+			this.cur_drive_list_info = res.data.drive;
+			this.cur_drive_folder_list_info = res.data.folder;
 			
 			$("#share_drive_list").empty();
 			$("#person_drive_list").empty();
 		
 			// 드라이브 그리기
-			for (var i = 0; i < res.drive.length; i++){
-				var data = res.drive[i];
+			for (var i = 0; i < res.data.drive.length; i++){
+				var data = res.data.drive[i];
 				var _html = "";
 				
 				_html += '		<li id="li_dl_' + data.ch_code + '">';
@@ -10901,7 +10901,7 @@ gFilesFN.prototype = {
 			}
 			
 			// 드라이브 하위 폴더 그리기
-			this.draw_main_sub_folder(res.folder);		
+			this.draw_main_sub_folder(res.data.folder);		
 		}
 		
 	},
@@ -11546,7 +11546,7 @@ gFilesFN.prototype = {
 		}
 		
 		gap.start_skp = (parseInt(gap.per_page) * (parseInt(page_no))) - (parseInt(gap.per_page) - 1);
-		var surl = gap.channelserver + "/folder_list_main.km";
+		var surl = gap.channelserver + "/api/files/folder_list_main.km";
 		
 		var postData = {
 			"start" : (gap.start_skp - 1).toString(),
@@ -11922,7 +11922,7 @@ gFilesFN.prototype = {
 		total_height = (120 * list.length) + default_height;
 		
 		// 사용자 메일정보 가져오기
-		var surl = gap.channelserver + "/search_user_multi.km";
+		var surl = gap.channelserver + "/api/user/search_user_multi.km";
 		var postData = {
 				"name" : members_ky_list,
 				"companycode" : ""
@@ -12100,7 +12100,7 @@ gFilesFN.prototype = {
 	"add_user_schedule" : function(user){
 		// 사용자 1명 추가 userkey가 넘어옴	
 		if (gFiles.quick_cal){
-			var surl = gap.channelserver + "/search_user_multi.km";
+			var surl = gap.channelserver + "/api/user/search_user_multi.km";
 			var postData = {
 					"name" : user,
 					"companycode" : ""

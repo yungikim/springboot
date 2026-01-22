@@ -8438,7 +8438,7 @@
 					}				
 					
 					//동명이인 체크하고 넘어간다.
-					var surl = gap.channelserver + "/search_user_multi.km";
+					var surl = gap.channelserver + "/api/user/search_user_multi.km";
 					var nameParam = Array.isArray(search_users) 
 				    ? search_users.join(',') 
 				    : search_users;

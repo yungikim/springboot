@@ -25,7 +25,7 @@ public class SecurityFilter implements Filter{
 	}
 		
 	//인증 없이 허용할 경로 리스트 (로그인 페이지, 정적 리소스 등)
-	private static final List<String> EXCLUDE_URLS = Arrays.asList("/page/login", "/api/public/", "/resource/css", "/resource/js", "/resource/images", "/resource/fonts", "/sso.do");
+	private static final List<String> EXCLUDE_URLS = Arrays.asList("/page/login", "/api/public/", "/resource/css", "/resource/js", "/resource/images", "/resource/fonts", "/sso.do", "/json/");
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException{

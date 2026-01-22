@@ -3612,7 +3612,7 @@ gPortlet.prototype = {
 						}						
 						
 						var query = $("#emp_info_input").val();
-						gap.LoadPage("area_content", root_path + "/page/organ.jsp?query=" + encodeURIComponent(query));
+						gap.LoadPage("area_content", root_path + "/page/organ.html?query=" + encodeURIComponent(query));
 						gap.cur_window = "org";
 						gap.history_save("org");
 						$("#emp_info_input").val("");

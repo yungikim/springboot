@@ -77,4 +77,64 @@ public class PortalController {
 		model.addFlashAttribute("view", "kgpt");
 		return "redirect:/v/portal";
 	}
+	
+	@GetMapping("/page/collect")
+	public String loginPage_collect(Model model) {
+		model.addAttribute("jsVer", "1.0");
+		model.addAttribute("cssVer", "1.0");
+		return "page/collect";
+	}
+	
+	@GetMapping("/v/collect")
+	public String loginPage_goto_collect(RedirectAttributes model) {
+		model.addFlashAttribute("jsVer", "1.0");
+		model.addFlashAttribute("cssVer", "1.0");
+		model.addFlashAttribute("view", "collect");
+		return "redirect:/v/portal";
+	}
+	
+	@GetMapping("/page/organ")
+	public String loginPage_organ(Model model) {
+		model.addAttribute("jsVer", "1.0");
+		model.addAttribute("cssVer", "1.0");
+		return "page/organ";
+	}
+	
+	@GetMapping("/v/org")
+	public String loginPage_goto_organ(RedirectAttributes model) {
+		model.addFlashAttribute("jsVer", "1.0");
+		model.addFlashAttribute("cssVer", "1.0");
+		model.addFlashAttribute("view", "org");
+		return "redirect:/v/portal";
+	}
+	
+	@GetMapping("/page/meeting")
+	public String loginPage_meeting(Model model) {
+		model.addAttribute("jsVer", "1.0");
+		model.addAttribute("cssVer", "1.0");
+		return "page/meeting";
+	}
+	
+	@GetMapping("/v/meeting")
+	public String loginPage_goto_meeting(RedirectAttributes model) {
+		model.addFlashAttribute("jsVer", "1.0");
+		model.addFlashAttribute("cssVer", "1.0");
+		model.addFlashAttribute("view", "meeting");
+		return "redirect:/v/portal";
+	}
+	
+	@GetMapping("/page/files")
+	public String loginPage_files(Model model) {
+		model.addAttribute("jsVer", "1.0");
+		model.addAttribute("cssVer", "1.0");
+		return "page/files";
+	}
+	
+	@GetMapping("/v/files")
+	public String loginPage_goto_files(RedirectAttributes model) {
+		model.addFlashAttribute("jsVer", "1.0");
+		model.addFlashAttribute("cssVer", "1.0");
+		model.addFlashAttribute("view", "files");
+		return "redirect:/v/portal";
+	}
 }

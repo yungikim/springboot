@@ -4755,7 +4755,7 @@ gTop.prototype = {
 		var _company = '';
 		// 회사정보 가져오기
 		$.ajax({
-			url: gap.channelserver + "/search_company.km",
+			url: gap.channelserver + "/api/user/search_company.km",
 			async: false,
 			success: function(res){
 				$.each(res, function(){
@@ -4932,7 +4932,7 @@ gTop.prototype = {
 		var _company = '';
 		// 회사정보 가져오기
 		$.ajax({
-			url: gap.channelserver + "/search_company.km",
+			url: gap.channelserver + "/api/user/search_company.km",
 			async: false,
 			success: function(res){
 				$.each(res, function(){
@@ -6984,7 +6984,7 @@ gTop.prototype = {
 		var _company = '';
 		// 회사정보 가져오기
 		$.ajax({
-			url: gap.channelserver + "/search_company.km",
+			url: gap.channelserver + "/api/user/search_company.km",
 			async: false,
 			success: function(res){
 				$.each(res, function(){

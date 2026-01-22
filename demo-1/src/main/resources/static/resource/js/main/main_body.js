@@ -17909,7 +17909,7 @@ gBodyFN.prototype = {
 		//내 사이즈 체크해서 표시한다.
 		gBody3.check_my_drive_size();		
 		// 드라이브 리스트 정보 가져오기
-		var surl = gap.channelserver + "/drive_list_all.km";
+		var surl = gap.channelserver + "/api/files/drive_list_all.km";
 		var postData = JSON.stringify({});
 		$.ajax({
 			type : "POST",

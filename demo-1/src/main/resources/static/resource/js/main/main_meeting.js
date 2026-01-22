@@ -3291,11 +3291,11 @@ gBodyMeeting.prototype = {
 		 */
 		
 		return $.ajax({
-			type: 'POST',
+			type: 'GET',
 			url: root_path + '/json/' + req_name + '.json',
-			data: JSON.stringify(req),
-			contentType: 'application/json',
-			dataType: 'json',
+	//		data: JSON.stringify(req),
+	//		contentType: 'application/json',
+	//		dataType: 'json',
 			success: function(res){
 				
 			},

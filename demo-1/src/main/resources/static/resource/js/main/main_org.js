@@ -979,11 +979,11 @@ gBodyOrg.prototype = {
 
 		// 회사정보 가져오기
 		$.ajax({
-			url: gap.channelserver + "/search_company.km",
+			url: gap.channelserver + "/api/user/search_company.km",
 			cache: false,
 			async: false,
 			success: function(res){
-				$.each(res, function(){
+				$.each(res.data, function(){
 					var c_name = (gap.curLang == "ko" ? this.cp : this.ecp);
 					var c_code = this.cpc;
 				//	var sub = _self.getValueByName(this, '_subdept');
@@ -1159,7 +1159,7 @@ gBodyOrg.prototype = {
 
 		$.ajax({
 			type: "post",
-			url: gap.channelserver + "/search_dept_to_sub.km",
+			url: gap.channelserver + "/api/user/search_dept_to_sub.km",
 			async: false,
 			dataType : "json",
 			data : JSON.stringify(postData),
@@ -1169,7 +1169,7 @@ gBodyOrg.prototype = {
 			},
 			success : function(res) {
 				var src = [];
-				$.each(res, function() {
+				$.each(res.data, function() {
 					if (this.dpc != '000000'){
 						src.push( {
 							title : (gap.curLang == 'ko' ? this.dp : this.edp),
@@ -1521,7 +1521,7 @@ gBodyOrg.prototype = {
 
 		$.ajax({
 			type: "post",
-			url: gap.channelserver + "/search_dept_to_person.km",
+			url: gap.channelserver + "/api/user/search_dept_to_person.km",
 			async: false,
 			dataType : "json",
 			data : JSON.stringify(postData),
@@ -1531,7 +1531,7 @@ gBodyOrg.prototype = {
 			},
 			success : function(res) {
 				var src = [];
-				$.each(res, function() {
+				$.each(res.data, function() {
 					// 사용자 데이터만 데이터만 취합
 					src.push(_self.userInfoJson(this));
 				});
