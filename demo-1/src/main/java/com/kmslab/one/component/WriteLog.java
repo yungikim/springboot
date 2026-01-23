@@ -1,4 +1,4 @@
-package com.kmslab.one.config;
+package com.kmslab.one.component;
 
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Qualifier;

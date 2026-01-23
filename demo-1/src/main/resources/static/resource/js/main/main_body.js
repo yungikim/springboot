@@ -19467,7 +19467,7 @@ gBodyFN.prototype = {
 					checked_count++;
 				}
 			}		
-			html += "<li id='star_" + item._id.$oid  + "' style='list-style:none; height:150px; text-align:left'>";
+			html += "<li id='star_" + item._id  + "' style='list-style:none; height:150px; text-align:left'>";
 			html += "	<div class='color-bar " + item.color + "'></div>";
 			html += "	<button class='ico btn-more'>더보기</button>";
 			if ( (item.asignee != undefined) && (item.asignee != "")){
@@ -22062,7 +22062,7 @@ gBodyFN.prototype = {
 		var body = JSON.stringify({
 			"editor" : data.editor,
 			"title" : data.title,
-			"updatekey" : gHome.notice_data._id.$oid
+			"updatekey" : gHome.notice_data._id
 		});
 		
 		$.ajax({

@@ -79,7 +79,7 @@ gBodyFN3.prototype = {
 		gBody3.show_channel();	//init함수 호출 후에 호출해야 한다.		
 		gBody3.language_set();	
 		gBody3._eventHandler();		
-		if (call_key != ""){
+		if (call_key){
 			gBody2.show_channel_data(call_key);			
 			$("#left_main").hide();
 			$("#channel_main").hide();
@@ -93,7 +93,7 @@ gBodyFN3.prototype = {
 			$("#top_header_layer").css("height","0px");
 			$("#top_header_layer").hide();
 			$("#main_body").css("top","0px");			
-		}		
+		}						
 	},
 	
 	"language_set" : function(){
@@ -1010,14 +1010,14 @@ gBodyFN3.prototype = {
 			}else{
 				key = gBody3.select_channel_code;
 			}		
-			var surl = gap.channelserver + "/channel_options_read.km";
+			var surl = gap.channelserver + "/api/channel/channel_options_read.km";
 			var postData = {
 				"key" : key
 			};
 			$.ajax({
 				type : "POST",
 				url : surl,
-				dataType : "text",	//"json",
+				dataType : "json",	//"json",
 				data : JSON.stringify(postData),
 				beforeSend : function(xhr){
 					xhr.setRequestHeader("auth", gap.get_auth());
@@ -1025,15 +1025,18 @@ gBodyFN3.prototype = {
 				},
 				async : false,
 				success : function(__res){
-			
-					var res = JSON.parse(__res);
-					if (res.result == "OK"){
-						gBody3.prevent_auto_scrolling = (res.data.opt1 != "" ? res.data.opt1 : "1");
-						gBody3.collapse_reply = (res.data.opt2 != "" ? res.data.opt2 : "2");
-						gBody3.post_view_type = (res.data.opt3 != "" ? res.data.opt3 : "1");
-						gBody3.push_receive = (res.data.opt4 != "" ? res.data.opt4 : "1");	
-						gBody3.collapse_editor = (res.data.opt5 != "" && typeof(res.data.opt5) != "undefined" ? res.data.opt5 : "2");
+					if (__res.result == "OK"){
+						//var res = JSON.parse(__res);
+						//if (res.result == "OK"){
+							var res = __res;
+							gBody3.prevent_auto_scrolling = (res.data.opt1 != "" ? res.data.opt1 : "1");
+							gBody3.collapse_reply = (res.data.opt2 != "" ? res.data.opt2 : "2");
+							gBody3.post_view_type = (res.data.opt3 != "" ? res.data.opt3 : "1");
+							gBody3.push_receive = (res.data.opt4 != "" ? res.data.opt4 : "1");	
+							gBody3.collapse_editor = (res.data.opt5 != "" && typeof(res.data.opt5) != "undefined" ? res.data.opt5 : "2");
+						//}
 					}
+					
 				},
 				error : function(e){
 				}
@@ -1179,10 +1182,10 @@ gBodyFN3.prototype = {
 				"read_time" : m_r_t
 			});
 		}	
-		var url = gap.channelserver + "/channel_list.km";
+		var url = gap.channelserver + "/api/channel/channel_list.km";
 		$.ajax({
 			type : "POST",
-			dataType : "text",
+			dataType : "json",
 		//	dataType : "json",
 		//	contentType : "application/json; charset=utf-8",
 			data : query,
@@ -1191,8 +1194,7 @@ gBodyFN3.prototype = {
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},
 			url : url,			
-			success : function(ress){				
-				var res = JSON.parse(ress);				
+			success : function(res){							
 				if (res.data == null){
 					if (query_str != ""){							
 					}
@@ -2870,7 +2872,7 @@ gBodyFN3.prototype = {
 		oob.md5 = info.md5;
 		oob.email = info.email;
 		oob.ty = info.file_type;
-		oob.id = info._id.$oid;
+		oob.id = info._id;
 	//	gBody3.select_file_info = info;
 		gBody3.select_file_info = oob;		
 		if ($("#right_menu_collpase_btn").hasClass("on")){
@@ -2902,7 +2904,7 @@ gBodyFN3.prototype = {
 		html += "</dl>";
 		html += "<div class='file-info'>";
 		if (info.thumbOK == "T"){
-			var thumbnail_url = gap.search_file_convert_server(info.fserver) + "/FDownload_thumb.do?id=" + info._id.$oid + "&md5="+info.md5+"&ty=2";
+			var thumbnail_url = gap.search_file_convert_server(info.fserver) + "/FDownload_thumb.do?id=" + info._id + "&md5="+info.md5+"&ty=2";
 			html += "	<div class='file-thm'>";
 			html += "		<img src='"+thumbnail_url+"' alt='' />";
 			html += "	</div>";
@@ -3139,7 +3141,7 @@ gBodyFN3.prototype = {
 			
 		}else{
 			if (typeof(item._id) != "undefined"){
-				docid = item._id.$oid;
+				docid = item._id;
 			}else{
 				docid = item.id;
 			}			
@@ -3412,7 +3414,7 @@ gBodyFN3.prototype = {
 					var dept = ux.dept;
 					var email = ux.email;
 					var jt = ux.jt;				
-					var todo_item_id = xinfo._id.$oid;				
+					var todo_item_id = xinfo._id;				
 					html += '<p class="xnewtodo">' +gap.lang.newtodo + '</p>';				
 					html += '<div class="top">';
 					html += '   <div class="req_box"  style="display:flex" data-url=\'' + todo_item_id + '\'>';
@@ -3706,7 +3708,7 @@ gBodyFN3.prototype = {
 			docid = item._id;
 			
 		}else{
-			docid = item._id.$oid;
+			docid = item._id;
 			if (typeof(item.like_count.$numberLong) != "undefined"){
 				like_count = item.like_count.$numberLong;
 			}else{
@@ -3959,7 +3961,7 @@ gBodyFN3.prototype = {
 				var dept = ux.dept;
 				var email = ux.email;
 				var jt = ux.jt;				
-				var todo_item_id = xinfo._id.$oid;				
+				var todo_item_id = xinfo._id;				
 				html += "<div class='chat-todo' id='todo_"+todo_item_id+"' style='cursor:pointer'>";
 				html += "<div>";
 				html += "	<div class='status'><span class='ico ico-todo'></span></div>";
@@ -4122,7 +4124,7 @@ gBodyFN3.prototype = {
 				if (item.direct == "T"){
 					docid = item._id;
 				}else{
-					docid = item._id.$oid;
+					docid = item._id;
 				}			
 				if (gBody3.isFold){
 					html += "<div class='message-reply' id='reply_group_"+docid+"' style='display:none'>";
@@ -5302,7 +5304,7 @@ gBodyFN3.prototype = {
 				if (typeof(gBody3.select_doc_info.reply) != "undefined"){
 					var item = gBody3.select_doc_info;
 					var xhtml = gBody3.draw_reply(item);
-					var parent = $("#ms_" + item._id.$oid).find(".channel_reply_top");  //댓글 디지안과 구조가 변경되어 수정합니다.					
+					var parent = $("#ms_" + item._id).find(".channel_reply_top");  //댓글 디지안과 구조가 변경되어 수정합니다.					
 					$("#rdis_" + id).text(item.reply.length);
 					$("#rcount_" + id).text(item.reply.length);
 					$(xhtml).insertBefore(parent);
@@ -5483,10 +5485,10 @@ gBodyFN3.prototype = {
 					if (jj.edit == "T"){
 						doc._id = jj.id;						
 					}else{
-						doc._id = res._id.$oid;
+						doc._id = res._id;
 					}				
 					if (gBody3.isTempSave == "T"){
-						doc._id = res._id.$oid;
+						doc._id = res._id;
 					}
 					doc.direct = "T";				
 					doc.editor = jj.editor;
@@ -6097,7 +6099,7 @@ gBodyFN3.prototype = {
 							}else if (item.type == "ogtag"){
 								
 							}						
-							gBody3.direct_draw(html, item.GMT, item._id.$oid, "", "");						
+							gBody3.direct_draw(html, item.GMT, item._id, "", "");						
 							gBody.drawNoticeWork();
 							
 							//등록된 공지를 전송한다.
@@ -7098,7 +7100,7 @@ gBodyFN3.prototype = {
 		var members = new Object();		
 		for (var i = 0 ; i < infos.length; i++){
 			var info = infos[i];
-			if (info._id.$oid == folderid){
+			if (info._id == folderid){
 				var list = info.member;
 				var mlist = [];
 				for (var k = 0 ; k < list.length; k++){
@@ -8245,18 +8247,18 @@ gBodyFN3.prototype = {
 			"type" : "1",
 			"sort" : gBody3.post_view_type
 		});		
-		var url = gap.channelserver + "/channel_list.km";
+		var url = gap.channelserver + "/api/channel/channel_list.km";
 		$.ajax({
 			type : "POST",
-			dataType : "text",
+			dataType : "json",
 			data : query,
 			beforeSend : function(xhr){
 				xhr.setRequestHeader("auth", gap.get_auth());
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},
 			url : url,			
-			success : function(ress){				
-				var res = JSON.parse(ress);				
+			success : function(res){				
+					
 				var list = res.data.data;			
 				var html = "";
 				if (list.length == 0){
@@ -8964,7 +8966,7 @@ gBodyFN3.prototype = {
 		var data = JSON.stringify({
 			"channel_code" : channel_code
 		});
-		var url = gap.channelserver + "/channel_read_update.km";		
+		var url = gap.channelserver + "/api/channel/channel_read_update.km";		
 		$.ajax({
 			type : "POST",
 			data : data,
@@ -8977,8 +8979,7 @@ gBodyFN3.prototype = {
 			},
 			success : function(res){
 				if (res.result == "OK"){
-					//gap.delete_all_read_time();
-					gap.change_cur_channel_read_time(channel_code, res.data2);
+					gap.change_cur_channel_read_time(channel_code, res.data.GMTDate);
 				}
 			},
 			error : function(e){
@@ -9582,7 +9583,7 @@ gBodyFN3.prototype = {
 					}				
 					for (var i = 0; i < res.data.data.length; i++){
 						var info = res.data.data[i];
-						var item_id = info._id.$oid;
+						var item_id = info._id;
 						var vote_list_html = '';						
 						if (typeof(info.members) != "undefined"){
 							if (!vote_done){
@@ -10905,7 +10906,7 @@ gBodyFN3.prototype = {
 							if (info.direct == "T"){
 								docid = item._id;								
 							}else{
-								docid = info._id.$oid;
+								docid = info._id;
 								if (info.like_count.$numberLong != undefined){
 									like_count = info.like_count.$numberLong;
 
@@ -11034,7 +11035,7 @@ gBodyFN3.prototype = {
 									var dept = mem_info.dept;
 									var email = mem_info.email;
 									var jt = mem_info.jt;									
-									var todo_item_id = xinfo._id.$oid;								
+									var todo_item_id = xinfo._id;								
 									html += '<div class="top">';
 									html += '   <div class="req_box"  style="display:flex" data-url=\'' + todo_item_id + '\'>';
 									html += '   		<div class="req_left" style="width:500px; display:flex">';
@@ -13132,16 +13133,16 @@ gBodyFN3.prototype = {
 		var show_member = 3; // 보여질 인원
 		var overlap_width = 20; // 겹쳐지는 너비 (px)
 		
-		var url = gap.channelserver + "/channel_info_unread_info.km";
+		var url = gap.channelserver + "/api/channel/channel_info_unread_info.km";
 		var data = JSON.stringify({
 			"email" : gap.userinfo.rinfo.ky
 		});
 		
 		var html = "";
 		gap.ajaxCall(url, data, function(res){
-			if (res.result.length > 0){
-				for (var k = 0 ; k < res.result.length; k++){
-					var item = res.result[k];
+			if (res.data.result.length > 0){
+				for (var k = 0 ; k < res.data.result.length; k++){
+					var item = res.data.result[k];
 					
 					var total_member = item.member.length; // 총 인원					
 					var owner = gap.user_check(item.owner);		
@@ -13199,7 +13200,7 @@ gBodyFN3.prototype = {
 			
 			$("#content_main_top_work").html(html);
 			
-			if (res.result.length == 0){
+			if (res.data.result.length == 0){
 
 				$("#toggle_unconfirm_list").toggleClass("rotate");
 				$("#unconfirm_list_box").toggleClass("slide");
@@ -13246,7 +13247,7 @@ gBodyFN3.prototype = {
 			});			
 		}
 		
-		var url = gap.channelserver + "/channel_main_year_info.km";
+		var url = gap.channelserver + "/api/channel/channel_main_year_info.km";
 	
 		var data = JSON.stringify({
 			"year" : parseInt(year),
@@ -13344,7 +13345,7 @@ gBodyFN3.prototype = {
 				var status = "";
 				var status_txt = "";
 		
-				var id = item._id.$oid;
+				var id = item._id;
 				
 				if (is_delay){
 					if (item.status == "3"){
@@ -15034,7 +15035,7 @@ gBodyFN3.prototype = {
 						}
 					}
 				}			
-				html += "<li id='star_" + item._id.$oid  + "' style='list-style:none; height:150px; text-align:left'>";
+				html += "<li id='star_" + item._id  + "' style='list-style:none; height:150px; text-align:left'>";
 				html += "	<div class='color-bar " + item.color + "'></div>";
 				html += "	<button class='ico btn-more'>더보기</button>";
 				if ( (item.asignee != undefined) && (item.asignee != "")){

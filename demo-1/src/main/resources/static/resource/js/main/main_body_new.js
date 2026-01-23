@@ -17425,7 +17425,7 @@ gBodyFN.prototype = {
 					checked_count++;
 				}
 			}		
-			html += "<li id='star_" + item._id.$oid  + "' style='list-style:none; height:150px; text-align:left'>";
+			html += "<li id='star_" + item._id  + "' style='list-style:none; height:150px; text-align:left'>";
 			html += "	<div class='color-bar " + item.color + "'></div>";
 			html += "	<button class='ico btn-more'>더보기</button>";
 			if ( (item.asignee != undefined) && (item.asignee != "")){
@@ -18230,7 +18230,7 @@ gBodyFN.prototype = {
 						}
 					}
 				}			
-				html += "<li id='star_" + item._id.$oid  + "' style='list-style:none; height:150px; text-align:left'>";
+				html += "<li id='star_" + item._id  + "' style='list-style:none; height:150px; text-align:left'>";
 				html += "	<div class='color-bar " + item.color + "'></div>";
 				html += "	<button class='ico btn-more'>더보기</button>";
 				if ( (item.asignee != undefined) && (item.asignee != "")){
@@ -19837,7 +19837,7 @@ gBodyFN.prototype = {
 		var body = JSON.stringify({
 			"editor" : data.editor,
 			"title" : data.title,
-			"updatekey" : gHome.notice_data._id.$oid
+			"updatekey" : gHome.notice_data._id
 		});
 		
 		$.ajax({
@@ -20584,7 +20584,7 @@ gBodyFN.prototype = {
 		}
 		
 		gap.start_skp = (parseInt(gap.per_page) * (parseInt(page_no))) - (parseInt(gap.per_page) - 1);
-		var surl = gap.channelserver + "/channel_list.km";
+		var surl = gap.channelserver + "/api/channel/channel_list.km";
 		
 		var postData = {
 			"channel_code" : gBody.select_channel_code,
@@ -20599,14 +20599,14 @@ gBodyFN.prototype = {
 		$.ajax({
 			type : "POST",
 			url : surl,
-			dataType : "text", //"json",
+			dataType : "json", //"json",
 			data : JSON.stringify(postData),
 			beforeSend : function(xhr){
 				xhr.setRequestHeader("auth", gap.get_auth());
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},
 			success : function(__res){
-				var res = JSON.parse(__res);
+				var res = __res;
 				if (res.result == "OK"){
 					var $layer = $('#all_files_layer');
 					var list = res.data.data;
@@ -20632,8 +20632,8 @@ gBodyFN.prototype = {
 							'	<td class="mu_chk_box">' +
 							'		<!-- input id값 변경 가능, label for과 동일한 id값 사용필요 -->' +
 							'		<span class="chk_box">' +
-							'			<input type="checkbox" name="file_checkbox" id="' + info._id.$oid + '" value="' + downloadpath + '">' +
-							'			<label for="' + info._id.$oid + '"></label>' +
+							'			<input type="checkbox" name="file_checkbox" id="' + info._id + '" value="' + downloadpath + '">' +
+							'			<label for="' + info._id + '"></label>' +
 							'		</span>' +
 							'	</td>' +
 							'	<td><span class="ico ico-ex-min ico-' + gap.file_icon_check_mu(file_info.filename) + '"></span>' + file_info.filename + '&nbsp;<b class="size">(' + gap.file_size_setting(file_info.file_size.$numberLong) + ')</b></td>' +
@@ -20643,9 +20643,9 @@ gBodyFN.prototype = {
 						
 						$layer.find('#file_list').append(html);
 						
-						$layer.find('#' + info._id.$oid).data('fsize', file_info.file_size.$numberLong);
-						$layer.find('#' + info._id.$oid).data('fname', file_info.filename);
-						$layer.find('#' + info._id.$oid).data('md5', file_info.md5.split(".")[0]);
+						$layer.find('#' + info._id).data('fsize', file_info.file_size.$numberLong);
+						$layer.find('#' + info._id).data('fname', file_info.filename);
+						$layer.find('#' + info._id).data('md5', file_info.md5.split(".")[0]);
 					}
 
 					//페이징
@@ -20849,15 +20849,15 @@ gBodyFN.prototype = {
 					for (var i = 0; i < list.length; i++){
 						var file_info = list[i];
 						var owner_info = gap.user_check(file_info.owner);
-						var downloadpath = gap.search_file_convert_server(file_info.fserver) + "/FDownload.do?id=" + file_info._id.$oid + "&ty=1&ky="+gap.userinfo.rinfo.ky;
+						var downloadpath = gap.search_file_convert_server(file_info.fserver) + "/FDownload.do?id=" + file_info._id + "&ty=1&ky="+gap.userinfo.rinfo.ky;
 						
 						var html = 
 							'<tr class="type_file">' +
 							'	<td class="mu_chk_box">' +
 							'		<!-- input id값 변경 가능, label for과 동일한 id값 사용필요 -->' +
 							'		<span class="chk_box">' +
-							'			<input type="checkbox" name="file_checkbox" id="' + file_info._id.$oid + '" value="' + downloadpath + '">' +
-							'			<label for="' + file_info._id.$oid + '"></label>' +
+							'			<input type="checkbox" name="file_checkbox" id="' + file_info._id + '" value="' + downloadpath + '">' +
+							'			<label for="' + file_info._id + '"></label>' +
 							'		</span>' +
 							'	</td>' +
 							'	<td><span class="ico ico-ex-min ico-' + gap.file_icon_check_mu(file_info.filename) + '"></span>' + file_info.filename + '&nbsp;<b class="size">(' + gap.file_size_setting(file_info.file_size.$numberLong) + ')</b></td>' +
@@ -20867,9 +20867,9 @@ gBodyFN.prototype = {
 						
 						$layer.find('#file_list').append(html);
 						
-						$layer.find('#' + file_info._id.$oid).data('fsize', file_info.file_size.$numberLong);
-						$layer.find('#' + file_info._id.$oid).data('fname', file_info.filename);
-						$layer.find('#' + file_info._id.$oid).data('md5', file_info.md5.split(".")[0]);
+						$layer.find('#' + file_info._id).data('fsize', file_info.file_size.$numberLong);
+						$layer.find('#' + file_info._id).data('fname', file_info.filename);
+						$layer.find('#' + file_info._id).data('md5', file_info.md5.split(".")[0]);
 					}
 
 					//페이징
@@ -21452,7 +21452,7 @@ gBodyFN.prototype = {
 		// 상세보기
 		$layer.find('.btn-notice-detail').off().on('click', function(){
 			var info = $layer.data('info');
-			gap.noticeOpen(info._id.$oid, type);
+			gap.noticeOpen(info._id, type);
 			return false;
 		});
 		
@@ -21464,7 +21464,7 @@ gBodyFN.prototype = {
 		
 		// 삭제
 		$layer.find('.btn-notice-remove').off().on('click', function(){
-			var docid = $layer.data('info')._id.$oid;
+			var docid = $layer.data('info')._id;
 			_self.removeNotice(docid, type);
 			return false;
 		});
@@ -21616,7 +21616,7 @@ gBodyFN.prototype = {
 		var $list = $layer.find('.reply-list');
 		
 		var postData = {
-				"key" : info._id.$oid,
+				"key" : info._id,
 				"owner" : gap.userinfo.rinfo,
 				"content" : txt
 			};
@@ -21635,7 +21635,7 @@ gBodyFN.prototype = {
 			
 				var res = res.data;
 				
-				gHome.noticeAddReply(info._id.$oid, res);
+				gHome.noticeAddReply(info._id, res);
 				
 				// 스크롤 최상단
 				var reply_body = $layer.find('.cont-inner').get(0); 

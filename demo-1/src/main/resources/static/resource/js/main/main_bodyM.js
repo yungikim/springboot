@@ -118,7 +118,7 @@ gBodyM.prototype = {
 		// 채널 설정 전역변수 설정
 		
 		
-		var surl = gap.channelserver + "/channel_options_read.km";
+		var surl = gap.channelserver + "/api/channel/channel_options_read.km";
 		var postData = {
 				"email" : gap.search_cur_ky(),
 				"key" : opt
@@ -127,11 +127,12 @@ gBodyM.prototype = {
 		$.ajax({
 			type : "POST",
 			url : surl,
-			dataType : "text",	//"json",
+			dataType : "json",	//"json",
+			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify(postData),
 			async : false,
 			success : function(__res){
-				var res = JSON.parse(__res);
+				var res = __res;
 				if (res.result == "OK"){
 					gBodyM.prevent_auto_scrolling = (res.data.opt1 != "" ? res.data.opt1 : "1");
 					gBodyM.collapse_reply = (res.data.opt2 != "" ? res.data.opt2 : "2");
@@ -212,7 +213,7 @@ gBodyM.prototype = {
 		//if (name.indexOf('AP-ON 운영팀') > -1) {gap.gAlert(1)}
 		
 		// 채널 설정 전역변수 설정		
-		var surl = gap.channelserver + "/channel_options_read.km";
+		var surl = gap.channelserver + "/api/channel/channel_options_read.km";
 		var postData = {
 				"email" : gap.search_cur_ky(),
 				"key" : id
@@ -221,11 +222,12 @@ gBodyM.prototype = {
 		$.ajax({
 			type : "POST",
 			url : surl,
-			dataType : "text",	//"json",
+			dataType : "json",	//"json",
+			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify(postData),
 			async : false,
 			success : function(__res){
-				var res = JSON.parse(__res);
+				var res = __res;
 				if (res.result == "OK"){
 					gBodyM.prevent_auto_scrolling = (res.data.opt1 != "" ? res.data.opt1 : "1");
 					gBodyM.collapse_reply = (res.data.opt2 != "" ? res.data.opt2 : "2");
@@ -375,10 +377,10 @@ gBodyM.prototype = {
 			gBodyM.cur_msg_list = [];
 		}
 
-		var url = gap.channelserver + "/channel_list.km";
+		var url = gap.channelserver + "/api/channel/channel_list.km";
 		$.ajax({
 			type : "POST",
-			dataType : "text",
+			dataType : "json",
 		//	dataType : "json",
 		//	contentType : "application/json; charset=utf-8",
 			async : false,
@@ -388,10 +390,8 @@ gBodyM.prototype = {
 				xhr.setRequestHeader("auth", gap.get_auth());
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},
-			success : function(ress){
-				$("#channel_list").css({opacity:0})
-				var res = JSON.parse(ress);
-				
+			success : function(res){
+				$("#channel_list").css({opacity:0});			
 				
 				if (res.data == null){
 					if (query_str != ""){							
@@ -1487,8 +1487,8 @@ gBodyM.prototype = {
 		
 		var list = gBodyM.cur_msg_list;
 		for (var i = 0 ; i < list.length; i++){
-			if (list[i]._id.$oid){
-				if (id == list[i]._id.$oid){
+			if (list[i]._id){
+				if (id == list[i]._id){
 					return list[i];
 				}
 			}else{
@@ -1608,7 +1608,7 @@ gBodyM.prototype = {
 		if (item.direct == "T"){						
 			docid = item._id;
 		}else{
-			docid = item._id.$oid;
+			docid = item._id;
 			if (typeof(item.like_count.$numberLong) != "undefined"){
 				like_count = item.like_count.$numberLong;
 			}else{
@@ -2044,7 +2044,7 @@ gBodyM.prototype = {
 						var email = user_info.email;
 						var jt = user_info.jt;
 						
-						var todo_item_id = xinfo._id.$oid;
+						var todo_item_id = xinfo._id;
 						
 //						html += "<div class='chat-todo'>";
 //						html += "<div>";
@@ -2383,7 +2383,7 @@ gBodyM.prototype = {
 		if (item.direct == "T"){
 			docid = item._id;
 		}else{
-			docid = item._id.$oid;
+			docid = item._id;
 			if (typeof(item.like_count.$numberLong) != "undefined"){
 				like_count = item.like_count.$numberLong;
 			}else{
@@ -2758,7 +2758,7 @@ gBodyM.prototype = {
 		if (item.direct == "T"){
 			docid = item._id;
 		}else{
-			docid = item._id.$oid;
+			docid = item._id;
 		}
 		
 		var replylists = item.reply;
@@ -3022,7 +3022,7 @@ gBodyM.prototype = {
 					var like_count = 0;
 					
 
-					docid = item._id.$oid;
+					docid = item._id;
 					if (typeof(item.like_count.$numberLong) != "undefined"){
 						like_count = item.like_count.$numberLong;
 					}else{
@@ -3398,7 +3398,7 @@ gBodyM.prototype = {
 								"content" : msg,
 								"edit" : "F",
 								"msg_edit" : "T",
-								"id" : gBodyM.item._id.$oid,
+								"id" : gBodyM.item._id,
 								"og" : {}
 							});
 							
@@ -4213,8 +4213,8 @@ gBodyM.prototype = {
 		}
 		var cur_channel = gBodyM.cur_opt;
 		var jj = JSON.parse(obj.f1);
-		if (typeof(jj._id) != "undefined" && typeof(jj._id.$oid) != "undefined"){
-			jj._id = jj._id.$oid;
+		if (typeof(jj._id) != "undefined" && typeof(jj._id) != "undefined"){
+			jj._id = jj._id;
 		}
 		
 	//	gap.gAlert(jj.channel_code);
@@ -4236,8 +4236,8 @@ gBodyM.prototype = {
 					var date = gap.change_date_localTime_only_date(jinfo.GMT);
 					var html = "";
 					
-					if (typeof(doc._id.$oid) != "undefined"){
-						doc._id = doc._id.$oid;
+					if (typeof(doc._id) != "undefined"){
+						doc._id = doc._id;
 					}
 					
 					gBodyM.select_doc_info = jinfo.res;
@@ -4870,7 +4870,7 @@ gBodyM.prototype = {
 						var item = gBodyM.select_doc_info;			
 						var xhtml = gBodyM.draw_reply(item);					
 						
-						var parent = $("#ms_" + item._id.$oid).find(".message-btns");				
+						var parent = $("#ms_" + item._id).find(".message-btns");				
 						$("#rp_" + id).text(item.reply.length);					
 						$(xhtml).insertBefore(parent);				
 					}
@@ -5928,12 +5928,12 @@ gBodyM.prototype = {
 		var obb = new Object();	
 		obb = obj.docinfo;
 		obb.direct = "T";
-		obb._id = obj.docinfo._id.$oid;		
+		obb._id = obj.docinfo._id;		
 	
 		
 		var is_write_auth = gap.mobile_write_auth_check();
 		var html = gBodyM.draw_msg(obb, obj.docinfo.type, date, is_write_auth);	
-		gBodyM.direct_draw(html, obj.docinfo.GMT, obj.docinfo._id.$oid);		
+		gBodyM.direct_draw(html, obj.docinfo.GMT, obj.docinfo._id);		
 		
 		obb.date = date;
 		obb.edit = "";	
@@ -6540,7 +6540,7 @@ gBodyM.prototype = {
 					
 					for (var i = 0; i < res.data.data.length; i++){
 						var info = res.data.data[i];
-						var item_id = info._id.$oid;
+						var item_id = info._id;
 						var vote_list_html = '';
 						
 						if (typeof(info.members) != "undefined"){
@@ -7244,7 +7244,7 @@ gBodyM.prototype = {
 		
 	//	gap.gAlert(data);
 		
-		var url = gap.channelserver + "/channel_read_update.km";
+		var url = gap.channelserver + "/api/channel/channel_read_update.km";
 		$.ajax({
 			type : "POST",
 			data : data,

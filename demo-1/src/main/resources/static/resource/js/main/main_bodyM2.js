@@ -213,7 +213,7 @@ gBodyM2.prototype = {
 					
 		for (var k = 0;  k < res.filelist.length; k++){
 			var file_info = res.filelist[k];
-			var file_id = file_info._id.$oid;
+			var file_id = file_info._id;
 			var disp_file_name = gap.get_bun_filename(file_info);
 			var disp_date = gap.change_date_default2(gap.change_date_localTime_only_date(typeof(file_info.lastupdate) != "undefined" ? file_info.lastupdate : file_info.GMT));
 			var disp_time = gap.change_date_localTime_only_time(String(typeof(file_info.lastupdate) != "undefined" ? file_info.lastupdate : file_info.GMT));
@@ -222,7 +222,7 @@ gBodyM2.prototype = {
 			var owner_nm = user_info.name;
 			var icon_kind = gap.file_icon_check(file_info.filename);
 			var fserver = gap.server_check(file_info.fserver);
-			var downloadurl = fserver + "/FDownload.do?id=" + file_info._id.$oid + "&ty=" + (gBodyM2.drive_main_menu == "4" ? "3" : "1");
+			var downloadurl = fserver + "/FDownload.do?id=" + file_info._id + "&ty=" + (gBodyM2.drive_main_menu == "4" ? "3" : "1");
 			var file_ext = file_info.file_type;
 			var upload_path = file_info.upload_path;
 			var show_thumb = false;
@@ -515,7 +515,7 @@ gBodyM2.prototype = {
 		}
 
 		gBodyM2.start_skp = (parseInt(gBodyM2.per_page) * (parseInt(page_no))) - (parseInt(gBodyM2.per_page) - 1);
-		var surl = gap.channelserver + "/channel_list.km";
+		var surl = gap.channelserver + "/api/channel/channel_list.km";
 		
 		//"dtype" : 은 파일 형식으로 필터링 할때 사용한다. ppt, xls, doc, pdf, image, movie, hwp, txt, etc
 		var postData = {
@@ -532,10 +532,10 @@ gBodyM2.prototype = {
 		$.ajax({
 			type : "POST",
 			url : surl,
-			dataType : "text",	//"json",
+			dataType : "json",	//"json",
+			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify(postData),
-			success : function(__res){
-				var res = JSON.parse(__res);
+			success : function(res){
 				if (res.result == "OK"){
 					gBodyM2.cur_file_count += res.data.data.length;
 					gBodyM2.cur_file_total_count = res.data.totalcount;
@@ -617,7 +617,7 @@ gBodyM2.prototype = {
 		
 		for (var k = 0;  k < res.data.length; k++){
 			var file_info = res.data[k];
-			var file_id = file_info._id.$oid;
+			var file_id = file_info._id;
 			var disp_file_name = gap.get_bun_filename(file_info);
 			var disp_date = gap.change_date_default2(gap.change_date_localTime_only_date(typeof(file_info.lastupdate) != "undefined" ? file_info.lastupdate : file_info.GMT));
 			var disp_time = gap.change_date_localTime_only_time(String(typeof(file_info.lastupdate) != "undefined" ? file_info.lastupdate : file_info.GMT));
@@ -626,7 +626,7 @@ gBodyM2.prototype = {
 			var owner_nm = owner_info.name;
 			var icon_kind = gap.file_icon_check(file_info.filename);
 			var fserver = gap.server_check(file_info.fserver);
-			var downloadurl = fserver + "/FDownload.do?id=" + file_info._id.$oid + "&ty=3";
+			var downloadurl = fserver + "/FDownload.do?id=" + file_info._id + "&ty=3";
 			var file_ext = file_info.file_type;
 			var upload_path = file_info.upload_path;
 			var show_thumb = false;
@@ -693,7 +693,7 @@ gBodyM2.prototype = {
 	"add_favorite_data_list" : function(page_no){
 		if (gBodyM2.cur_file_total_count > gBodyM2.cur_file_count){
 			gBodyM2.start_skp = (parseInt(gBodyM2.per_page) * (parseInt(page_no))) - (parseInt(gBodyM2.per_page) - 1);
-			var surl = gap.channelserver + "/channel_list.km";
+			var surl = gap.channelserver + "/api/channel/channel_list.km";
 			var postData = {
 					"channel_code" : "",
 					"query_type" : "favoritecontent",
@@ -708,11 +708,11 @@ gBodyM2.prototype = {
 			$.ajax({
 				type : "POST",
 				url : surl,
-				dataType : "text",	//"json",
+				dataType : "json",	//"json",
+				contentType : "application/json; charset=utf-8",
 				data : JSON.stringify(postData),
 				async : false,
-				success : function(__res){
-					var res = JSON.parse(__res);
+				success : function(res){
 					if (res.result == "OK"){
 						gBodyM2.cur_file_count += res.data.data.length;
 						gBodyM2.cur_file_total_count = res.data.totalcount;
@@ -944,7 +944,7 @@ gBodyM2.prototype = {
 		html += "<div class='file-info'>";
 
 		if (gBodyM.check_preview_file(filename) && info.thumbOK == "T"){
-			var thumbnail_url = gap.server_check(info.fserver) + "/FDownload_thumb.do?id=" + (ty == "2" ? info._id.$oid + "&md5=" + info.md5 : info._id.$oid) + "&ty=" + ty;
+			var thumbnail_url = gap.server_check(info.fserver) + "/FDownload_thumb.do?id=" + (ty == "2" ? info._id + "&md5=" + info.md5 : info._id) + "&ty=" + ty;
 			html += "	<div class='file-thm'>";
 			html += "		<img src='" + thumbnail_url + "' alt='' />";
 			html += "	</div>";
@@ -996,7 +996,7 @@ gBodyM2.prototype = {
 			var fname = gap.get_bun_filename(info);	//info.filename;
 			var ftype = info.file_type;
 			var md5 = info.md5;
-			var id = info._id.$oid;
+			var id = info._id;
 			var ext = gap.is_file_type_filter(fname);
 
 			if (ty == "1"){
@@ -1168,8 +1168,8 @@ gBodyM2.prototype = {
 	"get_folder_path" : function(folder_code){
 		for (var i = 0; i < gBodyM2.cur_folder_list_info.length; i++){
 			var item = gBodyM2.cur_folder_list_info[i];
-			if (item._id.$oid == folder_code){
-				gBodyM2.title_path_code.push(item._id.$oid)
+			if (item._id == folder_code){
+				gBodyM2.title_path_code.push(item._id)
 				gBodyM2.title_path_name.push(item.folder_name)
 				if (item.parent_folder_key != "root"){
 					gBodyM2.get_folder_path(item.parent_folder_key);
@@ -1408,7 +1408,7 @@ gBodyM2.prototype = {
 			
 			for (var i = 0;  i < res.folderlist.length; i++){
 				var folder_info = res.folderlist[i];
-				var folder_id = folder_info._id.$oid;
+				var folder_id = folder_info._id;
 				var folder_name = folder_info.folder_name;
 				var user_info = gap.user_check(folder_info.owner);
 				var disp_date = gap.change_date_default2(gap.change_date_localTime_only_date(folder_info.GMT));
@@ -1465,7 +1465,7 @@ gBodyM2.prototype = {
 				
 		for (var k = 0;  k < res.datalist.length; k++){
 			var file_info = res.datalist[k];
-			var file_id = file_info._id.$oid;
+			var file_id = file_info._id;
 			var disp_file_name = gap.get_bun_filename(file_info);
 			var disp_date = gap.change_date_default2(gap.change_date_localTime_only_date(typeof(file_info.lastupdate) != "undefined" ? file_info.lastupdate : file_info.GMT));
 			var disp_time = gap.change_date_localTime_only_time(String(typeof(file_info.lastupdate) != "undefined" ? file_info.lastupdate : file_info.GMT));
@@ -1474,7 +1474,7 @@ gBodyM2.prototype = {
 			var owner_nm = owner_info.name;
 			var icon_kind = gap.file_icon_check(file_info.filename);
 			var fserver = gap.server_check(file_info.fserver);
-			var downloadurl = fserver + "/FDownload.do?id=" + file_info._id.$oid + "&ty=1";
+			var downloadurl = fserver + "/FDownload.do?id=" + file_info._id + "&ty=1";
 			var file_ext = file_info.file_type;
 			var upload_path = file_info.fpath;
 			var show_thumb = false;
@@ -1803,7 +1803,7 @@ gBodyM2.prototype = {
 		}
 		
 		gBodyM2.start_skp = (parseInt(gBodyM2.per_page) * (parseInt(page_no))) - (parseInt(gBodyM2.per_page) - 1);
-		var surl = gap.channelserver + "/channel_list.km";
+		var surl = gap.channelserver + "/api/channel/channel_list.km";
 		
 		//"dtype" : 은 파일 형식으로 필터링 할때 사용한다. ppt, xls, doc, pdf, image, movie, hwp, txt, etc
 		var postData = {
@@ -1819,14 +1819,13 @@ gBodyM2.prototype = {
 		$.ajax({
 			type : "POST",
 			url : surl,
-			dataType : "text", //"json",
+			dataType : "json", //"json",
 			data : JSON.stringify(postData),
 			beforeSend : function(xhr){
 				xhr.setRequestHeader("auth", gap.get_auth());
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},
-			success : function(__res){
-				var res = JSON.parse(__res);
+			success : function(res){
 				if (res.result == "OK"){
 					gBodyM2.cur_file_count += res.data.data.length;
 					gBodyM2.cur_file_total_count = res.data.totalcount;
@@ -1915,7 +1914,7 @@ gBodyM2.prototype = {
 			var chname = data.channel_name;
 			var owner_info = gap.user_check(data.owner);
 			var owner_nm = owner_info.name;
-			var file_id = data._id.$oid;
+			var file_id = data._id;
 			var file_info = data.info;
 			var fname = file_info.filename;
 			var fsize = file_info.file_size.$numberLong;
@@ -1996,7 +1995,7 @@ gBodyM2.prototype = {
 	"add_files_data_list" : function(page_no){
 		if (gBodyM2.cur_file_total_count > gBodyM2.cur_file_count){
 			gBodyM2.start_skp = (parseInt(gBodyM2.per_page) * (parseInt(page_no))) - (parseInt(gBodyM2.per_page) - 1);
-			var surl = gap.channelserver + "/channel_list.km";
+			var surl = gap.channelserver + "/api/channel/channel_list.km";
 			var postData = {
 					"channel_code" : gBodyM.select_channel_code,
 					"query_type" : gBodyM.cur_opt,
@@ -2012,10 +2011,10 @@ gBodyM2.prototype = {
 				type : "POST",
 				url : surl,
 				dataType : "text", //"json",
+				contentType : "application/json; charset=utf-8",
 				data : JSON.stringify(postData),
 				async : false,
-				success : function(__res){
-					var res = JSON.parse(__res);
+				success : function(res){
 					if (res.result == "OK"){
 						gBodyM2.cur_file_count += res.data.data.length;
 						gBodyM2.cur_file_total_count = res.data.totalcount;
@@ -2846,7 +2845,7 @@ gBodyM2.prototype = {
 					for (var i = 0; i < res.data.folderlist.length; i++){
 						var folder_info = res.data.folderlist[i];
 						var drive_key = folder_info.drive_key;
-						var folder_id = folder_info._id.$oid;
+						var folder_id = folder_info._id;
 						var folder_name = folder_info.folder_name;
 						var _html = '';
 						
@@ -3171,7 +3170,7 @@ gBodyM2.prototype = {
 		$("#exit_info_layer").html(html);
 
 		//나간 드라이브/채널 리스트 가져오기
-		var surl = gap.channelserver + "/exit_list.km";
+		var surl = gap.channelserver + "/api/files/exit_list.km";
 		var postData = JSON.stringify({
 				"ty" : ty
 			});			
@@ -3187,8 +3186,8 @@ gBodyM2.prototype = {
 			},
 			success : function(res){
 				if (res.result == "OK"){
-					for (var i = 0; i < res.data.data.length; i++){
-						var _info = res.data.data[i];
+					for (var i = 0; i < res.data.length; i++){
+						var _info = res.data[i];
 						var _html = '';
 						_html += '<li>';
 						_html += '	<span class="ico ico-category ' + (ty == "1" ? "drive" : "channel") + (_info.ch_share == "Y" ? "-share" : "") + '" style="width:18px; height:18px;"></span>';
@@ -3387,7 +3386,7 @@ gBodyM2.prototype = {
 		if (is_update){
 			//드라이브 정보 update인 경우
 			gBodyM2.cur_drive_info = "";	//초기화
-			var surl = gap.channelserver + "/search_info.km";
+			var surl = gap.channelserver + "/api/channel/search_info.km";
 			var postData = {
 					"type" : "D",
 					"ch_code" : ch_code
@@ -3395,6 +3394,7 @@ gBodyM2.prototype = {
 
 			$.ajax({
 				type : "POST",
+				contentType : "application/json; charset=utf-8",
 				url : surl,
 				dataType : "json",
 				data : JSON.stringify(postData),
@@ -3513,7 +3513,7 @@ gBodyM2.prototype = {
 			postData.ch_code = ch_code;
 		}
 					
-		var surl = gap.channelserver + "/" + (is_update ? "drive_update.km" : "create_person_drive.km");
+		var surl = gap.channelserver + "/api/files/" + (is_update ? "drive_update.km" : "create_person_drive.km");
 		$.ajax({
 			type : "POST",
 			url : surl,
@@ -3743,7 +3743,7 @@ gBodyM2.prototype = {
 		if (is_update){
 			//채널 정보 update인 경우
 			gBodyM2.cur_channel_info = "";	//초기화
-			var surl = gap.channelserver + "/search_info.km";
+			var surl = gap.channelserver + "/api/channel/search_info.km";
 			var postData = {
 					"type" : "C",
 					"ch_code" : ch_code
@@ -3753,6 +3753,7 @@ gBodyM2.prototype = {
 				type : "POST",
 				url : surl,
 				dataType : "json",
+				contentType : "application/json; charset=utf-8",
 				data : JSON.stringify(postData),
 				success : function(res){
 					if (res.result == "OK"){
@@ -4666,7 +4667,7 @@ gBodyM2.prototype = {
 				for (var i = 0; i < res.drive.length; i++){
 					var _data = res.drive[i];
 				//	if (_data.ch_share == "Y"){
-						drive_option_list += '<option value="' + _data._id.$oid + '">' + _data.ch_name + '</option>';
+						drive_option_list += '<option value="' + _data._id + '">' + _data.ch_name + '</option>';
 						drive_list.push(_data);
 				//	}
 				}
@@ -4684,7 +4685,7 @@ gBodyM2.prototype = {
 				});
 				
 				//드라이브 내 폴더 및 파일 리스트
-				var first_drive_code = drive_list[0]._id.$oid;
+				var first_drive_code = drive_list[0]._id;
 				if (typeof first_drive_code != "undefined"){
 					gBodyM2.select_drive_code = first_drive_code;
 					gBodyM2.select_drive_name = drive_list[0].ch_name;
@@ -4904,7 +4905,7 @@ gBodyM2.prototype = {
 			//폴더 리스트
 			for (var i = 0; i < res.folderlist.length; i++){
 				var folder_info = res.folderlist[i];
-				var folder_id = folder_info._id.$oid;
+				var folder_id = folder_info._id;
 				var folder_html = '';
 				
 				folder_html += '<li id="fl_' + folder_id + '">';
@@ -4939,7 +4940,7 @@ gBodyM2.prototype = {
 			file_html += '	<dl>';
 			file_html += '		<dt><strong style="margin-top:22px;">' + file_name + '&nbsp;(' + file_size + ')</strong></dt>';
 			file_html += '	</dl>';
-			file_html += '	<button class="ico btn-check" id="chk_' + file_info._id.$oid + '" fname="' + file_name + '" fsize="' + file_size + '">체크</button>';
+			file_html += '	<button class="ico btn-check" id="chk_' + file_info._id + '" fname="' + file_name + '" fsize="' + file_size + '">체크</button>';
 			file_html += '</li>';
 			
 			$("#upload_folder_file_list").append(file_html);
@@ -5085,7 +5086,7 @@ gBodyM2.prototype = {
 	//	var html = gBodyM2.drive_folder_layer_html(is_update);
 	//	$("#create_channel_layer").html(html);
 				
-		var surl = gap.channelserver + "/load_folder.km";
+		var surl = gap.channelserver + "/api/files/load_folder.km";
 		var postData = {
 				"id" : _code
 			};			
@@ -5115,7 +5116,7 @@ gBodyM2.prototype = {
 					if (is_share == "Y"){
 						if (obj.parent_folder_key == "root"){
 							// parent가 드라이브인 경우
-							var _surl = gap.channelserver + "/search_info.km";
+							var _surl = gap.channelserver + "/api/channel/search_info.km";
 							var postData = {
 									"type" : "D",
 									"ch_code" : obj.drive_key
@@ -5125,6 +5126,7 @@ gBodyM2.prototype = {
 								type : "POST",
 								url : _surl,
 								dataType : "json",
+								contentType : "application/json; charset=utf-8",
 								data : JSON.stringify(postData),
 								success : function(res){
 									if (res.result == "OK"){
@@ -5138,7 +5140,7 @@ gBodyM2.prototype = {
 							});
 						}else{
 							// parent가 폴더인 경우
-							var _surl = gap.channelserver + "/load_folder.km";
+							var _surl = gap.channelserver + "/api/files/load_folder.km";
 							var postData = {
 									"id" : _code
 								};			
@@ -5216,7 +5218,7 @@ gBodyM2.prototype = {
 
 				if (folder_code == "root"){
 					// parent가 드라이브인 경우
-					var _surl = gap.channelserver + "/search_info.km";
+					var _surl = gap.channelserver + "/api/channel/search_info.km";
 					var postData = {
 							"type" : "D",
 							"ch_code" : drive_code
@@ -5226,6 +5228,7 @@ gBodyM2.prototype = {
 						type : "POST",
 						url : _surl,
 						dataType : "json",
+						contentType : "application/json; charset=utf-8",
 						data : JSON.stringify(postData),
 						success : function(res){
 							gBodyM.mobile_finish();
@@ -5252,7 +5255,7 @@ gBodyM2.prototype = {
 					
 				}else{
 					// parent가 폴더인 경우
-					var _surl = gap.channelserver + "/load_folder.km";
+					var _surl = gap.channelserver + "/api/files/load_folder.km";
 					var postData = {
 							"id" : folder_code
 						};			
@@ -5318,7 +5321,7 @@ gBodyM2.prototype = {
 			readers.push(gap.userinfo.rinfo.ky);
 			var postData = {
 				"drive_key" : folder_info.drive_key,
-				"parent_folder_key" : (is_update ? folder_info.parent_folder_key : folder_info._id.$oid),
+				"parent_folder_key" : (is_update ? folder_info.parent_folder_key : folder_info._id),
 				"depth" : (is_update ? folder_info.depth : (parseInt(folder_info.depth) + 1).toString()),
 				"folder_name" : folder_name,
 				"folder_share" : "N",
@@ -5346,7 +5349,7 @@ gBodyM2.prototype = {
 
 			var postData = {
 				"drive_key" : folder_info.drive_key,
-				"parent_folder_key" : (is_update ? folder_info.parent_folder_key : folder_info._id.$oid),
+				"parent_folder_key" : (is_update ? folder_info.parent_folder_key : folder_info._id),
 				"depth" : (is_update ? folder_info.depth : (parseInt(folder_info.depth) + 1).toString()),
 				"folder_name" : folder_name,
 				"folder_share" : "Y",
@@ -5374,11 +5377,12 @@ gBodyM2.prototype = {
 			postData.id = code;
 		}
 		
-		var surl = gap.channelserver + "/" + (is_update ? "update_folder.km" : "make_folder.km");
+		var surl = gap.channelserver + "/api/files/" + (is_update ? "update_folder.km" : "make_folder.km");
 		$.ajax({
 			type : "POST",
 			url : surl,
 			dataType : "text",
+			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify(postData),
 			success : function(ress){
 				var res = JSON.parse(ress);
@@ -5508,7 +5512,7 @@ gBodyM2.prototype = {
 			};
 		
 		if (is_update){
-			postData.key = folder_info._id.$oid;
+			postData.key = folder_info._id;
 			postData.email = gap.search_cur_em();
 		}
 		
@@ -5708,7 +5712,7 @@ gBodyM2.prototype = {
 	"config_channel_view" : function(key){
 		// 채널 설정 전역변수 설정
 		
-		var surl = gap.channelserver + "/channel_options_read.km";
+		var surl = gap.channelserver + "/api/channel/channel_options_read.km";
 		var postData = {
 				"key" : key	//gBodyM.cur_select_info.channel_code
 			};			
@@ -5716,7 +5720,7 @@ gBodyM2.prototype = {
 		$.ajax({
 			type : "POST",
 			url : surl,
-			dataType : "text",	//"json",
+			dataType : "json",	//"json",
 			data : JSON.stringify(postData),
 			beforeSend : function(xhr){
 				xhr.setRequestHeader("auth", gap.get_auth());
@@ -5724,7 +5728,7 @@ gBodyM2.prototype = {
 			},
 			async : false,
 			success : function(__res){
-				var res = JSON.parse(__res);
+				var res = __res;
 				if (res.result == "OK"){
 					gBodyM.prevent_auto_scrolling = (res.data.opt1 != "" ? res.data.opt1 : "1");
 					gBodyM.collapse_reply = (res.data.opt2 != "" ? res.data.opt2 : "2");
@@ -5893,7 +5897,7 @@ gBodyM2.prototype = {
 	
 	"check_channel_owner" : function(){
 		var ret = "";
-		var surl = gap.channelserver + "/search_info.km";
+		var surl = gap.channelserver + "/api/channel/search_info.km";
 		var postData = {
 				"type" : "C",
 				"ch_code" : gBodyM.select_channel_code
@@ -5904,6 +5908,7 @@ gBodyM2.prototype = {
 			url : surl,
 			async : false,
 			dataType : "json",
+			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify(postData),
 			success : function(res){
 				if (res.result == "OK"){
@@ -5929,7 +5934,7 @@ gBodyM2.prototype = {
 		if (gBodyM2.select_folder_code == "root"){
 			// 드라이브
 			var ret = "";
-			var surl = gap.channelserver + "/search_info.km";
+			var surl = gap.channelserver + "/api/channel/search_info.km";
 			var postData = {
 					"type" : "D",
 					"ch_code" : gBodyM2.select_drive_code
@@ -5940,6 +5945,7 @@ gBodyM2.prototype = {
 				url : surl,
 				async : false,
 				dataType : "json",
+				contentType : "application/json; charset=utf-8",
 				data : JSON.stringify(postData),
 				success : function(res){
 					if (res.result == "OK"){
@@ -5962,20 +5968,8 @@ gBodyM2.prototype = {
 			
 		}else{
 			// 폴더
-		/*	var folder_owner = "folder-spl-F-spl-" + gBodyM2.select_folder_code;
-			for (var i = 0; i < gBodyM2.cur_folder_list_info.length; i++){
-				var item = gBodyM2.cur_folder_list_info[i];
-				if ( (item._id.$oid == gBodyM2.select_folder_code) && (item.owner.ky == gap.userinfo.rinfo.ky) ){
-					folder_owner = "folder-spl-T-spl-" + gBodyM2.select_folder_code;
-					break;
-				}
-			}
-			
-			return folder_owner;*/
-			
-			
 			var ret = "";
-			var surl = gap.channelserver + "/search_info.km";
+			var surl = gap.channelserver + "/api/channel/search_info.km";
 			var postData = {
 					"type" : "D",
 					"ch_code" : gBodyM2.select_drive_code
@@ -5986,6 +5980,7 @@ gBodyM2.prototype = {
 				url : surl,
 				async : false,
 				dataType : "json",
+				contentType : "application/json; charset=utf-8",
 				data : JSON.stringify(postData),
 				success : function(res){
 					if (res.result == "OK"){
@@ -5997,7 +5992,7 @@ gBodyM2.prototype = {
 						ret = "folder-spl-F-spl-" + gBodyM2.select_folder_code + "-spl-" + drive_owner;
 						for (var i = 0; i < gBodyM2.cur_folder_list_info.length; i++){
 							var item = gBodyM2.cur_folder_list_info[i];
-							if ( (item._id.$oid == gBodyM2.select_folder_code) && (item.owner.ky == gap.userinfo.rinfo.ky) ){
+							if ( (item._id == gBodyM2.select_folder_code) && (item.owner.ky == gap.userinfo.rinfo.ky) ){
 								ret = "folder-spl-T-spl-" + gBodyM2.select_folder_code + "-spl-" + drive_owner;
 								break;
 							}

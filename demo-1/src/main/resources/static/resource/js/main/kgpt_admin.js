@@ -1342,7 +1342,7 @@ gAdminGpt.prototype = {
 					
 					
 					var _html = "";					
-					_html += '<tr id="' + _info._id.$oid + '" class="menu-list-tr">';
+					_html += '<tr id="' + _info._id + '" class="menu-list-tr">';
 					_html += '	<td>' + _icon_img + '</td>';
 					_html += '	<td>' + _key + '</td>';
 					_html += '	<td>' + _info.menu_kr + '</td>';
@@ -1353,7 +1353,7 @@ gAdminGpt.prototype = {
 					_html += '</tr>';
 					
 					$("#plugin_list").append(_html);
-					$("#" + _info._id.$oid).data('info', _info);
+					$("#" + _info._id).data('info', _info);
 				}
 				
 				if (_list.length == 0) {

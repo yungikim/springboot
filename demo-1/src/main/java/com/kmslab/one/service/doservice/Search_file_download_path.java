@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 
+import com.kmslab.one.component.WriteLog;
 import com.kmslab.one.config.AppConfig;
-import com.kmslab.one.config.WriteLog;
 import com.kmslab.one.service.ResInfo;
 import com.mongodb.client.MongoCollection;
 

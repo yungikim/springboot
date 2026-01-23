@@ -137,4 +137,34 @@ public class PortalController {
 		model.addFlashAttribute("view", "files");
 		return "redirect:/v/portal";
 	}
+	
+	@GetMapping("/page/chat")
+	public String loginPage_chat(Model model) {
+		model.addAttribute("jsVer", "1.0");
+		model.addAttribute("cssVer", "1.0");
+		return "page/chat";
+	}
+	
+	@GetMapping("/v/chat")
+	public String loginPage_goto_chat(RedirectAttributes model) {
+		model.addFlashAttribute("jsVer", "1.0");
+		model.addFlashAttribute("cssVer", "1.0");
+		model.addFlashAttribute("view", "chat");
+		return "redirect:/v/portal";
+	}
+	
+	@GetMapping("/page/channel")
+	public String loginPage_channel(Model model) {
+		model.addAttribute("jsVer", "1.0");
+		model.addAttribute("cssVer", "1.0");
+		return "page/channel";
+	}
+	
+	@GetMapping("/v/channel")
+	public String loginPage_goto_channel(RedirectAttributes model) {
+		model.addFlashAttribute("jsVer", "1.0");
+		model.addFlashAttribute("cssVer", "1.0");
+		model.addFlashAttribute("view", "channel");
+		return "redirect:/v/portal";
+	}
 }

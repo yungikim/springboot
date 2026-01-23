@@ -2312,13 +2312,13 @@ gFilesFN.prototype = {
 
 		for (var k = 0;  k < res.filelist.length; k++){
 			var file_info = res.filelist[k];
-			var file_id = file_info._id.$oid;
+			var file_id = file_info._id;
 			var user_info = gap.user_check(file_info.owner);
 			var disp_file_name = gap.get_bun_filename(file_info);
 			var disp_date = gap.change_date_default2(gap.change_date_localTime_only_date(typeof(file_info.lastupdate) != "undefined" ? file_info.lastupdate : file_info.GMT));
 			var disp_time = gap.change_date_localTime_only_time(String(typeof(file_info.lastupdate) != "undefined" ? file_info.lastupdate : file_info.GMT));
 			var icon_kind = gap.file_icon_check(file_info.filename);
-			var downloadurl = gap.search_file_convert_server(file_info.fserver) + "FDownload.do?id=" + file_info._id.$oid + "&ty=" + (this.select_left_menu == "4" ? "3" : "1") + "&ky="+gap.userinfo.rinfo.ky;
+			var downloadurl = gap.search_file_convert_server(file_info.fserver) + "FDownload.do?id=" + file_info._id + "&ty=" + (this.select_left_menu == "4" ? "3" : "1") + "&ky="+gap.userinfo.rinfo.ky;
 			var show_thumb = false;
 			var file_html = '';
 			
@@ -2603,7 +2603,7 @@ gFilesFN.prototype = {
 		for (var i = 0; i < res.length; i++){
 			var folder_info = res[i];
 			var drive_key = folder_info.drive_key;
-			var folder_id = folder_info._id.$oid;
+			var folder_id = folder_info._id;
 			var folder_name = folder_info.folder_name;
 			var parent_folder_key = folder_info.parent_folder_key;
 			var depth = folder_info.depth;
@@ -2675,7 +2675,7 @@ gFilesFN.prototype = {
 		}else{
 			for (var j = 0; j < this.cur_drive_folder_list_info.length; j++){
 				var folder_info = this.cur_drive_folder_list_info[j];
-				if (folder_info._id.$oid == folder_code){
+				if (folder_info._id == folder_code){
 					return this.get_file_fullpath(drive_code, folder_info.parent_folder_key, folder_info.folder_name);
 					break;
 				}
@@ -2698,7 +2698,7 @@ gFilesFN.prototype = {
 					}
 				}
 				
-			}else if (folder_info._id.$oid == folder_code){
+			}else if (folder_info._id == folder_code){
 				var ret_fullpath = folder_info.folder_name + " > " + fullpath;
 				return this.get_file_fullpath(drive_code, folder_info.parent_folder_key, ret_fullpath);
 				break;
@@ -2772,7 +2772,7 @@ gFilesFN.prototype = {
 				for (var i = 0; i < _self.cur_drive_folder_list_info.length; i++){
 					_self.parent_folder_info = "";
 					var _data = _self.cur_drive_folder_list_info[i];
-					if (parent_folder_id == _data._id.$oid){
+					if (parent_folder_id == _data._id){
 						_self.parent_folder_info = _data;
 						break;
 					}
@@ -2780,7 +2780,7 @@ gFilesFN.prototype = {
 				for (var j = 0; j < _self.cur_drive_folder_list_info.length; j++){
 					_self.cur_folder_info = "";
 					var _data = _self.cur_drive_folder_list_info[j];
-					if (cur_folder_id == _data._id.$oid){
+					if (cur_folder_id == _data._id){
 						_self.cur_folder_info = _data;
 						break;
 					}
@@ -3027,7 +3027,7 @@ gFilesFN.prototype = {
 		var members = new Object();		
 		for (var i = 0 ; i < infos.length; i++){
 			var info = infos[i];
-			if (info._id.$oid == folderid){
+			if (info._id == folderid){
 				var list = info.member;
 				var mlist = [];
 				for (var k = 0 ; k < list.length; k++){
@@ -3858,7 +3858,7 @@ gFilesFN.prototype = {
 				postData.ch_code = obj.ch_code;
 			}
 						
-			var surl = gap.channelserver + "/" + (is_update ? "drive_update.km" : "create_person_drive.km");
+			var surl = gap.channelserver + "/api/files/" + (is_update ? "drive_update.km" : "create_person_drive.km");
 			$.ajax({
 				type : "POST",
 				url : surl,
@@ -4160,7 +4160,7 @@ gFilesFN.prototype = {
 	
 	"modify_drive" : function(ch_code){
 		var _self = this;
-		var surl = gap.channelserver + "/search_info.km";
+		var surl = gap.channelserver + "/api/channel/search_info.km";
 		var postData = {
 				"type" : "D",
 				"ch_code" : ch_code
@@ -4170,6 +4170,7 @@ gFilesFN.prototype = {
 			type : "POST",
 			url : surl,
 			dataType : "json",
+			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify(postData),
 			success : function(res){
 				if (res.result == "OK"){
@@ -4608,7 +4609,7 @@ gFilesFN.prototype = {
 	
 	"modify_channel" : function(ch_code){
 		var _self = this;
-		var surl = gap.channelserver + "/search_info.km";
+		var surl = gap.channelserver + "/api/channel/search_info.km";
 		var postData = {
 				"type" : "C",
 				"ch_code" : ch_code
@@ -4618,6 +4619,7 @@ gFilesFN.prototype = {
 			type : "POST",
 			url : surl,
 			dataType : "json",
+			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify(postData),
 			success : function(res){
 				if (res.result == "OK"){
@@ -5491,7 +5493,7 @@ gFilesFN.prototype = {
 			
 			for (var i = 0;  i < res.folderlist.length; i++){
 				var folder_info = res.folderlist[i];
-				var folder_id = folder_info._id.$oid;
+				var folder_id = folder_info._id;
 				var folder_name = folder_info.folder_name;
 				var user_info = gap.user_check(folder_info.owner);
 				var disp_date = gap.change_date_default2(gap.change_date_localTime_only_date(folder_info.GMT));
@@ -5614,13 +5616,13 @@ gFilesFN.prototype = {
 				
 		for (var k = 0;  k < res.datalist.length; k++){
 			var file_info = res.datalist[k];
-			var file_id = file_info._id.$oid;
+			var file_id = file_info._id;
 			var user_info = gap.user_check(file_info.owner);
 			var disp_file_name = gap.get_bun_filename(file_info);
 			var disp_date = gap.change_date_default2(gap.change_date_localTime_only_date(typeof(file_info.lastupdate) != "undefined" ? file_info.lastupdate : file_info.GMT));
 			var disp_time = gap.change_date_localTime_only_time(String(typeof(file_info.lastupdate) != "undefined" ? file_info.lastupdate : file_info.GMT));
 			var icon_kind = gap.file_icon_check(file_info.filename);
-			var downloadurl = gap.search_file_convert_server(file_info.fserver) + "FDownload.do?id=" + file_info._id.$oid + "&ty=1&ky="+gap.userinfo.rinfo.ky;
+			var downloadurl = gap.search_file_convert_server(file_info.fserver) + "FDownload.do?id=" + file_info._id + "&ty=1&ky="+gap.userinfo.rinfo.ky;
 			var show_thumb = false;
 			var file_html = '';
 			
@@ -6098,7 +6100,7 @@ gFilesFN.prototype = {
 					
 				}else{
 					_parent_member = $.map(this.cur_drive_folder_list_info, function(ret, key) {
-						if (ret._id.$oid == obj.parent_folder_key){
+						if (ret._id == obj.parent_folder_key){
 							var ret_member = [];
 							ret_member = ret.member;
 							_owner = ret.owner;
@@ -6300,22 +6302,23 @@ gFilesFN.prototype = {
 				}
 				
 				postData.delete_members = delete_members_em;	// 하취 폴더에서 해당 사용자 삭제
-				postData.id = obj._id.$oid;
+				postData.id = obj._id;
 			}
 
 			
-			var surl = gap.channelserver + "/" + (is_update ? "update_folder.km" : "make_folder.km");
+			var surl = gap.channelserver + "/api/files/" + (is_update ? "update_folder.km" : "make_folder.km");
 			$.ajax({
 				type : "POST",
 				url : surl,
 				dataType : "json",
+				contentType : "application/json; charset=utf-8",
 				data : JSON.stringify(postData),
 				success : function(res){
 					if (res.result == "OK"){
 						var user_info = gap.user_check(gap.userinfo.rinfo);
-						var disp_date = gap.change_date_default2(gap.change_date_localTime_only_date(res.GMT));
-						var disp_time = gap.change_date_localTime_only_time(String(res.GMT));
-						var folder_id = (is_update ? obj._id.$oid : res.folder_id);
+						var disp_date = gap.change_date_default2(gap.change_date_localTime_only_date(res.data.GMT));
+						var disp_time = gap.change_date_localTime_only_time(String(res.data.GMT));
+						var folder_id = (is_update ? obj._id : res.data.folder_id);
 						var html = '';
 						if (is_update){
 							$("#" + folder_id).empty();
@@ -6577,7 +6580,7 @@ gFilesFN.prototype = {
 						for (var j = 0; j < gBody.cur_drive_folder_list_info.length; j++){
 							_self.cur_folder_info = "";
 							var _data = _self.cur_drive_folder_list_info[j];
-							if (folder_code == _data._id.$oid){
+							if (folder_code == _data._id){
 								_self.cur_folder_info = _data;
 								break;
 							}
@@ -6622,7 +6625,7 @@ gFilesFN.prototype = {
 			title: "Confrim",
 			contents: msg,
 			callback: function(){
-			var surl = gap.channelserver + "/delete_folder_new.km";
+			var surl = gap.channelserver + "/api/files/delete_folder_new.km";
 			/*	var postData = JSON.stringify({
 						"id" : folder_id,
 						"email" : gap.userinfo.rinfo.em,
@@ -6679,7 +6682,7 @@ gFilesFN.prototype = {
 	
 	"drive_modify_folder" : function(folder_id){
 		var _self = this;
-		var surl = gap.channelserver + "/load_folder.km";
+		var surl = gap.channelserver + "/api/files/load_folder.km";
 		var postData = {
 				"id" : folder_id
 			};			
@@ -7201,7 +7204,7 @@ gFilesFN.prototype = {
 					for (var i = 0; i < res.data.folderlist.length; i++){
 						var folder_info = res.data.folderlist[i];
 						var drive_key = folder_info.drive_key;
-						var folder_id = folder_info._id.$oid;
+						var folder_id = folder_info._id;
 						var folder_name = folder_info.folder_name;
 						var _html = '';
 						
@@ -8027,7 +8030,7 @@ gFilesFN.prototype = {
 				
 		//"dtype" : 은 파일 형식으로 필터링 할때 사용한다. ppt, xls, doc, pdf, image, movie, hwp, txt, etc
 		
-		var surl = gap.channelserver + "/channel_list.km";
+		var surl = gap.channelserver + "/api/channel/channel_list.km";
 		var postData = {
 				"channel_code" : "",
 				"query_type" : "favoritecontent",
@@ -8041,14 +8044,13 @@ gFilesFN.prototype = {
 		$.ajax({
 			type : "POST",
 			url : surl,
-			dataType : "text",	//"json",
+			dataType : "json",	//"json",
 			data : JSON.stringify(postData),
 			beforeSend : function(xhr){
 				xhr.setRequestHeader("auth", gap.get_auth());
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},
-			success : function(__res){
-				var res = JSON.parse(__res);
+			success : function(res){
 				if (res.result == "OK"){
 					_self.cur_file_count += res.data.data.length;
 					_self.cur_file_total_count = res.data.totalcount;
@@ -8133,12 +8135,12 @@ gFilesFN.prototype = {
 		for (var k = 0;  k < res.data.length; k++){
 			var file_info = res.data[k];
 			
-			var file_id = file_info._id.$oid;
+			var file_id = file_info._id;
 			var disp_file_name = gap.get_bun_filename(file_info);
 			var disp_date = gap.change_date_default2(gap.change_date_localTime_only_date(typeof(file_info.lastupdate) != "undefined" ? file_info.lastupdate : file_info.GMT));
 			var disp_time = gap.change_date_localTime_only_time(String(typeof(file_info.lastupdate) != "undefined" ? file_info.lastupdate : file_info.GMT));
 			var icon_kind = gap.file_icon_check(file_info.filename);
-			var downloadurl = gap.search_file_convert_server(file_info.fserver) + "FDownload.do?id=" + file_info._id.$oid + "&ty=3&ky="+gap.userinfo.rinfo.ky;
+			var downloadurl = gap.search_file_convert_server(file_info.fserver) + "FDownload.do?id=" + file_info._id + "&ty=3&ky="+gap.userinfo.rinfo.ky;
 			var show_thumb = false;
 			var file_html = '';
 			
@@ -8374,7 +8376,7 @@ gFilesFN.prototype = {
 		}
 		if (is_continue){
 			this.start_skp = (parseInt(this.per_page) * (parseInt(page_no))) - (parseInt(this.per_page) - 1);
-			var surl = gap.channelserver + "/channel_list.km";
+			var surl = gap.channelserver + "/api/channel/channel_list.km";
 			var postData = {
 					"channel_code" : "",
 					"query_type" : "favoritecontent",
@@ -8388,14 +8390,13 @@ gFilesFN.prototype = {
 			$.ajax({
 				type : "POST",
 				url : surl,
-				dataType : "text",	//"json",
+				dataType : "json",	//"json",
 				data : JSON.stringify(postData),
 				beforeSend : function(xhr){
 					xhr.setRequestHeader("auth", gap.get_auth());
 					xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 				},
-				success : function(__res){
-					var res = JSON.parse(__res);
+				success : function(res){
 					if (res.result == "OK"){
 						_self.cur_file_count += res.data.data.length;
 						_self.cur_file_total_count = res.data.totalcount;
@@ -8510,7 +8511,7 @@ gFilesFN.prototype = {
 		this.start_skp = (parseInt(this.per_page) * (parseInt(page_no))) - (parseInt(this.per_page) - 1);
 				
 		//"dtype" : 은 파일 형식으로 필터링 할때 사용한다. ppt, xls, doc, pdf, image, movie, hwp, txt, etc
-		var surl = gap.channelserver + "/channel_list.km";
+		var surl = gap.channelserver + "/api/channel/channel_list.km";
 		var postData = {
 				"channel_code" : this.select_channel_code,
 				"query_type" : this.cur_opt,
@@ -8524,14 +8525,13 @@ gFilesFN.prototype = {
 		$.ajax({
 			type : "POST",
 			url : surl,
-			dataType : "text", //"json",
+			dataType : "json", //"json",
 			data : JSON.stringify(postData),
 			beforeSend : function(xhr){
 				xhr.setRequestHeader("auth", gap.get_auth());
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},
-			success : function(__res){
-				var res = JSON.parse(__res);
+			success : function(res){
 				if (res.result == "OK"){
 					_self.cur_file_count += res.data.data.length;
 					_self.cur_file_total_count = res.data.totalcount;
@@ -8587,7 +8587,7 @@ gFilesFN.prototype = {
 			var chcode = data.channel_code;
 			var chname = data.channel_name;
 			var owner_info = gap.user_check(data.owner);
-			var file_id = data._id.$oid;
+			var file_id = data._id;
 			var file_info = data.info;
 			var fname = file_info.filename;
 			var fsize = file_info.file_size.$numberLong;
@@ -8846,7 +8846,7 @@ gFilesFN.prototype = {
 		}
 		if (is_continue){
 			this.start_skp = (parseInt(this.per_page) * (parseInt(page_no))) - (parseInt(this.per_page) - 1);
-			var surl = gap.channelserver + "/channel_list.km";
+			var surl = gap.channelserver + "/api/channel/channel_list.km";
 			var postData = {
 					"channel_code" : this.select_channel_code,
 					"query_type" : this.cur_opt,
@@ -8860,14 +8860,13 @@ gFilesFN.prototype = {
 			$.ajax({
 				type : "POST",
 				url : surl,
-				dataType : "text", //"json",
+				dataType : "json", //"json",
 				data : JSON.stringify(postData),
 				beforeSend : function(xhr){
 					xhr.setRequestHeader("auth", gap.get_auth());
 					xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 				},
-				success : function(__res){
-					var res = JSON.parse(__res);
+				success : function(res){
 					if (res.result == "OK"){
 						_self.cur_file_count += res.data.data.length;
 						_self.cur_file_total_count = res.data.totalcount;
@@ -8975,7 +8974,7 @@ gFilesFN.prototype = {
 		html += "<div class='file-info'>";
 
 		if (info.thumbOK == "T"){
-			var thumbnail_url = gap.search_file_convert_server(info.fserver) + "/FDownload_thumb.do?id=" + (ty == "2" ? info._id.$oid + "&md5=" + info.md5 : info._id.$oid) + "&ty=" + ty;
+			var thumbnail_url = gap.search_file_convert_server(info.fserver) + "/FDownload_thumb.do?id=" + (ty == "2" ? info._id + "&md5=" + info.md5 : info._id) + "&ty=" + ty;
 			html += "	<div class='file-thm'>";
 			html += "		<img src='" + thumbnail_url + "' alt='' />";
 			html += "	</div>";
@@ -9072,8 +9071,8 @@ gFilesFN.prototype = {
 			//일반 파일 미리 보기 클릭 한  경우
 			
 			if (info.file_type == "mp4" || info.file_type == "mov"){
-			//	var download_url = info.fserver + "/FDownload_thumb.do?id=" + (ty == "2" ? info._id.$oid + "&md5=" + info.md5 : info._id.$oid) + "&ty=" + ty;
-				var download_url = gap.search_file_convert_server(info.fserver) + "FDownload.do?id=" + (ty == "2" ? info._id.$oid + "&md5=" + info.md5 : info._id.$oid) + "&ty=" + ty + "&ky="+gap.userinfo.rinfo.ky;
+			//	var download_url = info.fserver + "/FDownload_thumb.do?id=" + (ty == "2" ? info._id + "&md5=" + info.md5 : info._id) + "&ty=" + ty;
+				var download_url = gap.search_file_convert_server(info.fserver) + "FDownload.do?id=" + (ty == "2" ? info._id + "&md5=" + info.md5 : info._id) + "&ty=" + ty + "&ky="+gap.userinfo.rinfo.ky;
 				gap.show_video(download_url, filename);		
 				
 			}else{
@@ -9082,8 +9081,8 @@ gFilesFN.prototype = {
 				var fserver = gap.search_file_convert_server(info.fserver);
 				var fname = gap.get_bun_filename(info);	//info.filename;
 				var md5 = info.md5;
-			//	var id = (ty == "2" ? info.id : info._id.$oid);
-				var id = info._id.$oid;
+			//	var id = (ty == "2" ? info.id : info._id);
+				var id = info._id;
 				var icon_kind = gap.file_icon_check(fname);
 				var file_type = info.file_type;
 				var upload_path = info.upload_path;
@@ -9149,7 +9148,7 @@ gFilesFN.prototype = {
 		html += "<div class='file-info'>";
 
 		if (info.thumbOK == "T"){
-			var thumbnail_url = gap.search_file_convert_server(info.fserver) + "/FDownload_thumb.do?id=" + (ty == "2" ? info._id.$oid + "&md5=" + info.md5 : info._id.$oid) + "&ty=" + ty;
+			var thumbnail_url = gap.search_file_convert_server(info.fserver) + "/FDownload_thumb.do?id=" + (ty == "2" ? info._id + "&md5=" + info.md5 : info._id) + "&ty=" + ty;
 			html += "	<div class='file-thm'>";
 			html += "		<img src='" + thumbnail_url + "' alt='' />";
 			html += "	</div>";
@@ -9493,7 +9492,7 @@ gFilesFN.prototype = {
 				for (var i = 0; i < res.drive.length; i++){
 					var _data = res.drive[i];
 				//	if (_data.ch_share == "Y"){
-						drive_option_list += '<option value="' + _data._id.$oid + '">' + _data.ch_name + '</option>';
+						drive_option_list += '<option value="' + _data._id + '">' + _data.ch_name + '</option>';
 						drive_list.push(_data);
 				//	}
 				}
@@ -9511,7 +9510,7 @@ gFilesFN.prototype = {
 				});
 				
 				//드라이브 내 폴더 및 파일 리스트
-				var first_drive_code = drive_list[0]._id.$oid;
+				var first_drive_code = drive_list[0]._id;
 				if (typeof first_drive_code != "undefined"){
 					gFiles.select_drive_code = first_drive_code;
 					gFiles.select_drive_name = drive_list[0].ch_name;
@@ -9722,7 +9721,7 @@ gFilesFN.prototype = {
 			//폴더 리스트
 			for (var i = 0; i < res.folderlist.length; i++){
 				var folder_info = res.folderlist[i];
-				var folder_id = folder_info._id.$oid;
+				var folder_id = folder_info._id;
 				var folder_html = '';
 				
 				folder_html += '<li class="folder-list" id="fl_' + folder_id + '">';
@@ -9755,7 +9754,7 @@ gFilesFN.prototype = {
 			file_html += '<li>';
 			file_html += '	<div class="checkbox folder-file">';
 			file_html += '		<label>';
-			file_html += '			<input type="checkbox" name="check_upload" id="chk_' + file_info._id.$oid + '" value="' + file_info._id.$oid + '" fname="' + file_name + '" fsize="' + file_size + '"><span class="checkbox-material"><span class="check"></span></span>';
+			file_html += '			<input type="checkbox" name="check_upload" id="chk_' + file_info._id + '" value="' + file_info._id + '" fname="' + file_name + '" fsize="' + file_size + '"><span class="checkbox-material"><span class="check"></span></span>';
 			file_html += '		</label>';
 			file_html += '	</div>';
 			file_html += '	<span class="ico ico-file ' + icon_kind + '"></span>';
@@ -9764,7 +9763,7 @@ gFilesFN.prototype = {
 			
 			$("#upload_folder_file_list").append(file_html);
 			
-			$("#chk_" + file_info._id.$oid).on("click", function(){
+			$("#chk_" + file_info._id).on("click", function(){
 				var file_id = $(this).attr("id").replace("chk_", "upload_");
 				if ($(this).prop("checked")){
 					var file_name = $(this).attr("fname");
@@ -9897,7 +9896,7 @@ gFilesFN.prototype = {
 
 		
 		//나간 드라이브/채널 리스트 가져오기
-		var surl = gap.channelserver + "/exit_list.km";
+		var surl = gap.channelserver + "/api/files/exit_list.km";
 	/*	var postData = JSON.stringify({
 				"ty" : ty
 			});*/
@@ -9917,8 +9916,8 @@ gFilesFN.prototype = {
 			},
 			success : function(res){
 				if (res.result == "OK"){
-					for (var i = 0; i < res.data.data.length; i++){
-						var _info = res.data.data[i];
+					for (var i = 0; i < res.data.length; i++){
+						var _info = res.data[i];
 						var _html = '';
 						_html += '<li>';
 						if (ty == "1"){
@@ -10650,7 +10649,7 @@ gFilesFN.prototype = {
 							docid = item._id;
 							
 						}else{
-							docid = info._id.$oid;
+							docid = info._id;
 							if (info.like_count.$numberLong != undefined){
 								like_count = info.like_count.$numberLong;
 
@@ -11655,7 +11654,7 @@ gFilesFN.prototype = {
 				};
 			
 			if (is_update){
-				postData.key = obj._id.$oid;
+				postData.key = obj._id;
 				postData.email = gap.search_cur_ky();
 			}
 			
@@ -11853,7 +11852,7 @@ gFilesFN.prototype = {
 			var _html = "";	
 			
 			if (_type == "folder"){
-				var _id = data._id.$oid;
+				var _id = data._id;
 				var _name = data.name;
 				var _owner = data.owner.ky;
 				
@@ -12254,7 +12253,7 @@ gFilesFN.prototype = {
 						var _html = '';
 						var _folder_html = '';
 						_folder_html += '<li>';
-						_folder_html += '	<div style=""><span class="ico ico-todo-folder"></span>' + _info.name + '<button class="btn-entry" id="enter_' + _info._id.$oid + '"><span>' + gap.lang.move + '</span></button></div>';
+						_folder_html += '	<div style=""><span class="ico ico-todo-folder"></span>' + _info.name + '<button class="btn-entry" id="enter_' + _info._id + '"><span>' + gap.lang.move + '</span></button></div>';
 						_folder_html += '</li>';
 						if (is_share){
 							if (_info.share == "Y"){
@@ -12770,7 +12769,7 @@ gFilesFN.prototype = {
 		}
 		
 		gap.start_skp = (parseInt(gap.per_page) * (parseInt(page_no))) - (parseInt(gap.per_page) - 1);
-		var surl = gap.channelserver + "/channel_list.km";
+		var surl = gap.channelserver + "/api/channel/channel_list.km";
 		
 		var postData = {
 			"channel_code" : this.select_channel_code,
@@ -12785,14 +12784,13 @@ gFilesFN.prototype = {
 		$.ajax({
 			type : "POST",
 			url : surl,
-			dataType : "text", //"json",
+			dataType : "json", //"json",
 			data : JSON.stringify(postData),
 			beforeSend : function(xhr){
 				xhr.setRequestHeader("auth", gap.get_auth());
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},
-			success : function(__res){
-				var res = JSON.parse(__res);
+			success : function(res){
 				if (res.result == "OK"){
 					var $layer = $('#all_files_layer');
 					var list = res.data.data;
@@ -12818,8 +12816,8 @@ gFilesFN.prototype = {
 							'	<td class="mu_chk_box">' +
 							'		<!-- input id값 변경 가능, label for과 동일한 id값 사용필요 -->' +
 							'		<span class="chk_box">' +
-							'			<input type="checkbox" name="file_checkbox" id="' + info._id.$oid + '" value="' + downloadpath + '">' +
-							'			<label for="' + info._id.$oid + '"></label>' +
+							'			<input type="checkbox" name="file_checkbox" id="' + info._id + '" value="' + downloadpath + '">' +
+							'			<label for="' + info._id + '"></label>' +
 							'		</span>' +
 							'	</td>' +
 							'	<td><span class="ico ico-ex-min ico-' + gap.file_icon_check_mu(file_info.filename) + '"></span>' + file_info.filename + '&nbsp;<b class="size">(' + gap.file_size_setting(file_info.file_size.$numberLong) + ')</b></td>' +
@@ -12829,9 +12827,9 @@ gFilesFN.prototype = {
 						
 						$layer.find('#file_list').append(html);
 						
-						$layer.find('#' + info._id.$oid).data('fsize', file_info.file_size.$numberLong);
-						$layer.find('#' + info._id.$oid).data('fname', file_info.filename);
-						$layer.find('#' + info._id.$oid).data('md5', file_info.md5.split(".")[0]);
+						$layer.find('#' + info._id).data('fsize', file_info.file_size.$numberLong);
+						$layer.find('#' + info._id).data('fname', file_info.filename);
+						$layer.find('#' + info._id).data('md5', file_info.md5.split(".")[0]);
 					}
 
 					//페이징
@@ -13035,15 +13033,15 @@ gFilesFN.prototype = {
 					for (var i = 0; i < list.length; i++){
 						var file_info = list[i];
 						var owner_info = gap.user_check(file_info.owner);
-						var downloadpath = gap.search_file_convert_server(file_info.fserver) + "FDownload.do?id=" + file_info._id.$oid + "&ty=1&ky="+gap.userinfo.rinfo.ky;
+						var downloadpath = gap.search_file_convert_server(file_info.fserver) + "FDownload.do?id=" + file_info._id + "&ty=1&ky="+gap.userinfo.rinfo.ky;
 						
 						var html = 
 							'<tr class="type_file">' +
 							'	<td class="mu_chk_box">' +
 							'		<!-- input id값 변경 가능, label for과 동일한 id값 사용필요 -->' +
 							'		<span class="chk_box">' +
-							'			<input type="checkbox" name="file_checkbox" id="' + file_info._id.$oid + '" value="' + downloadpath + '">' +
-							'			<label for="' + file_info._id.$oid + '"></label>' +
+							'			<input type="checkbox" name="file_checkbox" id="' + file_info._id + '" value="' + downloadpath + '">' +
+							'			<label for="' + file_info._id + '"></label>' +
 							'		</span>' +
 							'	</td>' +
 							'	<td><span class="ico ico-ex-min ico-' + gap.file_icon_check_mu(file_info.filename) + '"></span>' + file_info.filename + '&nbsp;<b class="size">(' + gap.file_size_setting(file_info.file_size.$numberLong) + ')</b></td>' +
@@ -13053,9 +13051,9 @@ gFilesFN.prototype = {
 						
 						$layer.find('#file_list').append(html);
 						
-						$layer.find('#' + file_info._id.$oid).data('fsize', file_info.file_size.$numberLong);
-						$layer.find('#' + file_info._id.$oid).data('fname', file_info.filename);
-						$layer.find('#' + file_info._id.$oid).data('md5', file_info.md5.split(".")[0]);
+						$layer.find('#' + file_info._id).data('fsize', file_info.file_size.$numberLong);
+						$layer.find('#' + file_info._id).data('fname', file_info.filename);
+						$layer.find('#' + file_info._id).data('md5', file_info.md5.split(".")[0]);
 					}
 
 					//페이징
@@ -13339,7 +13337,7 @@ gFilesFN.prototype = {
 					"member" : user_list
 				};
 				
-			var surl = gap.channelserver + "/drive_update.km";
+			var surl = gap.channelserver + "/api/files/drive_update.km";
 			$.ajax({
 				type : "POST",
 				url : surl,
@@ -14249,7 +14247,7 @@ gFilesFN.prototype = {
 		// 상세보기
 		$layer.find('.btn-notice-detail').off().on('click', function(){
 			var info = $layer.data('info');
-			gap.noticeOpen(info._id.$oid, type);
+			gap.noticeOpen(info._id, type);
 			return false;
 		});
 		
@@ -14261,7 +14259,7 @@ gFilesFN.prototype = {
 		
 		// 삭제
 		$layer.find('.btn-notice-remove').off().on('click', function(){
-			var docid = $layer.data('info')._id.$oid;
+			var docid = $layer.data('info')._id;
 			_self.removeNotice(docid, type);
 			return false;
 		});
@@ -14413,7 +14411,7 @@ gFilesFN.prototype = {
 		var $list = $layer.find('.reply-list');
 		
 		var postData = {
-				"key" : info._id.$oid,
+				"key" : info._id,
 				"owner" : gap.userinfo.rinfo,
 				"content" : txt
 			};
@@ -14432,7 +14430,7 @@ gFilesFN.prototype = {
 			
 				var res = res.data;
 				
-				gHome.noticeAddReply(info._id.$oid, res);
+				gHome.noticeAddReply(info._id, res);
 				
 				// 스크롤 최상단
 				var reply_body = $layer.find('.cont-inner').get(0); 

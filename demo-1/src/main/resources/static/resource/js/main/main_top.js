@@ -3745,7 +3745,7 @@ gTop.prototype = {
 					var info = res.data.data;
 					$(info).each(function(idx, val){
 						var html =
-							'<li id="' + val._id.$oid + '">' + val.folder_name +
+							'<li id="' + val._id + '">' + val.folder_name +
 							'<div class="abs ico ico-trash" style="display:none;">' + 
 							'    삭제' +
 							'</div>';
@@ -3840,7 +3840,7 @@ gTop.prototype = {
 					var info = res.data.data;
 					$(info).each(function(idx, val){
 						var html = '';
-						html +=	'<li id="' + val._id.$oid + '">';
+						html +=	'<li id="' + val._id + '">';
 						html +=	'	<div class="f_between file-li">';
 						html +=	'		<span title="' + val.filename + '">' + val.filename + '</span>';
 						html +=	'		<div>';
@@ -3854,7 +3854,7 @@ gTop.prototype = {
 						html +=	'</li>';
 
 						$layer.find('#manual_file_list ul').append(html);
-						$('#' + val._id.$oid).data('finfo', val);
+						$('#' + val._id).data('finfo', val);
 					});
 					
 					// 버튼 클릭
@@ -3873,7 +3873,7 @@ gTop.prototype = {
 							
 						}else if (e.target.className == "ico ico-down"){
 							// 다운로드
-							gTop.downloadManualFile(finfo._id.$oid);
+							gTop.downloadManualFile(finfo._id);
 							
 						}else if (e.target.className == "ico ico-del"){
 							// 삭제
@@ -3884,7 +3884,7 @@ gTop.prototype = {
                 				callback: function(){
                 					var surl = gap.channelserver + "/data_delete_manual.km";
                 					var postData = {
-                							"id" : finfo._id.$oid
+                							"id" : finfo._id
                 						};
     							
                 					$.ajax({
@@ -3894,7 +3894,7 @@ gTop.prototype = {
                 						data : JSON.stringify(postData),
                 						success : function(res){
                 							if (res.result == "OK"){
-                								$('#' + finfo._id.$oid).remove();
+                								$('#' + finfo._id).remove();
     										
                 							}else{
                 								gap.gAlert(gap.lang.errormsg);
@@ -3947,7 +3947,7 @@ gTop.prototype = {
 					var info = res.data.data;
 					$(info).each(function(idx, val){
 						var html = '';
-						html += '<div id="' + val._id.$oid + '" class="faq_count">';
+						html += '<div id="' + val._id + '" class="faq_count">';
 						html += '	<div class="faq_tit">';
 						html += '		<span class="num">' + (idx + 1) + '</span>';
 						html += '		<span class="faq_q">' + val.title + '</span>';
@@ -3967,7 +3967,7 @@ gTop.prototype = {
 						html += '</div>';
 
 						$layer.find('#faq_data_list').append(html);
-						$('#' + val._id.$oid).data('info', val);
+						$('#' + val._id).data('info', val);
 					});
 					
 					// 접기/펼치기 클릭
@@ -5697,7 +5697,7 @@ gTop.prototype = {
 							
 						}
 						
-						_html += '<tr id="' + _info._id.$oid + '">';
+						_html += '<tr id="' + _info._id + '">';
 						_html += '	<td>' + _device_txt + '</td>';
 						_html += '	<td style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="' + _action_txt + '">' + _action_txt + '</td>';
 						_html += '	<td style="text-align:left; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="' + _filename + '">' + _filename + '</td>';
@@ -5708,7 +5708,7 @@ gTop.prototype = {
 						_html += '</tr>';
 						
 						$layer.find("#admin_log_list").append(_html);
-						$layer.find("#" + _info._id.$oid).data('info', _info);
+						$layer.find("#" + _info._id).data('info', _info);
 					}
 					
 					//페이징
@@ -5761,7 +5761,7 @@ gTop.prototype = {
 						var _action_user = _info.search_user_name + ' ' + (_info.search_user_duty != "" ? ' ' + _info.search_user_duty : '') + ' | ' + _info.search_user_group;
 						var _html = "";
 					
-						_html += '<tr id="' + _info._id.$oid + '">';
+						_html += '<tr id="' + _info._id + '">';
 						_html += '	<td>' + _action_txt + '</td>';
 						_html += '	<td>' + gTop.convertGMTLocalDateTime(_info.action_time) + '</td>';
 						if (typeof(_info.from) != "undefined" && _info.from != ""){
@@ -5774,7 +5774,7 @@ gTop.prototype = {
 						_html += '</tr>';
 						
 						$layer.find("#admin_log_list").append(_html);
-						$layer.find("#" + _info._id.$oid).data('info', _info);
+						$layer.find("#" + _info._id).data('info', _info);
 					}
 					
 					//페이징
@@ -5842,7 +5842,7 @@ gTop.prototype = {
 							
 						}
 						
-						_html += '<tr id="' + _info._id.$oid + '">';
+						_html += '<tr id="' + _info._id + '">';
 						_html += '	<td>' + _action_txt + '</td>';
 						_html += '	<td>' + gTop.convertGMTLocalDateTime(_info.dt.$numberLong) + '</td>';
 						_html += '	<td>' + _info.lid + '</td>';
@@ -5851,7 +5851,7 @@ gTop.prototype = {
 						_html += '</tr>';
 						
 						$layer.find("#admin_log_list").append(_html);
-						$layer.find("#" + _info._id.$oid).data('info', _info);
+						$layer.find("#" + _info._id).data('info', _info);
 					}
 					
 					//페이징
@@ -5910,7 +5910,7 @@ gTop.prototype = {
 						_icon_img = '<div class="menu-list-icon-preview-wrap" style="background-color:' + (_info.bg ? _info.bg : _default_bg) + '">' + _icon_img + '</div>';
 						
 						var _html = "";					
-						_html += '<tr id="' + _info._id.$oid + '" class="menu-list-tr">';
+						_html += '<tr id="' + _info._id + '" class="menu-list-tr">';
 						_html += '	<td>' + _icon_img + '</td>';
 						_html += '	<td>' + _key + '</td>';
 						_html += '	<td>' + _info.menu_kr + '</td>';
@@ -5920,7 +5920,7 @@ gTop.prototype = {
 						_html += '</tr>';
 						
 						$layer.find("#admin_log_list").append(_html);
-						$layer.find("#" + _info._id.$oid).data('info', _info);
+						$layer.find("#" + _info._id).data('info', _info);
 					}
 					
 					//페이징
@@ -5995,7 +5995,7 @@ gTop.prototype = {
 						}
 						
 						var _html = "";					
-						_html += '<tr id="' + _info._id.$oid + '" class="menu-list-tr">';
+						_html += '<tr id="' + _info._id + '" class="menu-list-tr">';
 						_html += '	<td>' + _icon_img + '</td>';
 						_html += '	<td>' + _key + '</td>';
 						_html += '	<td>' + _info.menu_kr + '</td>';
@@ -6006,7 +6006,7 @@ gTop.prototype = {
 						_html += '</tr>';
 						
 						$layer.find("#admin_log_list").append(_html);
-						$layer.find("#" + _info._id.$oid).data('info', _info);
+						$layer.find("#" + _info._id).data('info', _info);
 					}
 					
 					//페이징
@@ -6064,7 +6064,7 @@ gTop.prototype = {
 						
 						
 						var _html = "";					
-						_html += '<tr id="' + _info._id.$oid + '" class="menu-list-tr">';
+						_html += '<tr id="' + _info._id + '" class="menu-list-tr">';
 						_html += '	<td>' + _icon_img + '</td>';
 						_html += '	<td>' + _info.menu_kr + '</td>';
 						_html += '	<td>' + _key + '</td>';
@@ -6074,7 +6074,7 @@ gTop.prototype = {
 						_html += '</tr>';
 						
 						$layer.find("#admin_log_list").append(_html);
-						$layer.find("#" + _info._id.$oid).data('info', _info);
+						$layer.find("#" + _info._id).data('info', _info);
 					}
 					
 					//페이징
@@ -6121,7 +6121,7 @@ gTop.prototype = {
 			
 			_filename = _info.filename;
 			_ty = _app;
-			_item_id = _info._id.$oid;
+			_item_id = _info._id;
 			_upload_path = (typeof(_info.upload_path) != "undefined" ? _info.upload_path : "");
 			
 			if (_app == "channel"){

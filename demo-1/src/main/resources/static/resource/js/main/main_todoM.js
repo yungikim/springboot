@@ -130,7 +130,7 @@ gTodoM.prototype = {
 			};
 		
 		if (is_update){
-			postData.key = code;	//obj._id.$oid;
+			postData.key = code;	//obj._id;
 			postData.email = gap.search_cur_em();
 		}
 		
@@ -196,7 +196,7 @@ gTodoM.prototype = {
 		/*
 		 * 일반 프로젝트 생성 시 			: gTodoM.create_project()
 		 * 특정폴더 아래에 프로젝트 생성 시 	: gTodoM.create_project(null, folderkey)
-		 * 프로젝트 수정 시				: gTodoM.create_project(_id.$oid, folderkey)
+		 * 프로젝트 수정 시				: gTodoM.create_project(_id, folderkey)
 		 */
 		var is_update = (_pcode != undefined ? true : false);
 		var folderkey = (_fcode != undefined ? _fcode : "");
@@ -351,7 +351,7 @@ gTodoM.prototype = {
 			};
 		
 		if (is_update){
-			postData.key = _pcode;		//obj._id.$oid;
+			postData.key = _pcode;		//obj._id;
 			postData.email = gap.search_cur_em();
 			
 			var pre_member_ky = $.map(gTodoM.cur_project_info.member, function(ret, key) {
@@ -380,7 +380,7 @@ gTodoM.prototype = {
 							var obj = new Object();
 							obj.id = "";
 							obj.type = "invite";  //change status
-							obj.p_code = info._id.$oid;
+							obj.p_code = info._id;
 							obj.p_name = gap.textToHtml(info.name);
 							obj.title = info.name;
 							obj.sender = new_member_ky;  //해당 프로젝트의 owner에게만 전송한다.							
@@ -400,7 +400,7 @@ gTodoM.prototype = {
 							smsg.msg = "[" + gap.textToHtml(info.name) + "] " + gap.lang.miv;
 							smsg.title = gTodoM.systitle + "["+gTodoM.todo_title+"]";			
 							smsg.type = "todo";
-							smsg.key1 = info._id.$oid;
+							smsg.key1 = info._id;
 							smsg.key2 = "";
 							smsg.key3 = "";
 							smsg.fr = gap.userinfo.rinfo.nm;
@@ -408,7 +408,7 @@ gTodoM.prototype = {
 							//gap.push_noti_mobile(smsg);	
 							
 							//알림센터에 푸쉬 보내기
-							var rid = info._id.$oid;
+							var rid = info._id;
 							var receivers = new_member_ky_list;
 							var msg2 = "[" + gap.textToHtml(info.name) + "] " + gap.lang.miv;
 							var sendername = "["+gap.lang.todo+" : " + gap.textToHtml(info.name) +"]"
@@ -429,7 +429,7 @@ gTodoM.prototype = {
 							var obj = new Object();
 							obj.id = "";
 							obj.type = "invite";  //change status
-							obj.p_code = info._id.$oid;
+							obj.p_code = info._id;
 							obj.p_name = gap.textToHtml(info.name);
 							obj.title = info.name;
 							obj.sender = list;  //해당 프로젝트의 owner에게만 전송한다.							
@@ -444,7 +444,7 @@ gTodoM.prototype = {
 							smsg.msg = "[" + gap.textToHtml(info.name) + "] " + gap.lang.miv;
 							smsg.title = gTodoM.systitle + "["+gTodoM.todo_title+"]";		
 							smsg.type = "todo";
-							smsg.key1 = info._id.$oid;
+							smsg.key1 = info._id;
 							smsg.key2 = "";
 							smsg.key3 = "";
 							smsg.fr = gap.userinfo.rinfo.nm;
@@ -453,7 +453,7 @@ gTodoM.prototype = {
 						//	gap.push_noti_mobile(smsg);			
 							
 							//알림센터에 푸쉬 보내기
-							var rid = info._id.$oid;
+							var rid = info._id;
 							var receivers = list;
 							var msg2 = "[" + gap.textToHtml(info.name) + "] " + gap.lang.miv;
 							var sendername = "["+gap.lang.todo+" : " + gap.textToHtml(info.name) +"]"
@@ -669,12 +669,12 @@ gTodoM.prototype = {
 						_html += '	<dl>';
 						_html += '		<dt><strong>' + _info.name + '</strong></dt>';
 						_html += '	</dl>';
-						_html += '	<button class="btn-entry" id="enter_' + _info._id.$oid + '"><span>' + gap.lang.enter + '</span></button></div>';
+						_html += '	<button class="btn-entry" id="enter_' + _info._id + '"><span>' + gap.lang.enter + '</span></button></div>';
 						_html += '</li>';
 						$("#exit_info_list").append(_html);
 
 						//등러가기 버튼 클릭
-						$("#enter_" + _info._id.$oid).bind("click", _info, function(event){
+						$("#enter_" + _info._id).bind("click", _info, function(event){
 							var msg = gap.lang.confirm_enter;
 							$.confirm({
 								title : "Confirm",
@@ -729,7 +729,7 @@ gTodoM.prototype = {
 		 */
 		var surl = gap.channelserver + "/enter_folder_todo.km";
 		var postData = JSON.stringify({
-				"key" : _info._id.$oid,
+				"key" : _info._id,
 				"email" : gap.search_cur_em(),
 				"owner" : gap.userinfo.rinfo
 			});			
@@ -823,7 +823,7 @@ gTodoM.prototype = {
 		var selected_info = "";
 		for (var i = 0; i < gBody.cur_todo_list.length; i++){
 			var item = gBody.cur_todo_list[i];
-			if (_id == item._id.$oid){
+			if (_id == item._id){
 				selected_info = item;
 				break;
 			}
@@ -832,7 +832,7 @@ gTodoM.prototype = {
 		var surl = gap.channelserver + "/update_folder_favorite_todo.km";
 		var postData = JSON.stringify({
 				"email" : gap.userinfo.rinfo.em,
-				"project_code" : selected_info._id.$oid,
+				"project_code" : selected_info._id,
 				"project_name" : selected_info.name,
 				"ty" : _type
 			});			
@@ -966,7 +966,7 @@ gTodoM.prototype = {
 						gTodoM.cur_project_item_list = res.data.data;
 						gTodoM.cur_project_info = res.data.project_info;
 						gTodoM.cur_project_name = res.data.project_info.name;
-						gTodoM.cur_project_code = res.data.project_info._id.$oid;
+						gTodoM.cur_project_code = res.data.project_info._id;
 						
 						if (typeof(bun) == "undefined"){
 							bun = "1";
@@ -1030,7 +1030,7 @@ gTodoM.prototype = {
 					gTodoM.cur_project_item_list = res.data.data;
 				//	gTodoM.cur_project_info = res.data.project_info;
 				//	gTodoM.cur_project_name = res.data.project_info.name;
-				//	gTodoM.cur_project_code = res.data.project_info._id.$oid;
+				//	gTodoM.cur_project_code = res.data.project_info._id;
 					
 					gTodoM.draw_todo_status_list();
 					
@@ -1086,7 +1086,7 @@ gTodoM.prototype = {
 						gTodoM.cur_project_item_list = res.data.data;
 						gTodoM.cur_project_info = res.data.project_info;
 						gTodoM.cur_project_name = res.data.project_info.name;
-						gTodoM.cur_project_code = res.data.project_info._id.$oid;
+						gTodoM.cur_project_code = res.data.project_info._id;
 						
 						gTodoM.draw_todo_card_html(status);
 						
@@ -1178,7 +1178,7 @@ gTodoM.prototype = {
 		for (var i = 0; i < _data.length; i++){
 			var item = _data[i];
 			//if (item.type == "project"){
-				_h += "<option value='" + item._id.$oid + "'>" + item.ch_name + "</option>";
+				_h += "<option value='" + item._id + "'>" + item.ch_name + "</option>";
 			//}
 		}
 		$("#todo_project_select").html(_h).val( _type == "archive" ? gTodoM.cur_project_code : "").material_select();
@@ -1587,7 +1587,7 @@ gTodoM.prototype = {
 	
 	"make_todo_card" : function(info, status){
 		var html = '';
-		var id = info._id.$oid;
+		var id = info._id;
 		var item = gTodoM.code_change_status(info.status);
 		var priority = info.priority;
 		var is_delay = false;
@@ -2000,7 +2000,7 @@ gTodoM.prototype = {
 									//알려주는 대상자는 1. 프로젝트 Owner, 2. TODO 작성자
 															
 									var obj = new Object();
-									obj.id = change_doc._id.$oid;
+									obj.id = change_doc._id;
 									obj.type = "cs";  //change status
 									obj.p_code = change_doc.project_code;
 									obj.p_name = gap.textToHtml(change_doc.project_name);
@@ -2073,7 +2073,7 @@ gTodoM.prototype = {
 									smsg.title =  gTodoM.systitle + "["+gTodoM.todo_title+"]";	
 									smsg.type = "cs";
 									smsg.key1 = change_doc.project_code;
-									smsg.key2 = change_doc._id.$oid;
+									smsg.key2 = change_doc._id;
 									smsg.key3 = "";
 									smsg.fr = gap.userinfo.rinfo.nm;
 									//현재 채널방에 멤버리스트와 Owner값을 합치고 본인을 제거한 리스트를 가져온다.
@@ -2260,7 +2260,7 @@ gTodoM.prototype = {
 				if (res.result == "OK"){
 					gTodoM.cur_project_info = res.data.project_info;
 					gTodoM.cur_project_name = res.data.project_info.name;
-					gTodoM.cur_project_code = res.data.project_info._id.$oid;
+					gTodoM.cur_project_code = res.data.project_info._id;
 					
 					gTodoM.compose_layer_draw(res);
 				
@@ -2302,7 +2302,7 @@ gTodoM.prototype = {
 			
 	
 		gTodoM.select_todo = info;
-		gTodoM.select_id = info._id.$oid;
+		gTodoM.select_id = info._id;
 			
 		//현재 접속한 사용자가 편집을 할 수 있는 사용자인지 판단한다.
 		var is_admin = (gap.userinfo.rinfo.em == gTodoM.cur_project_info.owner.em ? true : false);
@@ -2895,7 +2895,7 @@ gTodoM.prototype = {
 //		}
 		if (rlist.length > 0){
 			var obj = new Object();
-			obj.id = info._id.$oid;
+			obj.id = info._id;
 			obj.type = "attach";  //change status
 			obj.p_code = info.project_code;
 			obj.p_name = gap.textToHtml(info.project_name);
@@ -2913,7 +2913,7 @@ gTodoM.prototype = {
 			smsg.title =  gTodoM.systitle + "["+gTodoM.todo_title+"]";	
 			smsg.type = "attach";
 			smsg.key1 = info.project_code;
-			smsg.key2 = info._id.$oid;
+			smsg.key2 = info._id;
 			smsg.key3 = "";
 			smsg.fr = gap.userinfo.rinfo.nm;
 			//현재 채널방에 멤버리스트와 Owner값을 합치고 본인을 제거한 리스트를 가져온다.										
@@ -3251,7 +3251,7 @@ gTodoM.prototype = {
 					smsg.title = gTodoM.systitle + "["+gTodoM.todo_title+"]";
 					smsg.type = "reply";
 					smsg.key1 = dd.project_code;
-					smsg.key2 = dd._id.$oid;	//dd.tlist;
+					smsg.key2 = dd._id;	//dd.tlist;
 					smsg.key3 = "";
 					smsg.fr = gap.userinfo.rinfo.nm;
 					//현재 채널방에 멤버리스트와 Owner값을 합치고 본인을 제거한 리스트를 가져온다.										
@@ -3457,7 +3457,7 @@ gTodoM.prototype = {
 						
 						//일정에 삭제를 요청한다.  삭제 버튼 클릭시
 						var obb = new Object();						
-						obb.del_id = gTodoM.select_todo.project_code + "^" + gTodoM.select_todo._id.$oid;
+						obb.del_id = gTodoM.select_todo.project_code + "^" + gTodoM.select_todo._id;
 						obb.del_emp = gTodoM.select_todo.asignee.ky;
 						gap.schedule_update(obb, "asignee", "D");
 						
@@ -3689,7 +3689,7 @@ gTodoM.prototype = {
 									//TODO 작성자거 변경된 경우 작성자로 지정된 사용자에게 알림
 									if (change_doc.owner.ky != gap.userinfo.rinfo.ky){
 										var obj = new Object();
-										obj.id = change_doc._id.$oid;
+										obj.id = change_doc._id;
 										obj.type = "cw";  //change writer
 										obj.p_code = change_doc.project_code;
 										obj.p_name = gap.textToHtml(change_doc.project_name);
@@ -3706,7 +3706,7 @@ gTodoM.prototype = {
 										smsg.title =  gTodoM.systitle + "["+gTodoM.todo_title+"]";
 										smsg.type = "cw";
 										smsg.key1 = change_doc.project_code;
-										smsg.key2 = change_doc._id.$oid;
+										smsg.key2 = change_doc._id;
 										smsg.key3 = "";
 										smsg.fr = gap.userinfo.rinfo.nm;										
 										//현재 채널방에 멤버리스트와 Owner값을 합치고 본인을 제거한 리스트를 가져온다.										
@@ -3844,7 +3844,7 @@ gTodoM.prototype = {
 										//alert("기존 담담자와 신규 담당자가 틀릴 경우");
 										
 										var obb = new Object();						
-										obb.del_id = gTodoM.select_todo.project_code + "^" + gTodoM.select_todo._id.$oid;
+										obb.del_id = gTodoM.select_todo.project_code + "^" + gTodoM.select_todo._id;
 										obb.del_emp = info2.ky;
 										gap.schedule_update(obb, "asignee", "D");
 										//신규 담당자의 업무를 등록한다.
@@ -3855,7 +3855,7 @@ gTodoM.prototype = {
 									//TODO에 담당자를 지정할 경우 해당 사용자에게 TODO가 할당되었음을 실시간 알려준다.
 									if (change_doc.asignee.ky != gap.userinfo.rinfo.ky){
 										var obj = new Object();
-										obj.id = change_doc._id.$oid;
+										obj.id = change_doc._id;
 										obj.type = "as";  //change status
 										obj.p_code = change_doc.project_code;
 										obj.p_name = gap.textToHtml(change_doc.project_name);
@@ -3869,7 +3869,7 @@ gTodoM.prototype = {
 										smsg.title = gTodoM.systitle + "["+gTodoM.todo_title+"]";	
 										smsg.type = "as";
 										smsg.key1 = change_doc.project_code;
-										smsg.key2 = change_doc._id.$oid;
+										smsg.key2 = change_doc._id;
 										smsg.key3 = "";
 										smsg.fr = gap.userinfo.rinfo.nm;
 										//현재 채널방에 멤버리스트와 Owner값을 합치고 본인을 제거한 리스트를 가져온다.										
@@ -4082,7 +4082,7 @@ gTodoM.prototype = {
 
 											if (after_asignee[i].ky != gap.userinfo.rinfo.ky && before_asignee.some(isEqID) == false){ // 본인이 아니고 이전 담당자가 아닌 경우, 즉 신규 담당자인 경우에만 Push 메시지 전송
 												var obj = new Object();
-												obj.id = change_doc._id.$oid;
+												obj.id = change_doc._id;
 												obj.type = "as";  //change status
 												obj.p_code = change_doc.project_code;
 												obj.p_name = gap.textToHtml(change_doc.project_name);
@@ -4100,7 +4100,7 @@ gTodoM.prototype = {
 												smsg.title = gTodoM.systitle + "["+gTodoM.todo_title+"]";
 												smsg.type = "as";
 												smsg.key1 = change_doc.project_code;
-												smsg.key2 = change_doc._id.$oid;
+												smsg.key2 = change_doc._id;
 												smsg.key3 = "";
 												smsg.fr = gap.userinfo.rinfo.nm;
 												smsg.sender = after_asignee[i].ky;	
@@ -4188,7 +4188,7 @@ gTodoM.prototype = {
 						//알려주는 대상자는 1. 프로젝트 Owner, 2. TODO 작성자
 												
 						var obj = new Object();
-						obj.id = change_doc._id.$oid;
+						obj.id = change_doc._id;
 						obj.type = "cs";  //change status
 						obj.p_code = change_doc.project_code;
 						obj.p_name = gap.textToHtml(change_doc.project_name);
@@ -4236,7 +4236,7 @@ gTodoM.prototype = {
 						smsg.title =  gTodoM.systitle + "["+gTodoM.todo_title+"]";	
 						smsg.type = "cs";
 						smsg.key1 = change_doc.project_code;
-						smsg.key2 = change_doc._id.$oid;
+						smsg.key2 = change_doc._id;
 						smsg.key3 = "";
 						smsg.fr = gap.userinfo.rinfo.nm;
 						//현재 채널방에 멤버리스트와 Owner값을 합치고 본인을 제거한 리스트를 가져온다.
@@ -4580,7 +4580,7 @@ gTodoM.prototype = {
 					smsg.title =  gTodoM.systitle + "["+gTodoM.todo_title+"]";
 					smsg.type = "reply";
 					smsg.key1 = gTodoM.select_todo.project_code;
-					smsg.key2 = gTodoM.select_todo._id.$oid;
+					smsg.key2 = gTodoM.select_todo._id;
 					smsg.key3 = "";
 					smsg.fr = gap.userinfo.rinfo.nm;
 					//현재 채널방에 멤버리스트와 Owner값을 합치고 본인을 제거한 리스트를 가져온다.										
@@ -4948,7 +4948,7 @@ gTodoM.prototype = {
 										        var obb = new Object();
 										    //    var ip = gTodoM.search_user_cur_project_info_email(gTodoM.select_checklist_ky);
 												obb.del_emp = gTodoM.select_checklist_ky;
-												obb.del_id = gTodoM.select_todo.project_code + "^" + gTodoM.select_todo._id.$oid + "^" + gTodo.ssid;
+												obb.del_id = gTodoM.select_todo.project_code + "^" + gTodoM.select_todo._id + "^" + gTodo.ssid;
 												gap.schedule_update(obb, "checklist", "D");															
 											}
 											break;														
@@ -4962,7 +4962,7 @@ gTodoM.prototype = {
 								//TODO에 체크리스트에 담당자를 지정할 경우 지정된 사용자에게 알림을 보내준다.
 								if (info.ky != gap.userinfo.rinfo.ky){
 									var obj = new Object();
-									obj.id = change_doc._id.$oid;
+									obj.id = change_doc._id;
 									obj.type = "checklist";  //change status
 									obj.p_code = change_doc.project_code;
 									obj.p_name = gap.textToHtml(change_doc.project_name);
@@ -4979,7 +4979,7 @@ gTodoM.prototype = {
 									smsg.title =  gTodoM.systitle + "["+gTodoM.todo_title+"]";
 									smsg.type = "checklist";
 									smsg.key1 = change_doc.project_code;
-									smsg.key2 = change_doc._id.$oid;
+									smsg.key2 = change_doc._id;
 									smsg.key3 = "";
 									smsg.fr = gap.userinfo.rinfo.nm;
 									//현재 채널방에 멤버리스트와 Owner값을 합치고 본인을 제거한 리스트를 가져온다.										
@@ -5122,7 +5122,7 @@ gTodoM.prototype = {
 										        var obb = new Object();
 										   //     var ip = gTodo.search_user_cur_project_info_email(gTodo.select_checklist_ky);
 												obb.del_emp = ori;															
-												obb.del_id = gTodoM.select_todo.project_code + "^" + gTodoM.select_todo._id.$oid + "^" + click_id;
+												obb.del_id = gTodoM.select_todo.project_code + "^" + gTodoM.select_todo._id + "^" + click_id;
 												gap.schedule_update(obb, "checklist", "D");															
 											}
 											break;														
@@ -5136,7 +5136,7 @@ gTodoM.prototype = {
 								//TODO에 체크리스트에 담당자를 지정할 경우 지정된 사용자에게 알림을 보내준다.
 								if (info.ky != gap.userinfo.rinfo.ky){
 									var obj = new Object();
-									obj.id = change_doc._id.$oid;
+									obj.id = change_doc._id;
 									obj.type = "checklist";  //change status
 									obj.p_code = change_doc.project_code;
 									obj.p_name = gap.textToHtml(change_doc.project_name);
@@ -5153,7 +5153,7 @@ gTodoM.prototype = {
 									smsg.title =  gTodoM.systitle + "["+gTodoM.todo_title+"]";
 									smsg.type = "checklist";
 									smsg.key1 = change_doc.project_code;
-									smsg.key2 = change_doc._id.$oid;
+									smsg.key2 = change_doc._id;
 									smsg.key3 = "";
 									smsg.fr = gap.userinfo.rinfo.nm;
 									//현재 채널방에 멤버리스트와 Owner값을 합치고 본인을 제거한 리스트를 가져온다.										
@@ -5526,7 +5526,7 @@ gTodoM.prototype = {
 		var list = gTodoM.cur_project_item_list;		
 		for (var i = 0; i < list.length; i++){
 			var item = list[i];
-			if (item._id.$oid == gTodoM.select_id){
+			if (item._id == gTodoM.select_id){
 				gTodoM.cur_project_item_list[i] = doc;
 				break;
 			}
@@ -5678,7 +5678,7 @@ gTodoM.prototype = {
 										//TODO에 담당자를 지정할 경우 해당 사용자에게 TODO가 할당되었음을 실시간 알려준다.
 										if (change_doc.asignee.ky != gap.userinfo.rinfo.ky){
 											var obj = new Object();
-											obj.id = change_doc._id.$oid;
+											obj.id = change_doc._id;
 											obj.type = "as";  //change status
 											obj.p_code = change_doc.project_code;
 											obj.p_name = gap.textToHtml(change_doc.project_name);
@@ -5696,7 +5696,7 @@ gTodoM.prototype = {
 											smsg.title =  gTodoM.systitle + "["+gTodoM.todo_title+"]";
 											smsg.type = "as";
 											smsg.key1 = change_doc.project_code;
-											smsg.key2 = change_doc._id.$oid;
+											smsg.key2 = change_doc._id;
 											smsg.key3 = "";
 											smsg.fr = gap.userinfo.rinfo.nm;
 											//현재 채널방에 멤버리스트와 Owner값을 합치고 본인을 제거한 리스트를 가져온다.										
@@ -5760,7 +5760,7 @@ gTodoM.prototype = {
 										//체크르리스에 담당자를 지정할 경우 해당 사용자에게 알려준다.
 										if (change_doc.asignee.ky != gap.userinfo.rinfo.ky){
 											var obj = new Object();
-											obj.id = change_doc._id.$oid;
+											obj.id = change_doc._id;
 											obj.type = "as";  //change status
 											obj.p_code = change_doc.project_code;
 											obj.p_name = gap.textToHtml(change_doc.project_name);
@@ -5778,7 +5778,7 @@ gTodoM.prototype = {
 											smsg.title =  gTodoM.systitle + "["+gTodoM.todo_title+"]";
 											smsg.type = "as";
 											smsg.key1 = change_doc.project_code;
-											smsg.key2 = change_doc._id.$oid;
+											smsg.key2 = change_doc._id;
 											smsg.key3 = "";
 											smsg.fr = gap.userinfo.rinfo.nm;
 											//현재 채널방에 멤버리스트와 Owner값을 합치고 본인을 제거한 리스트를 가져온다.										
@@ -6109,7 +6109,7 @@ gTodoM.prototype = {
 						var data = JSON.stringify({
 							key : id,
 							email : gap.userinfo.rinfo.em,
-							project_code : gTodoM.cur_project_info._id.$oid
+							project_code : gTodoM.cur_project_info._id
 						});
 						$.ajax({
 							type : "POST",
@@ -6445,7 +6445,7 @@ gTodoM.prototype = {
 		var priority = info.priority;
 		var html = "";
 		
-		html += '<li id="mention_' + info._id.$oid  + '" data-todo="' + info._id.$oid + '" data-title="' + info.project_name + '">';
+		html += '<li id="mention_' + info._id  + '" data-todo="' + info._id + '" data-title="' + info.project_name + '">';
 		html += '	<div class="color-bar ' + (info.color != undefined ? info.color : "") + '"></div>';
 	
 		if (status == "0" || status == "1" || status == "2" || status == "3"){
@@ -6520,7 +6520,7 @@ gTodoM.prototype = {
 		var status = "";
 		for (var i = 0; i < gTodoM.cur_project_item_list.length; i++){
 			var info = gTodoM.cur_project_item_list[i];
-			if (info._id.$oid == code){
+			if (info._id == code){
 				status = info.status;
 				break;
 			}

@@ -659,7 +659,7 @@ gRegM.prototype = {
 		
 		
 		
-		var surl = gap.channelserver + "/search_info.km";
+		var surl = gap.channelserver + "/api/channel/search_info.km";
 		var postData = {
 			"type" : "C",
 			"ch_code" : ch_code
@@ -669,6 +669,7 @@ gRegM.prototype = {
 			type : "POST",
 			url : surl,
 			dataType : "json",
+			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify(postData),
 			success : function(res){
 				if (res.result != "OK"){

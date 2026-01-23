@@ -3151,7 +3151,7 @@ gapcommon.prototype = {
 		for (var i = 0 ; i < list.length; i++){
 			var info = list[i];
 		//	if (info.ch_code == ch_code){
-			if (info._id.$oid == ch_code){
+			if (info._id == ch_code){
 				if (typeof(info.push) != "undefined"){
 					var plist = info.push;
 					for (var k = 0 ; k < plist.length ; k++){
@@ -5023,7 +5023,7 @@ gapcommon.prototype = {
 				obj.enddate = info.complete_date;
 				obj.project_name = doc.project_name;
 				obj.priority = doc.priority;
-				obj._id = doc.project_code + "^" + doc._id.$oid + "^" + id;
+				obj._id = doc.project_code + "^" + doc._id + "^" + id;
 				obj.owner = {ky : doc.owner.ky};
 				
 				if (typeof(info.asign) == "undefined"){
@@ -5053,7 +5053,7 @@ gapcommon.prototype = {
 				obj.enddate = info.complete_date;
 				obj.project_name = doc.project_name;
 				obj.priority = doc.priority;
-				obj._id = doc.project_code + "^" + doc._id.$oid + "^" + info.tid;
+				obj._id = doc.project_code + "^" + doc._id + "^" + info.tid;
 				obj.owner = {ky : doc.owner.ky};				
 				if (typeof(info.asign) == "undefined"){
 					return false;
@@ -5072,7 +5072,7 @@ gapcommon.prototype = {
 		//type : "D" - 삭제, "T" - 완료, "P" - 완료 취소		
 		if (typeof(obj.asignee) != "undefined"){
 			var obb = new Object();						
-			obb.del_id = obj.project_code + "^" + obj._id.$oid;
+			obb.del_id = obj.project_code + "^" + obj._id;
 			obb.del_emp = obj.asignee.ky;			
 			gap.schedule_update(obb, "asignee", type);		
 		}
@@ -5082,7 +5082,7 @@ gapcommon.prototype = {
 				var cinfo = obj.checklist[i];
 				var obb = new Object();						
 			//	obb.del_id = cinfo.tid;
-				obb.del_id = obj.project_code + "^" + obj._id.$oid + "^" + cinfo.tid;
+				obb.del_id = obj.project_code + "^" + obj._id + "^" + cinfo.tid;
 				if (typeof(cinfo.asign) == "undefined"){
 					return false;
 				}
@@ -5097,7 +5097,7 @@ gapcommon.prototype = {
 			var cinfo = obj.checklist[i];
 			if (cinfo.tid == sid){
 				var obb = new Object();						
-				obb.del_id = obj.project_code + "^" + obj._id.$oid + "^" + sid;
+				obb.del_id = obj.project_code + "^" + obj._id + "^" + sid;
 				if (typeof(cinfo.asign) == "undefined"){
 					return false;
 				}
@@ -5135,7 +5135,7 @@ gapcommon.prototype = {
 			var attendee = "";
 			var calkey = "";
 			if (type == "asignee"){
-				calkey = obj.project_code + "^" + obj._id.$oid;
+				calkey = obj.project_code + "^" + obj._id;
 				if (typeof(obj.enddate) != "undefined" || obj.enddate != ""){				
 				}else{
 					//날짜를 지정한 경우만 일정에 업데이트 한다.
@@ -5779,7 +5779,7 @@ gapcommon.prototype = {
 		//모바일 업무방에서 등록한다.		
 		//참석자 정보를 수집힌다.	
 		var channel_id = gBodyM.cur_opt;		
-		var surl = gap.channelserver + "/search_info.km";
+		var surl = gap.channelserver + "/api/channel/search_info.km";
 		var postData = {
 			"type" : "C",
 			"ch_code" : channel_id
@@ -5787,6 +5787,7 @@ gapcommon.prototype = {
 		$.ajax({
 			type : "POST",
 			url : surl,
+			contentType : "application/json; charset=utf-8",
 			dataType : "json",
 			data : JSON.stringify(postData),
 			success : function(res){
@@ -5914,7 +5915,7 @@ gapcommon.prototype = {
 					if (jj.edit == "T"){
 						doc._id = jj.id;
 					}else{
-						doc._id = res._id.$oid;
+						doc._id = res._id;
 					}									
 					doc.direct = "T";		
 					doc.editor = jj.editor;
@@ -6439,7 +6440,7 @@ gapcommon.prototype = {
 						if (jj.edit == "T"){
 							doc._id = jj.id;
 						}else{
-							doc._id = res._id.$oid;
+							doc._id = res._id;
 						}						
 						doc.direct = "T";					
 						doc.editor = jj.editor;
@@ -6712,7 +6713,7 @@ gapcommon.prototype = {
 						}else{
 							var obj = new Object();
 							var info = res.data;
-							obj.id = info._id.$oid;
+							obj.id = info._id;
 							obj.channel_code = info.channel_code;
 							obj.channel_name = info.channel_name;					
 							gBody3.send_socket(obj, "del_msg");
@@ -7289,7 +7290,7 @@ gapcommon.prototype = {
 	},
 	
 	"search_channel_info" : function(channel_code){		
-		var surl = gap.channelserver + "/search_info.km";
+		var surl = gap.channelserver + "/api/channel/search_info.km";
 		var postData = {
 			"type" : "C",
 			"ch_code" : channel_code
@@ -7297,6 +7298,7 @@ gapcommon.prototype = {
 		return $.ajax({
 			type : "POST",
 			url : surl,
+			contentType : "application/json; charset=utf-8",
 			async : false,
 			dataType : "json",
 			data : JSON.stringify(postData),
@@ -8719,7 +8721,7 @@ gapcommon.prototype = {
 		var $reply_list = $layer.find('.reply-list');
 		$reply_list.empty();
 		
-		var nkey = info._id.$oid;
+		var nkey = info._id;
 		$.each(info.reply, function(){
 			_self.noticeAddReply(nkey, this);
 		});
@@ -8906,7 +8908,7 @@ gapcommon.prototype = {
 		// 삭제
 		$layer.find('.btn-notice-remove').on('click', function(){
 			var info = $layer.data('info');
-			var docid = info._id.$oid;
+			var docid = info._id;
 			gap.removeNotice(docid, info.callfrom);
 		});
 		
@@ -9139,7 +9141,7 @@ gapcommon.prototype = {
 			formData.append("edit", "T");
 			
 			formData.append("title", title);
-			formData.append("id", gHome.notice_data._id.$oid);
+			formData.append("id", gHome.notice_data._id);
 			formData.append("upload_path", gHome.notice_data.data.upload_path);			
 			myDropzone_notice.files_info = "";
 			//$("#total-progress_channel").show();	
@@ -9248,7 +9250,7 @@ gapcommon.prototype = {
 		var $list = $layer.find('.reply-list');
 		
 		var postData = {
-				"key" : info._id.$oid,
+				"key" : info._id,
 				"owner" : gap.userinfo.rinfo,
 				"content" : txt
 			};
@@ -9267,7 +9269,7 @@ gapcommon.prototype = {
 			
 				var res = res.data;
 				
-				gap.noticeAddReply(info._id.$oid, res);
+				gap.noticeAddReply(info._id, res);
 				
 				// 스크롤 최상단
 				var reply_body = $layer.find('.cont-inner').get(0); 
@@ -10098,7 +10100,7 @@ gapcommon.prototype = {
 					var html = gBody3.draw_msg(jj, jj.doctype, jj.date);					
 					var mx = "[" + jj.owner.nm + "] " + jj.content;
 					if (jj.tyx == "notice"){
-						gBody3.direct_draw(html, jj.GMT, jj._id.$oid, "receive", mx);
+						gBody3.direct_draw(html, jj.GMT, jj._id, "receive", mx);
 						gap.drawNoticeWork(jj.channel_code);
 					}else{
 						gBody3.direct_draw(html, jj.GMT, jj._id, "receive", mx);
@@ -11153,10 +11155,11 @@ gapcommon.prototype = {
 	        url: url,
 	        type: "POST", // GET, POST, PUT, DELETE 등
 	        data: data,   // 요청에 전달할 데이터
+			contentType : "application/json; charset=utf-8",
 	        dataType: 'json', // 응답 데이터 타입 (json, text, html 등)
 			beforeSend : function(xhr){
 				xhr.setRequestHeader("auth", gap.get_auth());
-				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
+				//xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},
 	        success: function(response) {
 	            // 성공 시 콜백 호출
@@ -11473,7 +11476,7 @@ gapcommon.prototype = {
 		//opt : ppt, word, excel, pdf 4개중 하나여야 한다.
 		//file_info 에는 folder 정보와 drive 정보 filename이 포한되어야 한다.
 		
-		var url = gap.channelserver + "/office_create.km";
+		var url = gap.channelserver + "/api/files/office_create.km";
 		var filename = file_info.filename;
 		var dtype = gap.file_icon_check(filename);
 		var file_type = filename.split(".").reverse()[0];

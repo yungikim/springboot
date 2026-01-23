@@ -64,7 +64,7 @@ gBodyTODOCompose.prototype = {
 		if (_prjcode != undefined){
 			for (var i = 0; i < gBody.cur_todo_star_list.length; i++){
 				var item = gBody.cur_todo_star_list[i];
-				if (_prjcode == item._id.$oid){
+				if (_prjcode == item._id){
 					is_star = true;
 					break;
 				}
@@ -218,7 +218,7 @@ gBodyTODOCompose.prototype = {
 				};
 			
 			if (is_update){
-				postData.key = obj._id.$oid;
+				postData.key = obj._id;
 			//	postData.email = gap.search_cur_em();
 			}
 			
@@ -599,7 +599,7 @@ gBodyTODOCompose.prototype = {
 				};
 			
 			if (is_update){
-				postData.key = obj._id.$oid;
+				postData.key = obj._id;
 			//	postData.email = gap.search_cur_em();
 				
 				var pre_member = obj.member
@@ -626,7 +626,7 @@ gBodyTODOCompose.prototype = {
 							if (is_update){
 								//현재 수정한 프로젝트 정보가 우측프레임에 보여지고 있는 프로젝트일 경우 gTodo.cur_project_info를 업데이트 해주고 gTodo.todo_members()를 호출해준다.
 								var modify_project = res.data.project_info;
-								if (gTodo.cur_todo_code == modify_project._id.$oid){
+								if (gTodo.cur_todo_code == modify_project._id){
 									gTodo.cur_project_info = modify_project;
 									gTodo.todo_top_title_change(modify_project.name, modify_project.comment);
 									gTodo.todo_members();
@@ -647,7 +647,7 @@ gBodyTODOCompose.prototype = {
 									var obj = new Object();
 									obj.id = "";
 									obj.type = "invite";  //change status
-									obj.p_code = info._id.$oid;
+									obj.p_code = info._id;
 									obj.p_name = info.name;
 									obj.title = info.name;
 									obj.sender = new_member_ky;  //해당 프로젝트의 owner에게만 전송한다.							
@@ -664,7 +664,7 @@ gBodyTODOCompose.prototype = {
 									smsg.msg = info.name + " " + gap.lang.miv;
 									smsg.title = gap.systemname + "["+gap.lang.ch_tab3+"]";	
 									smsg.type = "invite";
-									smsg.key1 = info._id.$oid;
+									smsg.key1 = info._id;
 									smsg.key2 = "";
 									smsg.key3 = "";
 									smsg.fr = gap.userinfo.rinfo.nm;
@@ -672,7 +672,7 @@ gBodyTODOCompose.prototype = {
 						//		gap.push_noti_mobile(smsg);	
 									
 									//알림센터에 푸쉬 보내기
-									var rid = info._id.$oid;
+									var rid = info._id;
 									var receivers = new_member_ky_list;
 									var msg2 = info.name + " " + gap.lang.miv;
 									var sendername = "["+gap.lang.todo+" : " + gap.textToHtml(info.name) +"]"
@@ -694,7 +694,7 @@ gBodyTODOCompose.prototype = {
 									var obj = new Object();
 									obj.id = "";
 									obj.type = "invite";  //change status
-									obj.p_code = info._id.$oid;
+									obj.p_code = info._id;
 									obj.p_name = info.name;
 									obj.title = info.name;
 									obj.sender = list;  //해당 프로젝트의 owner에게만 전송한다.							
@@ -706,7 +706,7 @@ gBodyTODOCompose.prototype = {
 								smsg.msg = info.name + " " + gap.lang.miv;
 								smsg.title = gap.systemname + "["+gap.lang.ch_tab3+"]";	
 								smsg.type = "invite";
-								smsg.key1 = info._id.$oid;
+								smsg.key1 = info._id;
 								smsg.key2 = "";
 								smsg.key3 = "";
 								smsg.fr = gap.userinfo.rinfo.nm;
@@ -715,7 +715,7 @@ gBodyTODOCompose.prototype = {
 								//gap.push_noti_mobile(smsg);			
 								
 								//알림센터에 푸쉬 보내기
-								var rid = info._id.$oid;
+								var rid = info._id;
 								var receivers = list;
 								var msg2 = gap.textToHtml(info.name) + " " + gap.lang.miv;	
 								var sendername = "["+gap.lang.todo+" : " + gap.textToHtml(info.name) +"]"
@@ -751,7 +751,7 @@ gBodyTODOCompose.prototype = {
 							if (is_update){
 								//현재 수정한 프로젝트 정보가 우측프레임에 보여지고 있는 프로젝트일 경우 gTodo.cur_project_info를 업데이트 해주고 gTodo.todo_members()를 호출해준다.
 								var modify_project = res.data.project_info;
-								if (gTodo.cur_todo_code == modify_project._id.$oid){
+								if (gTodo.cur_todo_code == modify_project._id){
 									gTodo.cur_project_info = modify_project;
 									gTodo.todo_top_title_change(modify_project.name, modify_project.comment);
 									gTodo.todo_members();
@@ -767,7 +767,7 @@ gBodyTODOCompose.prototype = {
 									var obj = new Object();
 									obj.id = "";
 									obj.type = "invite";  //change status
-									obj.p_code = info._id.$oid;
+									obj.p_code = info._id;
 									obj.p_name = info.name;
 									obj.title = info.name;
 									obj.sender = new_member_ky;  //해당 프로젝트의 owner에게만 전송한다.							
@@ -787,7 +787,7 @@ gBodyTODOCompose.prototype = {
 									smsg.msg = info.name + " " + gap.lang.miv;
 									smsg.title = gap.systemname + "["+gap.lang.ch_tab3+"]";	
 									smsg.type = "invite";
-									smsg.key1 = info._id.$oid;
+									smsg.key1 = info._id;
 									smsg.key2 = "";
 									smsg.key3 = "";
 									smsg.fr = gap.userinfo.rinfo.nm;
@@ -795,7 +795,7 @@ gBodyTODOCompose.prototype = {
 								//	gap.push_noti_mobile(smsg);	
 									
 									//알림센터에 푸쉬 보내기
-									var rid = info._id.$oid;
+									var rid = info._id;
 									var receivers = new_member_ky_list;
 									var msg2 = gap.textToHtml(info.name) + " " + gap.lang.miv;
 									var sendername = "["+gap.lang.todo+" : " + gap.textToHtml(info.name) +"]"
@@ -817,7 +817,7 @@ gBodyTODOCompose.prototype = {
 									var obj = new Object();
 									obj.id = "";
 									obj.type = "invite";  //change status
-									obj.p_code = info._id.$oid;
+									obj.p_code = info._id;
 									obj.p_name = info.name;
 									obj.title = info.name;
 									obj.sender = list;  //해당 프로젝트의 owner에게만 전송한다.							
@@ -829,7 +829,7 @@ gBodyTODOCompose.prototype = {
 								smsg.msg = info.name + " " + gap.lang.miv;
 								smsg.title = gap.systemname + "["+gap.lang.ch_tab3+"]";
 								smsg.type = "invite";
-								smsg.key1 = info._id.$oid;
+								smsg.key1 = info._id;
 								smsg.key2 = "";
 								smsg.key3 = "";
 								smsg.fr = gap.userinfo.rinfo.nm;
@@ -838,7 +838,7 @@ gBodyTODOCompose.prototype = {
 							//	gap.push_noti_mobile(smsg);		
 								
 								//알림센터에 푸쉬 보내기
-								var rid = info._id.$oid;
+								var rid = info._id;
 								var receivers = list;
 								var msg2 = gap.textToHtml(info.name) + " " + gap.lang.miv;	
 								var sendername = "["+gap.lang.todo+" : " + gap.textToHtml(info.name) +"]"
@@ -879,7 +879,7 @@ gBodyTODOCompose.prototype = {
 			if (is_update){
 				//현재 수정한 프로젝트 정보가 우측프레임에 보여지고 있는 프로젝트일 경우 gTodo.cur_project_info를 업데이트 해주고 gTodo.todo_members()를 호출해준다.
 				var modify_project = res.data.project_info;
-				if (gTodo.cur_todo_code == modify_project._id.$oid){
+				if (gTodo.cur_todo_code == modify_project._id){
 					gTodo.cur_project_info = modify_project;
 					gTodo.todo_top_title_change(modify_project.name, modify_project.comment);
 					gTodo.todo_members();
@@ -896,7 +896,7 @@ gBodyTODOCompose.prototype = {
 					var obj = new Object();
 					obj.id = "";
 					obj.type = "invite";  //change status
-					obj.p_code = info._id.$oid;
+					obj.p_code = info._id;
 					obj.p_name = info.name;
 					obj.title = info.name;
 					obj.sender = new_member_ky;  //해당 프로젝트의 owner에게만 전송한다.							
@@ -914,7 +914,7 @@ gBodyTODOCompose.prototype = {
 					smsg.msg = info.name + " " + gap.lang.miv;
 					smsg.title = gap.systemname + "["+gap.lang.ch_tab3+"]";
 					smsg.type = "invite";
-					smsg.key1 = info._id.$oid;
+					smsg.key1 = info._id;
 					smsg.key2 = "";
 					smsg.key3 = "";
 					smsg.fr = gap.userinfo.rinfo.nm;
@@ -922,7 +922,7 @@ gBodyTODOCompose.prototype = {
 				//	gap.push_noti_mobile(smsg);	
 					
 					//알림센터에 푸쉬 보내기
-					var rid = info._id.$oid;
+					var rid = info._id;
 					var receivers = new_member_ky_list;
 					var msg2 = gap.textToHtml(info.name) + " " + gap.lang.miv;	
 					var sendername = "["+gap.lang.todo+" : " + gap.textToHtml(info.name) +"]"
@@ -944,7 +944,7 @@ gBodyTODOCompose.prototype = {
 					var obj = new Object();
 					obj.id = "";
 					obj.type = "invite";  //change status
-					obj.p_code = info._id.$oid;
+					obj.p_code = info._id;
 					obj.p_name = info.name;
 					obj.title = info.name;
 					obj.sender = list;  //해당 프로젝트의 owner에게만 전송한다.							
@@ -956,7 +956,7 @@ gBodyTODOCompose.prototype = {
 				smsg.msg = info.name + " " + gap.lang.miv;
 				smsg.title = gap.systemname + "["+gap.lang.ch_tab3+"]";	
 				smsg.type = "invite";
-				smsg.key1 = info._id.$oid;
+				smsg.key1 = info._id;
 				smsg.key2 = "";
 				smsg.key3 = "";
 				smsg.fr = gap.userinfo.rinfo.nm;
@@ -965,7 +965,7 @@ gBodyTODOCompose.prototype = {
 			//	gap.push_noti_mobile(smsg);			
 				
 				//알림센터에 푸쉬 보내기
-				var rid = info._id.$oid;
+				var rid = info._id;
 				var receivers = list;
 				var msg2 = gap.textToHtml(info.name) + " " + gap.lang.miv;
 				var sendername = "["+gap.lang.todo+" : " + gap.textToHtml(info.name) +"]"
@@ -1244,7 +1244,7 @@ gBodyTODOCompose.prototype = {
 						if (_info.type == "folder"){
 							var _html = '';
 							_html += '<li>';
-							_html += '	<div style=""><span class="ico ico-todo-folder"></span>' + _info.name + '<button class="btn-entry" id="enter_' + _info._id.$oid + '"><span>' + gap.lang.move + '</span></button></div>';
+							_html += '	<div style=""><span class="ico ico-todo-folder"></span>' + _info.name + '<button class="btn-entry" id="enter_' + _info._id + '"><span>' + gap.lang.move + '</span></button></div>';
 							_html += '</li>';
 							$("#folder_info_list").append(_html);
 						}
@@ -1351,12 +1351,12 @@ gBodyTODOCompose.prototype = {
 						var _status = gTodoC.get_todo_progress_ststus(_info);
 						var _html = '';
 						_html += '<li>';
-						_html += '	<div style=""><span class="ico ico-' + _status + '-c"></span>' + _info.name + '<button class="btn-entry" id="enter_' + _info._id.$oid + '"><span>' + gap.lang.enter + '</span></button></div>';
+						_html += '	<div style=""><span class="ico ico-' + _status + '-c"></span>' + _info.name + '<button class="btn-entry" id="enter_' + _info._id + '"><span>' + gap.lang.enter + '</span></button></div>';
 						_html += '</li>';
 						$("#exit_info_list").append(_html);
 
 						//등러가기 버튼 클릭
-						$("#enter_" + _info._id.$oid).bind("click", _info, function(event){
+						$("#enter_" + _info._id).bind("click", _info, function(event){
 							gTodoC.enter_info(event.data);
 						});
 						
@@ -1383,13 +1383,13 @@ gBodyTODOCompose.prototype = {
 	"enter_info" : function(_info){
 		var surl = gap.channelserver + "/enter_folder_todo.km";
 	/*	var postData = JSON.stringify({
-				"key" : _info._id.$oid,
+				"key" : _info._id,
 				"email" : gap.search_cur_em(),
 				"owner" : gap.userinfo.rinfo
 			});	*/	
 		
 		var postData = JSON.stringify({
-			"key" : _info._id.$oid,
+			"key" : _info._id,
 			"owner" : gap.userinfo.rinfo
 		});	
 
@@ -1405,7 +1405,7 @@ gBodyTODOCompose.prototype = {
 			success : function(res){
 				if (res.result == "OK"){
 					/*	
-				 	var res_id = _info._id.$oid;
+				 	var res_id = _info._id;
 					var folderkey = _info.folderkey;
 					var project_name = _info.name;
 					var _html = '';
@@ -1553,7 +1553,7 @@ gBodyTODOCompose.prototype = {
 			var _event = new Object();
 
 			if (_item.startdate != undefined){
-				_event.id = _item._id.$oid;
+				_event.id = _item._id;
 				_event.title = _item.title + (_item.asignee != undefined ? " (" + gap.user_check(_item.asignee).disp_user_info + ")" : "");
 				_event.start = moment.utc(_item.startdate).local().format('YYYY-MM-DD');
 				_event.end = moment.utc(_item.enddate).local().add(1, "days").format("YYYY-MM-DD");
@@ -1719,7 +1719,7 @@ gBodyTODOCompose.prototype = {
 					is_edit = true;
 				}
 				
-				_event.id = _item._id.$oid;
+				_event.id = _item._id;
 				_event.title = gap.textToHtml(_item.title) + (_item.asignee != undefined ? " (" + gap.user_check(_item.asignee).disp_user_info + ")" : "");
 				_event.start = moment.utc(_item.startdate).local().format('YYYY-MM-DD');
 				_event.end = moment.utc(_item.enddate).local().add(1, "days").format("YYYY-MM-DD");
@@ -1745,7 +1745,7 @@ gBodyTODOCompose.prototype = {
 		var _item = _data;
 		var _event = new Object();
 
-		_event.id = _item._id.$oid;
+		_event.id = _item._id;
 		_event.title = gap.textToHtml(_item.title) + (_item.asignee != undefined ? " (" + gap.user_check(_item.asignee).disp_user_info + ")" : "");
 		_event.start = moment.utc(_item.startdate).local().format('YYYY-MM-DD');
 		_event.end = moment.utc(_item.enddate).local().add(1, "days").format("YYYY-MM-DD");
@@ -1924,13 +1924,13 @@ gBodyTODOCompose.prototype = {
 		if (gBody.cur_todo == "calendar"){
 			var _event = new Object();
 			var _item = $.map(gTodo.cur_project_item_list, function(ret, key) {
-				if (ret._id.$oid == id){
+				if (ret._id == id){
 					return ret;
 				}
 			});
 			//console.log(_item);
 /*			_item = _item[0];
-			_event.id = _item._id.$oid;
+			_event.id = _item._id;
 			_event.title = _item.title + (_item.asignee != undefined ? " (" + gap.user_check(_item.asignee).disp_user_info + ")" : "");
 			_event.start = moment.utc(_item.startdate).local().format('YYYY-MM-DD');
 			_event.end = moment.utc(_item.enddate).local().add(1, "days").format("YYYY-MM-DD");
@@ -2258,7 +2258,7 @@ gBodyTODOCompose.prototype = {
 		for (var i = 0; i < _data.length; i++){
 			var info = _data[i];
 			var _type = info.type;
-			var _id = info._id.$oid;
+			var _id = info._id;
 			var _name = info.name;
 			var _owner = info.owner.em;
 			var _html = '';
@@ -2306,8 +2306,8 @@ gBodyTODOCompose.prototype = {
 			var _status = gTodoC.get_todo_progress_ststus(favinfo);
 			var _html = '';
 		
-			_html += '<li id="favorite_' + favinfo._id.$oid + '" class="fav-project-item" todo-name="' + favinfo.name + '" todo-type="project" owner="' + _owner + '">';
-			_html += '	<em id="fav_em_' + favinfo._id.$oid + '"><span class="ico ico-' + _status + '-c"></span>' + favinfo.name + '<button class="ico btn-more favorite-mng">더보기</button></em>';
+			_html += '<li id="favorite_' + favinfo._id + '" class="fav-project-item" todo-name="' + favinfo.name + '" todo-type="project" owner="' + _owner + '">';
+			_html += '	<em id="fav_em_' + favinfo._id + '"><span class="ico ico-' + _status + '-c"></span>' + favinfo.name + '<button class="ico btn-more favorite-mng">더보기</button></em>';
 			_html += '</li>';
 			
 			$("#todo_favorite_list").append(_html);
@@ -2346,7 +2346,7 @@ gBodyTODOCompose.prototype = {
 	"draw_favorite_list" : function(_type, _info){
 		
 		// 즐겨찾기만 처리 (추가 / 삭제)
-		var todo_code = _info._id.$oid;
+		var todo_code = _info._id;
 		var todo_name = _info.name;
 
 		if (_type == "add"){
@@ -2364,7 +2364,7 @@ gBodyTODOCompose.prototype = {
 		}else if (_type == "del"){
 			for (var i = 0; i < gBody.cur_todo_star_list.length; i++){
 				var item = gBody.cur_todo_star_list[i];
-			    if (item._id.$oid == todo_code) { 
+			    if (item._id == todo_code) { 
 			    	gBody.cur_todo_star_list.splice(i, 1);
 			        break;
 			    }				
@@ -2538,7 +2538,7 @@ gBodyTODOCompose.prototype = {
 		for (var i = 0; i < _data.length; i++){
 			if (_data[i].file != undefined){
 				var files = _data[i].file;
-				var todo_id = _data[i]._id.$oid;
+				var todo_id = _data[i]._id;
 				var todo_title = gap.textToHtml(_data[i].title);
 				
 				for (var j = 0; j < files.length; j++){
@@ -2729,17 +2729,17 @@ gBodyTODOCompose.prototype = {
 	//	for (var i = 0; i < gBody.cur_todo_list.length; i++){
 //			var item = gBody.cur_todo_list[i];
 //			if (item.type == "project"){
-//				_h += "<option value='" + item._id.$oid + "'>" + item.name + "</option>";
+//				_h += "<option value='" + item._id + "'>" + item.name + "</option>";
 //			}
 //		}
 		
 		for (var i = 0; i < gap.cur_channel_list_info.length; i++){
 			var item = gap.cur_channel_list_info[i];
 			if (item.type != "folder"){
-				_h += "<option value='" + item._id.$oid + "'> " + item.ch_name + "</option>";
+				_h += "<option value='" + item._id + "'> " + item.ch_name + "</option>";
 			}
 		}
-		$("#todo_project_select").html(_h).val(gTodo.cur_project_info._id.$oid).material_select();		
+		$("#todo_project_select").html(_h).val(gTodo.cur_project_info._id).material_select();		
 		
 		gTodoC.__todo_archive_event();
 		gTodoC.draw_todo_archive(1);
@@ -2895,7 +2895,7 @@ gBodyTODOCompose.prototype = {
 		}
 		var html = "";
 		
-		html += "<li id='archive_" + item._id.$oid  + "'>";
+		html += "<li id='archive_" + item._id  + "'>";
 		html += "	<div class='color-bar " + item.color + "'></div>";
 		html += "	<button class='ico btn-more'>더보기</button>";
 		if (item.asignee != undefined){
@@ -2953,19 +2953,19 @@ gBodyTODOCompose.prototype = {
 //		for (var i = 0; i < gBody.cur_todo_list.length; i++){
 //			var item = gBody.cur_todo_list[i];
 //			if (item.type == "project"){
-//				_h += "<option value='" + item._id.$oid + "'>" + item.name + "</option>";
+//				_h += "<option value='" + item._id + "'>" + item.name + "</option>";
 //			}
 //		}
 		
 		for (var i = 0; i < gap.cur_channel_list_info.length; i++){
 			var item = gap.cur_channel_list_info[i];
 			if (item.type != "folder"){
-				_h += "<option value='" + item._id.$oid + "'> " + item.ch_name + "</option>";
+				_h += "<option value='" + item._id + "'> " + item.ch_name + "</option>";
 			}
 		}
 		
 	//	$("#todo_project_select").html(_h).val('').material_select();
-		$("#todo_project_select").html(_h).val(gTodo.cur_project_info._id.$oid).material_select();	
+		$("#todo_project_select").html(_h).val(gTodo.cur_project_info._id).material_select();	
 		
 		gTodoC.__todo_star_event();
 		gTodoC.draw_todo_star(1);
@@ -3088,7 +3088,7 @@ gBodyTODOCompose.prototype = {
 			}
 			var html = "";
 			
-			html += "<li id='star_" + item._id.$oid  + "'>";
+			html += "<li id='star_" + item._id  + "'>";
 			html += "	<div class='color-bar " + item.color + "'></div>";
 			html += "	<button class='ico btn-more'>더보기</button>";
 			if (item.asignee != undefined){
@@ -3149,7 +3149,7 @@ gBodyTODOCompose.prototype = {
 		}
 		var html = "";
 		
-		html += "<li id='star_" + item._id.$oid  + "'>";
+		html += "<li id='star_" + item._id  + "'>";
 		html += "	<div class='color-bar " + item.color + "'></div>";
 		html += "	<button class='ico btn-more'>더보기</button>";
 		if ( (item.asignee != undefined) && (item.asignee != "")){
@@ -3189,7 +3189,7 @@ gBodyTODOCompose.prototype = {
 			gTodoC.todo_star_count = gTodoC.todo_star_count - 1;
 			gTodoC.todo_star_total_count = gTodoC.todo_star_total_count - 1;
 			
-			$("#star_" + gTodo.select_todo._id.$oid).remove();
+			$("#star_" + gTodo.select_todo._id).remove();
 		}
 	},
 	
@@ -3198,7 +3198,7 @@ gBodyTODOCompose.prototype = {
 		var selected_info = "";
 		for (var i = 0; i < gBody.cur_todo_list.length; i++){
 			var item = gBody.cur_todo_list[i];
-			if (_id == item._id.$oid){
+			if (_id == item._id){
 				selected_info = item;
 				break;
 			}
@@ -3207,13 +3207,13 @@ gBodyTODOCompose.prototype = {
 		var surl = gap.channelserver + "/update_folder_favorite_todo.km";
 	/*	var postData = JSON.stringify({
 				"email" : gap.userinfo.rinfo.em,
-				"project_code" : selected_info._id.$oid,
+				"project_code" : selected_info._id,
 				"project_name" : selected_info.name,
 				"ty" : _type
 			});*/	
 		
 		var postData = JSON.stringify({
-			"project_code" : selected_info._id.$oid,
+			"project_code" : selected_info._id,
 			"project_name" : selected_info.name,
 			"ty" : _type
 		});
@@ -3326,20 +3326,20 @@ gBodyTODOCompose.prototype = {
 //		for (var i = 0; i < gBody.cur_todo_list.length; i++){
 //			var item = gBody.cur_todo_list[i];
 //			if (item.type == "project"){
-//				_h += "<option value='" + item._id.$oid + "'>" + item.name + "</option>";
+//				_h += "<option value='" + item._id + "'>" + item.name + "</option>";
 //			}
 //		}
 		
 		for (var i = 0; i < gap.cur_channel_list_info.length; i++){
 			var item = gap.cur_channel_list_info[i];
 			if (item.type != "folder"){
-				_h += "<option value='" + item._id.$oid + "'> " + item.ch_name + "</option>";
+				_h += "<option value='" + item._id + "'> " + item.ch_name + "</option>";
 			}
 		}
 		
 		
 	//	$("#todo_project_select").html(_h).val('').material_select();
-		$("#todo_project_select").html(_h).val(gTodo.cur_project_info._id.$oid).material_select();	
+		$("#todo_project_select").html(_h).val(gTodo.cur_project_info._id).material_select();	
 		
 		gTodoC.__todo_mention_event();
 		gTodoC.draw_todo_mention(1);
@@ -3557,7 +3557,7 @@ gBodyTODOCompose.prototype = {
 		
 		var html = "";
 		
-		html += "<li id='mention_" + info._id.$oid  + "' data-todo='" + info._id.$oid + "'>";
+		html += "<li id='mention_" + info._id  + "' data-todo='" + info._id + "'>";
 		
 		if (typeof(info.color) != "undefined"){
 			html += "	<div class='color-bar " + info.color + "'></div>";
@@ -3657,7 +3657,7 @@ gBodyTODOCompose.prototype = {
 		
 		var html = "";
 		
-		html += "<li id='star_" + item._id.$oid  + "'>";
+		html += "<li id='star_" + item._id  + "'>";
 		html += "	<div class='color-bar " + item.color + "'></div>";
 		html += "	<button class='ico btn-more'>더보기</button>";
 	//	if (item.asignee != undefined){
@@ -3764,7 +3764,7 @@ gBodyTODOCompose.prototype = {
 				for (var i = 0; i < gap.cur_channel_list_info.length; i++){
 					var todo_item = gap.cur_channel_list_info[i];
 					if (todo_item.type != "folder"){
-						_html += "				<li id='project_" + todo_item._id.$oid + "' project_nm='" + todo_item.ch_name + "'><em>" + todo_item.ch_name + "</em></li>";
+						_html += "				<li id='project_" + todo_item._id + "' project_nm='" + todo_item.ch_name + "'><em>" + todo_item.ch_name + "</em></li>";
 					}
 				}
 				_html += "			</ul>";
@@ -3782,7 +3782,7 @@ gBodyTODOCompose.prototype = {
 				for (var i = 0; i < gap.cur_channel_list_info.length; i++){
 					var todo_item = gap.cur_channel_list_info[i];
 					if (todo_item.type != "folder"){
-						if (todo_item._id.$oid == selected_project_code){
+						if (todo_item._id == selected_project_code){
 							member_list.push(todo_item.owner);
 							for (var j = 0; j < todo_item.member.length; j++){
 								member_list.push(todo_item.member[j]);
@@ -3976,7 +3976,7 @@ gBodyTODOCompose.prototype = {
 			for (var i = 0; i < gBody.cur_todo_list.length; i++){
 				var todo_item = gBody.cur_todo_list[i];
 				if (todo_item.type == "project"){
-					_html += "				<li id='project_" + todo_item._id.$oid + "' project_nm='" + todo_item.name + "'><em>" + todo_item.name + "</em></li>";
+					_html += "				<li id='project_" + todo_item._id + "' project_nm='" + todo_item.name + "'><em>" + todo_item.name + "</em></li>";
 				}
 			}
 			_html += "			</ul>";

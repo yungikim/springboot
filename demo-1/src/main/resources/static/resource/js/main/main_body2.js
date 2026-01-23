@@ -234,13 +234,13 @@ gBodyFN2.prototype = {
 
 		for (var k = 0;  k < res.filelist.length; k++){
 			var file_info = res.filelist[k];
-			var file_id = file_info._id.$oid;
+			var file_id = file_info._id;
 			var user_info = gap.user_check(file_info.owner);
 			var disp_file_name = gap.get_bun_filename(file_info);
 			var disp_date = gap.change_date_default2(gap.change_date_localTime_only_date(file_info.GMT));
 			var disp_time = gap.change_date_localTime_only_time(String(file_info.GMT));
 			var icon_kind = gap.file_icon_check(file_info.filename);
-			var downloadurl = gap.search_file_convert_server(file_info.fserver) + "/FDownload.do?id=" + file_info._id.$oid + "&ty=" + (gBody2.select_left_menu == "4" ? "3" : "1") + "&ky="+gap.userinfo.rinfo.ky;
+			var downloadurl = gap.search_file_convert_server(file_info.fserver) + "/FDownload.do?id=" + file_info._id + "&ty=" + (gBody2.select_left_menu == "4" ? "3" : "1") + "&ky="+gap.userinfo.rinfo.ky;
 			var show_thumb = false;
 			var file_html = '';
 			
@@ -497,7 +497,7 @@ gBodyFN2.prototype = {
 		for (var i = 0; i < res.length; i++){
 			var folder_info = res[i];
 			var drive_key = folder_info.drive_key;
-			var folder_id = folder_info._id.$oid;
+			var folder_id = folder_info._id;
 			var folder_name = folder_info.folder_name;
 			var parent_folder_key = folder_info.parent_folder_key;
 			var depth = folder_info.depth;
@@ -560,7 +560,7 @@ gBodyFN2.prototype = {
 		}else{
 			for (var j = 0; j < gBody.cur_drive_folder_list_info.length; j++){
 				var folder_info = gBody.cur_drive_folder_list_info[j];
-				if (folder_info._id.$oid == folder_code){
+				if (folder_info._id == folder_code){
 					return gBody2.get_file_fullpath(drive_code, folder_info.parent_folder_key, folder_info.folder_name);
 					break;
 				}
@@ -579,7 +579,7 @@ gBodyFN2.prototype = {
 						break;
 					}
 				}				
-			}else if (folder_info._id.$oid == folder_code){
+			}else if (folder_info._id == folder_code){
 				var ret_fullpath = folder_info.folder_name + " > " + fullpath;
 				return gBody2.get_file_fullpath(drive_code, folder_info.parent_folder_key, ret_fullpath);
 				break;
@@ -644,7 +644,7 @@ gBodyFN2.prototype = {
 				for (var i = 0; i < gBody.cur_drive_folder_list_info.length; i++){
 					gBody.parent_folder_info = "";
 					var _data = gBody.cur_drive_folder_list_info[i];
-					if (parent_folder_id == _data._id.$oid){
+					if (parent_folder_id == _data._id){
 						gBody.parent_folder_info = _data;
 						break;
 					}
@@ -652,7 +652,7 @@ gBodyFN2.prototype = {
 				for (var j = 0; j < gBody.cur_drive_folder_list_info.length; j++){
 					gBody.cur_folder_info = "";
 					var _data = gBody.cur_drive_folder_list_info[j];
-					if (cur_folder_id == _data._id.$oid){
+					if (cur_folder_id == _data._id){
 						gBody.cur_folder_info = _data;
 						break;
 					}
@@ -942,7 +942,7 @@ gBodyFN2.prototype = {
 				postData.delete_members = delete_members_em;	// 하취 폴더에서 해당 사용자 삭제
 				postData.ch_code = obj.ch_code;
 			}						
-			var surl = gap.channelserver + "/" + (is_update ? "drive_update.km" : "create_person_drive.km");
+			var surl = gap.channelserver + "/api/files/" + (is_update ? "drive_update.km" : "create_person_drive.km");
 			$.ajax({
 				type : "POST",
 				url : surl,
@@ -1199,7 +1199,7 @@ gBodyFN2.prototype = {
 	},
 	
 	"modify_drive" : function(ch_code){
-		var surl = gap.channelserver + "/search_info.km";
+		var surl = gap.channelserver + "/api/channel/search_info.km";
 		var postData = {
 				"type" : "D",
 				"ch_code" : ch_code
@@ -1209,6 +1209,7 @@ gBodyFN2.prototype = {
 			type : "POST",
 			url : surl,
 			dataType : "json",
+			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify(postData),
 			success : function(res){
 				if (res.result == "OK"){
@@ -2194,7 +2195,7 @@ gBodyFN2.prototype = {
 	
 	
 	"modify_channel" : function(ch_code){
-		var surl = gap.channelserver + "/search_info.km";
+		var surl = gap.channelserver + "/api/channel/search_info.km";
 		var postData = {
 				"type" : "C",
 				"ch_code" : ch_code
@@ -2204,6 +2205,7 @@ gBodyFN2.prototype = {
 			type : "POST",
 			url : surl,
 			dataType : "json",
+			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify(postData),
 			success : function(res){
 				if (res.result == "OK"){
@@ -3017,7 +3019,7 @@ gBodyFN2.prototype = {
 			
 			for (var i = 0;  i < res.folderlist.length; i++){
 				var folder_info = res.folderlist[i];
-				var folder_id = folder_info._id.$oid;
+				var folder_id = folder_info._id;
 				var folder_name = folder_info.folder_name;
 				var user_info = gap.user_check(folder_info.owner);
 				var disp_date = gap.change_date_default2(gap.change_date_localTime_only_date(folder_info.GMT));
@@ -3142,13 +3144,13 @@ gBodyFN2.prototype = {
 				
 		for (var k = 0;  k < res.datalist.length; k++){
 			var file_info = res.datalist[k];
-			var file_id = file_info._id.$oid;
+			var file_id = file_info._id;
 			var user_info = gap.user_check(file_info.owner);
 			var disp_file_name = gap.get_bun_filename(file_info);
 			var disp_date = gap.change_date_default2(gap.change_date_localTime_only_date(file_info.GMT));
 			var disp_time = gap.change_date_localTime_only_time(String(file_info.GMT));
 			var icon_kind = gap.file_icon_check(file_info.filename);
-			var downloadurl = gap.search_file_convert_server(file_info.fserver) + "/FDownload.do?id=" + file_info._id.$oid + "&ty=1&ky="+gap.userinfo.rinfo.ky;
+			var downloadurl = gap.search_file_convert_server(file_info.fserver) + "/FDownload.do?id=" + file_info._id + "&ty=1&ky="+gap.userinfo.rinfo.ky;
 			var show_thumb = false;
 			var file_html = '';
 			
@@ -3617,7 +3619,7 @@ gBodyFN2.prototype = {
 					
 				}else{
 					_parent_member = $.map(gBody.cur_drive_folder_list_info, function(ret, key) {
-						if (ret._id.$oid == obj.parent_folder_key){
+						if (ret._id == obj.parent_folder_key){
 							var ret_member = [];
 							ret_member = ret.member;
 							_owner = ret.owner;
@@ -3877,37 +3879,23 @@ gBodyFN2.prototype = {
 				}
 				
 				postData.delete_members = delete_members_em;	// 하취 폴더에서 해당 사용자 삭제
-				postData.id = obj._id.$oid;
+				postData.id = obj._id;
 			}
 			
-			/*
-			 * 사용안함 - 2021.10.08
-			 * if (is_update){
-				postData.id = obj._id.$oid;
-				
-				var pre_member = $.map(gBody.cur_drive_folder_list_info, function(ret, key) {
-					if (ret._id.$oid == obj._id.$oid){
-						return ret.member;
-					}
-				});
-				var pre_member_ky = $.map(pre_member, function(ret, key) {
-					return ret.ky;
-				});
-				new_member_ky = $(user_ky_list).not(pre_member_ky);
-			}*/
-			
-			var surl = gap.channelserver + "/" + (is_update ? "update_folder.km" : "make_folder.km");
+						
+			var surl = gap.channelserver + "/api/files/" + (is_update ? "update_folder.km" : "make_folder.km");
 			$.ajax({
 				type : "POST",
 				url : surl,
 				dataType : "json",
+				contentType : "application/json; charset=utf-8",
 				data : JSON.stringify(postData),
 				success : function(res){
 					if (res.result == "OK"){
 						var user_info = gap.user_check(gap.userinfo.rinfo);
-						var disp_date = gap.change_date_default2(gap.change_date_localTime_only_date(res.GMT));
-						var disp_time = gap.change_date_localTime_only_time(String(res.GMT));
-						var folder_id = (is_update ? obj._id.$oid : res.folder_id);
+						var disp_date = gap.change_date_default2(gap.change_date_localTime_only_date(res.data.GMT));
+						var disp_time = gap.change_date_localTime_only_time(String(res.data.GMT));
+						var folder_id = (is_update ? obj._id : res.data.folder_id);
 						var html = '';
 						if (is_update){
 							$("#" + folder_id).empty();
@@ -3956,18 +3944,7 @@ gBodyFN2.prototype = {
 							}
 							$("#" + folder_id).html(html);
 							
-							/*
-							// 새로 추가된 멤버
-							for (var k = 0; k < new_member_ky.length; k++){
-								var _noti = new Object();
-								_noti.type = "drive_member";								
-								_noti.p_code = obj._id.$oid;
-								_noti.p_name = folder_name;
-								_noti.title = "";
-								_noti.sender = new_member_ky[k];
-								_wsocket.send_drive_msg(_noti);
-							}
-							*/
+							
 						}else{
 							if ($(".msg-empty").length > 0){
 								$("#wrap_drive_data_list").empty();
@@ -4243,7 +4220,7 @@ gBodyFN2.prototype = {
 						for (var j = 0; j < gBody.cur_drive_folder_list_info.length; j++){
 							gBody.cur_folder_info = "";
 							var _data = gBody.cur_drive_folder_list_info[j];
-							if (folder_code == _data._id.$oid){
+							if (folder_code == _data._id){
 								gBody.cur_folder_info = _data;
 								break;
 							}
@@ -4285,7 +4262,7 @@ gBodyFN2.prototype = {
 			title: "Confrim",
 			contents: msg,
 			callback: function(){
-			var surl = gap.channelserver + "/delete_folder_new.km";
+			var surl = gap.channelserver + "/api/files/delete_folder_new.km";
 			/*	var postData = JSON.stringify({
 						"id" : folder_id,
 						"email" : gap.userinfo.rinfo.em,
@@ -4338,91 +4315,10 @@ gBodyFN2.prototype = {
 			}
 		});
 		
-		
-//		$.confirm({
-//			title : "Confirm",
-//			content : msg,
-//			type : "default",  
-//			closeIcon : true,
-//			closeIconClass : "fa fa-close",
-//			columnClass : "s", 			 				
-//			animation : "top", 
-//			animateFromElement : false,
-//			closeAnimation : "scale",
-//			animationBounce : 1,	
-//			backgroundDismiss: false,
-//			escapeKey : false,
-//			buttons : {		
-//				confirm : {
-//					keys: ['enter'],
-//					text : gap.lang.OK,
-//					btnClass : "btn-default",
-//					action : function(){
-//						var surl = gap.channelserver + "/delete_folder_new.km";
-//					/*	var postData = JSON.stringify({
-//								"id" : folder_id,
-//								"email" : gap.userinfo.rinfo.em,
-//								"depts" : gap.full_dept_codes()
-//							});*/
-//						
-//						var postData = JSON.stringify({
-//							"id" : folder_id
-//						});
-//
-//						$.ajax({
-//							type : "POST",
-//							url : surl,
-//							dataType : "json",
-//							data : postData,
-//							beforeSend : function(xhr){
-//								xhr.setRequestHeader("auth", gap.get_auth());
-//								xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
-//							},
-//							success : function(res){
-//								if (res.result == "OK"){
-//									// 트리 폴더에 있는 expand/collape 아이콘 처리
-//									var same_level_folder_len = $("#ul_fl_" + folder_id).siblings().length;
-//									if (same_level_folder_len == 1){
-//										var parent_folder_id = $("#ul_fl_" + folder_id).siblings("div").attr("id").replace("main_", "");
-//										$("#btn_fold_" + parent_folder_id).empty();
-//									}
-//									
-//									$("#" + folder_id).remove();			// 목록에 있는 폴더 삭제
-//									$("#ul_fl_" + folder_id).remove();		// 트리에 있는 폴더 삭제
-//									
-//									if (folder_id == gBody2.select_folder_code){
-//										// 현재 화면에 표시된 폴더가 삭제되는 경우 전체파일 클릭
-//										$("#allcontent_drive").click();
-//										
-//										gBody3.removeClass_channel();
-//										$("#allcontent_drive").addClass("on");
-//									}
-//									gBody2.update_drive_info();
-//								}else{
-//									gap.gAlert(gap.lang.errormsg);
-//									return false;
-//								}
-//							},
-//							error : function(e){
-//								gap.gAlert(gap.lang.errormsg);
-//								return false;
-//							}
-//						});				
-//					}
-//				},
-//				cancel : {
-//					keys: ['esc'],
-//					text : gap.lang.Cancel,
-//					btnClass : "btn-default",
-//					action : function(){
-//					}
-//				}
-//			}		 			
-//		});
 	},
 	
 	"drive_modify_folder" : function(folder_id){
-		var surl = gap.channelserver + "/load_folder.km";
+		var surl = gap.channelserver + "/api/files/load_folder.km";
 		var postData = {
 				"id" : folder_id
 			};			
@@ -4967,7 +4863,7 @@ gBodyFN2.prototype = {
 					for (var i = 0; i < res.data.folderlist.length; i++){
 						var folder_info = res.data.folderlist[i];
 						var drive_key = folder_info.drive_key;
-						var folder_id = folder_info._id.$oid;
+						var folder_id = folder_info._id;
 						var folder_name = folder_info.folder_name;
 						var _html = '';
 						
@@ -5875,7 +5771,7 @@ gBodyFN2.prototype = {
 				
 		//"dtype" : 은 파일 형식으로 필터링 할때 사용한다. ppt, xls, doc, pdf, image, movie, hwp, txt, etc
 		
-		var surl = gap.channelserver + "/channel_list.km";
+		var surl = gap.channelserver + "/api/channel/channel_list.km";
 	/*	var postData = {
 				"channel_code" : "",
 				"query_type" : "favoritecontent",
@@ -5901,14 +5797,14 @@ gBodyFN2.prototype = {
 		$.ajax({
 			type : "POST",
 			url : surl,
-			dataType : "text",	//"json",
+			dataType : "json",	//"json",
 			data : JSON.stringify(postData),
 			beforeSend : function(xhr){
 				xhr.setRequestHeader("auth", gap.get_auth());
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},
 			success : function(__res){
-				var res = JSON.parse(__res);
+				var res = __res;
 				if (res.result == "OK"){
 					gBody2.cur_file_count += res.data.data.length;
 					gBody2.cur_file_total_count = res.data.totalcount;
@@ -5991,12 +5887,12 @@ gBodyFN2.prototype = {
 		for (var k = 0;  k < res.data.length; k++){
 			var file_info = res.data[k];
 			
-			var file_id = file_info._id.$oid;
+			var file_id = file_info._id;
 			var disp_file_name = gap.get_bun_filename(file_info);
 			var disp_date = gap.change_date_default2(gap.change_date_localTime_only_date(file_info.GMT));
 			var disp_time = gap.change_date_localTime_only_time(String(file_info.GMT));
 			var icon_kind = gap.file_icon_check(file_info.filename);
-			var downloadurl = gap.search_file_convert_server(file_info.fserver) + "/FDownload.do?id=" + file_info._id.$oid + "&ty=3&ky="+gap.userinfo.rinfo.ky;
+			var downloadurl = gap.search_file_convert_server(file_info.fserver) + "/FDownload.do?id=" + file_info._id + "&ty=3&ky="+gap.userinfo.rinfo.ky;
 			var show_thumb = false;
 			var file_html = '';
 			
@@ -6087,7 +5983,7 @@ gBodyFN2.prototype = {
 						//	gBody2.draw_file_detail_info(file_info, "3");
 							var filename = file_info.filename;
 							var md5 = file_info.md5;
-							var id = file_info._id.$oid;
+							var id = file_info._id;
 							if (gap.checkFileExtension(filename)){
 								var url = gap.channelserver + "office/" + id+ "_"+ md5 + "/filesfavorite";
 								gap.popup_url_office(url);	
@@ -6221,7 +6117,7 @@ gBodyFN2.prototype = {
 		}
 		if (is_continue){
 			gBody2.start_skp = (parseInt(gBody2.per_page) * (parseInt(page_no))) - (parseInt(gBody2.per_page) - 1);
-			var surl = gap.channelserver + "/channel_list.km";
+			var surl = gap.channelserver + "/api/channel/channel_list.km";
 		/*	var postData = {
 					"channel_code" : "",
 					"query_type" : "favoritecontent",
@@ -6247,14 +6143,14 @@ gBodyFN2.prototype = {
 			$.ajax({
 				type : "POST",
 				url : surl,
-				dataType : "text",	//"json",
+				dataType : "json",	//"json",
 				data : JSON.stringify(postData),
 				beforeSend : function(xhr){
 					xhr.setRequestHeader("auth", gap.get_auth());
 					xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 				},
 				success : function(__res){
-					var res = JSON.parse(__res);
+					var res = __res;
 					if (res.result == "OK"){
 						gBody2.cur_file_count += res.data.data.length;
 						gBody2.cur_file_total_count = res.data.totalcount;
@@ -6374,7 +6270,7 @@ gBodyFN2.prototype = {
 		gBody2.start_skp = (parseInt(gBody2.per_page) * (parseInt(page_no))) - (parseInt(gBody2.per_page) - 1);
 				
 		//"dtype" : 은 파일 형식으로 필터링 할때 사용한다. ppt, xls, doc, pdf, image, movie, hwp, txt, etc
-		var surl = gap.channelserver + "/channel_list.km";
+		var surl = gap.channelserver + "/api/channel/channel_list.km";
 	/*	var postData = {
 				"channel_code" : gBody.select_channel_code,
 				"query_type" : gBody3.cur_opt,
@@ -6400,14 +6296,14 @@ gBodyFN2.prototype = {
 		$.ajax({
 			type : "POST",
 			url : surl,
-			dataType : "text", //"json",
+			dataType : "json", //"json",
 			data : JSON.stringify(postData),
 			beforeSend : function(xhr){
 				xhr.setRequestHeader("auth", gap.get_auth());
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},
 			success : function(__res){
-				var res = JSON.parse(__res);
+				var res = __res;
 				if (res.result == "OK"){
 					gBody2.cur_file_count += res.data.data.length;
 					gBody2.cur_file_total_count = res.data.totalcount;
@@ -6461,7 +6357,7 @@ gBodyFN2.prototype = {
 			var chcode = data.channel_code;
 			var chname = data.channel_name;
 			var owner_info = gap.user_check(data.owner);
-			var file_id = data._id.$oid;
+			var file_id = data._id;
 			var file_info = data.info;
 			var fname = file_info.filename;
 			var fsize = file_info.file_size.$numberLong;
@@ -6572,7 +6468,7 @@ gBodyFN2.prototype = {
 							
 							var filename = file_info.filename;
 							var md5 = file_info.md5;
-							var id = file_info._id.$oid;
+							var id = file_info._id;
 							
 							if (gap.checkFileExtension(filename)){
 								var url = gap.channelserver + "office/" + id+ "_"+ md5 + "/channel";
@@ -6711,7 +6607,7 @@ gBodyFN2.prototype = {
 		}
 		if (is_continue){
 			gBody2.start_skp = (parseInt(gBody2.per_page) * (parseInt(page_no))) - (parseInt(gBody2.per_page) - 1);
-			var surl = gap.channelserver + "/channel_list.km";
+			var surl = gap.channelserver + "/api/channel/channel_list.km";
 		/*	var postData = {
 					"channel_code" : gBody.select_channel_code,
 					"query_type" : gBody3.cur_opt,
@@ -6737,14 +6633,14 @@ gBodyFN2.prototype = {
 			$.ajax({
 				type : "POST",
 				url : surl,
-				dataType : "text", //"json",
+				dataType : "json", //"json",
 				data : JSON.stringify(postData),
 				beforeSend : function(xhr){
 					xhr.setRequestHeader("auth", gap.get_auth());
 					xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 				},
 				success : function(__res){
-					var res = JSON.parse(__res);
+					var res = __res;
 					if (res.result == "OK"){
 						gBody2.cur_file_count += res.data.data.length;
 						gBody2.cur_file_total_count = res.data.totalcount;
@@ -6852,7 +6748,7 @@ gBodyFN2.prototype = {
 		html += "<div class='file-info'>";
 
 		if (info.thumbOK == "T"){
-			var thumbnail_url = gap.search_file_convert_server(info.fserver) + "/FDownload_thumb.do?id=" + (ty == "2" ? info._id.$oid + "&md5=" + info.md5 : info._id.$oid) + "&ty=" + ty;
+			var thumbnail_url = gap.search_file_convert_server(info.fserver) + "/FDownload_thumb.do?id=" + (ty == "2" ? info._id + "&md5=" + info.md5 : info._id) + "&ty=" + ty;
 			html += "	<div class='file-thm'>";
 			html += "		<img src='" + thumbnail_url + "' alt='' />";
 			html += "	</div>";
@@ -6965,8 +6861,7 @@ gBodyFN2.prototype = {
 			//일반 파일 미리 보기 클릭 한  경우
 			
 			if (info.file_type == "mp4" || info.file_type == "mov"){
-			//	var download_url = info.fserver + "/FDownload_thumb.do?id=" + (ty == "2" ? info._id.$oid + "&md5=" + info.md5 : info._id.$oid) + "&ty=" + ty;
-				var download_url = gap.search_file_convert_server(info.fserver) + "/FDownload.do?id=" + (ty == "2" ? info._id.$oid + "&md5=" + info.md5 : info._id.$oid) + "&ty=" + ty + "&ky="+gap.userinfo.rinfo.ky;
+				var download_url = gap.search_file_convert_server(info.fserver) + "/FDownload.do?id=" + (ty == "2" ? info._id + "&md5=" + info.md5 : info._id) + "&ty=" + ty + "&ky="+gap.userinfo.rinfo.ky;
 				gap.show_video(download_url, filename);		
 				
 			}else{
@@ -6975,8 +6870,8 @@ gBodyFN2.prototype = {
 				var fserver = gap.search_file_convert_server(info.fserver);
 				var fname = gap.get_bun_filename(info);	//info.filename;
 				var md5 = info.md5;
-			//	var id = (ty == "2" ? info.id : info._id.$oid);
-				var id = info._id.$oid;
+
+				var id = info._id;
 				var icon_kind = gap.file_icon_check(fname);
 				var file_type = info.file_type;
 				var upload_path = info.upload_path;
@@ -7056,7 +6951,7 @@ gBodyFN2.prototype = {
 		html += "<div class='file-info'>";
 
 		if (info.thumbOK == "T"){
-			var thumbnail_url = gap.search_file_convert_server(info.fserver) + "/FDownload_thumb.do?id=" + (ty == "2" ? info._id.$oid + "&md5=" + info.md5 : info._id.$oid) + "&ty=" + ty;
+			var thumbnail_url = gap.search_file_convert_server(info.fserver) + "/FDownload_thumb.do?id=" + (ty == "2" ? info._id + "&md5=" + info.md5 : info._id) + "&ty=" + ty;
 			html += "	<div class='file-thm'>";
 			html += "		<img src='" + thumbnail_url + "' alt='' />";
 			html += "	</div>";
@@ -7133,7 +7028,7 @@ gBodyFN2.prototype = {
 		html += "<div class='file-info'>";
 
 		if (_info.thumbOK == "T"){
-			var thumbnail_url = gap.search_file_convert_server(info.fserver) + "/FDownload_thumb.do?id=" + (ty == "2" ? info.id + "&md5=" + _info.md5 : info._id.$oid) + "&ty=" + ty;
+			var thumbnail_url = gap.search_file_convert_server(info.fserver) + "/FDownload_thumb.do?id=" + (ty == "2" ? info.id + "&md5=" + _info.md5 : info._id) + "&ty=" + ty;
 			html += "	<div class='file-thm'>";
 			html += "		<img src='" + thumbnail_url + "' alt='' />";
 			html += "	</div>";
@@ -7212,7 +7107,7 @@ gBodyFN2.prototype = {
 			var fname = _info.filename;
 			var ftype = _info.file_type;
 			var md5 = _info.md5;
-			var id = (ty == "2" ? info.id : info._id.$oid);
+			var id = (ty == "2" ? info.id : info._id);
 			if (ty == "1"){
 				if (info.fpath.indexOf("/upload/") > -1){
 					var fpath = info.fpath.split("/upload/")[1];
@@ -7247,7 +7142,7 @@ gBodyFN2.prototype = {
 					var furl = fserver + "/FDownload.do?id=" + info.id + "&md5=" + _info.md5 + "&ty=" + ty + "&ky="+gap.userinfo.rinfo.ky;
 					
 				}else{
-					var furl = fserver + "/FDownload.do?id=" + info._id.$oid + "&ty=" + ty + "&ky="+gap.userinfo.rinfo.ky;
+					var furl = fserver + "/FDownload.do?id=" + info._id + "&ty=" + ty + "&ky="+gap.userinfo.rinfo.ky;
 				}
 				
 				gap.image_gallery = new Array();  //변수 초기화 해준다.
@@ -7566,7 +7461,7 @@ gBodyFN2.prototype = {
 				for (var i = 0; i < res.drive.length; i++){
 					var _data = res.drive[i];
 				//	if (_data.ch_share == "Y"){
-						drive_option_list += '<option value="' + _data._id.$oid + '">' + _data.ch_name + '</option>';
+						drive_option_list += '<option value="' + _data._id + '">' + _data.ch_name + '</option>';
 						drive_list.push(_data);
 				//	}
 				}
@@ -7584,7 +7479,7 @@ gBodyFN2.prototype = {
 				});
 				
 				//드라이브 내 폴더 및 파일 리스트
-				var first_drive_code = drive_list[0]._id.$oid;
+				var first_drive_code = drive_list[0]._id;
 				if (typeof first_drive_code != "undefined"){
 					gBody2.select_drive_code = first_drive_code;
 					gBody2.select_drive_name = drive_list[0].ch_name;
@@ -7795,7 +7690,7 @@ gBodyFN2.prototype = {
 			//폴더 리스트
 			for (var i = 0; i < res.folderlist.length; i++){
 				var folder_info = res.folderlist[i];
-				var folder_id = folder_info._id.$oid;
+				var folder_id = folder_info._id;
 				var folder_html = '';
 				
 				folder_html += '<li class="folder-list" id="fl_' + folder_id + '">';
@@ -7828,7 +7723,7 @@ gBodyFN2.prototype = {
 			file_html += '<li>';
 			file_html += '	<div class="checkbox folder-file">';
 			file_html += '		<label>';
-			file_html += '			<input type="checkbox" name="check_upload" id="chk_' + file_info._id.$oid + '" value="' + file_info._id.$oid + '" fname="' + file_name + '" fsize="' + file_size + '"><span class="checkbox-material"><span class="check"></span></span>';
+			file_html += '			<input type="checkbox" name="check_upload" id="chk_' + file_info._id + '" value="' + file_info._id + '" fname="' + file_name + '" fsize="' + file_size + '"><span class="checkbox-material"><span class="check"></span></span>';
 			file_html += '		</label>';
 			file_html += '	</div>';
 			file_html += '	<span class="ico ico-file ' + icon_kind + '"></span>';
@@ -7837,7 +7732,7 @@ gBodyFN2.prototype = {
 			
 			$("#upload_folder_file_list").append(file_html);
 			
-			$("#chk_" + file_info._id.$oid).on("click", function(){
+			$("#chk_" + file_info._id).on("click", function(){
 				var file_id = $(this).attr("id").replace("chk_", "upload_");
 				if ($(this).prop("checked")){
 					var file_name = $(this).attr("fname");
@@ -7970,7 +7865,7 @@ gBodyFN2.prototype = {
 
 		
 		//나간 드라이브/채널 리스트 가져오기
-		var surl = gap.channelserver + "/exit_list.km";
+		var surl = gap.channelserver + "/api/files/exit_list.km";
 	/*	var postData = JSON.stringify({
 				"ty" : ty
 			});*/
@@ -7990,8 +7885,8 @@ gBodyFN2.prototype = {
 			},
 			success : function(res){
 				if (res.result == "OK"){
-					for (var i = 0; i < res.data.data.length; i++){
-						var _info = res.data.data[i];
+					for (var i = 0; i < res.data.length; i++){
+						var _info = res.data[i];
 						var _html = '';
 						_html += '<li>';
 						if (ty == "1"){
@@ -8579,7 +8474,7 @@ gBodyFN2.prototype = {
 							docid = item._id;
 							
 						}else{
-							docid = info._id.$oid;
+							docid = info._id;
 							if (info.like_count.$numberLong != undefined){
 								like_count = info.like_count.$numberLong;
 
@@ -9667,7 +9562,7 @@ gBodyFN2.prototype = {
 				};
 			
 			if (is_update){
-				postData.key = obj._id.$oid;
+				postData.key = obj._id;
 				postData.email = gap.search_cur_ky();
 			}
 			
@@ -9850,22 +9745,22 @@ gBodyFN2.prototype = {
 	},
 	
 	"draw_channel_left" : function(res){
-		
-		gap.cur_channel_list_info = res;
+	
+		gap.cur_channel_list_info = res.data;
 		var unread_count = 0;
 		
 		$("#share_channel_list").empty();
 		$("#person_channel_list").empty();
 		$("#favorite_channel_list").empty();
 		
-		for (var i = 0; i < res.length; i++){
+		for (var i = 0; i < res.data.length; i++){
 			
-			var data = res[i];
+			var data = res.data[i];
 			var _type = (data.type != undefined ? data.type : "channel");
 			var _html = "";	
 			
 			if (_type == "folder"){
-				var _id = data._id.$oid;
+				var _id = data._id;
 				var _name = data.name;
 				var _owner = data.owner.ky;
 				
@@ -10264,7 +10159,7 @@ gBodyFN2.prototype = {
 						var _html = '';
 						var _folder_html = '';
 						_folder_html += '<li>';
-						_folder_html += '	<div style=""><span class="ico ico-todo-folder"></span>' + _info.name + '<button class="btn-entry" id="enter_' + _info._id.$oid + '"><span>' + gap.lang.move + '</span></button></div>';
+						_folder_html += '	<div style=""><span class="ico ico-todo-folder"></span>' + _info.name + '<button class="btn-entry" id="enter_' + _info._id + '"><span>' + gap.lang.move + '</span></button></div>';
 						_folder_html += '</li>';
 						if (is_share){
 							if (_info.share == "Y"){
@@ -10750,7 +10645,7 @@ gBodyFN2.prototype = {
 		}
 		
 		gap.start_skp = (parseInt(gap.per_page) * (parseInt(page_no))) - (parseInt(gap.per_page) - 1);
-		var surl = gap.channelserver + "/channel_list.km";
+		var surl = gap.channelserver + "/api/channel/channel_list.km";
 		
 		var postData = {
 			"channel_code" : gBody.select_channel_code,
@@ -10765,14 +10660,14 @@ gBodyFN2.prototype = {
 		$.ajax({
 			type : "POST",
 			url : surl,
-			dataType : "text", //"json",
+			dataType : "json", //"json",
 			data : JSON.stringify(postData),
 			beforeSend : function(xhr){
 				xhr.setRequestHeader("auth", gap.get_auth());
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},
 			success : function(__res){
-				var res = JSON.parse(__res);
+				var res = __res;
 				if (res.result == "OK"){
 					var $layer = $('#all_files_layer');
 					var list = res.data.data;
@@ -10798,8 +10693,8 @@ gBodyFN2.prototype = {
 							'	<td class="mu_chk_box">' +
 							'		<!-- input id값 변경 가능, label for과 동일한 id값 사용필요 -->' +
 							'		<span class="chk_box">' +
-							'			<input type="checkbox" name="file_checkbox" id="' + info._id.$oid + '" value="' + downloadpath + '">' +
-							'			<label for="' + info._id.$oid + '"></label>' +
+							'			<input type="checkbox" name="file_checkbox" id="' + info._id + '" value="' + downloadpath + '">' +
+							'			<label for="' + info._id + '"></label>' +
 							'		</span>' +
 							'	</td>' +
 							'	<td><span class="ico ico-ex-min ico-' + gap.file_icon_check_mu(file_info.filename) + '"></span>' + file_info.filename + '&nbsp;<b class="size">(' + gap.file_size_setting(file_info.file_size.$numberLong) + ')</b></td>' +
@@ -10809,9 +10704,9 @@ gBodyFN2.prototype = {
 						
 						$layer.find('#file_list').append(html);
 						
-						$layer.find('#' + info._id.$oid).data('fsize', file_info.file_size.$numberLong);
-						$layer.find('#' + info._id.$oid).data('fname', file_info.filename);
-						$layer.find('#' + info._id.$oid).data('md5', file_info.md5.split(".")[0]);
+						$layer.find('#' + info._id).data('fsize', file_info.file_size.$numberLong);
+						$layer.find('#' + info._id).data('fname', file_info.filename);
+						$layer.find('#' + info._id).data('md5', file_info.md5.split(".")[0]);
 					}
 
 					//페이징
@@ -11014,15 +10909,15 @@ gBodyFN2.prototype = {
 					for (var i = 0; i < list.length; i++){
 						var file_info = list[i];
 						var owner_info = gap.user_check(file_info.owner);
-						var downloadpath = gap.search_file_convert_server(file_info.fserver) + "/FDownload.do?id=" + file_info._id.$oid + "&ty=1&ky="+gap.userinfo.rinfo.ky;
+						var downloadpath = gap.search_file_convert_server(file_info.fserver) + "/FDownload.do?id=" + file_info._id + "&ty=1&ky="+gap.userinfo.rinfo.ky;
 						
 						var html = 
 							'<tr class="type_file">' +
 							'	<td class="mu_chk_box">' +
 							'		<!-- input id값 변경 가능, label for과 동일한 id값 사용필요 -->' +
 							'		<span class="chk_box">' +
-							'			<input type="checkbox" name="file_checkbox" id="' + file_info._id.$oid + '" value="' + downloadpath + '">' +
-							'			<label for="' + file_info._id.$oid + '"></label>' +
+							'			<input type="checkbox" name="file_checkbox" id="' + file_info._id + '" value="' + downloadpath + '">' +
+							'			<label for="' + file_info._id + '"></label>' +
 							'		</span>' +
 							'	</td>' +
 							'	<td><span class="ico ico-ex-min ico-' + gap.file_icon_check_mu(file_info.filename) + '"></span>' + file_info.filename + '&nbsp;<b class="size">(' + gap.file_size_setting(file_info.file_size.$numberLong) + ')</b></td>' +
@@ -11032,9 +10927,9 @@ gBodyFN2.prototype = {
 						
 						$layer.find('#file_list').append(html);
 						
-						$layer.find('#' + file_info._id.$oid).data('fsize', file_info.file_size.$numberLong);
-						$layer.find('#' + file_info._id.$oid).data('fname', file_info.filename);
-						$layer.find('#' + file_info._id.$oid).data('md5', file_info.md5.split(".")[0]);
+						$layer.find('#' + file_info._id).data('fsize', file_info.file_size.$numberLong);
+						$layer.find('#' + file_info._id).data('fname', file_info.filename);
+						$layer.find('#' + file_info._id).data('md5', file_info.md5.split(".")[0]);
 					}
 
 					//페이징
@@ -11318,7 +11213,7 @@ gBodyFN2.prototype = {
 					"member" : user_list
 				};
 				
-			var surl = gap.channelserver + "/drive_update.km";
+			var surl = gap.channelserver + "/api/files/drive_update.km";
 			$.ajax({
 				type : "POST",
 				url : surl,

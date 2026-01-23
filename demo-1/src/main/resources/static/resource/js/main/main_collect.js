@@ -486,7 +486,7 @@ gBodyCollect.prototype = {
 		var _info = obj;
 		var orikey = _info.key;
 		var owner = _info.owner;
-		var main_id = _info._id.$oid;
+		var main_id = _info._id;
 		
 		var _submitter = _info.submitter;
 		var _referrer = _info.referrer;
@@ -2220,7 +2220,7 @@ gBodyCollect.prototype = {
 						var _owner_info = gap.user_check(_info.owner);
 						var _folder = (_info.file_info != "" ? _info.file_info.folder : _info.key);
 						var _cyear = (_info.file_info != "" ? _info.file_info.cyear : _info.key.substr(0,4));
-						var _col_id = _info._id.$oid;
+						var _col_id = _info._id;
 						var _type = "";
 						var _status_txt = "";				// 취합 상태
 						var _type_response_btn = "";		// 응답버튼 유형 (P : 개인 / D : 부서)
@@ -2898,7 +2898,7 @@ gBodyCollect.prototype = {
 					if (my_response != ""){
 						var res_content = my_response.content;
 						var res_finfo = my_response.file_info;
-						var res_id = my_response._id.$oid;
+						var res_id = my_response._id;
 						var _html = '';
 						
 						_html += '<div id="collect_edit_layer" class="layer_wrap gathering_write_pop center" style="width: 440px;">';
@@ -3055,7 +3055,7 @@ gBodyCollect.prototype = {
 		var _owner_info = gap.user_check(_info.owner);
 		var _folder = (_info.file_info != "" ? _info.file_info.folder : _info.key);
 		var _fserver = _info.fserver;
-		var _col_id = _info._id.$oid;
+		var _col_id = _info._id;
 		var _status_txt = "";					// 취합 상태
 		var _submit_status_txt = "";			// 제출상태
 		var _role_txt = "";						// 내 역할
@@ -3303,7 +3303,7 @@ gBodyCollect.prototype = {
 			for (var k = 0; k < _response.length; k++){
 				var _html = '';
 				var _res_info = _response[k];
-				var _res_id = _res_info._id.$oid;
+				var _res_id = _res_info._id;
 				var _res_content = (_res_info.content ? _res_info.content : "");
 				var _res_owner = gap.user_check(_res_info.owner);
 				var _res_datetime = "";
@@ -3381,7 +3381,7 @@ gBodyCollect.prototype = {
 	"drawCollectResponseHtml" : function(_res_type, _owner_info, _info, _response){
 		var _html = '';
 		var _res_info = _response;
-		var _res_id = _res_info._id.$oid;
+		var _res_id = _res_info._id;
 		var _res_submit = (_res_info.complete == "T" ? gap.lang.complete_submission : gap.lang.unsubmitted);
 		var _res_content = (_res_info.content ? _res_info.content : "");
 		var _res_owner = gap.user_check(_res_info.owner);
@@ -4003,7 +4003,7 @@ gBodyCollect.prototype = {
 		var _title = _info.name;
 		var _content = _info.content;
 		var _finfo = _info.file_info.files;
-		var _id = _info._id.$oid;
+		var _id = _info._id;
 		
 		if (typeof(_info.temp) != "undefined" && _info.temp == "T"){
 			gCol.temp_collection = true;

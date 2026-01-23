@@ -75,7 +75,7 @@ gcommon.prototype = {
 		gcom.set_lang();
 		gap.cur_window = "chat";
 		setTimeout(function(){
-			gap.LoadPage("area_content", root_path + "/page/chat.jsp"); 
+			gap.LoadPage("area_content", root_path + "/page/chat"); 
 		}, 300)
 	},
 	
@@ -83,7 +83,7 @@ gcommon.prototype = {
 		gcom.set_lang();
 		gap.cur_window = "channel";
 		setTimeout(function(){
-			gap.LoadPage("area_content", root_path + "/page/channel.jsp"); 
+			gap.LoadPage("area_content", root_path + "/page/channel"); 
 		}, 300)
 	},	
 	
@@ -567,14 +567,14 @@ gcommon.prototype = {
 				//업무방
 				$("#btn_menu_work").on("click", function(e){					
 					gap.cur_window = "channel";
-					gap.LoadPage("area_content", root_path + "/page/channel.jsp");					
+					gap.LoadPage("area_content", root_path + "/page/channel");					
 					gap.history_save("channel");
 				});
 				
 				//채팅
 				$("#btn_menu_chat").on("click", function(e){
 					gap.cur_window = "chat"
-					gap.LoadPage("area_content", root_path + "/page/chat.jsp"); 					
+					gap.LoadPage("area_content", root_path + "/page/chat"); 					
 					gap.history_save("chat");
 				});
 				
@@ -2554,7 +2554,7 @@ gcommon.prototype = {
 				$("#work_top_dis").append(html2);
 			}
 			
-			var id = item._id.$oid;
+			var id = item._id;
 			var html3 = "<div class='todo_depth1' id='depth_"+id+"'>";
 			html3 +=	"						<div class='todo_title_wrap'>";
 			html3 +=	"							<div class='todo_title' id='todo_sub_"+id+"'>";
@@ -7261,7 +7261,7 @@ gcommon.prototype = {
 							
 						}
 						
-						_html += '<tr id="' + _info._id.$oid + '">';
+						_html += '<tr id="' + _info._id + '">';
 						_html += '	<td>' + _device_txt + '</td>';
 						_html += '	<td style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="' + _action_txt + '">' + _action_txt + '</td>';
 						_html += '	<td style="text-align:left; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="' + _filename + '">' + _filename + '</td>';
@@ -7272,7 +7272,7 @@ gcommon.prototype = {
 						_html += '</tr>';
 						
 						$layer.find("#admin_log_list").append(_html);
-						$layer.find("#" + _info._id.$oid).data('info', _info);
+						$layer.find("#" + _info._id).data('info', _info);
 					}
 					
 					//페이징
@@ -7325,7 +7325,7 @@ gcommon.prototype = {
 						var _action_user = _info.search_user_name + ' ' + (_info.search_user_duty != "" ? ' ' + _info.search_user_duty : '') + ' | ' + _info.search_user_group;
 						var _html = "";
 					
-						_html += '<tr id="' + _info._id.$oid + '">';
+						_html += '<tr id="' + _info._id + '">';
 						_html += '	<td>' + _action_txt + '</td>';
 						_html += '	<td>' + gcom.convertGMTLocalDateTime(_info.action_time) + '</td>';
 						if (typeof(_info.from) != "undefined" && _info.from != ""){
@@ -7338,7 +7338,7 @@ gcommon.prototype = {
 						_html += '</tr>';
 						
 						$layer.find("#admin_log_list").append(_html);
-						$layer.find("#" + _info._id.$oid).data('info', _info);
+						$layer.find("#" + _info._id).data('info', _info);
 					}
 					
 					//페이징
@@ -7406,7 +7406,7 @@ gcommon.prototype = {
 							
 						}
 						
-						_html += '<tr id="' + _info._id.$oid + '">';
+						_html += '<tr id="' + _info._id + '">';
 						_html += '	<td>' + _action_txt + '</td>';
 						_html += '	<td>' + gcom.convertGMTLocalDateTime(_info.dt.$numberLong) + '</td>';
 						_html += '	<td>' + _info.lid + '</td>';
@@ -7415,7 +7415,7 @@ gcommon.prototype = {
 						_html += '</tr>';
 						
 						$layer.find("#admin_log_list").append(_html);
-						$layer.find("#" + _info._id.$oid).data('info', _info);
+						$layer.find("#" + _info._id).data('info', _info);
 					}
 					
 					//페이징
@@ -7467,7 +7467,7 @@ gcommon.prototype = {
 						var _info = _list[i];						
 						var _key = _info.code;
 						var _html = "";					
-						_html += '<tr id="' + _info._id.$oid + '" class="menu-list-tr">';
+						_html += '<tr id="' + _info._id + '" class="menu-list-tr">';
 						_html += '	<td>' + _key + '</td>';
 						_html += '	<td>' + _info.category_kr + '</td>';
 						_html += '	<td>' + _info.category_en + '</td>';
@@ -7476,7 +7476,7 @@ gcommon.prototype = {
 						_html += '</tr>';
 						
 						$layer.find("#admin_log_list").append(_html);
-						$layer.find("#" + _info._id.$oid).data('info', _info);
+						$layer.find("#" + _info._id).data('info', _info);
 					}
 					
 					//페이징
@@ -7534,7 +7534,7 @@ gcommon.prototype = {
 						_icon_img = '<div class="menu-list-icon-preview-wrap" style="background-color:' + (_info.bg ? _info.bg : _default_bg) + '">' + _icon_img + '</div>';
 						
 						var _html = "";					
-						_html += '<tr id="' + _info._id.$oid + '" class="menu-list-tr">';
+						_html += '<tr id="' + _info._id + '" class="menu-list-tr">';
 						_html += '	<td>' + _icon_img + '</td>';
 						_html += '	<td>' + _key + '</td>';
 						_html += '	<td>' + _info.category_name + '</td>';
@@ -7545,7 +7545,7 @@ gcommon.prototype = {
 						_html += '</tr>';
 						
 						$layer.find("#admin_log_list").append(_html);
-						$layer.find("#" + _info._id.$oid).data('info', _info);
+						$layer.find("#" + _info._id).data('info', _info);
 					}
 					
 					//페이징
@@ -7620,7 +7620,7 @@ gcommon.prototype = {
 						}
 						
 						var _html = "";					
-						_html += '<tr id="' + _info._id.$oid + '" class="menu-list-tr">';
+						_html += '<tr id="' + _info._id + '" class="menu-list-tr">';
 						_html += '	<td>' + _icon_img + '</td>';
 						_html += '	<td>' + _key + '</td>';
 						_html += '	<td>' + _info.menu_kr + '</td>';
@@ -7631,7 +7631,7 @@ gcommon.prototype = {
 						_html += '</tr>';
 						
 						$layer.find("#admin_log_list").append(_html);
-						$layer.find("#" + _info._id.$oid).data('info', _info);
+						$layer.find("#" + _info._id).data('info', _info);
 					}
 					
 					//페이징
@@ -7689,7 +7689,7 @@ gcommon.prototype = {
 						
 						
 						var _html = "";					
-						_html += '<tr id="' + _info._id.$oid + '" class="menu-list-tr">';
+						_html += '<tr id="' + _info._id + '" class="menu-list-tr">';
 						_html += '	<td>' + _icon_img + '</td>';
 						_html += '	<td>' + _info.menu_kr + '</td>';
 						_html += '	<td>' + _key + '</td>';
@@ -7699,7 +7699,7 @@ gcommon.prototype = {
 						_html += '</tr>';
 						
 						$layer.find("#admin_log_list").append(_html);
-						$layer.find("#" + _info._id.$oid).data('info', _info);
+						$layer.find("#" + _info._id).data('info', _info);
 					}
 					
 					//페이징
@@ -7764,7 +7764,7 @@ gcommon.prototype = {
 						}
 						
 						var _html = "";					
-						_html += '<tr id="' + _info._id.$oid + '" class="menu-list-tr">';
+						_html += '<tr id="' + _info._id + '" class="menu-list-tr">';
 						_html += '	<td>' + _icon_img + '</td>';
 						_html += '	<td>' + _key + '</td>';
 						_html += '	<td>' + _info.nm + '</td>';
@@ -7775,7 +7775,7 @@ gcommon.prototype = {
 						_html += '</tr>';
 						
 						$layer.find("#admin_log_list").append(_html);
-						$layer.find("#" + _info._id.$oid).data('info', _info);
+						$layer.find("#" + _info._id).data('info', _info);
 					}
 					
 					//페이징
@@ -7875,7 +7875,7 @@ gcommon.prototype = {
 			
 			_filename = _info.filename;
 			_ty = _app;
-			_item_id = _info._id.$oid;
+			_item_id = _info._id;
 			_upload_path = (typeof(_info.upload_path) != "undefined" ? _info.upload_path : "");
 			
 			if (_app == "channel"){

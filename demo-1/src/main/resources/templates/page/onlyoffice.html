@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>K-Portal OFFICE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="icon" th:href="@{/resource/images/favicon.ico}" type="image/x-icon">
+  <script type="text/javascript" th:src="@{/resource/js/common/jquery.min.js(ver=${jsVersion})}"></script>
+  <script th:src="@{https://docs.kmslab.com/web-apps/apps/api/documents/api.js?open(ver=${jsVersion})}"></script>
+  <script type="text/javascript" th:src="@{/resource/js/office/office.js?open(ver=${jsVersion})}"></script>
+  <script th:inline="javascript">
+    var office = new Office();
+  	var root_path = /*[[@{/}]]*/ '';
+	var userinfo = /*[[${userinfo != null ? userinfo : ''}]]*/'';
+    var dockey = /*[[${dockey != null ? dockey : ''}]]*/'';
+    var category = /*[[${category != null ? category : ''}]]*/'';
+    var ctype = /*[[${type != null ? type : ''}]]*/'';
+  </script>
+</head>
+<body style="margin:0px">  
+ <div style="height:100vh">
+  <div id="placeholder" style="height:100%"></div>
+</div>
+  <script>
+  	office.init();
+  </script>
+</body>
+</html>

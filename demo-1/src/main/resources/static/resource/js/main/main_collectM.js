@@ -202,7 +202,7 @@ gColM.prototype = {
 						var _owner_info = gap.user_check(_info.owner);
 						var _folder = (_info.file_info != "" ? _info.file_info.folder : _info.key);
 						var _cyear = (_info.file_info != "" ? _info.file_info.cyear : _info.key.substr(0,4));
-						var _col_id = _info._id.$oid;
+						var _col_id = _info._id;
 						var _type = "";
 						var _status_txt = "";				// 취합 상태
 						var _type_response_btn = "";		// 응답버튼 유형 (P : 개인 / D : 부서)
@@ -660,7 +660,7 @@ gColM.prototype = {
 					if (my_response != ""){
 						var res_content = my_response.content;
 						var res_finfo = my_response.file_info;
-						var res_id = my_response._id.$oid;
+						var res_id = my_response._id;
 
 						var html =
 							'<div class="wrap">' +
@@ -932,7 +932,7 @@ gColM.prototype = {
 		var _owner_info = gap.user_check(_info.owner);
 		var _folder = (_info.file_info != "" ? _info.file_info.folder : _info.key);
 		var _fserver = _info.file_info.fserver;
-		var _col_id = _info._id.$oid;
+		var _col_id = _info._id;
 		var _status_txt = "";					// 취합 상태
 		var _submit_status_txt = "";			// 제출상태
 		var _role_txt = "";						// 내 역할
@@ -1099,7 +1099,7 @@ gColM.prototype = {
 			for (var k = 0; k < _response.length; k++){
 				var _html = '';
 				var _res_info = _response[k];
-				var _res_id = _res_info._id.$oid;
+				var _res_id = _res_info._id;
 				var _res_content = (_res_info.content ? _res_info.content : "");
 				var _res_owner = gap.user_check(_res_info.owner);
 				var _res_datetime = "";
@@ -1175,7 +1175,7 @@ gColM.prototype = {
 	"drawCollectResponseHtml" : function(_res_type, _owner_info, _info, _response){
 		var _html = '';
 		var _res_info = _response;
-		var _res_id = _res_info._id.$oid;
+		var _res_id = _res_info._id;
 		var _res_submit = (_res_info.complete == "T" ? gap.lang.complete_submission : gap.lang.unsubmitted);
 		var _res_content = (_res_info.content ? _res_info.content : "");
 		var _res_owner = gap.user_check(_res_info.owner);
@@ -1566,7 +1566,7 @@ gColM.prototype = {
 						// 응답문서
 						for (k = 0; k < _response.length; k++){
 							var _res_info = _response[k];
-							var _res_id = _res_info._id.$oid;
+							var _res_id = _res_info._id;
 							
 							if (_res_id == _id){
 								gColM.downloadFileListInit(gap.channelserver, _res_info.key, _res_info.file_info, _res_info.owner.ky, 'response', _res_id);

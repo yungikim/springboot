@@ -328,9 +328,9 @@ Office.prototype = {
 			dept = "anonymous";
 			image = office.was_url + "/resource/images/none.jpg";
 		}else{
-			name = userinfo.split("-spl-")[1];
-			ky = userinfo.split("-spl-")[3];
-			dept = userinfo.split("-spl-")[18];
+			name = userinfo.nm;
+			ky = userinfo.ky;
+			dept = userinfo.dp;
 			image = office.was_url + "/photo/" + ky + ".jpg";
 		}
 		
@@ -359,6 +359,7 @@ Office.prototype = {
 	        success: function(response) {
 	            // 성공 시 콜백 호출
 	          // console.log(response);
+			  response = response.data;
 	            var obb = response.payloads;
 	          	debugger;
 	            //console.log(obb);

@@ -406,7 +406,7 @@ gnotebook.prototype = {
 						$("#ai_notebook_name").val(item.notebook_name);
 						$("#ai_notebook_desc").val(item.notebook_desc);
 						$("#ai_notebook_prompt").val(item.notebook_prompt);
-						gnote.select_id = item._id.$oid;
+						gnote.select_id = item._id;
 					}
 				}
 			)
@@ -489,7 +489,6 @@ gnotebook.prototype = {
 					html += "</div>";									
 					for (var i = 0; i < data.length; i++){						
 						var itm = data[i];
-					//	var id = itm._id.$oid;
 						var id = itm._id;
 						var flen = 0;
 						if (itm.data){
@@ -1863,7 +1862,7 @@ gnotebook.prototype = {
 					html += "			<div id='saved_notebook_item_list_ul' class='notebook_item_list_ul'>";				
 					for (var i = 0; i < data.length; i++){						
 						var itm = data[i];
-						var id = itm._id.$oid;
+						var id = itm._id;
 						///// 공유 노트북일 때 //////
 						html += "<div class='item_border shared' data-id='"+id+"'>";
 						html += "	<div class='item_inner'>";

@@ -427,7 +427,7 @@ gPtl.prototype = {
 		for (var j = 0 ; j < f_list.length; j++){
 			var folder_item = f_list[j];
 			var name = folder_item.name;
-			var f_id = folder_item._id.$oid;
+			var f_id = folder_item._id;
 			html += "	<li data-code='"+f_id+"'>";
 			html += "		<img src='img/icon/layout/ico_folder.png' />"+name;
 			html += "	</li>";
@@ -457,7 +457,7 @@ gPtl.prototype = {
 		for (var p = 0 ; p < f_list.length; p++){
 			var folder_item = f_list[p];
 			var name = folder_item.name;
-			var f_id = folder_item._id.$oid;
+			var f_id = folder_item._id;
 			html += "<div class='content_list' >";
 			html += "<h5 class='folder_name' data-linktag='"+f_id+"'>"+name+"</h5>";
 			html += "<ul class='flex' style='list-style:none' id='folder_"+f_id+"'>";			
@@ -661,10 +661,10 @@ gPtl.prototype = {
 			"sort" : "1" //최신 수정일 순 : 1일 경우 컨텐츠 작성일 순
 		});		
 		
-		var url = gap.channelserver + "/channel_list.km";
+		var url = gap.channelserver + "/api/channel/channel_list.km";
 		$.ajax({
 			type : "POST",
-			dataType : "text",
+			dataType : "json",
 			//async : false,
 			data : query,
 			url : url,
@@ -672,9 +672,9 @@ gPtl.prototype = {
 				xhr.setRequestHeader("auth", gap.get_auth());
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},
-			success : function(ress){				
+			success : function(res){				
 				$("#" + layer + " #channel_list").css({opacity:0})
-				var res = JSON.parse(ress);
+
 				gptl.draw_channel_data(res, layer);					
 				gptl.set_scroll(layer, "portlet_news");			
 			},
@@ -757,7 +757,7 @@ gPtl.prototype = {
 					if (item.direct == "T"){
 						docid = item._id;
 					}else{
-						docid = item._id.$oid;
+						docid = item._id;
 					}		
 					
 					var show_more = true;						
@@ -840,7 +840,7 @@ gPtl.prototype = {
 						if (item.direct == "T"){
 							docid = item._id;
 						}else{
-							docid = item._id.$oid;
+							docid = item._id;
 							if (typeof(item.like_count.$numberLong) != "undefined"){
 								like_count = item.like_count.$numberLong;
 							}else{
@@ -974,7 +974,7 @@ gPtl.prototype = {
 							var dept = ux.dept;
 							var email = ux.email;
 							var jt = ux.jt;							
-							var todo_item_id = xinfo._id.$oid;						
+							var todo_item_id = xinfo._id;						
 					//		html += gap.lang.newtodo;							
 							html += '<div class="top" style="margin-top:15px">';
 							html += '   <div class="req_box"  style="display:flex" data-url=\'' + todo_item_id + '\'>';
@@ -1129,7 +1129,7 @@ gPtl.prototype = {
 				if (item.direct == "T"){
 					docid = item._id;
 				}else{
-					docid = item._id.$oid;
+					docid = item._id;
 				}					
 				html += "<div class='wrap-channel'>";
 				html += "<div class='message-reply' id='reply_group_"+docid+"' style='display:none;'>";								

@@ -9,9 +9,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +21,20 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.JsonObject;
+import com.kmslab.one.component.FileFolderUtil;
+import com.kmslab.one.component.WriteLog;
 import com.kmslab.one.config.AppConfig;
-import com.kmslab.one.config.WriteLog;
 import com.kmslab.one.service.ResInfo;
+import com.kmslab.one.service.ResRef;
 import com.kmslab.one.util.DocumentConverter;
 import com.kmslab.one.util.Utils;
 import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Sorts;
+import com.mongodb.client.result.UpdateResult;
 
 @Service
 public class FilesService {
@@ -36,6 +43,7 @@ public class FilesService {
 	private final MongoTemplate user;	
 	private final MongoTemplate channel_favorite;
 	private final MongoTemplate channel_data;
+	private final MongoTemplate todo_folder;
 	
 	@Autowired
 	private AppConfig appConfig;
@@ -43,18 +51,23 @@ public class FilesService {
 	@Autowired
 	private WriteLog writeLog;
 	
+	@Autowired
+	private FileFolderUtil ffUtil;
+	
 	public FilesService(
 			@Qualifier("channelInfo") MongoTemplate channelInfo,
 			@Qualifier("folderdata") MongoTemplate folderdata,
 			@Qualifier("userdb") MongoTemplate user,
 			@Qualifier("channel_favorite") MongoTemplate channel_favorite,
-			@Qualifier("channel_data") MongoTemplate channel_data
+			@Qualifier("channel_data") MongoTemplate channel_data,
+			@Qualifier("TODO_Folder") MongoTemplate todo_folder
 			) {		
 		this.channelInfo = channelInfo;
 		this.folderdata = folderdata;
 		this.user = user;
 		this.channel_favorite = channel_favorite;
 		this.channel_data = channel_data;
+		this.todo_folder = todo_folder;
 	}
 	
 	
@@ -865,5 +878,466 @@ public class FilesService {
 		}
 		
 		return ResInfo.success();
+	}
+	
+	public Object create_person_drive(Map<String, Object> requestData) {
+		try{
+			MongoCollection<Document> col = channelInfo.getCollection("driver");
+			
+			Document doc = new Document(requestData);
+			col.insertOne(doc);
+			
+			String id = doc.get("_id").toString();
+						
+			Document query = new Document();
+			query.append("_id", new ObjectId(id));
+			
+			Document se = new Document();
+			se.append("ch_code", id);
+			
+			Document sx = new Document();
+			sx.append("$set", se);
+			
+			col.updateOne(query, sx);
+
+			Map<String, Object> item = new HashMap<>();
+			item.put("id", id);
+			return ResInfo.success(item);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return ResInfo.error("ERROR");
+		}
+	}
+	
+	public Object drive_update(Map<String, Object> requestData) {
+		boolean res = false;		
+		try{
+			MongoCollection<Document> col = channelInfo.getCollection("driver");				
+			Document query = new Document();	
+			String drive_code = requestData.get("ch_code").toString();
+			query.append("ch_code", drive_code);						
+			String new_drive_name = requestData.get("ch_name").toString();
+			String ori_drive_name = "";
+			Document qq = new Document();
+			qq = col.find(query).first();			
+			if (qq != null) {				
+				ori_drive_name = qq.getString("ch_name");				
+				Document data = new Document(requestData);		
+				Document se = new Document();
+				se.append("$set", data);				
+				col.updateOne(query, se);				
+				if (!ori_drive_name.equals(new_drive_name)) {
+					MongoCollection<Document> ff = folderdata.getCollection("data");
+					Document xp = new Document();
+					xp.put("drive_code", drive_code);
+					Document xx = new Document();
+					xx.put("drive_name", new_drive_name);
+					Document ses = new Document();
+					ses.put("$set", xx);
+					UpdateResult pp = ff.updateMany(xp, ses);
+				}				
+				
+				//하위 폴더에 있는 전체 멤버중에 삭제된 멤버를 일괄 제거해 준다.
+				if (requestData.containsKey("delete_members")) {
+					List<Map<String, Object>> delete_members2 = (List<Map<String, Object>>) requestData.get("delete_members");					
+					if (delete_members2.size() > 0) {
+						//드라이브 하위 폴더 정보를 전체 가져온다.
+						MongoCollection<Document> col2 = channelInfo.getCollection("folder");
+						Document qqn = new Document();
+						qqn.append("drive_key", drive_code);						
+						FindIterable<Document> folders = col2.find(qqn);						
+						for (Document doc : folders) {
+							String id = doc.get("_id").toString();
+							for (int i = 0 ; i < delete_members2.size(); i++) {
+								String email = delete_members2.get(i).toString();
+								JsonObject lc = new JsonObject();
+								lc.addProperty("type", "3");
+								lc.addProperty("email", email);
+								lc.addProperty("id", id);
+								channel_delete_member(lc);
+							}							
+						} 
+					}					
+				}				
+				res = true;
+			}		
+		}catch(Exception e){
+			e.printStackTrace();
+		}		
+		return ResInfo.success();
+	}
+	
+	
+	public ResRef channel_delete_member(JsonObject jj) {
+		ResRef res = new ResRef();
+		res.setResult("ERROR");				
+		try {
+			String type = jj.get("type").getAsString(); //1-채널 정보, 2-드라이브 정보, 3-폴더 정보			
+			MongoCollection<Document> col = null;
+			if (type.equals("1")) {
+				//채널 정보에서 멤버를 제거한다.
+				col = channelInfo.getCollection("channel");
+			}else if (type.equals("2")) {
+				//드라이브 정보에서 멤버를 제거한다.
+				col = channelInfo.getCollection("driver");
+			}else if (type.equals("3")) {
+				//드라이브 하위 폴더에서 멤버를 제거하는 경우
+				col = channelInfo.getCollection("folder");
+			}else if (type.equals("4")) {
+				//To Do에 멤버를 제거하는 경우				
+			}			
+			String project_code = jj.get("id").getAsString();
+			String email = jj.get("email").getAsString();		
+			Document query = new Document();
+			query.put("_id", new ObjectId(project_code));				
+			Document sdoc = col.find(query).first();		 
+			if (sdoc != null) {							
+				if (sdoc.containsKey("member")){
+					Document pull = new Document();
+					pull.put("$pull", new Document("member", new Document("ky",email)));					
+					UpdateResult rx =  col.updateOne(query, pull);	
+				}					
+				if (sdoc.containsKey("readers")){
+					Document se = new Document();	
+					se.put("$pull",  new Document("readers", email));
+					UpdateResult rx2 =  col.updateOne(query, se);
+				}								
+				if (sdoc.containsKey("exit_user")){
+					Document sp = new Document();
+					sp.put("$pull",  new Document("exit_user", email));
+					col.updateOne(query, sp);
+				}				
+				//채널에 멤버를 삭제하면 Todo에 멤버도 삭제해야 한다. //////////////////////////////////////////////////////////////
+				Document ndoc = col.find(query).first();
+				MongoCollection<Document> col2 = todo_folder.getCollection("folder");
+				List<Document> member_info = (List<Document>) ndoc.get("member");						
+				List<String> readers_info = (List<String>) ndoc.get("readers");									
+				Document nnc = new Document();
+				nnc.put("readers",  readers_info);
+				nnc.put("member", member_info);
+				Document sep = new Document();
+				sep.put("$set", nnc);
+				Document qy = new Document();
+				qy.put("_id", new ObjectId(project_code));
+				col2.updateOne(qy, sep);
+				/////////////////////////////////////////////////////////////////////////////////////////////////////////					
+				
+				JsonObject jx = new JsonObject();
+				res.setResult("OK");
+				res.setRes(jx);			
+			}else {
+				System.out.println("문서가 존재 하지 않습니다.");
+			}
+					
+		}catch(Exception e) {
+			e.printStackTrace();
+		}		
+		return res;
+	}
+	
+	public Object make_folder(Map<String, Object> requestData) {	
+		try{
+			MongoCollection<Document> col = channelInfo.getCollection("folder");			
+			Document doc = new Document(requestData);
+			col.insertOne(doc);			
+			//상위 폴더를 찾아서 하위에 폴더가 있다고 표시해 준다.
+			if (doc.get("parent_folder_key").equals("root")) {
+				//상위 폴더가 드라이브일 경우 drive collection에서 값을 찾아 서브 폴더가 존재함을 업데이트 해준다.
+				MongoCollection<Document> col2 = channelInfo.getCollection("driver");
+				Document query = new Document();
+				query.put("_id", new ObjectId(doc.get("drive_key").toString()));
+				Document se = new Document();
+				Document data = new Document();
+				data.put("subfolder", "T");
+				se.put("$set", data);
+				UpdateResult up = col2.updateOne(query, se);				
+			}else {
+				//parent_folder_key를 다시 찾아 서브폴더가 존재함을 업데이트 해 준다.
+				Document query = new Document();
+				query.put("_id", new ObjectId(doc.get("parent_folder_key").toString()));
+				Document se = new Document();
+				Document data = new Document();
+				data.put("subfolder", "T");
+				se.put("$set", data);
+				UpdateResult up = col.updateOne(query, se);
+			}
+			Map<String, Object> item = new HashMap<>();
+			JsonObject jjx = new JsonObject();
+			String id = doc.get("_id").toString();		
+			item.put("folder_id", id);			
+			item.put("GMT", Utils.GMTDate());
+			return ResInfo.success(item);			
+		}catch(Exception e){
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}
+	}
+	
+	String cparent = "";
+	public Object update_folder(Map<String, Object> requestData) {	
+		try{
+			MongoCollection<Document> col = channelInfo.getCollection("folder");			
+			String id = requestData.get("id").toString();
+			requestData.remove("id");			
+			Document doc = new Document(requestData);						
+			Document query = new Document();
+			query.put("_id", new ObjectId(id));			
+			Document se = new Document();
+			se.put("$set", doc);			
+			col.updateOne(query, se);			
+			
+			 //하위 폴더에 있는 전체 멤버중에 삭제된 멤버를 일괄 제거해 준다.
+			if (requestData.containsKey("delete_members")) {
+				//System.out.println(jj.get("delete_members"));
+				List<Map<String, Object>> delete_members2 = (List<Map<String, Object>>) requestData.get("delete_members");				
+				if (delete_members2.size() > 0) {
+					//드라이브 하위 폴더 정보를 전체 가져온다.
+					cparent = "";
+					String rx = check_parent(id, col);
+					String[] rxx = rx.split("-spl-");				
+					for (String uu : rxx) {
+						String id2 = uu;					
+						for (int i = 0 ; i < delete_members2.size(); i++) {
+							String email = delete_members2.get(i).toString();
+							JsonObject lc = new JsonObject();
+							lc.addProperty("type", "3");
+							lc.addProperty("email", email);
+							lc.addProperty("id", id2);
+							channel_delete_member(lc);
+						}
+					}					
+				}					
+			}			
+		}catch(Exception e){			
+			e.printStackTrace();
+		}
+		return ResInfo.success();
+	}
+	
+	private String check_parent(String id, MongoCollection<Document> col) {
+		Document qq = new Document();
+		qq.put("parent_folder_key", id);				
+		FindIterable<Document> list = col.find(qq);		
+		for (Document doc : list) {		
+			if (doc.containsKey("subfolder")) {	
+				String key = doc.get("_id").toString();
+				String fname = doc.get("folder_name").toString();				
+				if (doc.get("subfolder").toString().equals("T")) {
+					if (cparent.equals("")) {
+						cparent = key;
+					}else {
+						cparent = cparent + "-spl-" + key;
+					}						
+					check_parent(key, col);
+				}				
+			}else {
+				String key = doc.get("_id").toString();
+				String fname = doc.get("folder_name").toString();
+				if (cparent.equals("")) {
+					cparent = key;
+				}else {
+					cparent = cparent + "-spl-" + key;
+				}				
+			}		
+		}		
+		return cparent;
+	}
+	
+	public Object delete_folder_new(Map<String, Object> requestData) {	
+		try{
+			MongoCollection<Document> col = channelInfo.getCollection("folder");			
+			Document query = new Document();
+			query.put("_id", new ObjectId(requestData.get("id").toString()));			
+			String depts = requestData.get("depts").toString();
+			String email = requestData.get("email").toString();					
+			Document sdoc = col.find(query).first();
+			if (sdoc != null){
+				Document logdoc = new Document();
+				logdoc = sdoc;
+				logdoc.put("action", "delete_folder");
+				logdoc.put("action_time", Utils.GMTDate());				
+				writeLog.write_log(logdoc);				
+				col.deleteOne(query);				
+				String drive_key = sdoc.get("drive_key").toString();
+				String folder_key = sdoc.get("parent_folder_key").toString();				
+				//상위 폴더에 서브 폴더가 없음을 업데이트 한다.
+				if (sdoc.get("parent_folder_key").equals("root")) {
+					//상위 폴더가 드라이브일 경우 drive collection에서 값을 찾아 서브 폴더가 존재함을 업데이트 해준다.		
+					if (!ffUtil.check_sub_folder_exist(drive_key, folder_key, depts, email)) {
+						//하위에 폴더가 없다고 판단된 경우
+						MongoCollection<Document> col2 = channelInfo.getCollection("driver");
+						Document query2 = new Document();
+						query2.put("_id", new ObjectId(sdoc.get("drive_key").toString()));
+						Document se = new Document();
+						Document data = new Document();
+						data.put("subfolder", "F");
+						se.put("$set", data);
+						UpdateResult up = col2.updateOne(query2, se);
+					}				
+				}else {
+					if (!ffUtil.check_sub_folder_exist(drive_key, folder_key, depts, email)) {
+						//parent_folder_key를 다시 찾아 서브폴더가 존재함을 업데이트 해 준다.
+						Document query2 = new Document();
+						query2.put("_id", new ObjectId(sdoc.get("parent_folder_key").toString()));
+						Document se = new Document();
+						Document data = new Document();
+						data.put("subfolder", "F");
+						se.put("$set", data);
+						UpdateResult up = col.updateOne(query2, se);
+					}					
+				}		
+			}			
+		}catch(Exception e){
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}		
+		return ResInfo.success();
+	}
+	
+	public Object load_folder(Map<String, Object> requestData) {
+		try{
+			MongoCollection<Document> col = channelInfo.getCollection("folder");							
+			Document query = new Document();
+			query.put("_id", new ObjectId(requestData.get("id").toString()));			
+			Document sdoc = col.find(query).first();			
+			if (sdoc != null){
+				Map<String, Object> rdoc = DocumentConverter.toCleanMap(sdoc);
+				return ResInfo.success(rdoc);
+			}else {
+				return ResInfo.error("don't exist doc");
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return ResInfo.error("error");
+		}
+	}
+	
+	public Object exit_list(Map<String, Object> requestData) {
+		try{
+			MongoCollection<Document> col = null;			
+			String ty = requestData.get("ty").toString();
+			String email = requestData.get("email").toString();						
+			if (ty.equals("1")){
+				col = channelInfo.getCollection("driver");
+			}else if (ty.equals("2")){				
+				col = channelInfo.getCollection("channel");
+			}			
+			Document query = new Document();
+			List<String> llk2 = new ArrayList<>();
+			llk2.add(email);		
+			query.put("exit_user", new Document("$in", llk2));			
+			FindIterable<Document> docs = col.find(query).sort(Sorts.ascending("ch_name"));
+			List<Map<String, Object>> ar = new ArrayList<>();
+			docs.into(ar);
+			return ResInfo.success(ar);			
+		}catch(Exception e){
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}
+	}
+	
+	public Object office_create(Map<String, Object> requestData) {
+		try {
+			System.out.println(requestData);
+			System.out.println(requestData.get("owner").toString());
+			Map<String, Object> sowner = (Map<String, Object>) requestData.get("owner");
+			Document owner = new Document(sowner);
+			String email = requestData.get("ky").toString();
+			String drive_code = requestData.get("drive_code").toString();
+			String drive_name = requestData.get("drive_name").toString();
+			String folder_code = requestData.get("folder_code").toString();
+			String folder_name = requestData.get("folder_name").toString();
+			String GMT = Utils.GMTDate();
+			String fserver = requestData.get("fserver").toString();
+			String filename = requestData.get("filename").toString();
+			String file_type = requestData.get("file_type").toString();
+			String dtype = requestData.get("dtype").toString();
+
+            Random rnd = new Random();
+  			String randomStr = RandomStringUtils.randomAlphanumeric(15).toUpperCase();
+  			String key = Utils.curDay8() + "_" + randomStr;
+			
+  			String dir = appConfig.getFileDownloadPath();
+  			String fpath = dir + "/" + email + "/" +  folder_code + "/" + key;
+  			
+  			String md5 = "office_" + key;
+			
+			MongoCollection<Document> col = folderdata.getCollection("data");
+			MongoCollection<Document> col_history = folderdata.getCollection("history");
+
+			//신규 문서를 db에 추가한다.	
+			Document doc = new Document();
+			doc.append("owner", owner);
+			doc.append("email", email);
+			doc.append("ky", email);
+			doc.append("drive_code", drive_code);
+			doc.append("drive_name", drive_name);
+			doc.append("folder_code", folder_code);
+			doc.append("folder_name", folder_name);
+			doc.append("GMT", GMT);
+			doc.append("fserver", fserver);
+			doc.append("filename", filename);
+			doc.append("file_type", file_type);
+			doc.append("dtype", dtype);
+			doc.append("fpath", fpath);
+			doc.append("md5", md5);
+			doc.append("type", "file");
+			doc.append("file_size", 0);
+			doc.append("upload_path", key);
+			
+			//history 저장하기 
+//			String url = "https://one.kmslab.com/FDownload_Office.do?id="+key+"&ty=1&ky="+email + "&ver=" +cd.curDay8() + "&category=files";
+//			Document history = new Document();
+//			history.append("key", key);
+//			history.append("url", url);
+//			history.append("dockey", key);
+//			history.append("version", 1);
+//			col_history.insertOne(history);
+			///////////////////////////////////////////			
+			//서버의 기본 템플릿 파일을 해당 폴더로 옮긴다.
+			File f = new File(fpath);
+			if (!f.exists()) {
+				f.mkdirs();
+			}
+			
+            String sourcePath = dir + "/basedocs/";
+            if (dtype.equals("ppt")) {
+            	sourcePath = sourcePath + "base.pptx";
+            }else if (dtype.equals("word")) {
+            	sourcePath = sourcePath + "base.docx";
+            }else if (dtype.equals("excel")) {
+            	sourcePath = sourcePath + "base.xlsx";
+            }else if (dtype.equals("pdf")) {
+            	sourcePath = sourcePath + "base.pdf";
+            }
+            String targetPath = fpath + "/" + md5 + "." + file_type;
+            
+            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            System.out.println("sourcePath : " + sourcePath);
+            System.out.println("targetPath : " + targetPath);
+			FileUtils.copyFile(new File(sourcePath), new File(targetPath));
+            System.out.println("target file careted : " + targetPath);
+            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            
+            File sf = new File(sourcePath);
+            if (sf.exists() && sf.isFile()) {
+            	long size = sf.length();
+            	doc.append("file_size", size);
+            }
+            
+            col.insertOne(doc);
+            
+            ObjectId insertedId = doc.getObjectId("_id");
+			String documentId = insertedId.toHexString();
+            
+			Map<String, Object> item = new HashMap<>();
+			item.put("id", documentId);
+			return ResInfo.success(item);            
+		}catch(Exception e) {
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}
 	}
 }

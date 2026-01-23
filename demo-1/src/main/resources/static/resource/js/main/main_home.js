@@ -4115,7 +4115,7 @@ gBodyHome.prototype = {
 		
 		
 		
-		var surl = gap.channelserver + "/search_info.km";
+		var surl = gap.channelserver + "/api/channel/search_info.km";
 		var postData = {
 			"type" : "C",
 			"ch_code" : ch_code
@@ -4125,6 +4125,7 @@ gBodyHome.prototype = {
 			type : "POST",
 			url : surl,
 			dataType : "json",
+			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify(postData),
 			success : function(res){
 				if (res.result != "OK"){
@@ -4910,7 +4911,7 @@ gBodyHome.prototype = {
 					if (res.result == 'OK') {
 						work_info = {
 							name: res.data.name,
-							key: res.data._id.$oid
+							key: res.data._id
 						}
 					}
 				}
@@ -8454,7 +8455,7 @@ gBodyHome.prototype = {
 		
 		//gBody3.delete_file_list 배열안에 있는 md5값을 과 gBody3.select_channel_id 값을 활용해서 저장된 파일을 삭제합니다.
 		var data = JSON.stringify({
-			"id" : gHome.notice_data._id.$oid,
+			"id" : gHome.notice_data._id,
 			"md5" : gHome.delete_file_list
 		});			
 		url = gap.channelserver + "/delete_sub_file_list_notice.km";
@@ -8484,7 +8485,7 @@ gBodyHome.prototype = {
 		//에디터에서 기존에 파일이 있는 경우에 삭제하는 경우 호출되는 함수
 		
 		var data = JSON.stringify({
-			"id" : gHome.notice_data._id.$oid,
+			"id" : gHome.notice_data._id,
 			"md5" : gHome.delete_file_list
 		});			
 		url = gap.channelserver + "/delete_sub_file_list_notice.km";
@@ -8719,7 +8720,7 @@ gBodyHome.prototype = {
 		var $reply_list = $layer.find('.reply-list');
 		$reply_list.empty();
 		
-		var nkey = info._id.$oid;
+		var nkey = info._id;
 		$.each(info.reply, function(){
 			_self.noticeAddReply(nkey, this);
 		});
@@ -8797,7 +8798,7 @@ gBodyHome.prototype = {
 		// 삭제
 		$layer.find('.btn-notice-remove').on('click', function(){
 			var info = $layer.data('info');
-			var docid = info._id.$oid;
+			var docid = info._id;
 			gBody2.removeNotice(docid, info.callfrom);
 		});
 		
@@ -9030,7 +9031,7 @@ gBodyHome.prototype = {
 			formData.append("edit", "T");
 			
 			formData.append("title", title);
-			formData.append("id", gHome.notice_data._id.$oid);
+			formData.append("id", gHome.notice_data._id);
 			formData.append("upload_path", gHome.notice_data.data.upload_path);			
 			myDropzone_notice.files_info = "";
 			//$("#total-progress_channel").show();	

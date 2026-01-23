@@ -2400,7 +2400,7 @@ gFilesFN.prototype = {
 				postData.ch_code = obj.ch_code;
 			}
 						
-			var surl = gap.channelserver + "/" + (is_update ? "drive_update.km" : "create_person_drive.km");
+			var surl = gap.channelserver + "/api/files/" + (is_update ? "drive_update.km" : "create_person_drive.km");
 			$.ajax({
 				type : "POST",
 				url : surl,
@@ -2702,7 +2702,7 @@ gFilesFN.prototype = {
 	
 	"modify_drive" : function(ch_code){
 		var _self = this;
-		var surl = gap.channelserver + "/search_info.km";
+		var surl = gap.channelserver + "/api/channel/search_info.km";
 		var postData = {
 				"type" : "D",
 				"ch_code" : ch_code
@@ -2712,6 +2712,7 @@ gFilesFN.prototype = {
 			type : "POST",
 			url : surl,
 			dataType : "json",
+			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify(postData),
 			success : function(res){
 				if (res.result == "OK"){
@@ -3150,7 +3151,7 @@ gFilesFN.prototype = {
 	
 	"modify_channel" : function(ch_code){
 		var _self = this;
-		var surl = gap.channelserver + "/search_info.km";
+		var surl = gap.channelserver + "/api/channel/search_info.km";
 		var postData = {
 				"type" : "C",
 				"ch_code" : ch_code
@@ -3160,6 +3161,7 @@ gFilesFN.prototype = {
 			type : "POST",
 			url : surl,
 			dataType : "json",
+			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify(postData),
 			success : function(res){
 				if (res.result == "OK"){
@@ -4845,18 +4847,19 @@ gFilesFN.prototype = {
 			}
 
 			
-			var surl = gap.channelserver + "/" + (is_update ? "update_folder.km" : "make_folder.km");
+			var surl = gap.channelserver + "/api/files/" + (is_update ? "update_folder.km" : "make_folder.km");
 			$.ajax({
 				type : "POST",
 				url : surl,
 				dataType : "json",
+				contentType : "application/json; charset=utf-8",
 				data : JSON.stringify(postData),
 				success : function(res){
 					if (res.result == "OK"){
 						var user_info = gap.user_check(gap.userinfo.rinfo);
-						var disp_date = gap.change_date_default2(gap.change_date_localTime_only_date(res.GMT));
-						var disp_time = gap.change_date_localTime_only_time(String(res.GMT));
-						var folder_id = (is_update ? obj._id : res.folder_id);
+						var disp_date = gap.change_date_default2(gap.change_date_localTime_only_date(res.data.GMT));
+						var disp_time = gap.change_date_localTime_only_time(String(res.data.GMT));
+						var folder_id = (is_update ? obj._id : res.data.folder_id);
 						var html = '';
 						if (is_update){
 							$("#" + folder_id).empty();
@@ -5163,7 +5166,7 @@ gFilesFN.prototype = {
 			title: "Confrim",
 			contents: msg,
 			callback: function(){
-			var surl = gap.channelserver + "/delete_folder_new.km";
+			var surl = gap.channelserver + "/api/files/delete_folder_new.km";
 			/*	var postData = JSON.stringify({
 						"id" : folder_id,
 						"email" : gap.userinfo.rinfo.em,
@@ -5220,7 +5223,7 @@ gFilesFN.prototype = {
 	
 	"drive_modify_folder" : function(folder_id){
 		var _self = this;
-		var surl = gap.channelserver + "/load_folder.km";
+		var surl = gap.channelserver + "/api/files/load_folder.km";
 		var postData = {
 				"id" : folder_id
 			};			
@@ -6568,7 +6571,7 @@ gFilesFN.prototype = {
 				
 		//"dtype" : 은 파일 형식으로 필터링 할때 사용한다. ppt, xls, doc, pdf, image, movie, hwp, txt, etc
 		
-		var surl = gap.channelserver + "/channel_list.km";
+		var surl = gap.channelserver + "/api/channel/channel_list.km";
 		var postData = {
 				"channel_code" : "",
 				"query_type" : "favoritecontent",
@@ -6582,14 +6585,13 @@ gFilesFN.prototype = {
 		$.ajax({
 			type : "POST",
 			url : surl,
-			dataType : "text",	//"json",
+			dataType : "json",	//"json",
 			data : JSON.stringify(postData),
 			beforeSend : function(xhr){
 				xhr.setRequestHeader("auth", gap.get_auth());
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},
-			success : function(__res){
-				var res = JSON.parse(__res);
+			success : function(res){
 				if (res.result == "OK"){
 					_self.cur_file_count += res.data.data.length;
 					_self.cur_file_total_count = res.data.totalcount;
@@ -6915,7 +6917,7 @@ gFilesFN.prototype = {
 		}
 		if (is_continue){
 			this.start_skp = (parseInt(this.per_page) * (parseInt(page_no))) - (parseInt(this.per_page) - 1);
-			var surl = gap.channelserver + "/channel_list.km";
+			var surl = gap.channelserver + "/api/channel/channel_list.km";
 			var postData = {
 					"channel_code" : "",
 					"query_type" : "favoritecontent",
@@ -6929,14 +6931,13 @@ gFilesFN.prototype = {
 			$.ajax({
 				type : "POST",
 				url : surl,
-				dataType : "text",	//"json",
+				dataType : "json",	//"json",
 				data : JSON.stringify(postData),
 				beforeSend : function(xhr){
 					xhr.setRequestHeader("auth", gap.get_auth());
 					xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 				},
-				success : function(__res){
-					var res = JSON.parse(__res);
+				success : function(res){
 					if (res.result == "OK"){
 						_self.cur_file_count += res.data.data.length;
 						_self.cur_file_total_count = res.data.totalcount;
@@ -7051,7 +7052,7 @@ gFilesFN.prototype = {
 		this.start_skp = (parseInt(this.per_page) * (parseInt(page_no))) - (parseInt(this.per_page) - 1);
 				
 		//"dtype" : 은 파일 형식으로 필터링 할때 사용한다. ppt, xls, doc, pdf, image, movie, hwp, txt, etc
-		var surl = gap.channelserver + "/channel_list.km";
+		var surl = gap.channelserver + "/api/channel/channel_list.km";
 		var postData = {
 				"channel_code" : this.select_channel_code,
 				"query_type" : this.cur_opt,
@@ -7065,14 +7066,13 @@ gFilesFN.prototype = {
 		$.ajax({
 			type : "POST",
 			url : surl,
-			dataType : "text", //"json",
+			dataType : "json", //"json",
 			data : JSON.stringify(postData),
 			beforeSend : function(xhr){
 				xhr.setRequestHeader("auth", gap.get_auth());
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},
-			success : function(__res){
-				var res = JSON.parse(__res);
+			success : function(res){
 				if (res.result == "OK"){
 					_self.cur_file_count += res.data.data.length;
 					_self.cur_file_total_count = res.data.totalcount;
@@ -7387,7 +7387,7 @@ gFilesFN.prototype = {
 		}
 		if (is_continue){
 			this.start_skp = (parseInt(this.per_page) * (parseInt(page_no))) - (parseInt(this.per_page) - 1);
-			var surl = gap.channelserver + "/channel_list.km";
+			var surl = gap.channelserver + "/api/channel/channel_list.km";
 			var postData = {
 					"channel_code" : this.select_channel_code,
 					"query_type" : this.cur_opt,
@@ -7401,14 +7401,13 @@ gFilesFN.prototype = {
 			$.ajax({
 				type : "POST",
 				url : surl,
-				dataType : "text", //"json",
+				dataType : "json", //"json",
 				data : JSON.stringify(postData),
 				beforeSend : function(xhr){
 					xhr.setRequestHeader("auth", gap.get_auth());
 					xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 				},
-				success : function(__res){
-					var res = JSON.parse(__res);
+				success : function(res){
 					if (res.result == "OK"){
 						_self.cur_file_count += res.data.data.length;
 						_self.cur_file_total_count = res.data.totalcount;
@@ -7613,7 +7612,6 @@ gFilesFN.prototype = {
 			//일반 파일 미리 보기 클릭 한  경우
 			
 			if (info.file_type == "mp4" || info.file_type == "mov"){
-			//	var download_url = info.fserver + "/FDownload_thumb.do?id=" + (ty == "2" ? info._id.$oid + "&md5=" + info.md5 : info._id.$oid) + "&ty=" + ty;
 				var download_url = gap.search_file_convert_server(info.fserver) + "FDownload.do?id=" + (ty == "2" ? info._id + "&md5=" + info.md5 : info._id) + "&ty=" + ty + "&ky="+gap.userinfo.rinfo.ky;
 				gap.show_video(download_url, filename);		
 				
@@ -7623,7 +7621,6 @@ gFilesFN.prototype = {
 				var fserver = gap.search_file_convert_server(info.fserver);
 				var fname = gap.get_bun_filename(info);	//info.filename;
 				var md5 = info.md5;
-			//	var id = (ty == "2" ? info.id : info._id.$oid);
 				var id = info._id;
 				var icon_kind = gap.file_icon_check(fname);
 				var file_type = info.file_type;
@@ -8438,7 +8435,7 @@ gFilesFN.prototype = {
 
 		
 		//나간 드라이브/채널 리스트 가져오기
-		var surl = gap.channelserver + "/exit_list.km";
+		var surl = gap.channelserver + "/api/files/exit_list.km";
 	/*	var postData = JSON.stringify({
 				"ty" : ty
 			});*/
@@ -8458,8 +8455,8 @@ gFilesFN.prototype = {
 			},
 			success : function(res){
 				if (res.result == "OK"){
-					for (var i = 0; i < res.data.data.length; i++){
-						var _info = res.data.data[i];
+					for (var i = 0; i < res.data.length; i++){
+						var _info = res.data[i];
 						var _html = '';
 						_html += '<li>';
 						if (ty == "1"){
@@ -11312,7 +11309,7 @@ gFilesFN.prototype = {
 		}
 		
 		gap.start_skp = (parseInt(gap.per_page) * (parseInt(page_no))) - (parseInt(gap.per_page) - 1);
-		var surl = gap.channelserver + "/channel_list.km";
+		var surl = gap.channelserver + "/api/channel/channel_list.km";
 		
 		var postData = {
 			"channel_code" : this.select_channel_code,
@@ -11327,14 +11324,13 @@ gFilesFN.prototype = {
 		$.ajax({
 			type : "POST",
 			url : surl,
-			dataType : "text", //"json",
+			dataType : "json", //"json",
 			data : JSON.stringify(postData),
 			beforeSend : function(xhr){
 				xhr.setRequestHeader("auth", gap.get_auth());
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},
-			success : function(__res){
-				var res = JSON.parse(__res);
+			success : function(res){
 				if (res.result == "OK"){
 					var $layer = $('#all_files_layer');
 					var list = res.data.data;
@@ -11881,7 +11877,7 @@ gFilesFN.prototype = {
 					"member" : user_list
 				};
 				
-			var surl = gap.channelserver + "/drive_update.km";
+			var surl = gap.channelserver + "/api/files/drive_update.km";
 			$.ajax({
 				type : "POST",
 				url : surl,

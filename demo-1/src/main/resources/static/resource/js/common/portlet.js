@@ -2980,7 +2980,7 @@ gPortlet.prototype = {
 			return;
 		}
 		
-		var surl = gap.channelserver + "/search_info.km";
+		var surl = gap.channelserver + "/api/channel/search_info.km";
 		var postData = {
 			"type" : "C",
 			"ch_code" : ch_code

@@ -13,6 +13,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kmslab.one.service.files.FilesService;
+import com.kmslab.one.util.Utils;
 
 @RestController
 @RequestMapping("/api/files")
@@ -79,4 +80,62 @@ private final FilesService filesService;
 		requestData.put("depts", depts);
 		return filesService.copy_favorite(requestData);
 	}
+	
+	@PostMapping("/create_person_drive.km")
+	public Object create_person_drive(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return filesService.create_person_drive(requestData);
+	}
+	
+	@PostMapping("/drive_update.km")
+	public Object drive_update(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return filesService.drive_update(requestData);
+	}
+	
+	@PostMapping("/make_folder.km")
+	public Object make_folder(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		requestData.put("GMT", Utils.GMTDate());
+		return filesService.make_folder(requestData);
+	}
+	
+	@PostMapping("/update_folder.km")
+	public Object update_folder(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return filesService.update_folder(requestData);
+	}
+	
+	@PostMapping("/delete_folder_new.km")
+	public Object delete_folder_new(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return filesService.delete_folder_new(requestData);
+	}
+	
+	@PostMapping("/load_folder.km")
+	public Object load_folder(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return filesService.load_folder(requestData);
+	}
+	
+	@PostMapping("/exit_list.km")
+	public Object exit_list(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return filesService.exit_list(requestData);
+	}
+	
+	@PostMapping("/office_create.km")
+	public Object office_create(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return filesService.office_create(requestData);
+	}
+	
 }
