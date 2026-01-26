@@ -60,7 +60,6 @@ public class ResInfo {
      * 성공 응답 (메시지 + JsonObject)
      */
     public static ResInfo success(JsonObject jsonObject) {
-    	System.out.println("11111111111111111111");
         ResInfo res = new ResInfo();
         res.setResult("success");
         res.setData(jsonObject);

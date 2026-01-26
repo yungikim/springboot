@@ -1,5 +1,6 @@
 package com.kmslab.one.service.channel;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -7,40 +8,59 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import org.apache.commons.io.FileUtils;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.kmslab.one.component.WriteLog;
+import com.kmslab.one.config.AppConfig;
 import com.kmslab.one.service.ResInfo;
 import com.kmslab.one.util.DocumentConverter;
 import com.kmslab.one.util.Utils;
 import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.Sorts;
+import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.UpdateResult;
 
 @Service
 public class ChannelService {
 	private final MongoTemplate channelInfo;
 	private final MongoTemplate todo;
 	private final MongoTemplate channel_data;
+	private final MongoTemplate channel_favorite;
+	private final MongoTemplate notice;
+	private final MongoTemplate todo_folder;
 	public ChannelService(
 			@Qualifier("channelInfo") MongoTemplate channelInfo,
 			@Qualifier("TODO") MongoTemplate todo,
-			@Qualifier("channel_data") MongoTemplate channel_data
+			@Qualifier("channel_data") MongoTemplate channel_data,
+			@Qualifier("channel_favorite") MongoTemplate channel_favorite,
+			@Qualifier("notice") MongoTemplate notice,
+			@Qualifier("TODO_Folder") MongoTemplate todo_folder
 			) {		
 		this.channelInfo = channelInfo;
 		this.todo = todo;
 		this.channel_data = channel_data;
+		this.channel_favorite = channel_favorite;
+		this.notice = notice;
+		this.todo_folder = todo_folder;
 	}
+	
+	@Autowired
+	private WriteLog writeLog;
+	
+	@Autowired
+	private AppConfig appConfig;
 	
 	public Object channel_info_unread(Map<String, Object> requestData) {
 		try{
@@ -233,7 +253,6 @@ public class ChannelService {
 	
 	public Object search_info(Map<String, Object> requestData) {
 		try{
-			System.out.println("search_info: " + requestData);
 			String gubun = requestData.get("type").toString();
 			String ch_code = requestData.get("ch_code").toString();
 			MongoCollection<Document> col = null;
@@ -414,10 +433,8 @@ public class ChannelService {
 			String em = requestData.get("email").toString();			
 			Document query = new Document();
 			query.put("email", em);
-			query.put("key", ch_code);			
-			System.out.println("query : " + query);
+			query.put("key", ch_code);		
 			Document doc = col.find(query).first();
-			System.out.println(doc);
 			if (doc != null) {
 				//기존에 문서가 없을 경우 추가한다.
 				return ResInfo.success(DocumentConverter.toCleanMap(doc));
@@ -715,90 +732,343 @@ public class ChannelService {
 		}
 	}
 	
-//	public Object list_channel_favorite(Map<String, Object> requestData) {
-//		ResInfo res = new ResInfo();
-//		res.setResult("ERROR");
-//		
-//		try{
-//			
-//			
-//			String channel_code = obj.get("channel_code").getAsString();
-//			String email = obj.get("email").getAsString();	
-//	//		email = AESSec.decrypt(email);
-//			
-//			String channel_type = obj.get("query_type").getAsString();
-//			int start = obj.get("start").getAsInt();
-//			int perpage = obj.get("perpage").getAsInt();
-//			String q_str = obj.get("q_str").getAsString();
-//			String type = obj.get("type").getAsString();   //type : 1 전체 , type : 2이면 파일만 리턴
-//			
-//			
-//			Document query = new Document();			
-//			List<Document> doc = new ArrayList<Document>();			
-//
-//			MongoDatabase db = MongoDBContextListener.conn.getDatabase(channel_favorite_db);
-//			MongoCollection<Document> col = db.getCollection(channel_favorite_col);
-//							
-//			Document q1 = new Document();
-//			q1.put("email", email);
-//			doc.add(q1);				
-//				
-//			if (!q_str.equals("")){	
-//				Document tdoc = new Document();
-//				List<Document> doc2 = new ArrayList<Document>();
-////				Document q2 = new Document();
-////				Pattern regex = Pattern.compile(q_str, Pattern.CASE_INSENSITIVE);			
-////				q2.put("content", regex);
-////				doc2.add(q2);	
-//				
-//				Document q3 = new Document();
-//				Pattern regex2 = Pattern.compile(q_str, Pattern.CASE_INSENSITIVE);			
-//				q3.put("filename", regex2);
-//				doc2.add(q3);
-//				
-//				tdoc.append("$or", doc2);
-//				doc.add(tdoc);				
-//			}			
-//			
-//			String dtype = obj.get("dtype").getAsString();   //ppt, pptx : ppx , jpg, png, gif : image 필터링을 위한 값
-//			if (!dtype.equals("")){
-//				Document q3 = new Document();		
-//				q3.put("dtype", dtype);
-//				doc.add(q3);
-//			}
-//			
-//								
-//			query.append("$and", doc);			
-//			
-//			//채널과 드라이브를 분리해서 type 1 이면 드라이브 , 2명 채널 즐겨찾기로 구분한다.
-//			//kmslab용과 아모레용을 같이 사용하기 위해서 type : 1은 kmslab에서 사용한 통합 즐겨찾기 보기이고 type : channel or drive는 아모레형 분리에서 호출하는 형식이다.
-//			if (!type.equals("1")) {
-//				query.append("file_source", type);
-//			}
-//			
-//					
-//		
-//						
-//			long totalcount = col.countDocuments(query);
-//			JsonObject tt = new JsonObject();
-//			tt.addProperty("totalcount", totalcount);			
-//											
-//			JsonArray ar = new JsonArray();
-//			FindIterable<Document> list = col.find(query).limit(perpage).skip(start).sort(Sorts.descending("GMT"));
-//			for (Document xdoc : list){
-//				ar.add(DocumnetConvertJsonObject(xdoc));
-//			}
-//			
-//			tt.add("data", ar);
-//			
-//			res.setResult("OK");
-//			res.setRes(tt);
-//			
-//			
-//		}catch(Exception e){
-//			e.printStackTrace();
-//		}
-//		
-//		return res;
-//	}
+	public Object list_channel_favorite(Map<String, Object> requestData) {	
+		try{			
+			String channel_code = requestData.get("channel_code").toString();
+			String email = requestData.get("email").toString();			
+			String channel_type = requestData.get("query_type").toString();
+			int start = Integer.parseInt(requestData.get("start").toString());
+			int perpage = Integer.parseInt(requestData.get("perpage").toString());
+			String q_str = requestData.get("q_str").toString();
+			String type = requestData.get("type").toString();   //type : 1 전체 , type : 2이면 파일만 리턴			
+			
+			Document query = new Document();			
+			List<Document> doc = new ArrayList<Document>();			
+
+			MongoCollection<Document> col = channel_favorite.getCollection("list");
+							
+			Document q1 = new Document();
+			q1.put("email", email);
+			doc.add(q1);				
+				
+			if (!q_str.equals("")){	
+				Document tdoc = new Document();
+				List<Document> doc2 = new ArrayList<Document>();				
+				Document q3 = new Document();
+				Pattern regex2 = Pattern.compile(q_str, Pattern.CASE_INSENSITIVE);			
+				q3.put("filename", regex2);
+				doc2.add(q3);				
+				tdoc.append("$or", doc2);
+				doc.add(tdoc);				
+			}			
+			
+			String dtype = requestData.get("dtype").toString();   //ppt, pptx : ppx , jpg, png, gif : image 필터링을 위한 값
+			if (!dtype.equals("")){
+				Document q3 = new Document();		
+				q3.put("dtype", dtype);
+				doc.add(q3);
+			}								
+			query.append("$and", doc);						
+			//채널과 드라이브를 분리해서 type 1 이면 드라이브 , 2명 채널 즐겨찾기로 구분한다.
+			//kmslab용과 아모레용을 같이 사용하기 위해서 type : 1은 kmslab에서 사용한 통합 즐겨찾기 보기이고 type : channel or drive는 아모레형 분리에서 호출하는 형식이다.
+			if (!type.equals("1")) {
+				query.append("file_source", type);
+			}					
+			long totalcount = col.countDocuments(query);
+			Map<String, Object> tt = new HashMap<>();
+			tt.put("totalcount", totalcount);											
+			List<Map<String, Object>> ar = new ArrayList<>();
+			FindIterable<Document> list = col.find(query).limit(perpage).skip(start).sort(Sorts.descending("GMT"));
+			for (Document xdoc : list){
+				ar.add(DocumentConverter.toCleanMap(xdoc));
+			}
+			tt.put("data", ar);
+			return ResInfo.success(tt);			
+		}catch(Exception e){
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}
+	}
+	
+	public Object wlog_box(Map<String, Object> requestData) {
+		try {
+			Document doc = new Document(requestData);
+			writeLog.write_log(doc);
+			return ResInfo.success();
+		}catch(Exception e) {
+			return ResInfo.error(e.getMessage());
+		}	
+	}
+	
+	public Object read_notice(Map<String, Object> requestData) {
+		try {
+			MongoCollection<Document> col = notice.getCollection("data");	
+			Document squery = new Document();
+			String key = requestData.get("key").toString();	
+			squery.put("key", key);
+			
+			Document user_select = col.find(squery).sort(new Document("GMT", -1)).first();
+
+			if (user_select != null && user_select.get("use").equals("T")) {
+				Map<String, Object> dx = new HashMap<>();
+				dx.put("response", DocumentConverter.toCleanMap(user_select));
+				return ResInfo.success(dx);
+			}else {
+				return ResInfo.error("NO");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}		
+	}
+	
+	public Object create_channel(Map<String, Object> requestData) {
+		String res = "";
+		Map<String, Object> item = new HashMap<>();
+		try{
+			MongoCollection<Document> col = channelInfo.getCollection("channel");			
+			Document doc = new Document(requestData);	
+			if (requestData.get("ch_code") != null){
+			//	System.out.println("업데이트인 경우");
+				//업데이트인 경우
+				Document query = new Document();
+				query.put("_id", new ObjectId(requestData.get("ch_code").toString()));				
+				Document sdoc = col.find(query).first();
+				if (sdoc != null) {					
+					String ch_name = sdoc.get("ch_name").toString();					
+					//채널에서 나간 사람이 다시 초대될 경우 나간 목록에서 제거해 줘야 한다.
+					//멤버로 들어온 정보에서 메일주소를 확인해서 나간 목록에 있는지 체크한다.
+					//JsonArray lp = obj.get("member").getAsJsonArray();
+					List<Map<String, Object>> lp = (List<Map<String, Object>>) requestData.get("member");
+					for (int i = 0 ; i < lp.size(); i++) {
+						Map<String, Object> kk = lp.get(i);
+						if (kk.containsKey("ky")) {
+							String em = kk.get("ky").toString();									
+							Document data = new Document();
+							data.put("$pull", new Document("exit_user", em));
+							UpdateResult rx = col.updateOne(query, data);
+						}
+					}
+					/////////////////////////////////////////////////////////					
+					Document se = new Document();
+					se.append("$set", doc);	
+					UpdateResult rx = col.updateOne(query, se);
+					
+					//채널명이 변경된 경우 기존 채널 데이터에 추가된 데이터의 채널명을 변경해 줘야 한다.
+					String new_channel_name = requestData.get("ch_name").toString();
+					if (!new_channel_name.equals(ch_name)) {
+						MongoCollection<Document> ccl = channel_data.getCollection("data");						
+						String channe_code = sdoc.get("ch_code").toString();
+						Document q2 = new Document();
+						q2.put("channel_code", channe_code);						
+						Document udoc = new Document();
+						udoc.put("channel_name", new_channel_name);						
+						Document ss = new Document();
+						ss.put("$set", udoc);						
+						UpdateResult xx = ccl.updateMany(q2, ss);					
+					}					
+					
+					//plugin으로 설정된 Todo에 멤버를 업데이트 해줘야 한다. ///////////////////////////
+					Document ndoc = col.find(query).first();
+					MongoCollection<Document> col2 = todo_folder.getCollection("folder");					
+					List<Document> member_info = (List<Document>) doc.get("member");						
+					List<String> readers_info = (List<String>) doc.get("readers");										
+					Map<String, Object> sowner = (Map<String, Object>) requestData.get("owner");
+					Document owner = new Document(sowner); 					
+					Document nnc = new Document();
+					nnc.put("readers",  readers_info);
+					nnc.put("member", member_info);
+					nnc.put("owner", owner);
+					nnc.put("name", new_channel_name);				
+					Document sep = new Document();
+					sep.put("$set", nnc);					
+					Document qy = new Document();
+					qy.put("_id", new ObjectId(requestData.get("ch_code").toString()));					
+					col2.updateOne(qy, sep);
+					/////////////////////////////////////////////////////////////////////////						
+				}				
+			}else{		
+				//최초 등록인 경우
+				col.insertOne(doc);				
+				String id = doc.get("_id").toString();				
+				Document data = new Document();
+				data.put("ch_code", id);
+				data.put("lastupdate", Utils.GMTDate());				
+				Document query = new Document();
+				query.put("_id", new ObjectId(id));				
+				Document se = new Document();
+				se.put("$set", data);				
+				col.updateOne(query, se);				
+				res = id;
+			}				
+		}catch(Exception e){	
+			e.printStackTrace();			
+			ResInfo.error("F");
+		}		
+		item.put("ch_code", res);
+		return ResInfo.success(item);
+	}
+	
+	public Object plugin(Map<String, Object> requestData) {
+		try {
+			MongoCollection<Document> col = channelInfo.getCollection("channel");			
+			String key = requestData.get("id").toString();
+			String item = requestData.get("item").toString();
+			String ty = requestData.get("ty").toString();			
+			//ty : add이면 plugin을 채널에 추가하는 경우 / del이면 삭제하는 경우			
+			Document query = new Document();
+			query.put("ch_code", key);
+			Document sdoc = col.find(query).first();			
+			if (sdoc != null) {
+				if (ty.equals("add")) {
+					Document push = new Document();
+					push.put("$push",  new Document("plugin", new Document("list", item)));
+					col.updateOne(query, push);
+				}else {
+					Document pull = new Document();
+					pull.put("$pull", new Document("plugin", new Document("list", item)));	
+					col.updateOne(query, pull);
+				}		
+				//TODO를 생성하거나 제거한 경우
+				if (item.equals("TO-DO")) {
+					MongoCollection<Document> col2 = todo_folder.getCollection("folder");					
+					if (ty.equals("add")) {						
+						//TODO프로젝트를 생성한다.							
+						requestData.remove("id");
+						requestData.remove("item");
+						requestData.remove("ty");
+						requestData.put("sort", 2);
+						requestData.put("type", "project");
+						requestData.put("opt", "plugin");
+						requestData.put("folderkey", "");
+						requestData.put("comment", "");
+						Document doc = new Document(requestData).append("_id", new ObjectId(key));						
+						col2.insertOne(doc);						
+					}else {
+						//TODO프로젝트를 삭제한다.
+						Document qq = new Document();
+						qq.put("_id", new ObjectId(key));						
+						DeleteResult rrxx = col2.deleteOne(qq);						
+					}
+				}				
+				return ResInfo.success();
+			}
+			return ResInfo.error("ERROR");
+		}catch(Exception e) {
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}
+	}
+	
+	public Object channel_delete(Map<String, Object> requestData) {
+		try{
+			MongoCollection<Document> col = channelInfo.getCollection("channel");			
+			String ch_code = requestData.get("ch_code").toString();
+			Document query = new Document();	
+			query.append("ch_code", ch_code);						
+			boolean rr = delete_channel_data_all(ch_code);				
+			if (rr){
+				//채널 info 데이터를 삭제한다.				
+				Document sdoc = col.find(query).first();
+				if (sdoc != null){
+					Document logdoc = new Document();
+					logdoc = sdoc;
+					logdoc.put("action", "channel_delete");
+					logdoc.put("action_time", Utils.GMTDate());				
+					writeLog.write_log(logdoc);				
+					col.deleteOne(query);
+				}				
+			}			
+			return ResInfo.success();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}
+	}
+	
+	private boolean delete_channel_data_all(String ch_code){
+		boolean res = false;		
+		try{
+			MongoCollection<Document> col = channel_data.getCollection("data");						
+			Document query = new Document();
+			query.append("channel_code", ch_code);			
+			//관련된 파일 있는 경우 전체 삭제한다.
+			Document doc = col.find(query).first();			
+			FindIterable<Document> lists = col.find(query);			
+			for (Document sdoc : lists){
+				List<Document> list = (List<Document>) sdoc.get("info");				
+				String type = sdoc.get("type").toString();				
+				if (type.equals("file")){
+					//파일 폴더를 삭제한다.
+					String uploadpath = sdoc.get("upload_path").toString();
+					String email = sdoc.get("ky").toString();		
+					String dir = appConfig.getFileDownloadPath();
+					String folderPath = dir + "/"+ email +"/"+uploadpath;
+					delete_folder(folderPath);
+				}			
+				col.deleteOne(query);
+			}				
+			res = true;
+		}catch(Exception e){
+			e.printStackTrace();
+		}		
+		return res;
+	}
+	
+	private void delete_folder(String path){
+		try{
+			File rootDir = new File(path);
+			if (rootDir.exists()){
+				FileUtils.deleteDirectory(rootDir);
+			}		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public Object move_folder_channel(Map<String, Object> requestData) {
+		try {
+			MongoCollection<Document> col = channelInfo.getCollection("channel");			
+			//수정할 경우 어떤 문서를 수정하는지 key값을 포함해서 보내줘야 하고 update할때 해당 필드는 제거해 줘야 한다.
+			String folderkey = requestData.get("folderkey").toString();
+			String key = requestData.get("key").toString(); 		
+			Document query = new Document();
+			query.put("_id", new ObjectId(key));					
+			//key로 채널 정보를 가져와서 요청한 사용자가 owner인 경우 원래데로 처리하고 owner가 아닌 경우 folder_info 필드에 이메일과 폴더키를 추가해서 개인화 한다.
+			Document sdoc = col.find(query).first();
+			if (sdoc != null) {
+				Document info = (Document) sdoc.get("owner");					
+				String em = info.get("em").toString();			
+				String owner_em = em;				
+				String call_em = requestData.get("email").toString();				
+				if (call_em.equals(owner_em)) {
+					Document data = new Document();
+					data.put("folderkey", folderkey);
+					Document se = new Document();
+					se.put("$set", data);								
+					UpdateResult rx = col.updateOne(query, se);
+				}else {
+					// 내가 생성한 채널이 아닌 경우 folder_info값에 별도로 관리한다.					
+					Document jx = new Document();
+					jx.append("email", call_em);
+					jx.append("fk", folderkey);					
+					//기존 정보 제거한다.
+					Document pull = new Document();
+					pull.put("$pull", new Document("folder_info", new Document("email",call_em)));					
+					col.updateOne(query, pull);						
+					//신규 정보 추가한다.
+					Document data = new Document();
+					data.put("folder_info", jx);
+					Document se = new Document();
+					se.put("$push", data);						
+					col.updateOne(query, se);				
+				}		
+			}				
+			return ResInfo.success();			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}
+	}
 }

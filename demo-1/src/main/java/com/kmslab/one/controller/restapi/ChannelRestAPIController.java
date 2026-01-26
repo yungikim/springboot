@@ -83,10 +83,48 @@ public class ChannelRestAPIController {
 			return channelService.channel_list(requestData);
 		}else {
 			return channelService.channel_list(requestData);
-		}
-		
-		
+		}	
 	}
 	
+	@PostMapping("/wlog_box.km")
+	public Object wlog_box(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return channelService.wlog_box(requestData);
+	}
 	
+	@PostMapping("/read_notice.km")
+	public Object read_notice(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return channelService.read_notice(requestData);
+	}
+	
+	@PostMapping("/create_channel.km")
+	public Object create_channel(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return channelService.create_channel(requestData);
+	}
+	
+	@PostMapping("/plugin.km")
+	public Object plugin(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return channelService.plugin(requestData);
+	}
+	
+	@PostMapping("/channel_delete.km")
+	public Object channel_delete(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return channelService.channel_delete(requestData);
+	}
+	
+	@PostMapping("/move_folder_channel.km")
+	public Object move_folder_channel(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return channelService.move_folder_channel(requestData);
+	}
 }

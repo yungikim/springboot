@@ -1194,7 +1194,8 @@ gBodyFN3.prototype = {
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},
 			url : url,			
-			success : function(res){							
+			success : function(res){		
+							
 				if (res.data == null){
 					if (query_str != ""){							
 					}
@@ -8055,7 +8056,7 @@ gBodyFN3.prototype = {
 						}
 						oob.member = tmember;
 					}
-					var url = gap.channelserver + "/plugin.km";					
+					var url = gap.channelserver + "/api/channel/plugin.km";					
 					if (cl == "btn-release" ){
 						//설치 제거하기						
 						var msg = gap.lang.confirm_delete;						
@@ -8068,6 +8069,7 @@ gBodyFN3.prototype = {
 							$.ajax({
 								type : "POST",
 								dataType : "json",
+								contentType: "application/json; charset=utf-8",
 								data : data,
 								url : url,
 								success : function(res){								

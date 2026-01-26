@@ -165,6 +165,7 @@ public class PortalController {
 		model.addFlashAttribute("jsVer", "1.0");
 		model.addFlashAttribute("cssVer", "1.0");
 		model.addFlashAttribute("view", "channel");
+		model.addFlashAttribute("key", "");
 		return "redirect:/v/portal";
 	}
 }

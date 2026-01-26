@@ -57,15 +57,7 @@ public class KGPTService {
 			}else {
 				query.put("disp_mobile", "T");
 			}
-			
-			
-			System.out.println(query);
-			
 			FindIterable<Document> docs = col.find(query).sort(new Document("menu", 1));
-//			JsonArray js = new JsonArray();
-//			for (Document sdoc : docs) {
-//				js.add(DocumnetConvertJsonObject(sdoc));
-//			}
 			List<Document> docList = new ArrayList<>();
 			docs.into(docList);
 			Map<String, Object> item = new HashMap<>();

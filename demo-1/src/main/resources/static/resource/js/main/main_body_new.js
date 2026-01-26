@@ -21165,8 +21165,9 @@ gBodyFN.prototype = {
 		var cur_cid = is_quick ? gma.cur_cid_popup : gBody.cur_cid;
 		$.ajax({
 			type : "POST",
-			url : gap.channelserver + "/read_notice.km",
+			url : gap.channelserver + "/api/channel/read_notice.km",
 			dataType : "json",
+			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify({key:cur_cid}),
 			success : function(res){
 				// 공지가 없을 경우 예외처리
@@ -21475,8 +21476,9 @@ gBodyFN.prototype = {
 		var cur_cid = gBody3.cur_opt;
 		$.ajax({
 			type : "POST",
-			url : gap.channelserver + "/read_notice.km",
+			url : gap.channelserver + "/api/channel/read_notice.km",
 			dataType : "json",
+			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify({key:cur_cid}),
 			success : function(res){
 				

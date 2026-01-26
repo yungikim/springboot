@@ -1788,15 +1788,18 @@ gBodyFN2.prototype = {
 					return false;
 				}
 			}
-			var surl = gap.channelserver + "/create_channel.km";
+			var surl = gap.channelserver + "/api/channel/create_channel.km";
 			$.ajax({
 				type : "POST",
 				url : surl,
-				dataType : "text",
+				dataType : "json",
+				contentType : "application/json; charset=utf-8",
 				data : JSON.stringify(postData),
 				success : function(ress){
-					var res = JSON.parse(ress);
-					if (res.result == "OK"){						
+					var res = ress;
+
+					if (res.result == "OK"){	
+						res.ch_code = res.data.ch_code;					
 						var _html = '';						
 						var dischname = channel_name;
 						if (channel_name.length > gBody2.menu_length){
@@ -2233,7 +2236,7 @@ gBodyFN2.prototype = {
 			gap.add_todo_plugin("del", ch_code);
 
 
-			var surl = gap.channelserver + "/channel_delete.km";
+			var surl = gap.channelserver + "/api/channel/channel_delete.km";
 			var postData = {
 					"ch_code" : ch_code
 				};			
@@ -2242,6 +2245,7 @@ gBodyFN2.prototype = {
 				type : "POST",
 				url : surl,
 				dataType : "json",
+				contentType : "application/json; charset=utf-8",
 				data : JSON.stringify(postData),
 				success : function(res){
 					if (res.result == "OK"){
@@ -2452,7 +2456,7 @@ gBodyFN2.prototype = {
 	"update_channel_info" : function(ch_code, draw_left){
 		// 채널 리스트 정보 가져오기
 		
-		
+		debugger;
 		var is_member_update = (ch_code != undefined ? true : false);
 		var is_draw_left = (draw_left != undefined ? draw_left : false);
 		var surl = gap.channelserver + "/api/channel/channel_info_list.km";
@@ -2475,7 +2479,7 @@ gBodyFN2.prototype = {
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},
 			success : function(res){
-				gap.cur_channel_list_info = res;
+				gap.cur_channel_list_info = res.data;
 				if (is_member_update){
 					// 변경된 멤버 바로 표시
 					gBody3.draw_channel_members(ch_code);
@@ -10153,15 +10157,15 @@ gBodyFN2.prototype = {
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},
 			success : function(res){
-				for (var i = 0; i < res.length; i++){
-					var _info = res[i];
+				for (var i = 0; i < res.data.length; i++){
+					var _info = res.data[i];
 					if (_info.type && _info.type == "folder"){
 						var _html = '';
 						var _folder_html = '';
 						_folder_html += '<li>';
 						_folder_html += '	<div style=""><span class="ico ico-todo-folder"></span>' + _info.name + '<button class="btn-entry" id="enter_' + _info._id + '"><span>' + gap.lang.move + '</span></button></div>';
 						_folder_html += '</li>';
-						if (is_share){
+						if (_info.share){
 							if (_info.share == "Y"){
 								_html += _folder_html;
 							}
@@ -10199,7 +10203,7 @@ gBodyFN2.prototype = {
 	
 	"move_channel_to_folder" : function(pkey, fkey){
 		
-		var surl = gap.channelserver + "/move_folder_channel.km";
+		var surl = gap.channelserver + "/api/channel/move_folder_channel.km";
 		var postData = JSON.stringify({
 				"key" : pkey,
 				"folderkey" : fkey
@@ -11147,14 +11151,15 @@ gBodyFN2.prototype = {
 					"member" : user_list
 				};
 				
-			var surl = gap.channelserver + "/create_channel.km";
+			var surl = gap.channelserver + "/api/channel/create_channel.km";
 			$.ajax({
 				type : "POST",
 				url : surl,
-				dataType : "text",
+				dataType : "json",
+				contentType : "application/json; charset=utf-8",
 				data : JSON.stringify(postData),
 				success : function(ress){
-					var res = JSON.parse(ress);
+					var res = ress;
 					if (res.result == "OK"){
 						if (gap.cur_window == "channel"){
 							gBody2.update_channel_info(id);							

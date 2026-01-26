@@ -3934,14 +3934,15 @@ gBodyM2.prototype = {
 			new_member_ky = $(user_ky_list).not(pre_member_ky);
 		}		
 					
-		var surl = gap.channelserver + "/create_channel.km";
+		var surl = gap.channelserver + "/api/channel/create_channel.km";
 		$.ajax({
 			type : "POST",
 			url : surl,
-			dataType : "text",
+			dataType : "json",
+			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify(postData),
 			success : function(ress){
-				var res = JSON.parse(ress);
+				var res = ress;
 				if (res.result == "OK"){
 					// member에게 소켓 전송
 					
@@ -4071,12 +4072,13 @@ gBodyM2.prototype = {
 			
 		//플러그인 설치하기		
 		
-		var url = gap.channelserver + "/plugin.km";	
+		var url = gap.channelserver + "/api/channel/plugin.km";	
 		var data = JSON.stringify(obb);				
 		$.ajax({
 			type : "POST",
 			dataType : "json",
 			data : data,
+			contentType: "application/json; charset=utf-8",
 			url : url,
 			success : function(res){
 				

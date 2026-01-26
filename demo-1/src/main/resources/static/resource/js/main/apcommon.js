@@ -4992,13 +4992,14 @@ gapcommon.prototype = {
 			}
 			oob.member = tmember;
 		}		
-		var url = gap.channelserver + "/plugin.km";		
+		var url = gap.channelserver + "/api/channel/plugin.km";		
 		//플러그인 설치하기				
 		oob.ty = opt;   //add or del
 		var data = JSON.stringify(oob);				
 		$.ajax({
 			type : "POST",
 			dataType : "json",
+			contentType: "application/json; charset=utf-8",
 			data : data,
 			url : url,
 			success : function(res){
@@ -5346,7 +5347,7 @@ gapcommon.prototype = {
 			"jt" : userinfo.jt,
 			"jtc" : userinfo.jtc			
 		});		
-		var url = gap.channelserver + "/wlog_box.km";	
+		var url = gap.channelserver + "/api/channel/wlog_box.km";	
 		$.ajax({
 			type : "POST",
 			url : url,
@@ -6003,14 +6004,15 @@ gapcommon.prototype = {
 			"readers" : readers,	//readers.join(" "),
 			"member" : user_list
 		};		
-		var surl = gap.channelserver + "/create_channel.km";
+		var surl = gap.channelserver + "/api/channel/create_channel.km";
 		return $.ajax({
 			type : "POST",
 			url : surl,
-			dataType : "text",
+			dataType : "json",
+			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify(postData),
 			success : function(ress){
-				var res = JSON.parse(ress);
+				var res = ress;
 				if (res.result == "OK"){
 					var ch_code = res.ch_code;		
 					gBody2.update_channel_info();
@@ -7089,7 +7091,7 @@ gapcommon.prototype = {
 	
 	"read_notice" : function(key){		
 		//채팅방과 업무방에 공지사항 데이터를 가져온다.
-		var url = gap.channelserver + "/read_notice.km";
+		var url = gap.channelserver + "/api/channel/read_notice.km";
 		var data = JSON.stringify({
 			"key" : key
 		});
@@ -7097,6 +7099,7 @@ gapcommon.prototype = {
 			type : "POST",
 			contentType : "application/json, charset=utf-8",
 			url : url,
+			contentType : "application/json; charset=utf-8",
 			data : data,
 			success : function(res){
 				if (res.result == "OK"){
@@ -8794,8 +8797,9 @@ gapcommon.prototype = {
 		var cur_cid = gBody3.cur_opt;
 		$.ajax({
 			type : "POST",
-			url : gap.channelserver + "/read_notice.km",
+			url : gap.channelserver + "/api/channel/read_notice.km",
 			dataType : "json",
+			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify({key:cur_cid}),
 			success : function(res){
 				

@@ -72,5 +72,7 @@ public class MongoConfig {
 	@Bean(name="channel_favorite")
 	public MongoTemplate channel_favorite() {return createTemplate("channel_favorite");}
 	
+	@Bean(name="notice")
+	public MongoTemplate notice() {return createTemplate("notice");}
 	
 }

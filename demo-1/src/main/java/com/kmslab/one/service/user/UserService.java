@@ -80,7 +80,6 @@ public class UserService {
 				}				
 				rex.addAll(ar);
 			}
-			System.out.println(rex);
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
@@ -98,7 +97,6 @@ public class UserService {
 			FindIterable<Document> list = col.find().sort(Sorts.ascending("sort"));
 
 			for (Document doc : list){
-				System.out.println(doc);
 				Map<String, Object> jp = new HashMap<>();
 				jp.put("cp", doc.get("cp").toString());
 				jp.put("cpc", doc.get("cpc").toString());
