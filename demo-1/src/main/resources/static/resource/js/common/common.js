@@ -9099,7 +9099,7 @@ gcommon.prototype = {
 		});
 		
 		// LLM 가져오기
-		var surl = root_path + "/llm_list.km";
+		var surl = root_path + "/api/portal/llm_list.km";
 		var postData = {
 				"start" : "0",
 				"perpage" : gcom.per_page,
@@ -9111,14 +9111,14 @@ gcommon.prototype = {
 			type : "POST",
 			url : surl,
 			async: false,
-			dataType : "text",	//"json",
+			dataType : "json",	//"json",
 			data : JSON.stringify(postData),
 			beforeSend : function(xhr){
 				xhr.setRequestHeader("auth", gap.get_auth());
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},	
 			success : function(__res){
-				var res = JSON.parse(__res);
+				var res = __res;
 				var _list = res.data.response;
 				var _html = "";
 				
