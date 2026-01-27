@@ -173,4 +173,11 @@ public class PortalRestAPIController {
 		return portalService.alarmcenter_delete(requestData);
 	}
 	
+	@PostMapping("/llm_list.km")
+	public Object llm_list(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return portalService.llm_list(requestData);
+	}
+	
 }

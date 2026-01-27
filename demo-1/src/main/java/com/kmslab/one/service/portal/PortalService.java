@@ -23,16 +23,19 @@ public class PortalService {
 	private final MongoTemplate appstore;
 	private final MongoTemplate portlet;
 	private final MongoTemplate alarmcenter_db;
+	private final MongoTemplate GPT;
 	public PortalService(
 			@Qualifier("appstore") MongoTemplate appstore,
 			@Qualifier("portaldb") MongoTemplate portaldb,
 			@Qualifier("portlet") MongoTemplate portlet,
-			@Qualifier("alarmcenter_db") MongoTemplate alarmcenter_db
+			@Qualifier("alarmcenter_db") MongoTemplate alarmcenter_db,
+			@Qualifier("GPT") MongoTemplate GPT
 			) {		
 		this.portaldb = portaldb;
 		this.appstore = appstore;
 		this.portlet = portlet;
 		this.alarmcenter_db = alarmcenter_db;
+		this.GPT = GPT;
 	}
 	
 	public Object appstore_list(Map<String, Object> requestData) {
@@ -833,5 +836,20 @@ public class PortalService {
 			}
 		}
 		return ResInfo.success();
+	}
+	
+	public Object llm_list(Map<String, Object> requestData) {
+		try {
+			MongoCollection<Document> col = GPT.getCollection("llm_model");
+			FindIterable<Document> docs = col.find();
+			List<Map<String, Object>> ar = new ArrayList<>();
+			docs.into(ar);
+			Map<String, Object> dx = new HashMap<>();
+			dx.put("response", ar);
+			return ResInfo.success(dx);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}
 	}
 }
