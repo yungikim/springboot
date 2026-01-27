@@ -41,11 +41,7 @@ public class FileDownload_New{
         
         try {
             if (ky == null) ky = "";
-            if (md5 == null) md5 = "";
-            
-            System.out.println("id : " + id);
-            System.out.println("ty : " + ty);
-             
+            if (md5 == null) md5 = "";  
             
             // ResInfo 반환값 처리
             ResInfo info = (ResInfo) sfp.search_file_download_path(id, ty, md5, ky);

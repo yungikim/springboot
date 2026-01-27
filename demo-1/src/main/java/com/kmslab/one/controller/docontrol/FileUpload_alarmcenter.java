@@ -1,4 +1,4 @@
-package com.kmslab.one.service.doservice;
+package com.kmslab.one.controller.docontrol;
 
 import java.io.File;
 
@@ -15,17 +15,17 @@ import com.google.gson.JsonObject;
 import com.kmslab.one.config.AppConfig;
 
 @RestController
-public class FileUpload_Appstore {
+public class FileUpload_alarmcenter {
 	@Autowired
 	private AppConfig appConfig;
 	
-	@PostMapping(value="/FileControl_appstore.do", produces= MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value="/FileControl_alarmcenter.do", produces= MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> uploadAppStoreFile(
 			@RequestParam(value="file[0]", required=false) MultipartFile file,
-			@RequestParam(value="code", required=false) String code
+			@RequestParam(value="noti_id", required=false) String code
 			){
 		JsonObject result = new JsonObject();
-		System.out.println("FileControl_appstore.do로 들어온다...");
+		System.out.println("FileControl_alarmcenter.do로 들어온다...");
 		
 		//파일 유효성 검사
 		if (file == null || file.isEmpty()) {
@@ -35,7 +35,7 @@ public class FileUpload_Appstore {
 		}
 		
 		try {
-			String saveFolder = "appstore";
+			String saveFolder = "alarmcenter";
 			String extension = FilenameUtils.getExtension(file.getOriginalFilename());
 			String saveFilename = code + "." + extension;
 			

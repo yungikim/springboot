@@ -75,4 +75,8 @@ public class MongoConfig {
 	@Bean(name="notice")
 	public MongoTemplate notice() {return createTemplate("notice");}
 	
+	@Bean(name="alarmcenter_db")
+	public MongoTemplate alarmcenter_db() {return createTemplate("im_noti_data");}
+	
+	
 }

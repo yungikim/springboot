@@ -6659,7 +6659,7 @@ gBodyHome.prototype = {
 	"getPortletMenuList" : function(){
 		var _self = this;
 	
-		var surl = gap.channelserver + "/portlet_list.km";
+		var surl = gap.channelserver + "/api/portal/portlet_list.km";
 		var postData = {
 				"start" : "0",
 				"perpage" : "1000",
@@ -6672,14 +6672,14 @@ gBodyHome.prototype = {
 		return $.ajax({
 			type : "POST",
 			url : surl,
-			dataType : "text",	//"json",
+			dataType : "json",	//"json",
 			data : JSON.stringify(postData),
 			beforeSend : function(xhr){
 				xhr.setRequestHeader("auth", gap.get_auth());
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},	
 			success : function(__res){
-				var res = JSON.parse(__res);
+				var res = __res;
 				var _list = res.data.response;
 
 				

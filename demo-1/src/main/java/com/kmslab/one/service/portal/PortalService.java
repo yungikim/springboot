@@ -22,14 +22,17 @@ public class PortalService {
 	private final MongoTemplate portaldb;
 	private final MongoTemplate appstore;
 	private final MongoTemplate portlet;
+	private final MongoTemplate alarmcenter_db;
 	public PortalService(
 			@Qualifier("appstore") MongoTemplate appstore,
 			@Qualifier("portaldb") MongoTemplate portaldb,
-			@Qualifier("portlet") MongoTemplate portlet
+			@Qualifier("portlet") MongoTemplate portlet,
+			@Qualifier("alarmcenter_db") MongoTemplate alarmcenter_db
 			) {		
 		this.portaldb = portaldb;
 		this.appstore = appstore;
 		this.portlet = portlet;
+		this.alarmcenter_db = alarmcenter_db;
 	}
 	
 	public Object appstore_list(Map<String, Object> requestData) {
@@ -507,114 +510,328 @@ public class PortalService {
 		return ResInfo.success();
 	}
 	
-//	public Object portlet_list(Map<String, Object> requestData) {
-//		try {
-//			MongoCollection<Document> col = portlet.getCollection("app");	
-//			String word = requestData.get("query").toString();		
-//			int st = Integer.parseInt(requestData.get("start").toString());
-//			int perpage = Integer.parseInt(requestData.get("perpage").toString());
-//			String isAdmin = requestData.get("admin").toString();				
-//									
-//			List<Document> andquery = new ArrayList<Document>();										
-//			Document xquery = new Document();			
-//			Document query = new Document();
-//			if (isAdmin.equals("T")) {		
-//				//관리자는 전체 리스트를 표시한다.
-//			}else {
-//				Document xquery2 = new Document();
-//				List<Document> orquery = new ArrayList<Document>();
-//				//개인의 경우 사용자 ky값과 부서정보를 활용해서 readers를 계산한다.
-//				String email = requestData.get("email").toString();	
-//				Pattern regex = Pattern.compile(email, Pattern.CASE_INSENSITIVE);						
-//				List<String> excompany = new ArrayList<>();
-//				if (requestData.containsKey("depts")) {
-//					List<String> llk = new ArrayList<>();
-//					llk.add(email);				
-//					String lix = requestData.get("depts").toString();
-//					if (!lix.equals("")) {
-//						String[] lists = lix.split("-spl-");
-//						for (int i = 0 ; i < lists.length; i++) {
-//							String dept = lists[i];
-//							llk.add(dept);
-//							if (i != 0) {
-//								excompany.add(dept);
-//							}
-//						}
-//						excompany.add("all");
-//					}			
-//					query.put("readers", new Document("$in", llk));
-//				}else {
-//					query.put("readers", regex);
-//				}
-//				orquery.add(query);					
-//				String ky = requestData.get("email").toString();
-//				if (ky.toLowerCase().contains("im")) {
-//					Document px = new Document();
-//					px.append("im_disable", "F");
-//					orquery.add(px);
-//				}				
-//				xquery2.append("$and", orquery);				
-//				Document xquery3 = new Document();
-//				Document tquery = new Document();
-//				List<Document> orquery2 = new ArrayList<Document>();
-//				excompany.add(email);
-//				xquery3.put("readers", new Document("$in", excompany));				
-//				orquery2.add(xquery2);
-//				orquery2.add(xquery3);
-//				tquery.append("$or", orquery2);			
-//				andquery.add(tquery);
-//			}
-//			
-//			if (!word.equals("")) {
-//				//검색형태로 들어온 경우
-//				Document query2 = new Document();
-//				Pattern regex2 = Pattern.compile(word, Pattern.CASE_INSENSITIVE);	
-//				String category = requestData.get("category").toString();
-//				List<Document> orquery = new ArrayList<Document>();				
-//				if (category.equals("title")) {					
-//					Document q1 = new Document();
-//					q1.append("menu_kr", regex2);
-//					Document q2 = new Document();
-//					q2.append("menu_en", regex2);
-//					orquery.add(q1);
-//					orquery.add(q2);					
-//				}else if (category.equals("code")) {
-//					query2.put("code", regex2);
-//					orquery.add(query2);
-//				}
-//				Document xx = new Document();
-//				xx.put("$or", orquery);				
-//				andquery.add(xx);	
-//			}			
-//			xquery.put("$and", andquery);		
-//			if (andquery.size() == 0) {
-//				xquery = new Document();
-//			}			
-//			long total = 0;
-//			total = col.countDocuments(xquery);					
-//			FindIterable<Document> docs = col.find(xquery).skip(st).limit(perpage).sort(new Document("sort", -1));
-//			
-//			List<Map<String, Object>> ar = new ArrayList<>();
-//			JsonArray ar = new JsonArray();
-//			
-//			for (Document doc : docs){
-//				ar.add(DocumnetConvertJsonObject(doc));
-//			}
-//			
-//			
-//			JsonObject dx = new JsonObject();
-//			dx.add("response", ar);
-//			dx.addProperty("total", total);
-//					
-//			res.setRes(dx);
-//			
-//			res.setResult("OK");
-//							
-//			
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return res;
-//	}
+	public Object portlet_list(Map<String, Object> requestData) {
+		try {
+			MongoCollection<Document> col = portlet.getCollection("app");	
+			String word = requestData.get("query").toString();		
+			int st = Integer.parseInt(requestData.get("start").toString());
+			int perpage = Integer.parseInt(requestData.get("perpage").toString());
+			String isAdmin = requestData.get("admin").toString();				
+									
+			List<Document> andquery = new ArrayList<Document>();										
+			Document xquery = new Document();			
+			Document query = new Document();
+			if (isAdmin.equals("T")) {		
+				//관리자는 전체 리스트를 표시한다.
+			}else {
+				Document xquery2 = new Document();
+				List<Document> orquery = new ArrayList<Document>();
+				//개인의 경우 사용자 ky값과 부서정보를 활용해서 readers를 계산한다.
+				String email = requestData.get("email").toString();	
+				Pattern regex = Pattern.compile(email, Pattern.CASE_INSENSITIVE);						
+				List<String> excompany = new ArrayList<>();
+				if (requestData.containsKey("depts")) {
+					List<String> llk = new ArrayList<>();
+					llk.add(email);				
+					String lix = requestData.get("depts").toString();
+					if (!lix.equals("")) {
+						String[] lists = lix.split("-spl-");
+						for (int i = 0 ; i < lists.length; i++) {
+							String dept = lists[i];
+							llk.add(dept);
+							if (i != 0) {
+								excompany.add(dept);
+							}
+						}
+						excompany.add("all");
+					}			
+					query.put("readers", new Document("$in", llk));
+				}else {
+					query.put("readers", regex);
+				}
+				orquery.add(query);					
+				String ky = requestData.get("email").toString();
+				if (ky.toLowerCase().contains("im")) {
+					Document px = new Document();
+					px.append("im_disable", "F");
+					orquery.add(px);
+				}				
+				xquery2.append("$and", orquery);				
+				Document xquery3 = new Document();
+				Document tquery = new Document();
+				List<Document> orquery2 = new ArrayList<Document>();
+				excompany.add(email);
+				xquery3.put("readers", new Document("$in", excompany));				
+				orquery2.add(xquery2);
+				orquery2.add(xquery3);
+				tquery.append("$or", orquery2);			
+				andquery.add(tquery);
+			}
+			
+			if (!word.equals("")) {
+				//검색형태로 들어온 경우
+				Document query2 = new Document();
+				Pattern regex2 = Pattern.compile(word, Pattern.CASE_INSENSITIVE);	
+				String category = requestData.get("category").toString();
+				List<Document> orquery = new ArrayList<Document>();				
+				if (category.equals("title")) {					
+					Document q1 = new Document();
+					q1.append("menu_kr", regex2);
+					Document q2 = new Document();
+					q2.append("menu_en", regex2);
+					orquery.add(q1);
+					orquery.add(q2);					
+				}else if (category.equals("code")) {
+					query2.put("code", regex2);
+					orquery.add(query2);
+				}
+				Document xx = new Document();
+				xx.put("$or", orquery);				
+				andquery.add(xx);	
+			}			
+			xquery.put("$and", andquery);		
+			if (andquery.size() == 0) {
+				xquery = new Document();
+			}			
+			long total = 0;
+			total = col.countDocuments(xquery);					
+			FindIterable<Document> docs = col.find(xquery).skip(st).limit(perpage).sort(new Document("sort", -1));
+			
+			List<Map<String, Object>> ar = new ArrayList<>();
+			for (Document doc : docs) {
+				doc.put("_id", doc.get("_id").toString());
+				ar.add(DocumentConverter.toCleanMap(doc));
+			}
+			Map<String, Object> dx = new HashMap<>();
+			dx.put("response", ar);
+			dx.put("total", total);
+			return ResInfo.success(dx);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}
+	}
+	
+	public Object portlet_dual_check(Map<String, Object> requestData) {
+		try {
+			MongoCollection<Document> appcol = portlet.getCollection("app");		
+			String code = requestData.get("code").toString();		
+			Document query = new Document();
+			query.put("code", code);			
+			Document sdoc = appcol.find(query).first();		
+			Map<String, Object> rx = new HashMap<>();
+			if (sdoc != null) {
+				rx.put("exist", "T");
+			}else {
+				rx.put("extist", "F");
+			}
+			return ResInfo.success(rx);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}
+	}
+	
+	public Object portlet_save(Map<String, Object> requestData) {
+		MongoCollection<Document> appcol = portlet.getCollection("app");				
+		String code = requestData.get("code").toString();
+		//기존에 동일한 코드가 존재하는지 체크한다.				
+		Document query = new Document();
+		query.put("code", code);			
+		appcol.deleteOne(query);			
+		Document doc = new Document();
+		doc = new Document(requestData);
+		doc.put("GMT", Utils.GMTDate());	
+		try{			
+			appcol.insertOne(doc);				
+			return ResInfo.success();
+		}catch(Exception e){			
+			e.printStackTrace();
+			return ResInfo.error("Code alreay exist");
+		}		
+	}
+	
+	public Object portlet_delete(Map<String, Object> requestData) {
+		MongoCollection<Document> appcol = portlet.getCollection("app");					
+		String[] codes = requestData.get("code").toString().split("-spl-");					
+		for (int i = 0 ; i < codes.length; i++) {
+			String code = codes[i];
+			Document query = new Document();
+			query.put("code", code);					
+			try{						
+				appcol.deleteOne(query);				
+			}catch(Exception e){
+				e.printStackTrace();
+				return ResInfo.error(e.getMessage());
+			}
+		}
+		return ResInfo.success();
+	}
+	
+	public Object alarmcenter_list(Map<String, Object> requestData) {
+		try {
+			MongoCollection<Document> col = alarmcenter_db.getCollection("alarm_system_info");
+			String word = requestData.get("query").toString();		
+			int st = Integer.parseInt(requestData.get("start").toString());
+			int perpage = Integer.parseInt(requestData.get("perpage").toString());
+			String isAdmin = requestData.get("admin").toString();
+			Document Sort = new Document();
+			if (isAdmin.equals("T")) {
+				Sort.append("GMT", -1);
+			}else {
+				Sort.append("nm", 1);
+			}			
+			List<Document> andquery = new ArrayList<Document>();										
+			Document xquery = new Document();			
+			Document query = new Document();
+			if (isAdmin.equals("T")) {		
+				//관리자는 전체 리스트를 표시한다.
+			}else {
+				Document xquery2 = new Document();
+				List<Document> orquery = new ArrayList<Document>();
+				//개인의 경우 사용자 ky값과 부서정보를 활용해서 readers를 계산한다.
+				String email = requestData.get("email").toString();	
+				Pattern regex = Pattern.compile(email, Pattern.CASE_INSENSITIVE);						
+				List<String> excompany = new ArrayList<>();
+				if (requestData.containsKey("depts")) {
+					List<String> llk = new ArrayList<>();
+					llk.add(email);				
+					String lix = requestData.get("depts").toString();			
+					lix = lix.replaceAll("\\^", "-spl-");
+					if (!lix.equals("")) {
+						String[] lists = lix.split("-spl-");
+						for (int i = 0 ; i < lists.length; i++) {
+							String dept = lists[i];
+							llk.add(dept);
+							if (i != 0) {
+								excompany.add(dept);
+							}
+						}
+						excompany.add("all");
+					}			
+					query.put("readers", new Document("$in", llk));
+				}else {
+					query.put("readers", regex);
+				}
+				orquery.add(query);					
+				String ky = requestData.get("email").toString();
+				if (ky.toLowerCase().contains("im")) {
+					Document px = new Document();
+					px.append("im_disable", "F");
+					orquery.add(px);
+				}				
+				xquery2.append("$and", orquery);			
+				Document xquery3 = new Document();
+				Document tquery = new Document();
+				List<Document> orquery2 = new ArrayList<Document>();
+				excompany.add(email);
+				xquery3.put("readers", new Document("$in", excompany));				
+				orquery2.add(xquery2);
+				orquery2.add(xquery3);
+				tquery.append("$or", orquery2);				
+				andquery.add(tquery);
+			}
+			
+			if (!word.equals("")) {
+				//검색형태로 들어온 경우
+				Document query2 = new Document();
+				Pattern regex2 = Pattern.compile(word, Pattern.CASE_INSENSITIVE);	
+				String category = requestData.get("category").toString();
+				List<Document> orquery = new ArrayList<Document>();				
+				if (category.equals("title")) {					
+					Document q1 = new Document();
+					q1.append("nm", regex2);
+					Document q2 = new Document();
+					q2.append("enm", regex2);
+					orquery.add(q1);
+					orquery.add(q2);					
+				}else if (category.equals("code")) {
+					query2.put("noti_id", regex2);
+					orquery.add(query2);
+				}
+				Document xx = new Document();
+				xx.put("$or", orquery);
+				
+				andquery.add(xx);	
+			}
+			xquery.put("$and", andquery);			
+			if (andquery.size() == 0) {
+				xquery = new Document();
+			}			
+			long total = 0;
+			total = col.countDocuments(xquery);		
+			FindIterable<Document> docs = col.find(xquery).skip(st).limit(perpage).sort(Sort);
+			List<Map<String, Object>> ar = new ArrayList<>();
+			for (Document doc : docs){
+				doc.put("_id", doc.get("_id").toString());
+				ar.add(DocumentConverter.toCleanMap(doc));
+			}
+			Map<String, Object> dx = new HashMap<>();
+			dx.put("response", ar);
+			dx.put("total", total);
+			return ResInfo.success(dx);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}
+	}
+	
+	public Object alarmcenter_dual_check(Map<String, Object> requestData) {
+		try {
+			MongoCollection<Document> appcol = alarmcenter_db.getCollection("alarm_system_info");
+			String code = requestData.get("noti_id").toString();		
+			Document query = new Document();
+			query.put("noti_id", code);
+			
+			Document sdoc = appcol.find(query).first();
+			Map<String, Object> rx = new HashMap<>();
+			if (sdoc != null) {
+				rx.put("exist", "T");
+			}else {
+				rx.put("exist", "F");
+			}
+			return ResInfo.success(rx);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}
+	}
+	
+	public Object alarmcenter_save(Map<String, Object> requestData) {
+		try {
+			MongoCollection<Document> appcol = alarmcenter_db.getCollection("alarm_system_info");					
+			String code = requestData.get("noti_id").toString();
+			//기존에 동일한 코드가 존재하는지 체크한다.				
+			Document query = new Document();
+			query.put("noti_id", code);			
+			appcol.deleteOne(query);			
+
+			Document doc = new Document();
+			doc = new Document(requestData);
+			doc.put("GMT", Utils.GMTDate());	
+		
+			appcol.insertOne(doc);				
+		}catch(Exception e) {
+			e.printStackTrace();
+			return ResInfo.error("Code alreay exist");
+		}	
+		return ResInfo.success();
+	}
+	
+	public Object alarmcenter_delete(Map<String, Object> requestData) {
+		MongoCollection<Document> appcol = alarmcenter_db.getCollection("alarm_system_info");		
+		String[] codes = requestData.get("noti_id").toString().split("-spl-");		
+		for (int i = 0 ; i < codes.length; i++) {
+			String code = codes[i];
+			Document query = new Document();
+			query.put("noti_id", code);					
+			try{						
+				appcol.deleteOne(query);
+			}catch(Exception e){
+				e.printStackTrace();
+				return ResInfo.error(e.getMessage());
+			}
+		}
+		return ResInfo.success();
+	}
 }

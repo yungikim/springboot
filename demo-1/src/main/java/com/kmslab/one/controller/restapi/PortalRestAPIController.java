@@ -117,11 +117,60 @@ public class PortalRestAPIController {
 		return portalService.appstore_mobile_delete(requestData);
 	}
 	
-//	@PostMapping("/portlet_list.km")
-//	public Object portlet_list(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
-//		requestData.put("email", userId);
-//		requestData.put("depts", depts);
-//		return portalService.portlet_list(requestData);
-//	}
+	@PostMapping("/portlet_list.km")
+	public Object portlet_list(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return portalService.portlet_list(requestData);
+	}
+	
+	@PostMapping("/portlet_dual_check.km")
+	public Object portlet_dual_check(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return portalService.portlet_dual_check(requestData);
+	}
+	
+	@PostMapping("/portlet_save.km")
+	public Object portlet_save(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return portalService.portlet_save(requestData);
+	}
+	
+	@PostMapping("/portlet_delete.km")
+	public Object portlet_delete(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return portalService.portlet_delete(requestData);
+	}
+	
+	@PostMapping("/alarmcenter_list.km")
+	public Object alarmcenter_list(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return portalService.alarmcenter_list(requestData);
+	}
+	
+	@PostMapping("/alarmcenter_dual_check.km")
+	public Object alarmcenter_dual_check(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return portalService.alarmcenter_dual_check(requestData);
+	}
+	
+	@PostMapping("/alarmcenter_save.km")
+	public Object alarmcenter_save(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return portalService.alarmcenter_save(requestData);
+	}
+	
+	@PostMapping("/alarmcenter_delete.km")
+	public Object alarmcenter_delete(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return portalService.alarmcenter_delete(requestData);
+	}
 	
 }

@@ -6024,7 +6024,7 @@ gTop.prototype = {
 				}
 			});
 		}else if (gTop.admin_log_menu == "portlet_mng"){
-			var surl = gap.channelserver + "/portlet_list.km";
+			var surl = gap.channelserver + "/api/portal/portlet_list.km";
 			var postData = {
 					"start" : (gTop.start_skp - 1).toString(),
 					"perpage" : gTop.per_page,
@@ -6039,14 +6039,14 @@ gTop.prototype = {
 			$.ajax({
 				type : "POST",
 				url : surl,
-				dataType : "text",	//"json",
+				dataType : "json",	//"json",
 				data : JSON.stringify(postData),
 				beforeSend : function(xhr){
 					xhr.setRequestHeader("auth", gap.get_auth());
 					xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 				},	
 				success : function(__res){
-					var res = JSON.parse(__res);
+					var res = __res;
 					var _list = res.data.response;
 					
 					if (gTop.admin_log_query != ""){
@@ -7081,7 +7081,7 @@ gTop.prototype = {
 				
 				$.ajax({
 					type: 'POST',
-					url: gap.channelserver + '/portlet_delete.km',
+					url: gap.channelserver + '/api/portal/portlet_delete.km',
 					dataType: 'json',
 					data: JSON.stringify({code: code}),
 					beforeSend : function(xhr){
@@ -7346,7 +7346,7 @@ gTop.prototype = {
 				$.ajax({
 					type: "POST",
 					async: false,
-					url: gap.channelserver + "/portlet_dual_check.km",
+					url: gap.channelserver + "/api/portal/portlet_dual_check.km",
 					dataType : "json",
 					data : JSON.stringify({code:_code}),
 					beforeSend : function(xhr){
@@ -7479,7 +7479,7 @@ gTop.prototype = {
 
 		$.ajax({
 			type: 'POST',
-			url: gap.channelserver + '/portlet_save.km',
+			url: gap.channelserver + '/api/portal/portlet_save.km',
 			dataType: 'json',
 			data: obj,
 			beforeSend : function(xhr){

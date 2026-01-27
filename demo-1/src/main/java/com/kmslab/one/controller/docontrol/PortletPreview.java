@@ -1,4 +1,4 @@
-package com.kmslab.one.service.doservice;
+package com.kmslab.one.controller.docontrol;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,15 +17,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
-public class FileDownloadMenuIconMobileController {
-	
+public class PortletPreview {
 	@Autowired
 	private AppConfig appConfig;
 	
-	@GetMapping("/menuicon_mobile.do")
-	public void downloadMenuIconMobile(@RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response) throws IOException{
+	@GetMapping("/portletpreview.do")
+	public void downloadPortletpreview(@RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String dir = appConfig.getFileDownloadPath();
-		String filePath = dir + File.separator + "appstore_mobile" + File.separator + code + ".png";
+		String filePath = dir + File.separator + "portlet" + File.separator + code + ".png";
 		String downloadFileName = code + ".png";
 		
 		File downloadFile = new File(filePath);

@@ -6472,7 +6472,7 @@ gcommon.prototype = {
 	
 	"alarm_sys_remove" : function(code, sys_nm, sys_sel){
 		var _self = this;
-		var _url = gap.channelserver + "/alarmcenter_delete.km";
+		var _url = gap.channelserver + "/api/portal/alarmcenter_delete.km";
 		
 		gap.showConfirm({
 			title: '메뉴삭제',
@@ -6816,7 +6816,7 @@ gcommon.prototype = {
 				
 			} else {
 				var _code = $.trim($('#reg_alarm_sys_code').val());
-				var check_url = gap.channelserver + "/alarmcenter_dual_check.km";
+				var check_url = gap.channelserver + "/api/portal/alarmcenter_dual_check.km";
 				$.ajax({
 					type: "POST",
 					async: false,
@@ -6828,7 +6828,7 @@ gcommon.prototype = {
 						xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 					},
 					success: function(res){
-						if (res.data.data.exist == 'T') {
+						if (res.data.exist == 'T') {
 							mobiscroll.toast({message:"중복된 시스템코드가 있습니다.", color:"danger"});
 							$('#reg_alarm_sys_code').focus();
 							$this.removeClass('process');
@@ -6999,7 +6999,7 @@ gcommon.prototype = {
 			udt: moment().format('YYYYMMDDHHmmss')
 		};
 		
-		var _url = gap.channelserver + "/alarmcenter_save.km";
+		var _url = gap.channelserver + "/api/portal/alarmcenter_save.km";
 		
 		// 프로파일 문서 관리용 데이터(메일 도착전 에이전트에서 사용하는 프로파일 문서) ///////////
 		var surl = location.protocol + "//" + window.mailserver + "/" + window.profiledbpath + "/sendAlarmProfileMng?OpenForm";
@@ -7649,7 +7649,7 @@ gcommon.prototype = {
 				}
 			});
 		}else if (gcom.admin_log_menu == "portlet_mng"){
-			var surl = root_path + "/portlet_list.km";
+			var surl = root_path + "/api/portal/portlet_list.km";
 			var postData = {
 					"start" : (gcom.start_skp - 1).toString(),
 					"perpage" : gcom.per_page,
@@ -7664,14 +7664,14 @@ gcommon.prototype = {
 			$.ajax({
 				type : "POST",
 				url : surl,
-				dataType : "text",	//"json",
+				dataType : "json",	//"json",
 				data : JSON.stringify(postData),
 				beforeSend : function(xhr){
 					xhr.setRequestHeader("auth", gap.get_auth());
 					xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 				},	
 				success : function(__res){
-					var res = JSON.parse(__res);
+					var res = __res;
 					var _list = res.data.response;
 					
 					if (gcom.admin_log_query != ""){
@@ -7717,7 +7717,7 @@ gcommon.prototype = {
 				}
 			});
 		}else if (gcom.admin_log_menu == "alarm_sys_mng"){
-			var surl = gap.channelserver + "/alarmcenter_list.km";
+			var surl = gap.channelserver + "/api/portal/alarmcenter_list.km";
 			var postData = {
 					"start" : (gcom.start_skp - 1).toString(),
 					"perpage" : gcom.per_page,
@@ -7732,14 +7732,14 @@ gcommon.prototype = {
 			$.ajax({
 				type : "POST",
 				url : surl,
-				dataType : "text",	//"json",
+				dataType : "json",	//"json",
 				data : JSON.stringify(postData),
 				beforeSend : function(xhr){
 					xhr.setRequestHeader("auth", gap.get_auth());
 					xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 				},	
 				success : function(__res){
-					var res = JSON.parse(__res);
+					var res = __res;
 					var _list = res.data.response;
 					
 					if (gcom.admin_log_query != ""){
@@ -7977,6 +7977,8 @@ gcommon.prototype = {
 				_self.category_remove(_key, _name);
 			} else if (gcom.admin_log_menu == "kgpt_intent") {
 				_self.intent_remove(_key, _code, _name);
+			} else if (gcom.admin_log_menu == "alarm_sys_mng"){
+				_self.alarm_sys_remove(_key, _name, _code);
 			} else {
 				_self.menu_remove(_key, _name);
 			}
@@ -8443,7 +8445,7 @@ gcommon.prototype = {
 				
 				$.ajax({
 					type: 'POST',
-					url: gap.channelserver + '/portlet_delete.km',
+					url: gap.channelserver + '/api/portal/portlet_delete.km',
 					dataType: 'json',
 					data: JSON.stringify({code: code}),
 					beforeSend : function(xhr){
@@ -8708,7 +8710,7 @@ gcommon.prototype = {
 				$.ajax({
 					type: "POST",
 					async: false,
-					url: gap.channelserver + "/portlet_dual_check.km",
+					url: gap.channelserver + "/api/portal/portlet_dual_check.km",
 					dataType : "json",
 					data : JSON.stringify({code:_code}),
 					beforeSend : function(xhr){
@@ -8716,7 +8718,7 @@ gcommon.prototype = {
 						xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 					},
 					success: function(res){
-						if (res.data.data.exist == 'T') {
+						if (res.data.exist == 'T') {
 							mobiscroll.toast({message:"중복된 Key가 있습니다.", color:"danger"});
 							$('#reg_portlet_code').focus();
 							$this.removeClass('process');
@@ -8847,7 +8849,7 @@ gcommon.prototype = {
 
 		$.ajax({
 			type: 'POST',
-			url: gap.channelserver + '/portlet_save.km',
+			url: gap.channelserver + '/api/portal/portlet_save.km',
 			dataType: 'json',
 			data: obj,
 			beforeSend : function(xhr){

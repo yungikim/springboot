@@ -1433,7 +1433,7 @@ gAlarmEnv.prototype = {
 		
 		var dfd = $.Deferred();
 		
-		var surl = gap.channelserver + "/alarmcenter_list.km";
+		var surl = gap.channelserver + "/api/portal/alarmcenter_list.km";
 		var postData = {
 		      "start" : 0,
 		      "perpage" : 100,
@@ -1455,7 +1455,7 @@ gAlarmEnv.prototype = {
 		      xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 		   },
 		   success : function(__res){
-			   var res = JSON.parse(__res);
+			   var res = __res;
 			   dfd.resolve(res);
 			  
 		      /*var _list = res.data.response;
