@@ -177,7 +177,7 @@ gBodyFN.prototype = {
 	"init" : function(opt){		
 
 		gBody.mail_domain = "https://" + mailserver + "/" + maildbpath;	
-		if (location.href.indexOf("dev.kmslab.com") > -1){
+		if (location.href.indexOf("dev") > -1){
 			gBody.isDev = true;
 			//gBody.mail_domain = gBody.mail_domain.replace("https://","http://");
 		 }
