@@ -4721,7 +4721,7 @@ gcommon.prototype = {
 			} else {
 				var _code = $.trim($('#reg_category_code').val());
 				var check_url = gap.channelserver;
-				check_url += (is_mobile ? root_path + "/appstore_mobile_dual_check.km" : root_path + "/appstore_dual_check.km");
+				check_url += (is_mobile ? root_path + "/api/portal/appstore_mobile_dual_check.km" : root_path + "/api/portal/appstore_dual_check.km");
 				$.ajax({
 					type: "POST",
 					async: false,
@@ -4733,7 +4733,7 @@ gcommon.prototype = {
 						xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 					},
 					success: function(res){
-						if (res.data.data.exist == 'T') {
+						if (res.data.exist == 'T') {
 							mobiscroll.toast({message:"중복된 Key가 있습니다.", color:"danger"});
 							$('#reg_menu_code').focus();
 							$this.removeClass('process');
@@ -4802,7 +4802,7 @@ gcommon.prototype = {
 		};
 	
 		var _url = gap.channelserver;
-		_url += (is_mobile ? root_path + "/appstore_category_mobile_save.km" : root_path + "/appstore_category_save.km");
+		_url += (is_mobile ? root_path + "/api/portal/appstore_category_mobile_save.km" : root_path + "/api/portal/appstore_category_save.km");
 
 		$.ajax({
 			type: 'POST',
@@ -4942,7 +4942,7 @@ gcommon.prototype = {
 			url: root_path + "/api/user/search_company.km",
 			async: false,
 			success: function(res){
-				$.each(res, function(){
+				$.each(res.data, function(){
 					_company += 
 						'<li data-key="' + this.cpc + '">' +
 						'	<label>' +
@@ -4956,7 +4956,7 @@ gcommon.prototype = {
 		});
 		
 		// 대메뉴 가져오기
-		var surl = root_path + "/appstore_category_list.km";
+		var surl = root_path + "/api/portal/appstore_category_list.km";
 		var postData = {
 				"start" : "0",
 				"perpage" : gcom.per_page,
@@ -4968,14 +4968,14 @@ gcommon.prototype = {
 			type : "POST",
 			url : surl,
 			async: false,
-			dataType : "text",	//"json",
+			dataType : "json",	//"json",
 			data : JSON.stringify(postData),
 			beforeSend : function(xhr){
 				xhr.setRequestHeader("auth", gap.get_auth());
 				xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 			},	
 			success : function(__res){
-				var res = JSON.parse(__res);
+				var res = __res;
 				var _list = res.data.response;
 				var _html = "";
 				
@@ -5167,7 +5167,7 @@ gcommon.prototype = {
 			url: gap.channelserver + "/api/user/search_company.km",
 			async: false,
 			success: function(res){
-				$.each(res, function(){
+				$.each(res.data, function(){
 					_company += 
 						'<li data-key="' + this.cpc + '">' +
 						'	<label>' +
@@ -5260,7 +5260,7 @@ gcommon.prototype = {
 	"category_remove" : function(code, menu_nm, is_mobile){
 		var _self = this;
 		var _url = gap.channelserver;
-		_url += (is_mobile ? root_path + "/appstore_category_mobile_delete.km" : root_path + "/appstore_category_delete.km");
+		_url += (is_mobile ? root_path + "/api/portal/appstore_category_mobile_delete.km" : root_path + "/api/portal/appstore_category_delete.km");
 		
 		gap.showConfirm({
 			title: '대메뉴 삭제',
@@ -5312,7 +5312,7 @@ gcommon.prototype = {
 	"menu_remove" : function(code, menu_nm, is_mobile){
 		var _self = this;
 		var _url = gap.channelserver;
-		_url += (is_mobile ? root_path + "/appstore_mobile_delete.km" : root_path + "/appstore_delete.km");
+		_url += (is_mobile ? root_path + "/api/portal/appstore_mobile_delete.km" : root_path + "/api/portal/appstore_delete.km");
 		
 		gap.showConfirm({
 			title: '메뉴삭제',
@@ -5597,7 +5597,7 @@ gcommon.prototype = {
 			} else {
 				var _code = $.trim($('#reg_menu_code').val());
 				var check_url = gap.channelserver;
-				check_url += (is_mobile ? root_path + "/appstore_mobile_dual_check.km" : root_path + "/appstore_dual_check.km");
+				check_url += (is_mobile ? root_path + "/api/portal/appstore_mobile_dual_check.km" : root_path + "/api/portal/appstore_dual_check.km");
 				$.ajax({
 					type: "POST",
 					async: false,
@@ -5609,7 +5609,7 @@ gcommon.prototype = {
 						xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 					},
 					success: function(res){
-						if (res.data.data.exist == 'T') {
+						if (res.data.exist == 'T') {
 							mobiscroll.toast({message:"중복된 Key가 있습니다.", color:"danger"});
 							$('#reg_menu_code').focus();
 							$this.removeClass('process');
@@ -5796,7 +5796,7 @@ gcommon.prototype = {
 		}
 		
 		var _url = gap.channelserver;
-		_url += (is_mobile ? root_path + "/appstore_mobile_save.km" : root_path + "/appstore_save.km");
+		_url += (is_mobile ? root_path + "/api/portal/appstore_mobile_save.km" : root_path + "/api/portal/appstore_save.km");
 
 		$.ajax({
 			type: 'POST',
@@ -6350,7 +6350,7 @@ gcommon.prototype = {
 			url: gap.channelserver + "/api/user/search_company.km",
 			async: false,
 			success: function(res){
-				$.each(res, function(){
+				$.each(res.data, function(){
 					_company += 
 						'<li data-key="' + this.cpc + '">' +
 						'	<label>' +
@@ -7433,7 +7433,7 @@ gcommon.prototype = {
 				}
 			});
 		}else if (gcom.admin_log_menu == "category_mng"){
-			var surl = root_path + "/appstore_category_list.km";
+			var surl = root_path + "/api/portal/appstore_category_list.km";
 			var postData = {
 					"start" : (gcom.start_skp - 1).toString(),
 					"perpage" : gcom.per_page,
@@ -7448,14 +7448,14 @@ gcommon.prototype = {
 			$.ajax({
 				type : "POST",
 				url : surl,
-				dataType : "text",	//"json",
+				dataType : "json",	//"json",
 				data : JSON.stringify(postData),
 				beforeSend : function(xhr){
 					xhr.setRequestHeader("auth", gap.get_auth());
 					xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 				},	
 				success : function(__res){
-					var res = JSON.parse(__res);
+					var res = __res;
 					var _list = res.data.response;
 					
 					if (gcom.admin_log_query != ""){
@@ -7563,7 +7563,7 @@ gcommon.prototype = {
 				}
 			});
 		}else if (gcom.admin_log_menu == "m_menu_mng"){
-			var surl = root_path + "/appstore_mobile_list.km";
+			var surl = root_path + "/api/portal/appstore_mobile_list.km";
 			var postData = {
 					"start" : (gcom.start_skp - 1).toString(),
 					"perpage" : gcom.per_page,
@@ -7968,17 +7968,17 @@ gcommon.prototype = {
 			var _key = $(this).data('key');
 			var _code = $(this).data('code');
 			var _name = $(this).data('name');
-			
+
 			if (gcom.admin_log_menu == "portlet_mng") {
-				_self.portlet_remove(_code, _name);
+				_self.portlet_remove(_key, _name);
 			} else if (gcom.admin_log_menu == "m_menu_mng") {
-				_self.menu_remove(_code, _name, true);
+				_self.menu_remove(_key, _name, true);
 			} else if (gcom.admin_log_menu == "category_mng") {
-				_self.category_remove(_code, _name);
+				_self.category_remove(_key, _name);
 			} else if (gcom.admin_log_menu == "kgpt_intent") {
 				_self.intent_remove(_key, _code, _name);
 			} else {
-				_self.menu_remove(_code, _name);
+				_self.menu_remove(_key, _name);
 			}
 			return false;
 		});
@@ -8349,7 +8349,7 @@ gcommon.prototype = {
 			url: gap.channelserver + "/api/user/search_company.km",
 			async: false,
 			success: function(res){
-				$.each(res, function(){
+				$.each(res.data, function(){
 					_company += 
 						'<li data-key="' + this.cpc + '">' +
 						'	<label>' +
@@ -9083,7 +9083,7 @@ gcommon.prototype = {
 			url: root_path + "/api/user/search_company.km",
 			async: false,
 			success: function(res){
-				$.each(res, function(){
+				$.each(res.data, function(){
 					_company += 
 						'<li data-key="' + this.cpc + '">' +
 						'	<label>' +

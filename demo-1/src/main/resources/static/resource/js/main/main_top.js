@@ -5030,7 +5030,7 @@ gTop.prototype = {
 	"menu_remove" : function(code, menu_nm, is_mobile){
 		var _self = this;
 		var _url = gap.channelserver;
-		_url += (is_mobile ? "/appstore_mobile_delete.km" : "/appstore_delete.km");
+		_url += (is_mobile ? "/api/portal/appstore_mobile_delete.km" : "/api/portal/appstore_delete.km");
 		
 		gap.showConfirm({
 			title: '메뉴삭제',
@@ -5314,7 +5314,7 @@ gTop.prototype = {
 			} else {
 				var _code = $.trim($('#reg_menu_code').val());
 				var check_url = gap.channelserver;
-				check_url += (is_mobile ? "//appstore_mobile_dual_check.km" : "/appstore_dual_check.km");
+				check_url += (is_mobile ? "/api/portal/appstore_mobile_dual_check.km" : "/api/portal/appstore_dual_check.km");
 				$.ajax({
 					type: "POST",
 					async: false,
@@ -5326,7 +5326,7 @@ gTop.prototype = {
 						xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
 					},
 					success: function(res){
-						if (res.data.data.exist == 'T') {
+						if (res.data.exist == 'T') {
 							mobiscroll.toast({message:"중복된 Key가 있습니다.", color:"danger"});
 							$('#reg_menu_code').focus();
 							$this.removeClass('process');
@@ -5938,7 +5938,7 @@ gTop.prototype = {
 				}
 			});
 		}else if (gTop.admin_log_menu == "m_menu_mng"){
-			var surl = gap.channelserver + "/appstore_mobile_list.km";
+			var surl = gap.channelserver + "/api/portal/appstore_mobile_list.km";
 			var postData = {
 					"start" : (gTop.start_skp - 1).toString(),
 					"perpage" : gTop.per_page,

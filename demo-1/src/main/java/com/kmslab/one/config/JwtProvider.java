@@ -1,11 +1,13 @@
 package com.kmslab.one.config;
 
 import java.nio.charset.StandardCharsets;
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -20,13 +22,13 @@ public class JwtProvider {
     private byte[] key;
     
     @Value("${jwt.expiration-ms}")
-    private long tokenValidityInMilliseconds;
+    private long tokenValidityInMilliseconds;    
     
     @PostConstruct
     public void init() {
         this.key = secretKey.getBytes(StandardCharsets.UTF_8);
     }
-    
+       
     public String createToken(String email, String depths, String userid) {
         Map<String, Object> headers = new HashMap<>();
         headers.put("typ", "JWT");
@@ -39,7 +41,6 @@ public class JwtProvider {
         
         Long expiredTime = tokenValidityInMilliseconds;
         Date ext = new Date(System.currentTimeMillis() + expiredTime);
-        
         return Jwts.builder()
                 .setHeader(headers)
                 .setClaims(payloads)
@@ -47,7 +48,7 @@ public class JwtProvider {
                 .setExpiration(ext)
                 .signWith(SignatureAlgorithm.HS256, secretKey.getBytes())
                 .compact();
-    }
+    }    
     
     public Claims getClaims(String token) {
         return Jwts.parser()

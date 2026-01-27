@@ -26,6 +26,13 @@ public class PortalRestAPIController {
 		return portalService.appstore_list(requestData);
 	}
 	
+	@PostMapping("/appstore_mobile_list.km")
+	public Object appstore_mobile_list(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return portalService.appstore_mobile_list(requestData);
+	}
+	
 	@PostMapping("/portal_favorite_info.km")
 	public Object portal_favorite_info(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
 		requestData.put("email", userId);
@@ -47,7 +54,74 @@ public class PortalRestAPIController {
 		return portalService.save_person_portlet(requestData);
 	}
 	
+	@PostMapping("/appstore_category_list.km")
+	public Object appstore_category_list(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return portalService.appstore_category_list(requestData);
+	}
 	
+	@PostMapping("/appstore_dual_check.km")
+	public Object appstore_dual_check(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return portalService.appstore_dual_check(requestData);
+	}
+
+	@PostMapping("/appstore_mobile_dual_check.km")
+	public Object appstore_mobile_dual_check(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return portalService.appstore_mobile_dual_check(requestData);
+	}
 	
+	@PostMapping("/appstore_category_save.km")
+	public Object appstore_category_save(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return portalService.appstore_category_save(requestData);
+	}
+	
+	@PostMapping("/appstore_category_delete.km")
+	public Object appstore_category_delete(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return portalService.appstore_category_delete(requestData);
+	}
+	
+	@PostMapping("/appstore_save.km")
+	public Object appstore_save(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return portalService.appstore_save(requestData);
+	}
+	
+	@PostMapping("/appstore_delete.km")
+	public Object appstore_delete(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return portalService.appstore_delete(requestData);
+	}
+	
+	@PostMapping("/appstore_mobile_save.km")
+	public Object appstore_mobile_save(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return portalService.appstore_mobile_save(requestData);
+	}
+	
+	@PostMapping("/appstore_mobile_delete.km")
+	public Object appstore_mobile_delete(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return portalService.appstore_mobile_delete(requestData);
+	}
+	
+//	@PostMapping("/portlet_list.km")
+//	public Object portlet_list(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+//		requestData.put("email", userId);
+//		requestData.put("depts", depts);
+//		return portalService.portlet_list(requestData);
+//	}
 	
 }

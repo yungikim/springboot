@@ -30,7 +30,7 @@ public class UserService {
 	
 	//public JsonArray search_user_new(String name, String companycode){
 	public Object search_user_multi(String name, String companycode) {
-		List<Map<String, Object>> rex = new ArrayList<>();
+		List<List<Map<String, Object>>> rex = new ArrayList<>();
 		try{
 			MongoCollection<Document> col = user.getCollection("user_info");
 			
@@ -78,7 +78,8 @@ public class UserService {
 					//ar.add(DocumnetConvertJsonObject(doc));
 					ar.add(DocumentConverter.toCleanMap(doc));
 				}				
-				rex.addAll(ar);
+				rex.add(ar);
+				
 			}
 		}catch(Exception e){
 			e.printStackTrace();

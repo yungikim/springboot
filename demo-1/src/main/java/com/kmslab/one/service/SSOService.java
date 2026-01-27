@@ -26,6 +26,7 @@ public class SSOService {
 	@Autowired
 	private JwtProvider jwtProvider;
 	
+
 	
 	public JsonObject processSSO(String id, String pw, HttpSession session) {
 		JsonObject rex = new JsonObject();
@@ -76,7 +77,7 @@ public class SSOService {
 
                     String email = sdoc.getString("emp");
                     String depths = sdoc.getString("adc");
-                    String userid = sdoc.getString("em");
+                    String userid = sdoc.getString("lid");
 
                     if (email == null || email.isEmpty()) {
                         rex.addProperty("result", "ERROR");

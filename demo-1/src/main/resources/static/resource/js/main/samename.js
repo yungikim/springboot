@@ -81,7 +81,6 @@ gSameName.prototype = {
 			},
 			data: JSON.stringify(data),
 			success: function(data){
-				
 				clearTimeout(_self.search_req);
 				_self.search_result = data;
 				_self.reqSameNameLayer();
@@ -96,8 +95,7 @@ gSameName.prototype = {
 	
 	"reqSameNameLayer" : function(){
 		var _self = this;
-		
-		var users = this.search_result.data;
+		var users = this.search_result.data[this.nth_cnt];
 		var term = this.search_user[this.nth_cnt];
 	
 		if (users.length == 0) {
