@@ -1534,5 +1534,10 @@
 	"va326" : "Generating the PDF file...",
 	"va327" : "No templates are registered.",
 	"va328" : "Saved list",
-	"va329" : "Click the list to preview the report screen."
+	"va329" : "Click the list to preview the report screen.",
+	"va330" : "After selecting a chat room<br> click the 'Summarize Chat' button to summarize the latest conversation in that chat room.",
+	"va331" : "Update Chat Room",
+	"va332" : "Summarize Chat",
+	"va333" : "I will summarize the latest content of $s$ chat rooms.",
+	"va334" : "AI is summarizing the chat content. Please wait a moment."
 }

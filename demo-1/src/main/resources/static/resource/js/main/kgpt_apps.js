@@ -50,7 +50,6 @@
 		});
 		
 		 $(".ai_report_box .make_ai_graph_btn").off().on("click", function(e){
-		 	debugger;
 			//리서치 완료된 내용을 지식 그래프  창을 띄운다.
 			var id = $(e.currentTarget).data("id");
 			url = "/v/make/"+id;		
@@ -58,7 +57,6 @@
 		});
 		
 		 $(".ai_report_box .make_ai_mindmap_btn").off().on("click", function(e){
-		 	debugger;
 			//리서치 완료된 내용을 마인드 맵 창을 띄운다.
 			var id = $(e.currentTarget).data("id");
 			url = "/v/make/"+id;		
@@ -609,7 +607,7 @@
 		var cc = "normal_chat_" + new Date().getTime();				
 		$("#" + cc).parent().remove();
 		gptapps.ai_normal_response(cc);		
-		var __url = root_path + "/ai_notebook_list_for_access.km";
+		var __url = root_path + "/api/kgpt/ai_notebook_list_for_access.km";
 		var data = JSON.stringify({		
 		});
 		gap.ajaxCall(__url, data, function(res){			
@@ -618,7 +616,7 @@
 				var emp = gap.userinfo.rinfo.emp + "_share";
 				var items = [emp];
 				for (var i = 0 ; i < list.length; i++){
-					items.push(list[i]._id);
+					items.push(list[i]._id.$oid);
 				}
 			}
 			var qq = items.join(" ");
@@ -991,7 +989,7 @@
 			if (type == "url"){
 				window.open(path);
 			}else if (type == "txt"){
-				var __url = root_path + "/refer_info.km";
+				var __url = root_path + "/api/kgpt/refer_info.km";
 				var data = JSON.stringify({key:key, type: "admin"});
 				$.ajax({
 					type : "POST",
@@ -1123,7 +1121,7 @@
 							}
 						});					
 						//참고 문서를 겁색해서 하단에 표시해 준다.
-						var _refurl = root_path + "/refer_search.km";
+						var _refurl = root_path + "/api/kgpt/refer_search.km";
 						var _data = JSON.stringify({
 							key : ref
 						});
@@ -3128,7 +3126,75 @@
 		html += "		</span>";
 		html += "	</button>";
 		html += "</div>";		
+		
+		$("#teams_channel_list_" + teams_id).remove();
+		$("#dis_html_" + teams_id).remove();
+		
 		$("#dis_" + teams_id).append(html);		
+		
+		$("#dis_" + teams_id + " .teams_chip").off().on("click", function(e){
+			_this = $(e.currentTarget);
+			if (_this.attr("class").includes("is-selected")){
+				_this.removeClass("is-selected");
+			}else{
+				_this.addClass("is-selected");
+			}					
+		});				
+		$("#dis_" + teams_id + " .btn_channel_update").off().on("click", function(e){
+			//채널 업데이트 	
+			var data = JSON.stringify({
+				"m365" : gap.userinfo.rinfo.m365
+			});
+			var url = gptpt.plugin_domain_fast + "m365/my_teams_channel_update";
+			gap.ajaxCall(url, data, function(res){
+				var item = res[0];
+				gptapps.draw_teams_list(teams_id, item);				
+			});	
+		});				
+		$("#dis_" + teams_id + " .btn_channel_summary").off().on("click", function(e){
+			//선택 채널 요약하기					
+			_this = $("#teams_channel_list_" + _self.teams_id);
+			sub = _this.find(".is-selected");					
+			var rservation_id = "teams_channel_search_" + new Date().getTime();
+			var ans_li = "<div class='ai_answer_wrap'>";
+			ans_li += "		<div><div class='ai_img'></div></div>";
+			ans_li += "		<div class='ai_answer_box' id='dis_"+rservation_id+"'>";	
+			ans_li += "		</div>";
+			ans_li += "</div>";
+			$("#"+gptapps.dis_id).append(ans_li);		
+			var ans_li2 = "			" +gap.lang.va284.replace("$s$", sub.length);
+		    ans_li2 = gptpt.special_change(ans_li2);	    
+		    var options = {
+				strings : [ans_li2],
+				typeSpeed : 1,
+				contentType: 'html',
+				onComplete: function(){
+					gap.scroll_move_to_bottom_time_gpt(200);	
+					//$("#search_work").focus();							
+					for (var i = 0 ; i < sub.length; i++){
+						item = $(sub[i]);
+						var teams_id = item.data("teamsid");
+						var teams_name = item.data("teamsname");
+						var channel_id = item.data("channelid");
+						var channel_name = item.data("channelname");							
+						var c_rservation_id = rservation_id + "_" + i;
+						gptapps.draw_sub_channel_summary_dis(channel_name, teams_id, channel_id, teams_name, rservation_id, c_rservation_id);
+						gptapps.teams_channel_summary(teams_id, channel_id, c_rservation_id)
+					}								
+				
+					$("#dis_" + rservation_id + " .channel_link").off().on("click", function(e){	
+						var self = $(e.currentTarget)
+						var teams_id = self.data("t1");
+						var channel_id = self.data("t2");
+						var channel_name = self.data("t3");
+						var ten_id = "974a4117-4e78-49ed-9dec-30ffa9abac75";
+						var url = "https://teams.microsoft.com/l/channel/"+channel_id+"/"+channel_name+"?groupId="+teams_id+"&tenantId="+ten_id
+						gptapps.openweb(url);								
+					});							
+				}
+			}
+			var typed = new Typed("#dis_"+rservation_id, options);				
+		});
 	},
 	
 	"draw_my_teams_channel_list" : function(teams_id){		
@@ -3146,68 +3212,7 @@
 				var item = res[0];				
 				gptapps.draw_teams_list(teams_id, item);		
 				_self.teams_id = teams_id;						
-				$("#dis_" + teams_id + " .teams_chip").off().on("click", function(e){
-					_this = $(e.currentTarget);
-					if (_this.attr("class").includes("is-selected")){
-						_this.removeClass("is-selected");
-					}else{
-						_this.addClass("is-selected");
-					}					
-				});				
-				$("#dis_" + teams_id + " .btn_channel_update").off().on("click", function(e){
-					//채널 업데이트 	
-					var data = JSON.stringify({
-						"m365" : gap.userinfo.rinfo.m365
-					});
-					var url = gptpt.plugin_domain_fast + "m365/my_teams_channel_update";
-					gap.ajaxCall(url, data, function(res){
-						var item = res[0];
-						gptapps.draw_teams_list(teams_id, item);				
-					});	
-				});				
-				$("#dis_" + teams_id + " .btn_channel_summary").off().on("click", function(e){
-					//선택 채널 요약하기					
-					_this = $("#teams_channel_list_" + _self.teams_id);
-					sub = _this.find(".is-selected");					
-					var rservation_id = "teams_channel_search_" + new Date().getTime();
-					var ans_li = "<div class='ai_answer_wrap'>";
-					ans_li += "		<div><div class='ai_img'></div></div>";
-					ans_li += "		<div class='ai_answer_box' id='dis_"+rservation_id+"'>";	
-					ans_li += "		</div>";
-					ans_li += "</div>";
-					$("#"+gptapps.dis_id).append(ans_li);		
-					var ans_li2 = "			" +gap.lang.va284.replace("$s$", sub.length);
-				    ans_li2 = gptpt.special_change(ans_li2);	    
-				    var options = {
-						strings : [ans_li2],
-						typeSpeed : 1,
-						contentType: 'html',
-						onComplete: function(){
-							gap.scroll_move_to_bottom_time_gpt(200);	
-							//$("#search_work").focus();							
-							for (var i = 0 ; i < sub.length; i++){
-								item = $(sub[i]);
-								var teams_id = item.data("teamsid");
-								var teams_name = item.data("teamsname");
-								var channel_id = item.data("channelid");
-								var channel_name = item.data("channelname");							
-								var c_rservation_id = rservation_id + "_" + i;
-								gptapps.draw_sub_channel_summary_dis(channel_name, teams_id, channel_id, teams_name, rservation_id, c_rservation_id);
-								gptapps.teams_channel_summary(teams_id, channel_id, c_rservation_id)
-							}								
-							$(".channel_link").off().on("click", function(e){	
-								var self = $(e.currentTarget)
-								var teams_id = self.data("t1");
-								var channel_id = self.data("t2");
-								var channel_name = self.data("t3");
-								var ten_id = "974a4117-4e78-49ed-9dec-30ffa9abac75";
-								var url = "https://teams.microsoft.com/l/channel/"+channel_id+"/"+channel_name+"?groupId="+teams_id+"&tenantId="+ten_id
-								gptapps.openweb(url);								
-							});							
-						}
-					}
-					var typed = new Typed("#dis_"+rservation_id, options);				
-				});			
+							
 			},
 			error : function(e){
 				gap.error_alert();
@@ -3259,7 +3264,9 @@
 	"teams_channel_summary" : function(teams_id, channel_id, rservation_id){
 		var postData = JSON.stringify({
 			"channel_id" : channel_id,
-			"teams_id" : teams_id
+			"teams_id" : teams_id,
+			"lang" : gap.curLang,
+			"call_code" : "teams"
 		});
 		var ssp = new SSE(gptpt.plugin_domain_fast + "m365/teams_channel_summary", {headers: {'Content-Type': 'application/json; charset=utf-8'},
 			   payload:postData,
@@ -3432,6 +3439,356 @@
 		}
 		var typed = new Typed("#dis_"+rservation_id, options);
 	},
+	
+	"teams_chat_search" : function(){
+		//Teams에 내 채팅 정보 가져오기
+	    var rservation_id = "teams_chat_search_" + new Date().getTime();
+		var ans_li = "<div class='ai_answer_wrap'>";
+		ans_li += "		<div><div class='ai_img'></div></div>";
+		ans_li += "		<div class='ai_answer_box' id='dis_"+rservation_id+"'>";	
+		ans_li += "		</div>";
+		ans_li += "</div>";
+		$("#"+gptapps.dis_id).append(ans_li);		
+		var ans_li2 = "			"+gap.lang.va330+" ";
+	    ans_li2 = gptpt.special_change(ans_li2);	    
+	    var options = {
+			strings : [ans_li2],
+			typeSpeed : 1,
+			contentType: 'html',
+			onComplete: function(){
+				gap.scroll_move_to_bottom_time_gpt(200);	
+				//$("#search_work").focus();		
+				gptpt.gpt_input_focus();		
+				gptpt.voice_end();				
+				gptapps.draw_my_teams_chat_list(rservation_id);			
+			}
+		}
+		var typed = new Typed("#dis_"+rservation_id, options);
+	},
+	
+	
+	"draw_chat_list" : function(chat_id, list){
+		
+		var item = list.data;
+		var html = "";				
+		html += "<div id='teams_chat_list_"+chat_id+"' class='teams_channel_list'>";
+		html += "	<div class='teams_wrap'>";
+		html += " 		<div class='teams_chips' role='group'>";		
+		for (var i = 0; i < item.length; i++){
+			var info = item[i];
+			var topic = info.topic;
+			var lastupdate = info.last_updated;
+			if (topic == ""){
+				if (info.chat_type == "oneOnOne"){
+					//1:1 대화인 경우
+					var mem = info.members[info.members.length-1];
+				//	console.log(mem);
+					topic = mem.displayName + " 님과 대화";
+				}else if (info.chat_type == "group"){
+					//1:N인 경우
+					console.log(info);
+					console.log(info.members);
+					var mem = info.members[0];
+					var res = info.members.length-1;
+					if (res == 0){
+						topic = mem.displayName + " 님과 대화";
+					}else{
+						topic = mem.displayName + " 외 " + res + "명";
+					}
+					
+				}else{
+					//meeting인 경우 일단 제거한다.
+				}
+			}
+
+			if (info.chat_type != "meeting"){
+				html += "<button class='teams_chip' data-chatid='"+info.chat_id+"' data-topic='"+topic+"' data-lastupdate='"+lastupdate+"'>";   //is-selected
+				html += "	<span class='check_img'>"
+				html += "	</span>";
+				html += "	"+ topic
+				html += "</button>"
+			}
+
+		}		
+		html += "		</div>";
+		html += "	</div>";
+		html += "</div>";		
+		html += "<div class='btn_wrap' id='dis_html_"+chat_id+"'  style='justify-content: flex-end;'>	";
+		html += "	<button type='button' id='btn_update_"+chat_id+"' class='btn_channel_update active' style='display: inline-block;'>";
+		html += "		<span class='btn_inner'>";
+		html += "			<span class='btn_ico'></span>";
+		html += "			<span class='btn_name'>"+gap.lang.va331+"</span>";
+		html += "		</span>";
+		html += "	</button>";
+		html += "	<button type='button' id='btn_summary_"+chat_id+"' class='btn_channel_summary active'>";
+		html += "		<span class='btn_inner'>";
+		html += "			<span class='btn_ico'></span>";
+		html += "			<span class='btn_name'>"+gap.lang.va332+"</span>";
+		html += "		</span>";
+		html += "	</button>";
+		html += "</div>";		
+		
+		$("#teams_chat_list_" + chat_id).remove();
+		$("#dis_html_" + chat_id).remove();
+		
+		$("#dis_" + chat_id).append(html);		
+		
+		$("#dis_" + chat_id + " .teams_chip").off().on("click", function(e){
+			_this = $(e.currentTarget);
+			if (_this.attr("class").includes("is-selected")){
+				_this.removeClass("is-selected");
+			}else{
+				_this.addClass("is-selected");
+			}					
+		});	
+		
+		$("#dis_" + chat_id + " .btn_channel_update").off().on("click", function(e){
+			//채팅방 업데이트 	
+			var data = JSON.stringify({
+				"m365" : gap.userinfo.rinfo.m365
+			});
+			var url = gptpt.plugin_domain_fast + "m365/my_teams_chat_update";
+			gap.ajaxCall(url, data, function(res){
+				var item = res[0];
+				gptapps.draw_chat_list(chat_id, item);				
+			});	
+		});				
+		$("#dis_" + chat_id + " .btn_channel_summary").off().on("click", function(e){
+			//선택 채팅 요약하기					
+			_this = $("#teams_chat_list_" + _self.chat_id);
+			sub = _this.find(".is-selected");					
+			var rservation_id = "teams_chat_search_" + new Date().getTime();
+			var ans_li = "<div class='ai_answer_wrap'>";
+			ans_li += "		<div><div class='ai_img'></div></div>";
+			ans_li += "		<div class='ai_answer_box' id='dis_"+rservation_id+"'>";	
+			ans_li += "		</div>";
+			ans_li += "</div>";
+			$("#"+gptapps.dis_id).append(ans_li);		
+			var ans_li2 = "			" +gap.lang.va333.replace("$s$", sub.length);
+		    ans_li2 = gptpt.special_change(ans_li2);	    
+		    var options = {
+				strings : [ans_li2],
+				typeSpeed : 1,
+				contentType: 'html',
+				onComplete: function(){
+					gap.scroll_move_to_bottom_time_gpt(200);	
+					//$("#search_work").focus();							
+					for (var i = 0 ; i < sub.length; i++){
+						item = $(sub[i]);
+						var chat_id = item.data("chatid");
+						var topic = item.data("topic");
+						var lastupdate = item.data("lastupdate");
+																			
+						var c_rservation_id = rservation_id + "_" + i;
+						gptapps.draw_sub_chat_summary_dis(rservation_id, c_rservation_id, chat_id, topic, lastupdate);
+						gptapps.teams_chat_summary(c_rservation_id, chat_id)
+					}								
+					$("#dis_" + rservation_id + " .channel_link").off().on("click", function(e){	
+						var self = $(e.currentTarget);
+						var chat_id = self.data("t1");
+						var url = "https://teams.microsoft.com/l/chat/" + chat_id;
+						gptapps.openweb(url);								
+					});							
+				}
+			}
+			var typed = new Typed("#dis_"+rservation_id, options);				
+		});	
+		
+					
+	},
+	
+	"draw_my_teams_chat_list" : function(chat_id){		
+		var url = gptpt.plugin_domain_fast + "m365/my_teams_chat_list";
+		var data = JSON.stringify({
+			"m365" : gap.userinfo.rinfo.m365
+		});
+		$.ajax({
+			url : url,
+			data : data,
+			method : "POST",
+			crossDomain: true,
+			contentType : "application/json; charset=utf-8",
+			success : function(res){						
+				var item = res[0];				
+				var chatting_id = "teams_chating_" + new Date().getTime();
+				gptapps.draw_chat_list(chat_id, item);		
+				_self.chat_id = chat_id;
+				
+			},
+			error : function(e){
+				gap.error_alert();
+			}
+		});		
+	},	
+	
+	
+	
+	"draw_sub_chat_summary_dis" : function(rservation_id, c_rservation_id, chat_id, topic, lastupdate){
+		var html = "";
+		var time = gap.convertGMTLocalDateTime_new(lastupdate);
+		html += "<div class='ans_ul'>";
+		html += "	<div class='mail-container' id='chat_"+rservation_id+"'>";
+		html += "		<div class='mail-header'>";
+		html += "			<div class='mail-title'>"
+		html += "				<div class='mail-title-text'><h2>";
+		html += "					<span class='channel_link' style='font-size:18px; color:#007bff' data-t1='"+chat_id+"' data-t2='"+topic+"'>" + topic + "</span>";
+		html += "					<span style='font-size:18px;'> [마지막 업데이트 : " + time + "]</span></h2>";
+		html += "				</div>";
+		html += "			</div>";
+		html += "			<div class='mail-actions' data-key='"+chat_id+"'>";
+		html += "				<div class='button icon_eamil_expand' data-action='expand'></div>"
+		html += "			</div>"
+		html += "		</div>";
+		html += "		<div class='mail-body' id='chat_body_"+c_rservation_id+"' style='min-height:150px'>";
+		html += "			<div class='processing_dis'>";
+		html += "				<div class='item'>";
+		html += "					<div><img src='/resource/images/Template/main3.gif' style='width:60px'></div>";
+		html += "				</div>";
+		html += "				<div class='item'>";
+		html += "					<div>"+gap.lang.va334+"</div>";
+		html += "				</div>";
+		html += "			</div>";
+		html += "		</div>";
+		html += "	</div>";
+		html += "</div>";		
+		$("#dis_"+rservation_id).append(html);			
+
+		$(".mail-actions .icon_eamil_expand").off().on("click", function(e){
+			var cls = $(e.currentTarget).attr("class");
+			if (cls.indexOf("pand on") > -1){
+				$(e.currentTarget).removeClass("on");
+				$(e.currentTarget).parent().parent().next().fadeIn();		
+				$(e.currentTarget).parent().parent().removeClass("on");		
+			}else{
+				$(e.currentTarget).addClass("on");
+				$(e.currentTarget).parent().parent().next().fadeOut();				
+				$(e.currentTarget).parent().parent().addClass("on");
+			}
+		});
+	},
+	
+	"teams_chat_summary" : function(rservation_id, chat_id){
+		var postData = JSON.stringify({
+			"chat_id" : chat_id,
+			"limit" : 30,
+			"lang" : gap.curLang,
+			"call_code" : "teams_chat"
+		});
+		var ssp = new SSE(gptpt.plugin_domain_fast + "m365/teams_chat_summary", {headers: {'Content-Type': 'application/json; charset=utf-8'},
+			   payload:postData,
+	           method: 'POST'}
+	    );		    
+	    var cc = "chat_body_"+rservation_id;
+	    var accumulatedMarkdown = "";
+		$("#" + cc).addClass("markdown-body");
+		$("#" + cc).parent().css("white-space", "inherit");			
+		ssp.addEventListener('error', function(e) {
+			$("#btn_work_req").removeClass("stop");		
+			ssp.close();	
+		});		
+		
+		var is_end = false;
+		ssp.addEventListener('message', function(e) {	
+			//console.log(e.data);			
+			
+			var pph = e.data.replaceAll("-spl-", " ").replaceAll("#@creturn#@","\n"); //.replaceAll("-spl-", "&nbsp;").replaceAll("#@creturn#@","<br>").replaceAll("**","");			
+			if (e.data == "[DONE]"){
+				is_end = true;				
+				///// 답변이 끝나면 질문버튼 CSS 초기화
+				$("#btn_work_req").removeClass("stop");	
+				///// 답변이 끝나면 질문버튼 CSS 초기화
+				//ssp.close();
+        		//return;							
+			}else{		
+				if (is_end){
+					let fixed = pph
+					    .replace(/'/g, '"')   // 따옴표 변환
+					    .replace(/\bNone\b/g, 'null');
+					
+					let arr = JSON.parse(fixed);					
+					var html = "";
+					html += "<div class='ai-file-list'>";					
+					for (var k = 0 ; k < arr.length; k++){
+						var item = arr[k];
+						/*
+						if (arr[k].length > 1){
+							for (var y = 0 ; y < arr[0].length; y++){
+								item = arr[0][y];
+								var extension = item.name.split('.').pop();
+								var img_file = "";
+								if (extension == "pptx" || extension == "ppt"){
+									img_file = "ic-ppt-fill.svg";
+								}else if (extension == "xlsx" || extension == "xls"){
+									img_file = "ic-excel-fill.svg";
+								}else if (extension == "docx" || extension == "doc"){
+									img_file = "ic-word-fill.svg";
+								}else if (extension == "pdf"){
+									img_file = "ic-pdf-fill.svg";
+								}else{
+									ty = gap.is_file_type(item.name);
+									if (ty == "img"){
+										img_file = "ic-img-fill.svg";
+									}
+								}					
+								html += "<div class='ai-file-card' data-id='"+item.id+"' data-url='"+item.contentUrl+"' data-name='"+item.name+"'>";
+								html += "	<img src='../resource/images/ai/"+img_file+"' class='ai-file-icon' style='width:32px'>";
+								html += "	<div class='ai-file-info'>";
+								html += "		<div class='ai-file-name' title='"+item.name+"'>"+item.name+"</div>";
+								html += "		<div class='ai-file-time'>"+gap.convertGMTLocalDateTime_new(item.time)+"</div>";
+								html += "	</div>";
+								html += "</div>";		
+							}
+						}else{
+						*/
+							if (item.name){
+								var extension = item.name.split('.').pop();
+								var img_file = "";
+								if (extension == "pptx" || extension == "ppt"){
+									img_file = "ic-ppt-fill.svg";
+								}else if (extension == "xlsx" || extension == "xls"){
+									img_file = "ic-excel-fill.svg";
+								}else if (extension == "docx" || extension == "doc"){
+									img_file = "ic-word-fill.svg";
+								}else if (extension == "pdf"){
+									img_file = "ic-pdf-fill.svg";
+								}else{
+									ty = gap.is_file_type(item.name);
+									if (ty == "img"){
+										img_file = "ic-img-fill.svg";
+									}
+								}					
+								html += "<div class='ai-file-card' data-id='"+item.attachment_id+"' data-url='"+item.content_url+"' data-name='"+item.name+"'>";
+								html += "	<img src='../resource/images/ai/"+img_file+"' class='ai-file-icon' style='width:32px'>";
+								html += "	<div class='ai-file-info'>";
+								html += "		<div class='ai-file-name' title='"+item.name+"'>"+item.name+"</div>";
+								html += "		<div class='ai-file-time'>"+gap.convertGMTLocalDateTime_new(item.time)+"</div>";
+								html += "	</div>";
+								html += "</div>";
+							}
+		
+					//	}									
+					}
+					html += "</div>";
+					$("#chat_body_"+rservation_id).append(html);
+					
+					$(".ai-file-list .ai-file-card").off().on("click", function(e){						
+						var item = $(e.currentTarget);
+						var id = item.data("id");
+						var url = item.data("url");
+						turl = url + "?web=1";						
+						gptapps.openweb(turl);							
+					});					
+				}else if (pph != ""){
+					accumulatedMarkdown += pph;
+                	const html = marked.parse(accumulatedMarkdown);
+                	$("#"+cc).html(html);	                	
+				}					
+			}		
+		});
+		ssp.stream();    
+		gptpt.source.push(ssp);    
+	},	
+	
 	
 	"make_marking_dis" : function(){
 		//내부 자료 검색하
@@ -5361,7 +5718,7 @@
 			maxFilesize: 1024,
 			timeout: 180000000,
 			uploadMultiple: false,
-			acceptedFiles: '.pdf, .pptx, .ppt, .doc .docx, .txt, .hwp',
+			acceptedFiles: '.pdf, .pptx, .ppt, .doc, .docx, .txt, .hwp, .xlsx',
 			withCredentials: true,
 			previewsContainer: "#project_file_upload_pre_"+selectid,
 	//		clickable: "#" + selectid,
@@ -5376,6 +5733,7 @@
 			},
 			
 			error: function(file, message, xhr){			
+			
 			    //alert("추가할 수 없는 파일 타입입니다.");
 				//gptapps.draw_review_anlayzer(gap.lang.va94);
 			}
@@ -5677,7 +6035,7 @@
 			$("#file_upload_guide").remove();			
 	        var files = e.originalEvent.dataTransfer.files;
 	        if(files != null && files != undefined){	        	
-	        	const allowedExtensions = ['pdf', 'pptx', 'docx', 'txt', 'hwp']; 
+	        	const allowedExtensions = ['pdf', 'pptx', 'docx', 'txt', 'hwp', 'xlsx']; 
 	        	newfiles = gptapps.upload_file_check(allowedExtensions, files);	        	
 	        	if (newfiles.length > 0){
 					gptapps.draw_upload_files(newfiles, opt);
@@ -5691,7 +6049,7 @@
 		
 		$("#input_file").off().on("change", function(){
 			var files = document.getElementById("input_file").files;		
-			const allowedExtensions = ['pdf', 'pptx', 'docx', 'txt', 'hwp']; 			
+			const allowedExtensions = ['pdf', 'pptx', 'docx', 'txt', 'hwp', 'xlsx']; 			
 			newfiles = gptapps.upload_file_check(allowedExtensions, files);			
 			if (newfiles.length > 0){
 				gptapps.draw_upload_files(newfiles, opt);
@@ -6134,6 +6492,7 @@
 		var fileList = [];		
 		var html = "";			
 		var is_type = "";
+		
 
 		for(i=0; i < files.length; i++){
 			var f = files[i];			
@@ -6358,7 +6717,7 @@
 	////////////// 회의록 리스트 그리는 함수 ///////////////	
 	"meeting_left_list_draw" : async function(opt){
 		/////// 회의록 갯수		
-		var url = root_path + "/search_meeting_list.km";
+		var url = root_path + "/api/kgpt/search_meeting_list.km";
 		var data = JSON.stringify({
 			"start" : gptapps.start,
 			"perpage" : gptapps.perpage,
@@ -6390,7 +6749,7 @@
 			var item = listitem.data.data[i];
 			var data = JSON.parse(item.data);
 			var members = data.member;
-			var id = item._id;
+			var id = item._id.$oid;
 			if(i === 0){
 				tid = id;
 				html +=	"						<li class='list_item active' data-key='"+id+"'>";
@@ -6478,7 +6837,7 @@
 	"show_detail_meeting_recording" : function(key){
 		gptapps.current_key = key;
 		gptpt.meeting_link = gap.rp + root_path + "/linkview/" + key;
-		var url = root_path + "/load_meeting_recording_info.km";
+		var url = root_path + "/api/kgpt/load_meeting_recording_info.km";
 		var data = JSON.stringify({
 			"key" : key
 		});		
@@ -6776,7 +7135,7 @@
 	},
 	
 	"meeting_content_modify" : function(){
-		var url = root_path + "/meeting_content_modify.km";
+		var url = root_path + "/api/kgpt/meeting_content_modify.km";
 	
 		var content = $("#proceedings_textarea #meeting_content").html();
 		var data = JSON.stringify({
@@ -8438,7 +8797,7 @@
 					}				
 					
 					//동명이인 체크하고 넘어간다.
-					var surl = gap.channelserver + "/api/user/search_user_multi.km";
+					var surl = gap.channelserver + "/api/kgpt/search_user_multi.km";
 					var nameParam = Array.isArray(search_users) 
 				    ? search_users.join(',') 
 				    : search_users;

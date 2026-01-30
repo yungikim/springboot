@@ -2873,7 +2873,11 @@ function kgptportal(){
 				 var fix_html = "";
 				 var req_html = "";	
 				 //고정 업무 리스트 그리기	
-					 
+			//	 for (var i = 0 ; i < res.data.data.length; i++){
+			//		var item = res.data.data[i];					 
+			//		var id = item._id.$oid;
+			//		fix_html += gptpt.draw_req_html(item.msg, id, item.code, item.roomkey);			 
+			//	 }				 
 				 if (fix_html != ""){
 					 $("#fixed_menu_wrap").empty();
 					 $("#fixed_menu_wrap").append(fix_html);
@@ -2882,7 +2886,7 @@ function kgptportal(){
 				 //요청한 업무 리스트 그리기	 
 				 for (var j = 0 ; j < res.data.data2.length; j++){
 					 var item = res.data.data2[j];
-					 var id = item._id
+					 var id = item._id.$oid
 					 req_html += gptpt.draw_req_html(item.msg, id, item.code, item.roomkey);
 					/*
 					// 최대 갯수까지만 요청한 업무를 표시한다.
@@ -3067,7 +3071,7 @@ function kgptportal(){
 							}else{
 								for (var i = 0 ; i < items.length; i++){
 									var item = items[i];
-									html += gptpt.draw_req_html(item.msg, item._id, item.code, item.roomkey);
+									html += gptpt.draw_req_html(item.msg, item._id.$oid, item.code, item.roomkey);
 								}					
 								$("#more_work_list_ul").empty();		
 								$("#more_work_list_ul").append(html);
@@ -3299,7 +3303,7 @@ function kgptportal(){
 			var items = res.data.data;
 			for (var i = 0 ; i < items.length; i++){
 				var item = items[i];
-				html += gptpt.draw_req_html(item.msg, item._id, item.code, item.roomkey);
+				html += gptpt.draw_req_html(item.msg, item._id.$oid, item.code, item.roomkey);
 			}			
 			$("#more_work_list_ul").empty();
 			$("#more_work_list_ul").append(html);
@@ -4842,7 +4846,7 @@ function kgptportal(){
 		var id = $(obj).data("id");	
 		if (opt == "delete"){
 			//삭제요청한 경우			
-			var url = root_path + "/meeting_content_delete.km";
+			var url = root_path + "/api/kgpt/meeting_content_delete.km";
 			var data = JSON.stringify({
 				key : id
 			});
@@ -4874,7 +4878,7 @@ function kgptportal(){
 			"id" : id,
 			"roomkey" : roomkey
 		});
-		var url = root_path + "/change_person_ai_request.km";
+		var url = root_path + "/api/kgpt/change_person_ai_request.km";
 		$.ajax({
 			type : "POST",
 			url : url,
@@ -4988,7 +4992,7 @@ function kgptportal(){
 			return false;
 		}	
 		
-		var url = root_path + "/save_person_ai_request_log.km";	
+		var url = root_path + "/api/kgpt/save_person_ai_request_log.km";	
 		var room = "";
 		
 		if (gap.containString(gptpt.chat_log_save_event, gptpt.current_code)){
@@ -5163,7 +5167,7 @@ function kgptportal(){
 						});
 						
 						//참고 문서를 겁색해서 하단에 표시해 준다.
-						var _refurl = root_path + "/refer_search_person.km";
+						var _refurl = root_path + "/api/kgpt/refer_search_person.km";
 						var _data = JSON.stringify({
 							key : ref
 						});
@@ -5346,7 +5350,7 @@ function kgptportal(){
 			if (type == "url"){
 				window.open(path);
 			}else if (type == "txt"){
-				var __url = root_path + "/refer_info.km";
+				var __url = root_path + "/api/kgpt/refer_info.km";
 				var data = JSON.stringify({key:key, type: "person"});
 				$.ajax({
 					type : "POST",
@@ -5626,7 +5630,7 @@ function kgptportal(){
 						});
 						
 						//참고 문서를 겁색해서 하단에 표시해 준다.
-						var _refurl = root_path + "/refer_search_person.km";
+						var _refurl = root_path + "/api/kgpt/refer_search_person.km";
 						var _data = JSON.stringify({
 							key : ref
 						});
@@ -5712,7 +5716,7 @@ function kgptportal(){
 			if (type == "url"){
 				window.open(url);
 			}else if (type == "txt"){
-				var __url = root_path + "/refer_info.km";
+				var __url = root_path + "/api/kgpt/refer_info.km";
 				var data = JSON.stringify({key:key, type: calltype});
 				$.ajax({
 					type : "POST",
@@ -6099,6 +6103,13 @@ function kgptportal(){
 			//gptapps.company_data_chat(msg);	
 			//gptpt.save_person_log(msg);
 			gap.scroll_move_to_bottom_time_gpt(200);
+		}else if (gptpt.current_code == "teams_chat"){
+			//M365 Teams 데이터 검색하는 경우
+			gptpt.draw_request_msg(msg);			
+			//gptapps.innteraldata_search(msg, gptpt.current_code);		
+			//gptapps.company_data_chat(msg);	
+			//gptpt.save_person_log(msg);
+			gap.scroll_move_to_bottom_time_gpt(200);
     	}else{
 			 //호출한 내용을 개인화 저장한다.			
 			 if (msg != ""){	
@@ -6317,6 +6328,12 @@ function kgptportal(){
 			//M365 Teams 채널 데이 검색
 			gptpt.current_code = code;
 			gptapps.teams_channel_search();
+			//$("#search_work").focus();	
+			gptpt.gpt_input_focus();
+		}else if (code == "teams_chat"){
+			//M365 Teams 채팅 데이 검색
+			gptpt.current_code = code;
+			gptapps.teams_chat_search();
 			//$("#search_work").focus();	
 			gptpt.gpt_input_focus();
 			
