@@ -12,13 +12,15 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.kmslab.one.service.ResInfo;
 import com.kmslab.one.util.DocumentConverter;
+import com.kmslab.one.util.Utils;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Projections;
+import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.UpdateResult;
 
 @Service
 public class KGPTService {
@@ -422,6 +424,50 @@ public class KGPTService {
 		}catch(Exception e) {
 			e.printStackTrace();
 			return ResInfo.error("ERROR");
+		}
+	}
+	
+	public Object change_person_ai_request(Map<String, Object> requestData) {
+		try {
+			MongoCollection<Document> col = gpt.getCollection("data");			
+			String opt = requestData.get("opt").toString();
+			String id = requestData.get("id").toString();
+			String roomkey = requestData.get("roomkey").toString();
+			
+			Document query = new Document();
+			query.append("_id",  new ObjectId(id));
+			
+			Document data = new Document();
+			Document se = new Document();
+			if (opt.equals("delete")) {
+				DeleteResult dd = col.deleteOne(query);
+				if (!roomkey.equals("")) {
+					GPT_LOG_Delete(roomkey);
+				}			
+			}else if (opt.equals("move_req")) {
+				data.append("type", "");
+				data.append("GMT", Utils.GMTDate2());
+				se.append("$set", data);
+				UpdateResult rr =  col.updateOne(query, se);
+			}else if (opt.equals("move_fix")) {
+				data.append("type", "fix");
+				data.append("GMT", Utils.GMTDate2());
+				se.append("$set", data);
+				col.updateOne(query, se);
+			}			
+			return ResInfo.success();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}
+	}
+	
+	private void GPT_LOG_Delete(String roomkey) {
+		try {
+			MongoCollection<Document> col = gpt_log.getCollection("data");			
+			col.deleteOne(new Document("roomkey", roomkey));			
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

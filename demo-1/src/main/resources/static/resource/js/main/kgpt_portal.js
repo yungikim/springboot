@@ -2875,7 +2875,7 @@ function kgptportal(){
 				 //고정 업무 리스트 그리기	
 			//	 for (var i = 0 ; i < res.data.data.length; i++){
 			//		var item = res.data.data[i];					 
-			//		var id = item._id.$oid;
+			//		var id = item._id;
 			//		fix_html += gptpt.draw_req_html(item.msg, id, item.code, item.roomkey);			 
 			//	 }				 
 				 if (fix_html != ""){
@@ -2886,7 +2886,7 @@ function kgptportal(){
 				 //요청한 업무 리스트 그리기	 
 				 for (var j = 0 ; j < res.data.data2.length; j++){
 					 var item = res.data.data2[j];
-					 var id = item._id.$oid
+					 var id = item._id
 					 req_html += gptpt.draw_req_html(item.msg, id, item.code, item.roomkey);
 					/*
 					// 최대 갯수까지만 요청한 업무를 표시한다.
@@ -3071,7 +3071,7 @@ function kgptportal(){
 							}else{
 								for (var i = 0 ; i < items.length; i++){
 									var item = items[i];
-									html += gptpt.draw_req_html(item.msg, item._id.$oid, item.code, item.roomkey);
+									html += gptpt.draw_req_html(item.msg, item._id, item.code, item.roomkey);
 								}					
 								$("#more_work_list_ul").empty();		
 								$("#more_work_list_ul").append(html);
@@ -3303,7 +3303,7 @@ function kgptportal(){
 			var items = res.data.data;
 			for (var i = 0 ; i < items.length; i++){
 				var item = items[i];
-				html += gptpt.draw_req_html(item.msg, item._id.$oid, item.code, item.roomkey);
+				html += gptpt.draw_req_html(item.msg, item._id, item.code, item.roomkey);
 			}			
 			$("#more_work_list_ul").empty();
 			$("#more_work_list_ul").append(html);
@@ -4796,7 +4796,7 @@ function kgptportal(){
 		return items;
 	},		
 	
-	"context_menu_call_req_mng" : function(opt, options, obj){		
+	"context_menu_call_req_mng" : function(opt, options, obj){	
 		var id = $(obj).attr("id");
 		var msg = $(obj).text();
 		var roomkey = $(obj).data("roomkey");

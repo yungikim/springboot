@@ -616,7 +616,7 @@
 				var emp = gap.userinfo.rinfo.emp + "_share";
 				var items = [emp];
 				for (var i = 0 ; i < list.length; i++){
-					items.push(list[i]._id.$oid);
+					items.push(list[i]._id);
 				}
 			}
 			var qq = items.join(" ");
@@ -6749,7 +6749,7 @@
 			var item = listitem.data.data[i];
 			var data = JSON.parse(item.data);
 			var members = data.member;
-			var id = item._id.$oid;
+			var id = item._id;
 			if(i === 0){
 				tid = id;
 				html +=	"						<li class='list_item active' data-key='"+id+"'>";
