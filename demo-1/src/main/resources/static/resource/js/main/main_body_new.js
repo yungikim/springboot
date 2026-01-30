@@ -55,9 +55,9 @@ $(document).ready(function(){
 	}
 	if (window.Dropzone) Dropzone.autoDiscover = false;	
 	$(window).resize(function(){
-		if (call_key != ""){
+		if (call_key){
 			var width = $(window).width();	
-			if (call_key != ""){
+			if (call_key){
 				//채팅 새창에서 resize에 대한 처리흘 진행한다.			
 				if (gap.curpage == "chat"){				
 					gap.make_resize_body();
@@ -167,7 +167,7 @@ gBodyFN.prototype = {
 
 	"resize" : function(){
 		var width = $(window).width();	
-		if (call_key != ""){
+		if (call_key){
 			//채팅 새창에서 resize에 대한 처리흘 진행한다.			
 			if (gap.curpage == "chat"){				
 				gap.make_resize_body();
@@ -175,9 +175,9 @@ gBodyFN.prototype = {
 		}	
 	},
 	"init" : function(opt){		
-		
+
 		gBody.mail_domain = "https://" + mailserver + "/" + maildbpath;	
-		if (location.href.indexOf("dev.kmslab.com") > -1){
+		if (location.href.indexOf("dev") > -1){
 			gBody.isDev = true;
 			//gBody.mail_domain = gBody.mail_domain.replace("https://","http://");
 		 }
@@ -225,7 +225,7 @@ gBodyFN.prototype = {
 			//	$("#channel-search").css("top","30px");
 				$("#chat_add_member").css("top","19px");
 				$("#chat_new_window").css("top","19px");
-				if (call_key != ""){					
+				if (call_key){					
 					$("#user_profile").hide();				
 					////////////////////////////////////////////////////////////////////////
 					$("#left_main").hide();
@@ -278,7 +278,7 @@ gBodyFN.prototype = {
 		//	}			
 		
 		
-		if (call_key == ""){			
+		if (call_key){			
 			gap.cur_window = gap.param;
 			if (!gap.cur_window){
 				gap.cur_window = "chat";
@@ -367,7 +367,7 @@ gBodyFN.prototype = {
         });				
 			
 		$("#chat_new_window").off().on("click", function(){		
-			if (call_key != ""){
+			if (call_key){
 				//새창에서 도 새창을 못 띄우게 한다.	
 				mobiscroll.toast({message:gap.lang.not_support, color:'info'});
 				return false;
@@ -1077,7 +1077,7 @@ gBodyFN.prototype = {
 				mobiscroll.toast({message:gap.lang.mychat, color:'danger'});
 				return false;
 			}			
-			if (call_key != ""){
+			if (call_key){
 				//새창에서 호출하기 때문에 딤처리흘 전체로 처리한다..
 				gap.blockall = true;
 			}			
@@ -9626,7 +9626,7 @@ gBodyFN.prototype = {
 				}
 			}			
 		}		
-		if (call_key != ""){			
+		if (call_key){			
 			//새창에서 채팅방의 사이즈가 1200이하면 우측 프레임 정보르 다시 표시해 줘야 한다.
 			var width = $(window).width();
 			if (width < 1200){
@@ -11565,7 +11565,7 @@ gBodyFN.prototype = {
 	
 	"change_status" : function(){
 		var list = gBody.cur_room_att_info_list;	
-		if (call_key != ""){
+		if (call_key){
 			list = window.opener.gBody.cur_room_att_info_list;
 		}	
 		var list_out_me = new Array();		
@@ -13026,7 +13026,7 @@ gBodyFN.prototype = {
 		html += "		</div>";
 		html += "	</div>";
 		html += "</div>";
-		if (call_key != ""){
+		if (call_key){
 			//새창에서 호출하기 때문에 딤처리흘 전체로 처리한다..
 			gap.blockall = true;
 		}
@@ -13742,7 +13742,7 @@ gBodyFN.prototype = {
 		
 		gBody.unload_img = "";			
 		var list = gBody.cur_room_att_info_list;		
-		if (call_key != ""){
+		if (call_key){
 			list = window.opener.gBody.cur_room_att_info_list
 		}
 			
@@ -13926,7 +13926,7 @@ gBodyFN.prototype = {
 	},
 	
 	"all_list" : function(){		
-		if (call_key != ""){			
+		if (call_key){			
 		}else{
 			$(".left-area").css("width", "calc(100% - "+gap.right_page_width+")");
 		}
@@ -16661,7 +16661,7 @@ gBodyFN.prototype = {
 		gap.cur_el = gap.userinfo.rinfo.el;   //채틸을 호출하지 않고 다이렉트로 호출되면 언어 타입이 설정되지 않는 문제 해결
 		if (pa.indexOf("key=") > -1){
 			$("#right_menu").show();	
-			if (call_key != ""){
+			if (call_key){
 				$("#right_menu").css("top", "0px");
 			}
 		}else{			
