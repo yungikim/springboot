@@ -36,6 +36,7 @@
 		<link rel="stylesheet" type="text/css" th:href="@{/resource/css/audioplayer.css(ver=${cssVer})}">
 		<link rel="stylesheet" type="text/css" th:href="@{/resource/css/common.css?open(ver=${cssVer})}">
 		<link rel="stylesheet" type="text/css" th:href="@{/resource/css/common_res.css(ver=${cssVer})}">
+		<link rel="stylesheet" type="text/css" th:href="@{/resource/css/teditor/tiptap-editor.css(ver=${cssVer})}">
 		
 		<script type="text/javascript" th:src="@{/resource/js/common/LAB.js(ver=${jsVer})}"></script>
 		<script type="text/javascript" th:src="@{/resource/js/common/jquery.min.js(ver=${jsVer})}"></script>
@@ -341,11 +342,8 @@
 		 	}
 			/*]]>*/
 		</script>
-
-		</head>
 		
-		
-		
+			
 	</head>
 	<body>
 	<div class="wrapper">
@@ -671,5 +669,58 @@
 		<!-- Modal -->
 		<div id='dark_layer_graph'></div>
 	</div>
+	
+	
+	
+	
+	<script type="importmap">
+	{
+	  "imports": {
+	    "@tiptap/core": "https://esm.sh/@tiptap/core@2.1.13",
+	    "@tiptap/starter-kit": "https://esm.sh/@tiptap/starter-kit@2.1.13",
+	    "@tiptap/extension-table": "https://esm.sh/@tiptap/extension-table@2.1.13",
+	    "@tiptap/extension-table-row": "https://esm.sh/@tiptap/extension-table-row@2.1.13",
+	    "@tiptap/extension-table-cell": "https://esm.sh/@tiptap/extension-table-cell@2.1.13",
+	    "@tiptap/extension-table-header": "https://esm.sh/@tiptap/extension-table-header@2.1.13",
+	    "@tiptap/extension-underline": "https://esm.sh/@tiptap/extension-underline@2.1.13",
+	    "@tiptap/extension-highlight": "https://esm.sh/@tiptap/extension-highlight@2.1.13",
+	    "@tiptap/extension-link": "https://esm.sh/@tiptap/extension-link@2.1.13",
+	    "@tiptap/extension-image": "https://esm.sh/@tiptap/extension-image@2.1.13",
+	    "@tiptap/extension-placeholder": "https://esm.sh/@tiptap/extension-placeholder@2.1.13",
+	    "@tiptap/extension-task-list": "https://esm.sh/@tiptap/extension-task-list@2.1.13",
+	    "@tiptap/extension-task-item": "https://esm.sh/@tiptap/extension-task-item@2.1.13",
+	    "@tiptap/extension-text-style": "https://esm.sh/@tiptap/extension-text-style@2.1.13",
+	    "@tiptap/extension-color": "https://esm.sh/@tiptap/extension-color@2.1.13",
+	    "@tiptap/extension-mention": "https://esm.sh/@tiptap/extension-mention@2.1.13"
+	  }
+	}
+	</script>
+			
+			
+	<script type="module">
+	    import TiptapEditor from '/resource/js/teditor/tiptap-editor.js';	    
+	    // 전역 함수로 등록하여 어디서든 호출 가능하게 만듬
+	    window.drawTiptapEditor = function(elementId) {
+	        // 기존 에디터 인스턴스가 있다면 파괴 (중복 생성 방지)
+	        if (window.editor) {
+	            // 커스텀 클래스 내부에 editor 인스턴스가 있다고 가정
+	            if (window.editor.destroy) window.editor.destroy(); 
+	        }
+	        const editor = new TiptapEditor(elementId, {
+	            placeholder: '내용을 입력하세요... "/" 명령어, "@" 멘션',
+	            content: ``,
+	            users: [
+	                { id: '1', name: '김철수', role: '개발팀' },
+	                { id: '2', name: '이영희', role: '디자인팀' }
+	            ]
+	        });	        
+	        // 전역 변수에 저장하여 다른 함수(getContent 등)에서 사용 가능하게 함
+	        window.editor = editor;
+	    };
+		
+	</script>
+	
+	
+	
 	</body>
 </html>

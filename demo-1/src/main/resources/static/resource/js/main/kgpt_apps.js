@@ -5775,29 +5775,31 @@
 					}					
 				}
 			}								
+			
 			var combined = md5s.concat(urls);
 			var info = combined.join("-spl-");			
 			var id = myDropzone_project.id;			
 			var msg = myDropzone_project.msg;
+			
 			gptapps.loading_file_check_project(filelist, urls, msg);		
 			
-		//	if (typeof(file) != "undefined"){
-				//업로드가 완료되면 해당 정보를 프로젝트 info에 등록해서 관리한다.
-				var project_code = myDropzone_project.id.replace("project_upload_dis_", "");
-				var url = gptpt.plugin_domain_fast + "project/project_info_add"
-				var data = JSON.stringify({
-					"filelist" : filelist,
-					"urls" : urls,
-					"msg" : msg,
-					"project_code" : project_code
-				});
-				
-				gap.ajaxCall(url, data, function(res){
-					if (res.result == "OK"){
-						$("#btn_layer_close").click();	
-					}
-				});
-		//	}			
+
+			//업로드가 완료되면 해당 정보를 프로젝트 info에 등록해서 관리한다.
+			var project_code = myDropzone_project.id.replace("project_upload_dis_", "");
+			var url = gptpt.plugin_domain_fast + "project/project_info_add"
+			var data = JSON.stringify({
+				"filelist" : filelist,
+				"urls" : urls,
+				"msg" : msg,
+				"project_code" : project_code
+			});
+			
+			gap.ajaxCall(url, data, function(res){
+				if (res.result == "OK"){
+					$("#btn_layer_close").click();	
+				}
+			});
+			
 		});	
 	},
 	
@@ -6084,11 +6086,11 @@
 			if($(this).hasClass("active")){
 				if(opt === "project"){
 					gptapps.loading_file_icon();					
-					var msg = $("#textarea_request").val();						
+					var msg = $("#textarea_request").val();	
+					var id = myDropzone_project.id;						
 					if (myDropzone_project.files.length > 0){
 						//등록된 파일이 없는 경우 스크립트만 업데이트 한다.
-						myDropzone_project.msg = msg;
-						var id = myDropzone_project.id;						
+						myDropzone_project.msg = msg;											
 						var filelist = [];
 						myDropzone_project.filelist = [];
 						var fns = [];						

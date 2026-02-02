@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiptap Editor</title>
+    <link rel="stylesheet" href="/resource/css/teditor/tiptap-editor.css">
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans KR', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        .page-header {
+            max-width: 900px;
+            margin: 0 auto 20px;
+            color: white;
+        }
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        .page-header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 15px;
+        }
+        #myEditor {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .button-area {
+            max-width: 900px;
+            margin: 20px auto;
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            padding: 10px 20px;
+            background: white;
+            color: #6366f1;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .output-area {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            border-radius: 12px;
+            font-family: 'Fira Code', monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+		.tiptap-editor-area{
+			max-height: 200px;
+			overflow: auto;
+		}	
+		
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <h1>Tiptap Editor</h1>
+        <p>테이블 아이콘을 클릭하면 행/열을 선택할 수 있습니다. "/" 로 명령어, "@" 로 멘션</p>
+    </div>
+    
+    <div id="myEditor"></div>
+    
+    <div class="button-area">
+        <button class="btn" onclick="getContent()">HTML 가져오기</button>
+        <button class="btn" onclick="clearEditor()">내용 지우기</button>
+    </div>
+    
+    <div class="output-area" id="output">에디터 내용이 여기에 표시됩니다...</div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "@tiptap/core": "https://esm.sh/@tiptap/core@2.1.13",
+            "@tiptap/starter-kit": "https://esm.sh/@tiptap/starter-kit@2.1.13",
+            "@tiptap/extension-table": "https://esm.sh/@tiptap/extension-table@2.1.13",
+            "@tiptap/extension-table-row": "https://esm.sh/@tiptap/extension-table-row@2.1.13",
+            "@tiptap/extension-table-cell": "https://esm.sh/@tiptap/extension-table-cell@2.1.13",
+            "@tiptap/extension-table-header": "https://esm.sh/@tiptap/extension-table-header@2.1.13",
+            "@tiptap/extension-underline": "https://esm.sh/@tiptap/extension-underline@2.1.13",
+            "@tiptap/extension-highlight": "https://esm.sh/@tiptap/extension-highlight@2.1.13",
+            "@tiptap/extension-link": "https://esm.sh/@tiptap/extension-link@2.1.13",
+            "@tiptap/extension-image": "https://esm.sh/@tiptap/extension-image@2.1.13",
+            "@tiptap/extension-placeholder": "https://esm.sh/@tiptap/extension-placeholder@2.1.13",
+            "@tiptap/extension-task-list": "https://esm.sh/@tiptap/extension-task-list@2.1.13",
+            "@tiptap/extension-task-item": "https://esm.sh/@tiptap/extension-task-item@2.1.13",
+            "@tiptap/extension-text-style": "https://esm.sh/@tiptap/extension-text-style@2.1.13",
+            "@tiptap/extension-color": "https://esm.sh/@tiptap/extension-color@2.1.13",
+            "@tiptap/extension-mention": "https://esm.sh/@tiptap/extension-mention@2.1.13"
+        }
+    }
+    </script>
+    
+    <script type="module">
+        import TiptapEditor from '/resource/js/teditor/tiptap-editor.js';
+        
+        const editor = new TiptapEditor('myEditor', {
+            placeholder: '내용을 입력하세요... "/" 명령어, "@" 멘션',
+            content: `
+                <h1>테이블 드래그 행/열 추가 기능</h1>
+                <p>테이블의 하단 또는 우측 가장자리에 마우스를 올리면 핸들이 나타납니다.</p>
+                <table>
+                    <tr><th>기능</th><th>설명</th><th>단축키</th></tr>
+                    <tr><td>굵게</td><td>텍스트를 굵게</td><td>Ctrl+B</td></tr>
+                    <tr><td>기울임</td><td>텍스트를 기울임</td><td>Ctrl+I</td></tr>
+                </table>
+                <p>테이블 셀에서 <strong>우클릭</strong>하면 행/열 추가 메뉴가 나타납니다.</p>
+            `,
+            users: [
+                { id: '1', name: '김철수', role: '개발팀' },
+                { id: '2', name: '이영희', role: '디자인팀' },
+                { id: '3', name: '박지민', role: '기획팀' },
+                { id: '4', name: '최수진', role: '마케팅팀' },
+                { id: '5', name: '정민호', role: '경영지원팀' }
+            ]
+        });
+        
+        window.editor = editor;
+    </script>
+    
+    <script>
+        function getContent() {
+            document.getElementById('output').textContent = window.editor.getHTML();
+        }
+        
+        function clearEditor() {
+            window.editor.clearContent();
+        }
+    </script>
+</body>
+</html>

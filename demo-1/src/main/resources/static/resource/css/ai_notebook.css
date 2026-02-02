@@ -998,11 +998,7 @@
 }
 
 /********** 노트 추가 레이어 ******************/
-#add_note_layer {
-    width: 55%;
-    max-width: inherit;
-	height: 80%;
-}
+
 
 #add_note_layer .layer_content_wrap {
 	display: flex;
@@ -1094,6 +1090,8 @@
     border-radius: 16px;
     background: #fff;
     transform: translate(-50%, -50%);
+	min-width: 1000px;
+
 }
 
 #note_view_layer .layer_inner {
@@ -2050,3 +2048,20 @@
 	    width: calc(50% - 18px);
 	}
 }
+
+
+/* ai note 에디터 적용을 위한 CSS 추가  */
+
+#add_note_layer {
+    width: 55%;
+    max-width: inherit;
+	height: 80%;
+	min-width: 1000px;
+	height : 900px;
+}
+
+.tiptap-editor-area{
+	min-height: 450px !important;
+	max-height: 450px;
+	overflow: auto;
+}	

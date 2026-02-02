@@ -61,6 +61,13 @@ public class KGTPRestAPIController {
 		return kgptService.ai_note_list(requestData);
 	}
 	
+	@PostMapping("/ai_note_info.km")
+	public Object ai_note_info(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return kgptService.ai_note_info(requestData);
+	}
+	
 	@PostMapping("/ai_notebook_info.km")
 	public Object ai_notebook_info(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
 		requestData.put("email", userId);

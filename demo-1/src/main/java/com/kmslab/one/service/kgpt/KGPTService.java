@@ -470,4 +470,22 @@ public class KGPTService {
 			e.printStackTrace();
 		}
 	}
+	
+	public Object ai_note_info(Map<String, Object> requestData) {
+		try {
+			MongoCollection<Document> col = ai_notebook.getCollection("note");			
+			Document query = new Document();
+			String uid = requestData.get("uid").toString();
+			query.put("key", uid);			
+			Document sdoc = col.find(query).first();
+			if (sdoc != null) {				
+				return ResInfo.success(DocumentConverter.toCleanMap(sdoc));
+			}else {
+				return ResInfo.error("문서가 존재하지 않습니다");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}		
+	}
 }

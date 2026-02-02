@@ -1,0 +1,476 @@
+/* Tiptap Editor Styles */
+
+/* 컨테이너 */
+.tiptap-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+/* 툴바 */
+.tiptap-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px;
+    padding: 8px 12px;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.tiptap-toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 0 8px;
+    border-right: 1px solid #e5e7eb;
+}
+
+.tiptap-toolbar-group:last-child {
+    border-right: none;
+}
+
+.tiptap-toolbar button {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    transition: all 0.15s ease;
+    position: relative;
+}
+
+.tiptap-toolbar button:hover {
+    background: #f3f4f6;
+}
+
+.tiptap-toolbar button.active {
+    background: #6366f1;
+    color: white;
+}
+
+.tiptap-toolbar button svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+}
+
+.tiptap-toolbar button.active svg {
+    stroke: white;
+}
+
+/* 헤딩 버튼 스타일 */
+.tiptap-toolbar button.heading-btn {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* 에디터 영역 */
+.tiptap-editor-area {
+    padding: 20px;
+    min-height: 400px;
+}
+
+/* ProseMirror 기본 스타일 */
+.ProseMirror {
+    outline: none;
+    min-height: 360px;
+}
+
+.ProseMirror > * + * {
+    margin-top: 0.75em;
+}
+
+.ProseMirror p {
+    margin: 0.5em 0;
+}
+
+.ProseMirror h1 {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 0.5em 0;
+}
+
+.ProseMirror h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0.5em 0;
+}
+
+.ProseMirror h3 {
+    font-size: 1.25em;
+    font-weight: bold;
+    margin: 0.5em 0;
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+    padding-left: 1.5em;
+}
+
+.ProseMirror blockquote {
+    border-left: 4px solid #6366f1;
+    margin: 1em 0;
+    padding-left: 1em;
+    color: #666;
+}
+
+.ProseMirror code {
+    background: #f4f4f4;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Fira Code', 'Consolas', monospace;
+}
+
+.ProseMirror pre {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+.ProseMirror pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+}
+
+.ProseMirror hr {
+    border: none;
+    border-top: 2px solid #e0e0e0;
+    margin: 1.5em 0;
+}
+
+/* 테이블 */
+.ProseMirror table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+    table-layout: fixed;
+}
+
+.ProseMirror td,
+.ProseMirror th {
+    border: 2px solid #ddd;
+    padding: 8px 12px;
+    min-width: 100px;
+    position: relative;
+    vertical-align: top;
+}
+
+.ProseMirror th {
+    background: #f8f9fa;
+    font-weight: 600;
+}
+
+.ProseMirror .selectedCell:after {
+    background: rgba(99, 102, 241, 0.2);
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+/* 하이라이트 */
+.ProseMirror mark {
+    background: #fef08a;
+    padding: 2px 0;
+}
+
+/* 이미지 */
+.ProseMirror img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.ProseMirror img.ProseMirror-selectednode {
+    outline: 3px solid #6366f1;
+}
+
+/* 체크리스트 */
+.ProseMirror ul[data-type="taskList"] {
+    list-style: none;
+    padding-left: 0;
+}
+
+.ProseMirror ul[data-type="taskList"] li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 4px 0;
+}
+
+.ProseMirror ul[data-type="taskList"] li > label {
+    flex-shrink: 0;
+    user-select: none;
+}
+
+.ProseMirror ul[data-type="taskList"] li > label input {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    margin-top: 2px;
+}
+
+.ProseMirror ul[data-type="taskList"] li > div {
+    flex: 1;
+}
+
+/* 플레이스홀더 */
+.ProseMirror p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    color: #aaa;
+    pointer-events: none;
+    float: left;
+    height: 0;
+}
+
+/* 멘션 */
+.mention {
+    background: #dbeafe;
+    color: #1d4ed8;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-weight: 500;
+}
+
+/* 팝업 공통 */
+.tiptap-popup {
+    position: fixed;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+    padding: 8px;
+    z-index: 10000;
+    display: none;
+}
+
+.tiptap-popup.show {
+    display: block;
+}
+
+/* 팝업 아이템 */
+.tiptap-popup-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.tiptap-popup-item:hover,
+.tiptap-popup-item.selected {
+    background: #f3f4f6;
+}
+
+.tiptap-popup-item-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f8f8;
+    border-radius: 6px;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.tiptap-popup-item-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}
+
+.tiptap-popup-item-desc {
+    font-size: 12px;
+    color: #888;
+    margin-top: 2px;
+}
+
+/* 슬래시 메뉴 */
+.tiptap-slash-menu {
+    min-width: 250px;
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+/* 멘션 메뉴 */
+.tiptap-mention-menu {
+    min-width: 200px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.tiptap-mention-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.tiptap-mention-role {
+    font-size: 12px;
+    color: #888;
+}
+
+/* 테이블 컨텍스트 메뉴 */
+.tiptap-table-menu {
+    min-width: 180px;
+}
+
+.tiptap-table-menu .tiptap-popup-item.danger {
+    color: #dc2626;
+}
+
+.tiptap-menu-divider {
+    height: 1px;
+    background: #e5e7eb;
+    margin: 4px 0;
+}
+
+/* 테이블 그리드 선택기 */
+.tiptap-table-grid {
+    padding: 12px;
+    min-width: 220px;
+}
+
+.tiptap-table-grid-container {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 3px;
+}
+
+.tiptap-table-grid-cell {
+    width: 22px;
+    height: 22px;
+    border: 1px solid #d1d5db;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    background: white;
+}
+
+.tiptap-table-grid-cell:hover {
+    border-color: #6366f1;
+}
+
+.tiptap-table-grid-cell.active {
+    background: #6366f1;
+    border-color: #4f46e5;
+}
+
+.tiptap-table-grid-size {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 13px;
+    color: #374151;
+    font-weight: 500;
+}
+
+/* 링크 팝업 */
+.tiptap-link-popup {
+    display: none;
+    gap: 8px;
+    padding: 12px;
+}
+
+.tiptap-link-popup.show {
+    display: flex;
+}
+
+.tiptap-link-popup input {
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    width: 250px;
+    font-size: 14px;
+    outline: none;
+}
+
+.tiptap-link-popup input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.tiptap-link-popup button {
+    padding: 8px 16px;
+    background: #6366f1;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.tiptap-link-popup button:hover {
+    background: #4f46e5;
+}
+
+/* 색상 선택기 */
+.tiptap-color-picker {
+    padding: 12px;
+}
+
+.tiptap-color-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+}
+
+.tiptap-color-btn {
+    width: 28px;
+    height: 28px;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.tiptap-color-btn:hover {
+    transform: scale(1.1);
+}
+
+.tiptap-color-btn.active {
+    border-color: #333;
+}
+
+/* 도움말 */
+.tiptap-help {
+    padding: 12px 20px;
+    background: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.tiptap-help kbd {
+    background: #e5e7eb;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: inherit;
+    color: #374151;
+}

@@ -1054,7 +1054,8 @@ gnotebook.prototype = {
 		html += "			</div>";
 		html += "			<div class='textarea_wrap'>";
 		html += "				<h5 class='content_title'>"+gap.lang.basic_content+"</h5>";
-		html += "				<textarea class='textarea_note_desc' placeholder='"+gap.lang.input_content+"' spellcheck='false' id='ai_note_content'></textarea>";
+	//	html += "				<textarea class='textarea_note_desc' placeholder='"+gap.lang.input_content+"' spellcheck='false' id='ai_note_content'></textarea>";
+		html += "				<div id='myEditor'></div>";
 		html +=	"			</div>";
 		html +=	"		</div>";
 		html += "		<div class='btn_wrap'>";
@@ -1066,6 +1067,14 @@ gnotebook.prototype = {
 		html +=	"</div>";		
 		$("#dark_layer").append(html);
 		$("#dark_layer").fadeIn(150);		
+		
+		// 2. 위에서 등록한 전역 함수 호출
+	    if (typeof window.drawTiptapEditor === "function") {
+	        window.drawTiptapEditor('myEditor');
+	    } else {
+	        console.error("에디터 로드 함수가 아직 준비되지 않았습니다.");
+	    }
+		
 		//////// 레이어 닫기 ///////////
 		$("#add_note_layer .btn_layer_close, #add_note_layer .btn_cancel").on("click", function(){
 			$("#dark_layer").fadeOut(150);
@@ -1074,7 +1083,8 @@ gnotebook.prototype = {
 		
 		$("#ai_note_save").on("click", function(e){			
 			var title = $("#ai_note_title").val();
-			var content = $("#ai_note_content").val();
+		//	var content = $("#ai_note_content").val();
+			var content = window.editor.getHTML();
 			if (title == ""){
 				gap.gAlert(gap.lang.input_title);
 				return false;
@@ -1124,7 +1134,7 @@ gnotebook.prototype = {
 	
 	//// 노트 자세히 보기 레이어 //////////
 	"note_view_layer_draw": function(id){		
-		var url = gap.channelserver + "/ai_note_info.km";
+		var url = gap.channelserver + "/api/kgpt/ai_note_info.km";
 		var data = JSON.stringify({
 			"uid" : id
 		});		
@@ -1133,7 +1143,7 @@ gnotebook.prototype = {
 				var item = res.data;				
 				var html = "";				
 				var is_edit = typeof(item.edit);
-				
+		
 				//var content = item.content.replace(/\n/g, '<br>').replace(/ {2,}/g, match => '&nbsp;'.repeat(match.length)); // 여러 공백을 &nbsp;로 변환			
   				var content = item.content;	
 				
@@ -1174,7 +1184,8 @@ gnotebook.prototype = {
 				html += "			</div>";			
 				html += "		</div>";
 			//	html += "		<div class='layer_content'><div class='note_desc' id='note_content_dis'>" + gap.aLink(content) + "</div></div>";
-				html += "		<div class='layer_content'><div class='note_desc' id='note_content_dis'></div></div>";
+				html += "		<div class='layer_content'><div class='note_desc ProseMirror' id='note_content_dis'></div></div>";
+				html += "		<div id='myEditor' style='display:none'></div>";
 				html +=	"	</div>";
 				html += "</div>";				
 				
@@ -1184,9 +1195,9 @@ gnotebook.prototype = {
 				
 				$("#dark_layer").append(html);			
 				
-				if (item.type == "me"){							
-					var content = gap.textToHtml(content);
-					content = content.replace(/ /gi, "&nbsp;");			
+				if (item.type == "me"){					
+					//var content = gap.textToHtml(content);
+					//content = content.replace(/ /gi, "&nbsp;");			
 					$("#note_content_dis").html(content);
 				}else{
 					$("#dark_layer").addClass("markdown-body");
@@ -1209,7 +1220,21 @@ gnotebook.prototype = {
 				
 				//////// 노트 편집 //////////
 				$("#note_edit_btn").on("click", function(){
-					$("#note_content_dis").attr("contenteditable", true);
+					//$("#note_content_dis").attr("contenteditable", true);
+					
+					$("#note_view_layer .layer_content").hide();						
+					// 2. 위에서 등록한 전역 함수 호출
+				    if (typeof window.drawTiptapEditor === "function") {
+						$("#myEditor").show();
+				        window.drawTiptapEditor('myEditor');
+						window.editor.setContent($("#note_content_dis").html());
+						$("#myEditor .tiptap-editor-area").css("height", "725px");
+						$("#myEditor .tiptap-editor-area").css("max-height", "725px");
+				    } else {
+				        console.error("에디터 로드 함수가 아직 준비되지 않았습니다.");
+				    }
+					
+					
 					$("#note_edit_btn").hide();
 					$("#note_update_btn").show();
 					$("#note_content_dis").css("background-color", "#F5F5F5");
@@ -1222,7 +1247,9 @@ gnotebook.prototype = {
 					$("#note_update_btn").hide();
 					$("#note_content_dis").attr("contenteditable", false);
 					$("#note_content_dis").css("background-color", "#fff");
-					var content = $("#note_content_dis").html();
+				//	var content = $("#note_content_dis").html();
+					var content = window.editor.getHTML();
+					
 					var url = gptpt.plugin_domain_fast + "notebook/ai_note_update";
 					var data = JSON.stringify({
 						"key" : id,
