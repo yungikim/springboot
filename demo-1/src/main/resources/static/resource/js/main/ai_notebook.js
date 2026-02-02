@@ -1204,6 +1204,15 @@ gnotebook.prototype = {
 					$("#dark_layer").parent().css("white-space", "inherit");
 					$("#note_content_dis").html(content);
 				}
+				
+				$("#note_content_dis input").on("click", function(e){
+					const checkbox = e.target.closest('.ProseMirror ul[data-type="taskList"] input[type="checkbox"]');  
+					if (checkbox) {
+					    e.preventDefault();
+					    mobiscroll.toast({message: "편집 모드에서 선택해주세요.", color:'info'});
+					    return false;
+					}
+				});
 									
 				
 				$("#dark_layer").fadeIn(150);								
@@ -1221,6 +1230,10 @@ gnotebook.prototype = {
 				//////// 노트 편집 //////////
 				$("#note_edit_btn").on("click", function(){
 					//$("#note_content_dis").attr("contenteditable", true);
+					
+					$("#note_view_layer .layer_title").attr("contenteditable", true);
+					$("#note_view_layer .layer_title").css("border", "1px solid grey");
+					$("#note_view_layer .layer_title").css("padding", "5px");
 					
 					$("#note_view_layer .layer_content").hide();						
 					// 2. 위에서 등록한 전역 함수 호출
@@ -1249,10 +1262,12 @@ gnotebook.prototype = {
 					$("#note_content_dis").css("background-color", "#fff");
 				//	var content = $("#note_content_dis").html();
 					var content = window.editor.getHTML();
+					var title = $("#note_view_layer .layer_title").text();
 					
 					var url = gptpt.plugin_domain_fast + "notebook/ai_note_update";
 					var data = JSON.stringify({
 						"key" : id,
+						"title" : title,
 						"content" : content
 					});					
 					gap.ajaxCall(url, data, function(res){

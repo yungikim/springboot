@@ -1115,7 +1115,10 @@
 	line-height: 30px;
 	font-size: 24px;
 	font-weight: 700;
-	max-width:570px;
+	max-width:710px;
+	white-space: nowrap;
+	overflow: hidden;
+	margin: 0px;
 }
 #note_view_layer .btn_layer_close {
 	position: relative;
@@ -1150,6 +1153,12 @@
 	word-wrap:break-word;
 	font-size : 16px;
 
+}
+
+#note_view_layer .note_desc p{
+	margin : 0.5em 0;
+	line-height: 23px;
+	height: 23px;
 }
 
 #note_view_layer .note_desc .result_title2{
