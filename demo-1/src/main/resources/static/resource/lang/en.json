@@ -1539,5 +1539,6 @@
 	"va331" : "Update Chat Room",
 	"va332" : "Summarize Chat",
 	"va333" : "I will summarize the latest content of $s$ chat rooms.",
-	"va334" : "AI is summarizing the chat content. Please wait a moment."
+	"va334" : "AI is summarizing the chat content. Please wait a moment.",
+	"va335" : "Please select in edit mode."
 }

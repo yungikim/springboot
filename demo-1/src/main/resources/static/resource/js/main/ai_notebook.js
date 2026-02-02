@@ -1209,7 +1209,7 @@ gnotebook.prototype = {
 					const checkbox = e.target.closest('.ProseMirror ul[data-type="taskList"] input[type="checkbox"]');  
 					if (checkbox) {
 					    e.preventDefault();
-					    mobiscroll.toast({message: "편집 모드에서 선택해주세요.", color:'info'});
+					    mobiscroll.toast({message: gap.lang.va335, color:'info'});
 					    return false;
 					}
 				});
