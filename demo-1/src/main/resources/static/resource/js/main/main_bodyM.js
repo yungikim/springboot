@@ -3402,21 +3402,21 @@ gBodyM.prototype = {
 								"og" : {}
 							});
 							
-							var url = gap.channelserver + "/send_msg.km";
+							var url = gap.channelserver + "/api/channel/send_msg.km";
 							$.ajax({
 								type : "POST",
-								dataType : "text",   //<<== "json"을  text로 변경한 것은 입력 내용에 ?? 가 2개 이상 있을 경우 JQuery오류가 발생해서 변경함 // 대신 리턴값을 JSON.parse로 처리해야 함
-							//	contentType : "application/json; charset=utf-8",
+								dataType : "json",   //<<== "json"을  text로 변경한 것은 입력 내용에 ?? 가 2개 이상 있을 경우 JQuery오류가 발생해서 변경함 // 대신 리턴값을 JSON.parse로 처리해야 함
+								contentType : "application/json; charset=utf-8",
 								data : data,
 								url : url,
 								success : function(ress){
-									var resx= JSON.parse(ress);
+									var resx= ress;
 									if (resx.result == "OK"){
 
 														
 										var res = resx.data.docinfo;
 										
-										var GMT = resx.GMT;
+										var GMT = resx.data.GMT;
 										var doc = new Object();
 										doc.GMT = GMT;
 										doc.GMT2 = res.GMT2;

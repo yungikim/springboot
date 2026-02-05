@@ -488,4 +488,35 @@ public class KGPTService {
 			return ResInfo.error(e.getMessage());
 		}		
 	}
+	
+	public Object save_person_ai_request_log(Map<String, Object> requestData) {
+		try {
+			MongoCollection<Document> col = gpt.getCollection("data");
+			
+			String cur_project_code = requestData.get("project_code").toString();
+			if (!cur_project_code.equals("")) {
+				requestData.put("project_code", cur_project_code);
+				requestData.put("project_add_time", Utils.GMTDate());
+			}else {
+				requestData.remove("project_code");
+			}
+			
+			String msg = requestData.get("msg").toString();
+			String dismsg = msg.length() > 40 ? msg.substring(0, 40) : msg;
+			requestData.put("dismsg", dismsg);
+			
+		
+			requestData.put("GMT", Utils.GMTDate());		
+			Document dd = new Document(requestData);
+			col.insertOne(dd);
+			
+			ObjectId id = dd.getObjectId("_id");
+			Map<String, Object> rx = new HashMap<>();
+			rx.put("id", id.toString());
+			return ResInfo.success(rx);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}
+	}
 }

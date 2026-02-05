@@ -2456,7 +2456,6 @@ gBodyFN2.prototype = {
 	"update_channel_info" : function(ch_code, draw_left){
 		// 채널 리스트 정보 가져오기
 		
-		debugger;
 		var is_member_update = (ch_code != undefined ? true : false);
 		var is_draw_left = (draw_left != undefined ? draw_left : false);
 		var surl = gap.channelserver + "/api/channel/channel_info_list.km";

@@ -3049,7 +3049,6 @@ gTop.prototype = {
 			}else if (_val == "6"){
 				lan = "id";				
 			}
-			
 			gap.setCookie("language", lan);
 			try{
 				localStorage.setItem(userid+"_locale", 'ko'	);

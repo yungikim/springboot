@@ -741,7 +741,8 @@ gBodyFN3.prototype = {
 		html2 += "	</ul>";
 		html2 += "	<div class='editor-area'>";
 		//html2 += "		<iframe src='' id='editor_iframe' border=0 frameborder=0 style='display:block; width: 100%; height: 500px; overflow:hidden'></iframe>";
-		html2 += "		<iframe src='' id='editor_iframe' border=0 frameborder=0 style='display:block; width: 100%; height: 100%; overflow:hidden'></iframe>";
+	//	html2 += "		<iframe src='' id='editor_iframe' border=0 frameborder=0 style='display:block; width: 100%; height: 100%; overflow:hidden'></iframe>";
+		html2 += "		<div src='' id='editor_iframe' border=0 frameborder=0 style='display:block; width: 100%; height: 100%; overflow:hidden'></div>";
 		html2 += "	</div>";
 		html2 += "</div>";		
 		html2 += "		<div id='total-progress_channel' class='' style='height:1px;width: calc(100% - 20px); margin-left:10px'>";
@@ -5446,18 +5447,20 @@ gBodyFN3.prototype = {
 		var pdata = JSON.parse(data);
 		pdata.fserver = gap.channelserver;
 		tdata = JSON.stringify(pdata);		
-		var url = gap.channelserver + "/send_msg.km";
+
+		var url = gap.channelserver + "/api/channel/send_msg.km";
 		$.ajax({
 			type : "POST",
-			dataType : "text",   //<<== "json"을  text로 변경한 것은 입력 내용에 ?? 가 2개 이상 있을 경우 JQuery오류가 발생해서 변경함 // 대신 리턴값을 JSON.parse로 처리해야 함
-		//	contentType : "application/json; charset=utf-8",
+			dataType : "json",   //<<== "json"을  text로 변경한 것은 입력 내용에 ?? 가 2개 이상 있을 경우 JQuery오류가 발생해서 변경함 // 대신 리턴값을 JSON.parse로 처리해야 함
+			contentType : "application/json; charset=utf-8",
 			data : tdata,
 			url : url,
 			success : function(ress){
-				var resx= JSON.parse(ress);				
-				if (resx.result == "OK"){					
+				var resx= ress;		
+				if (resx.result == "OK"){	
+		
 					var res = resx.data.docinfo;					
-					var GMT = resx.GMT;
+					var GMT = resx.data.GMT;
 					var GMT2 = res.GMT2;
 					var doc = new Object();
 					doc.GMT = GMT;
@@ -7175,7 +7178,33 @@ gBodyFN3.prototype = {
 		$('#chat_bottom_dis').removeClass('minimize');
 		$('#btn_editor_show').addClass('hide');		
 		gBody3.change_editor_width();		
-		$("#editor_iframe").attr("src", root_path +"/page/kEditor.jsp?docmode=new");			
+	//	$("#editor_iframe").attr("src", root_path +"/page/kEditor.jsp?docmode=new");	
+		
+		
+		if (typeof window.drawTiptapEditor === "function") {	       
+			//참석자 리스트 정리한다.		
+			var info = gap.cur_channel_info.member;
+			var list = [];
+			for (var i = 0 ; i < info.length; i++){
+				var item = info[i];
+				var obj = new Object();
+				obj.id = item.ky;
+				obj.name = item.nm;
+				obj.role = item.dp;
+				list.push(obj);
+			}
+			var owner = gap.cur_channel_info.owner;
+			var obj = new Object();
+			obj.id = owner.ky;
+			obj.name = owner.nm;
+			obj.role = owner.dp;
+			list.push(obj);			
+			window.drawTiptapEditor('editor_iframe', list);
+			$("#editor_iframe").css("border", "1px solid #e9e8e8");			
+	    } else {
+	        console.error("에디터 로드 함수가 아직 준비되지 않았습니다.");
+	    }
+				
 		var list = "";	
 		list += '<optgroup label="'+gap.lang.sharechannel+'" id="share_channel_list_popup">';
 		list += "<option value=''>"+gap.lang.channelchoice+"</option>";		
@@ -7436,7 +7465,8 @@ gBodyFN3.prototype = {
 		}
 		var drop_file_count = myDropzone_editor.files.length;			
 		myDropzone_editor.title = $("#editor_title").val();
-		var html = $("#editor_iframe").get(0).contentWindow._form.keditor.getBodyValue();
+		//var html = $("#editor_iframe").get(0).contentWindow._form.keditor.getBodyValue();
+		var html = window.editor.getHTML();
 		myDropzone_editor.editor_body = html;	
 		if (drop_file_count > 0){			
 			var exist_files = $("#upload_file_list_editor_edit li").length;

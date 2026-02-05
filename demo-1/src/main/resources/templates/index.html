@@ -106,7 +106,6 @@
 		 	var userinfo = /*[[${userInfo}]]*/ "1.0.0";
 			userinfo = JSON.parse(userinfo);
 			var useMention = "T";
-		 	
 			var userky = userinfo.ky;
 		 	var userid = userinfo.lid;
 			var mailserver = userinfo.ms;
@@ -700,24 +699,24 @@
 	<script type="module">
 	    import TiptapEditor from '/resource/js/teditor/tiptap-editor.js';	    
 	    // 전역 함수로 등록하여 어디서든 호출 가능하게 만듬
-	    window.drawTiptapEditor = function(elementId) {
+	    window.drawTiptapEditor = function(elementId, users) {
 	        // 기존 에디터 인스턴스가 있다면 파괴 (중복 생성 방지)
 	        if (window.editor) {
 	            // 커스텀 클래스 내부에 editor 인스턴스가 있다고 가정
 	            if (window.editor.destroy) window.editor.destroy(); 
 	        }
+			
+			// users 유효성 검사
+			const validUsers = Array.isArray(users) && users.length > 0 ? users : null;
 	        const editor = new TiptapEditor(elementId, {
 	            placeholder: '내용을 입력하세요... "/" 명령어, "@" 멘션',
 	            content: ``,
-	            users: [
-	                { id: '1', name: '김철수', role: '개발팀' },
-	                { id: '2', name: '이영희', role: '디자인팀' }
-	            ]
+	            users: validUsers
 	        });	        
 	        // 전역 변수에 저장하여 다른 함수(getContent 등)에서 사용 가능하게 함
 	        window.editor = editor;
 	    };
-		
+				
 	</script>
 	
 	

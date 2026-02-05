@@ -14,10 +14,12 @@ import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.kmslab.one.component.WriteLog;
 import com.kmslab.one.config.AppConfig;
 import com.kmslab.one.service.ResInfo;
@@ -40,13 +42,15 @@ public class ChannelService {
 	private final MongoTemplate channel_favorite;
 	private final MongoTemplate notice;
 	private final MongoTemplate todo_folder;
+	private final MongoTemplate userdb;
 	public ChannelService(
 			@Qualifier("channelInfo") MongoTemplate channelInfo,
 			@Qualifier("TODO") MongoTemplate todo,
 			@Qualifier("channel_data") MongoTemplate channel_data,
 			@Qualifier("channel_favorite") MongoTemplate channel_favorite,
 			@Qualifier("notice") MongoTemplate notice,
-			@Qualifier("TODO_Folder") MongoTemplate todo_folder
+			@Qualifier("TODO_Folder") MongoTemplate todo_folder,
+			@Qualifier("userdb") MongoTemplate userdb
 			) {		
 		this.channelInfo = channelInfo;
 		this.todo = todo;
@@ -54,6 +58,7 @@ public class ChannelService {
 		this.channel_favorite = channel_favorite;
 		this.notice = notice;
 		this.todo_folder = todo_folder;
+		this.userdb = userdb;
 	}
 	
 	@Autowired
@@ -61,6 +66,18 @@ public class ChannelService {
 	
 	@Autowired
 	private AppConfig appConfig;
+
+	@Value("${searchengine.search_server}")
+    private String search_server;
+	
+	@Value("${searchengine.search_server_port}")
+    private int search_server_port;
+	
+	@Value("${searchengine.search_server_user}")
+    private String search_server_user;
+	
+	@Value("${searchengine.search_server_pw}")
+    private String search_server_pw;
 	
 	public Object channel_info_unread(Map<String, Object> requestData) {
 		try{
@@ -1070,5 +1087,371 @@ public class ChannelService {
 			e.printStackTrace();
 			return ResInfo.error(e.getMessage());
 		}
+	}
+	
+	public Object channel_list_temp(Map<String, Object> requestData) {
+		try {
+			MongoCollection<Document> col = channel_data.getCollection("temp");					
+			String email = requestData.get("email").toString();		
+			String key = requestData.get("key").toString();
+			
+			System.out.println("channel_list_temp : " + email + "/" + key);
+			Map<String, Object> dx = new HashMap<>();
+			Document query = new Document();
+			if (!key.equals("")) {
+				//특정 문서를 찾는 경우
+				query.put("_id", new ObjectId(key));
+				Document doc = col.find(query).first();
+				if (doc != null) {					
+					dx.put("data", DocumentConverter.toCleanMap(doc));					
+				}
+			}else {
+				//임시 저장 목록 리스트를 찾는 경우				
+				query.put("ky", email);			
+				long total = 0;
+				total = col.countDocuments(query);				
+				FindIterable<Document> docs = col.find(query).sort(new Document("GMT", -1));			
+
+				List<Map<String, Object>> ar = new ArrayList<>();
+				for (Document doc : docs){
+					doc.remove("content");
+					ar.add(DocumentConverter.toCleanMap(doc));
+				}				
+				dx.put("response", ar);
+				dx.put("total", total);					
+				
+			}		
+			return ResInfo.success(dx);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}
+	}
+	
+	public Object send_msg(Map<String, Object> requestData) {
+		try{
+
+			MongoCollection<Document> col = channel_data.getCollection("data");	
+			MongoCollection<Document> col2 = notice.getCollection("data");					
+			Document doc = new Document(requestData);
+			String xid = "";			
+			String type = requestData.get("edit").toString();	
+			String ty = "";
+			if (requestData.containsKey("tyx")) {
+				ty = requestData.get("tyx").toString();
+			}			
+			Map<String, Object> xx = new HashMap<>();		
+			if (type.equals("T")){
+				String id = requestData.get("id").toString();
+				Document query = new Document();
+				query.put("_id", new ObjectId(id));
+				Document sdoc = col.find(query).first();				
+				boolean istemp  = false;
+				if (sdoc == null) {
+					//임시저장 문서에서 찾는다.
+					col = channel_data.getCollection("temp");		
+					sdoc = col.find(query).first();
+					istemp = true;
+				}				
+				if (sdoc != null){					
+					//임시저장 문서를 삭제한다.
+					Document se = new Document();
+					if (istemp) {
+						Document xdoc = sdoc;
+						xdoc.remove("_id");
+						xdoc.remove("edit");
+						xdoc.remove("id");
+						xdoc.remove("msg_edit");					
+						xdoc.put("main_index", "F");		
+						col.insertOne(xdoc);						
+						Document qu = new Document();
+						String sid = xdoc.get("_id").toString();
+						qu.put("_id", new ObjectId(sid));						
+						Document pdoc = col.find(qu).first();
+						if (pdoc != null) {
+							sdoc = pdoc;
+						}						
+					}else {
+						doc.remove("edit");
+						doc.remove("id");
+						doc.remove("msg_edit");					
+						doc.put("main_index", "F");							
+						se.put("$set", doc);						
+						UpdateResult rx = col.updateOne(query, se);	
+					}					
+					if (istemp) {
+						col.deleteOne(query);
+					}				
+					xx.put("docinfo", DocumentConverter.toCleanMap(sdoc));
+				}else {
+				//	System.out.println("문서가 없다.111");
+				}
+			}else{					
+				String msg_edit = requestData.get("msg_edit").toString();				
+				if (msg_edit.equals("T")) {	
+					String id = requestData.get("id").toString();
+					Document query = new Document();
+					query.put("_id", new ObjectId(id));
+					Document sdoc = col.find(query).first();					
+					Document se = new Document();
+					doc.remove("edit");
+					doc.remove("id");
+					doc.remove("msg_edit");					
+					doc.put("main_index", "F");					
+					se.put("$set", doc);					
+					UpdateResult rx = col.updateOne(query, se);						
+					xx.put("docinfo", DocumentConverter.toCleanMap(sdoc));
+				}else {				
+					doc.remove("edit");
+					doc.remove("id");
+					doc.append("like_count", 0);					
+					doc.put("main_index", "F");		
+					doc.remove("ty");					
+					String notice_id = "";
+					if (ty.equals("notice")) {
+						Document xdoc = new Document();
+						doc.remove("edit");
+						doc.remove("id");
+						doc.append("like_count", 0);					
+						doc.put("main_index", "F");				
+						xdoc.append("data", doc);
+						xdoc.append("ty", "channel");
+						xdoc.append("use", "T");
+						xdoc.append("GMT", Utils.GMTDate());
+						xdoc.append("key", doc.get("channel_code"));
+						xdoc.append("owner", doc.get("owner"));
+						col2.insertOne(xdoc);								
+						//저장하고 바로 표시해야하는 부분에 ty가 notice로 리턴되어야 해서 여기서 변경한다.
+						xdoc.append("ty", "notice");						
+						xx.put("docinfo", DocumentConverter.toCleanMap(xdoc));
+						Document kp = new Document();
+						kp.put("key", doc.get("channel_code"));
+						Document skp = col2.find(kp).sort(Sorts.descending("GMT")).first();						
+						if (skp != null) {
+							notice_id = skp.get("_id").toString();
+						}
+					}					
+					if (ty.equals("notice") && !notice_id.equals("")) {
+						doc.put("notice_id", notice_id);
+						doc.put("tyx", "notice");
+					}					
+					col.insertOne(doc);					
+					xx.put("docinfo", DocumentConverter.toCleanMap(doc));
+				}				
+			}						
+			//채널정보에 마지막업데이트 정보를 업데이트 한다. /////////////////////////////////////////////////			
+			String GMT = requestData.get("GMT").toString();
+			String channel_code = requestData.get("channel_code").toString();
+			if (!channel_code.equals("")) {
+				System.out.println("마지막 조회 날짜 업데이트 ");
+				channel_info_update_lastupdate(GMT, channel_code);
+				String email = requestData.get("ky").toString();
+				System.out.println("email : " + email);
+				//나의 최종읽음 시간을 업데이트 해야 한다.
+				JsonObject jp = new JsonObject();
+				jp.addProperty("email", email);
+				jp.addProperty("channel_code", channel_code);
+				jp.addProperty("GMT", GMT);
+				channel_read_update(jp);
+			}	
+			xx.put("GMT", GMT);
+			return ResInfo.success(xx);
+		}catch(Exception e){
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}	
+	}
+	
+	public void channel_info_update_lastupdate(String GMT, String channel_code) {
+		try {
+			MongoCollection<Document> col = channelInfo.getCollection("channel");			
+			Document query = new Document();
+			query.put("_id", new ObjectId(channel_code));			
+			Document data = new Document();
+			data.put("lastupdate", GMT);			
+			Document se = new Document();
+			se.put("$set",  data);			
+			col.updateOne(query, se);			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void channel_read_update(JsonObject jj) {	
+		try {
+			MongoCollection<Document> col = channelInfo.getCollection("channel");		
+			String em = jj.get("email").getAsString();			
+			//email 정보게 key값이 들어와서 실제 email정보가 아니다.
+			String channel_code = jj.get("channel_code").getAsString();			
+			Document query = new Document();
+			query.put("_id", new ObjectId(channel_code));			
+			///// 마지막에 읽은 시간을 내려 주어야 한다.
+			JsonObject rtime = new JsonObject();
+			Document doc = col.find(query).first();				
+			if (doc != null) {
+				if (doc.containsKey("read_time")) {
+					List<Document> items = doc.getList("read_time", Document.class);							
+					for (Document item : items) {	
+						if (item.get("email") != null) {
+							if (em.equals(item.get("email").toString())) {
+								rtime.addProperty("last_read_time", item.get("time").toString());
+								break;
+							}
+						}					
+					}
+				}
+			}
+			String GMTDate = jj.get("GMT").getAsString();							
+			Document jx = new Document();
+			jx.append("email", em);
+			jx.append("time", GMTDate);			
+			//기존 정보 제거한다.
+			Document pull = new Document();
+			pull.put("$pull", new Document("read_time", new Document("email",em)));					
+			col.updateOne(query, pull);							
+			//신규 정보 추가한다.
+			Document data = new Document();
+			data.put("read_time", jx);
+			Document se = new Document();
+			se.put("$push", data);			
+			col.updateOne(query, se);		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	public Object channel_data_delete(Map<String, Object> requestData) {	
+		String res = "false";	
+		
+		try{						
+			requestData.put("search_server", search_server);
+			requestData.put("search_server_port", search_server_port);
+			requestData.put("search_server_user", search_server_user);
+			requestData.put("search_server_pw", search_server_pw);	
+			
+			
+			MongoCollection<Document> col = channel_data.getCollection("data");			
+			MongoCollection<Document> scol = channel_data.getCollection("files");			
+			String id = requestData.get("id").toString();			
+			Document query = new Document();
+			query.append("_id", new ObjectId(id));			
+			//관련된 파일 있는 경우 전체 삭제한다.
+			Document doc = col.find(query).first();				
+			if (doc != null){	
+				String action_ky = requestData.get("email").toString();
+				Document ddc = (Document) doc.get("owner");
+				String source_ky = ddc.get("ky").toString();
+				if (!action_ky.equals(source_ky)) {
+					//업무방 Owner가 문서를 삭제한 것으로 판단한다.
+					//문서에 Owner가 삭제했다는 내용으로 업데이트 한다.
+					//로그를 수집한다.
+					Document logdoc = new Document();
+					logdoc = doc;
+					logdoc.put("action", "channel_data_delete_owner");
+					logdoc.put("action_time", Utils.GMTDate());				
+					writeLog.write_log(logdoc);					
+					
+					/////////////////////////////////////////////////////////////
+					MongoCollection<Document> col2 = userdb.getCollection("user_info");					
+					Document qq = new Document();
+					qq.put("ky", action_ky);					
+					Document sdoc = col2.find(qq).first();					
+					Document data = new Document();
+					data.put("owner_delete", "T");
+					data.put("delete_owner", sdoc);
+					data.put("delete_owner_time", Utils.GMTDate());					
+					Document se = new Document();
+					se.put("$set", data);
+					col.updateOne(query, se);					
+					res = "owner_delete";
+					
+				}else {
+					if (doc.containsKey("tyx") && doc.get("tyx").equals("notice")) {
+						//mongodb에 원본 메시지를 삭제한다.
+						col.deleteOne(query);
+					}else {
+						//로그를 수집한다.
+						Document logdoc = new Document();
+						logdoc = doc;
+						logdoc.put("action", "channel_data_delete");
+						logdoc.put("action_time", Utils.GMTDate());				
+						writeLog.write_log(logdoc);					
+						
+						String type = doc.get("type").toString();			
+						if (type.equals("file") || doc.containsKey("upload_path")){
+							//파일 폴더를 삭제한다.
+							String uploadpath = doc.get("upload_path").toString();
+							String email = doc.get("ky").toString();		
+							String dir = appConfig.getFileDownloadPath();
+							String folderPath = dir + "/"+ email +"/"+uploadpath;
+							delete_folder(folderPath);
+						}		
+						
+						if (doc.containsKey("reply")) {
+							List<Document> rrfiles = (List<Document>) doc.get("reply");
+							for (Document xrdoc : rrfiles) {
+								if (xrdoc.containsKey("file_infos")) {
+									List<Document> fs = (List<Document>) xrdoc.get("file_infos");
+									for (Document xx : fs) {
+										Document px = new Document();
+										px.put("id", xrdoc.get("rid"));
+										px.put("info.md5", xx.get("md5"));
+										
+										scol.deleteOne(px);
+									}						
+								}
+							}
+						}			
+						
+						//파일 정보를 가지고 있는 Collection에 문서를 제거한다.
+						Document xquery = new Document();
+						xquery.put("id", id);
+						FindIterable<Document> files = scol.find(xquery);
+						/////////////////////////////////////////////////////////////////////////////////////////////////
+						///////////////////// 채널 삭제시 검색 관련 색인을 삭제한다. /////////////////////////////////////////////
+						//검색엔진에 색인 데이터를 삭제한다.
+//						if (!search_server.equals("")) {										
+//							String user = search_server_user;
+//							String pw = search_server_pw;						
+//							
+//							delete_searchengine_data("msg",  id, search_server, search_server_port, user, pw);						
+//							
+//							//댓글 검색 색인 삭제한다.
+//							if (doc.containsKey("reply")) {
+//								List<Document> replys = (List<Document>) doc.get("reply");	
+//								for (Document rep : replys) {
+//								//	System.out.println("채널 댓글 삭제 : " + rep.get("rid").toString());
+//									String rid = rep.get("rid").toString();
+//									delete_searchengine_data("reply",  rid, search_server, search_server_port, user, pw);	
+//								}
+//							}						
+//							
+//							//채널 File 검색 색인 삭제한다.					
+//							for (Document file : files) {
+//							//	System.out.println("채널 관련 파일 색인 삭제 : " + file.get("_id").toString());
+//								String fid = file.get("_id").toString();
+//								delete_searchengine_data("channel_file",  fid, search_server, search_server_port, user, pw);	
+//							}
+//						}
+						///////////////////////////////////////////////////////////////////////////////////////////////////					
+						//mongodb에 원본 메시지를 삭제한다.
+						col.deleteOne(query);								
+						// 관련 파일 Collection의 문서를 삭제한다.
+						
+						System.out.println("채널 원본 삭제시 삭제한다... :  " + xquery);
+						scol.deleteMany(xquery);
+					}
+					res = "true";	
+				}								
+			}				
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		Map<String, Object> item = new HashMap<>();
+		item.put("res", res);
+		return ResInfo.success(item);
+		
 	}
 }

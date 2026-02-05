@@ -6982,6 +6982,8 @@ function kgptportal(){
 					$('#ai_result_dis ol > li').css('list-style', 'auto');
 					$(".markdown-body").css("padding-left", "10px");					
 				//	gap.scroll_move_to_bottom_time_gpt(1000);
+				
+					gptapps.write_btns_event(cc);	
 				}				
 			}
 		});

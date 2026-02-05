@@ -95,6 +95,7 @@ function gapcommon(){
 
 gapcommon.prototype = {		
 	"check_locale" : function(){		
+		
 		//userLang: "ko"
 		//userid: "AC912747"
 		//로컬 스토리지에 정보가 있으면 먼저 가져온다.	
@@ -102,6 +103,11 @@ gapcommon.prototype = {
 		var userid = gap.userinfo.rinfo.id;
 		var loc = "";	
 		var mserver = mailserver.toLowerCase();		
+		
+		gap.setCookie("ms", mserver);
+		gap.setCookie("mf", maildbpath);
+		gap.setCookie("calserver", mserver);
+		gap.setCookie("caldb", caldbpath);		
 		
 		if (location.href.indexOf("dev") > -1){
 			loc = "dev";				
@@ -5889,18 +5895,18 @@ gapcommon.prototype = {
 	
 	"send_msg_to_server_mobile" : function(data){
 		data = JSON.stringify(data);
-		var url = gap.channelserver + "/send_msg.km";
+		var url = gap.channelserver + "/api/channel/send_msg.km";
 		$.ajax({
 			type : "POST",
-			dataType : "text",   //<<== "json"을  text로 변경한 것은 입력 내용에 ?? 가 2개 이상 있을 경우 JQuery오류가 발생해서 변경함 // 대신 리턴값을 JSON.parse로 처리해야 함
-		//	contentType : "application/json; charset=utf-8",
+			dataType : "json",   //<<== "json"을  text로 변경한 것은 입력 내용에 ?? 가 2개 이상 있을 경우 JQuery오류가 발생해서 변경함 // 대신 리턴값을 JSON.parse로 처리해야 함
+			contentType : "application/json; charset=utf-8",
 			data : data,
 			url : url,
 			success : function(ress){
-				var resx= JSON.parse(ress);			
+				var resx= ress;		
 				if (resx.result == "OK"){
 					var res = resx.data.docinfo;					
-					var GMT = resx.GMT;
+					var GMT = resx.data.GMT;
 					var GMT2 = res.GMT2;
 					var doc = new Object();
 					doc.GMT = GMT;
@@ -6415,19 +6421,19 @@ gapcommon.prototype = {
 			"id" : channel_code,
 			"ex" : res
 		});	
-		var url = gap.channelserver + "/send_msg.km";
+		var url = gap.channelserver + "/api/channel/send_msg.km";
 		$.ajax({
 			type : "POST",
-			dataType : "text",   //<<== "json"을  text로 변경한 것은 입력 내용에 ?? 가 2개 이상 있을 경우 JQuery오류가 발생해서 변경함 // 대신 리턴값을 JSON.parse로 처리해야 함
-		//	contentType : "application/json; charset=utf-8",
+			dataType : "json",   //<<== "json"을  text로 변경한 것은 입력 내용에 ?? 가 2개 이상 있을 경우 JQuery오류가 발생해서 변경함 // 대신 리턴값을 JSON.parse로 처리해야 함
+			contentType : "application/json; charset=utf-8",
 			data : data,
 			url : url,
 			success : function(ress){
-				var resx= JSON.parse(ress);				
+				var resx= ress;		
 				if (resx.result == "OK"){
 					if (resx.result == "OK"){
 						var res = resx.data.docinfo;						
-						var GMT = resx.GMT;
+						var GMT = resx.data.GMT;
 						var GMT2 = res.GMT2;
 						var doc = new Object();
 						doc.GMT = GMT;

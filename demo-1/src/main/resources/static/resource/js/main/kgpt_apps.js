@@ -709,7 +709,9 @@
 		//$("#search_work").val("");	
 		var ssp = new SSE(gptpt.plugin_domain_fast + "apps/"+method, {headers: {'Content-Type': 'application/json; charset=utf-8'},
 	            payload:postData,
-	           method: 'POST'});	
+	           method: 'POST',
+			   withCredentials: true
+		   });	
 		var accumulatedMarkdown = "";
 		$("#" + cc).addClass("markdown-body");
 		$("#" + cc).parent().css("white-space", "inherit");			
@@ -4863,6 +4865,13 @@
 	},	
 		
 	"write_btns_event" : function(id){
+		
+		$("#" + gptapps.dis_id + " .link").on("click", function(e){	
+			var url = $(e.currentTarget).data("url");
+			window.open(url, null);
+		});
+				
+				
 		if (ismobile != "T"){
 			$("#" + id + "_btns").show().fadeIn();
 		}		

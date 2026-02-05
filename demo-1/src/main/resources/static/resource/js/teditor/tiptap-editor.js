@@ -253,6 +253,7 @@ class TiptapEditor {
     createEditor() {
         const self = this;
         
+		/*
         this.editor = new Editor({
             element: this.$(this.ids.editorArea),
             extensions: [
@@ -270,6 +271,7 @@ class TiptapEditor {
                 TaskItem.configure({ nested: true }),
                 TextStyle,
                 Color,
+				
                 Mention.configure({
                     HTMLAttributes: { class: 'mention' },
                     suggestion: {
@@ -279,6 +281,7 @@ class TiptapEditor {
                     }
                 })
             ],
+			
             content: this.options.content,
             onUpdate: () => {
                 this.updateToolbarState();
@@ -291,6 +294,56 @@ class TiptapEditor {
                 this.updateToolbarState();
             }
         });
+		*/
+		
+		
+		// 기본 extensions
+		    const extensions = [
+		        StarterKit.configure({ heading: { levels: [1, 2, 3] } }),
+		        Table.configure({ resizable: true }),
+		        TableRow,
+		        TableCell,
+		        TableHeader,
+		        Underline,
+		        Highlight.configure({ multicolor: true }),
+		        Link.configure({ openOnClick: false }),
+		        Image.configure({ allowBase64: true }),
+		        Placeholder.configure({ placeholder: this.options.placeholder }),
+		        TaskList,
+		        TaskItem.configure({ nested: true }),
+		        TextStyle,
+		        Color
+		    ];
+		    
+		    // users가 있을 때만 Mention 추가
+		    if (this.options.users && this.options.users.length > 0) {
+		        extensions.push(
+		            Mention.configure({
+		                HTMLAttributes: { class: 'mention' },
+		                suggestion: {
+		                    char: '@',
+		                    items: ({ query }) => self.options.users.filter(u => u.name.includes(query)).slice(0, 5),
+		                    render: () => self.createMentionRenderer()
+		                }
+		            })
+		        );
+		    }
+
+		    this.editor = new Editor({
+		        element: this.$(this.ids.editorArea),
+		        extensions: extensions,
+		        content: this.options.content,
+		        onUpdate: () => {
+		            this.updateToolbarState();
+		            this.handleSlashCommand();
+		            if (this.options.onChange) {
+		                this.options.onChange(this.getHTML());
+		            }
+		        },
+		        onSelectionUpdate: () => {
+		            this.updateToolbarState();
+		        }
+		    });
     }
     
     createMentionRenderer() {

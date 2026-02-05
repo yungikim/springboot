@@ -110,5 +110,13 @@ public class KGTPRestAPIController {
 		return kgptService.change_person_ai_request(requestData);
 	}
 	
+	@PostMapping("/save_person_ai_request_log.km")
+	public Object save_person_ai_request_log(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return kgptService.save_person_ai_request_log(requestData);
+	}
+	
+	
 	
 }

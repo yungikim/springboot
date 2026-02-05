@@ -9573,3 +9573,12 @@ path.connection {
 .editable-div:focus::before {
     content: none;
 }
+
+
+
+#alarm_kgpt_sub .link,
+#ai_result_dis .link{
+	cursor : pointer;	
+	color : blue;
+	font-weight : 500;
+}

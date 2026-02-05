@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kmslab.one.service.channel.ChannelService;
+import com.kmslab.one.util.Utils;
 
 @RestController
 @RequestMapping("/api/channel")
@@ -127,4 +128,38 @@ public class ChannelRestAPIController {
 		requestData.put("depts", depts);
 		return channelService.move_folder_channel(requestData);
 	}
+	
+	@PostMapping("/channel_list_temp.km")
+	public Object channel_list_temp(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		return channelService.channel_list_temp(requestData);
+	}
+	
+	@PostMapping("/send_msg.km")
+	public Object send_msg(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);
+		
+		if (requestData.containsKey("msg_edit")) {
+			String type = requestData.get("msg_edit").toString();
+			String type2 = requestData.get("edit").toString();
+			if (!type.equals("T") && !type2.equals("T")) {					
+				requestData.put("GMT2", Utils.GMTDate());
+			}
+		}	
+		requestData.put("GMT", Utils.GMTDate());
+		return channelService.send_msg(requestData);
+	}
+	
+	@PostMapping("/channel_data_delete.km")
+	public Object channel_data_delete(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);	
+		
+		return channelService.channel_data_delete(requestData);
+	}
+	
+	
+	
 }

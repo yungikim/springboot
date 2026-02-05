@@ -1070,7 +1070,7 @@ gnotebook.prototype = {
 		
 		// 2. 위에서 등록한 전역 함수 호출
 	    if (typeof window.drawTiptapEditor === "function") {
-	        window.drawTiptapEditor('myEditor');
+	        window.drawTiptapEditor('myEditor', []);
 	    } else {
 	        console.error("에디터 로드 함수가 아직 준비되지 않았습니다.");
 	    }
@@ -1239,7 +1239,7 @@ gnotebook.prototype = {
 					// 2. 위에서 등록한 전역 함수 호출
 				    if (typeof window.drawTiptapEditor === "function") {
 						$("#myEditor").show();
-				        window.drawTiptapEditor('myEditor');
+				        window.drawTiptapEditor('myEditor', []);
 						window.editor.setContent($("#note_content_dis").html());
 						$("#myEditor .tiptap-editor-area").css("height", "725px");
 						$("#myEditor .tiptap-editor-area").css("max-height", "725px");
