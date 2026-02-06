@@ -1453,9 +1453,9 @@ gBodyFN3.prototype = {
 		$("#reply_compose_"+id).val("");	
 		//타켓 문서를 현재 창에서 제거하고 오늘의 마지막으로 이동시킨다... 댓글을 달면 최근 데이터로 업데이트 한다.
 		var klen = $("#ms_" + gBody3.xkey).length;		
-		var GMT = res.data.GMT;
-		var GMT2 = res.data.GMT2;
-		var rid = res.data.rid;		
+		var GMT = res.data.data.GMT;
+		var GMT2 = res.data.data.GMT2;
+		var rid = res.data.data.rid;		
 		var date = gap.change_date_localTime_only_date(GMT);		
 		if (klen > 0){			
 			if (gBody3.post_view_type == "2"){				
@@ -1692,14 +1692,15 @@ gBodyFN3.prototype = {
 			});			
 			gBody3.xkey = id;
 			gBody3.tempData = data;			
-			var url = gap.channelserver + "/save_reply.km";
+			var url = gap.channelserver + "/api/channel/save_reply.km";
 			$.ajax({
 				type : "POST",
-				dataType : "text",
+				dataType : "json",
+				contentType : "application/json; charset=utf-8",
 				url : url,
 				data : data,
 				success : function(ress){				
-					var res = JSON.parse(ress);
+					var res = ress;
 					if (res.result == "OK"){											
 						gBody3.reply_total_draw(res, id);							
 						
@@ -2446,14 +2447,15 @@ gBodyFN3.prototype = {
 				"channel_data_id" : gBody3.xkey
 			});			
 			gBody3.tempData = data;		
-			var url = gap.channelserver + "/save_reply.km";
+			var url = gap.channelserver + "/api/channel/save_reply.km";
 			$.ajax({
 				type : "POST",
-				dataType : "text",
+				dataType : "json",
+				contentType : "application/json; charset=utf-8",
 				url : url,
 				data : data,
 				success : function(ress){				
-					var res = JSON.parse(ress);
+					var res = ress;
 					if (res.result == "OK"){
 						$("#reply_content").val("");					
 						//타켓 문서를 현재 창에서 제거하고 오늘의 마지막으로 이동시킨다... 댓글을 달면 최근 데이터로 업데이트 한다.
@@ -2723,9 +2725,9 @@ gBodyFN3.prototype = {
 	},
 	
 	"update_reply_list" : function(info){
-		var GMT = info.GMT;
-		var GMT2 = info.GMT2;
-		var rid = info.rid;		
+		var GMT = info.data.GMT;
+		var GMT2 = info.data.GMT2;
+		var rid = info.data.rid;		
 		var inn = "";
 		if ( (typeof(info.edit) != "undefined") && (info.edit == "T")){
 			inn = info.tempdata;
@@ -3296,12 +3298,12 @@ gBodyFN3.prototype = {
 				if (gBody3.collapse_editor == "1"){
 					//에디터로 작성된 내용의 본문을 자동으로 접기 하겠다는 옵션
 					html += "<h3>"+item.title+"  <span class='fold-btns editor' data-key='"+docid+"' style='display:inline-block; width:100px'><button class='btn-editor-expand'>"+gap.lang.expand_editor+"</button></span></h3> ";
-					html += "<div class='wrap-editor-area' style='display:none; overflow:auto'>";
+					html += "<div class='wrap-editor-area ProseMirror' style='display:none; overflow:auto'>";
 					html += "					<p id='p_"+docid+"'>"+message+"</p>";
 					html += "</div>";
 				}else{
 					html += "<h3>"+item.title+"  <span class='fold-btns editor' data-key='"+docid+"' style='display:none; width:100px'><button class='btn-editor-fold'>"+gap.lang.expand_editor+"</button></span></h3> ";
-					html += "<div class='wrap-editor-area' style='overflow:auto'>";
+					html += "<div class='wrap-editor-area ProseMirror' style='overflow:auto'>";
 				
 					html += "					<p id='p_"+docid+"'>"+message+"</p>";
 					html += "</div>";
@@ -3811,13 +3813,13 @@ gBodyFN3.prototype = {
 				if (gBody3.collapse_editor == "1"){
 					//에디터로 작성된 내용의 본문을 자동으로 접기 하겠다는 옵션
 					html += "<h3>"+item.title+"  <span class='fold-btns editor' data-key='"+docid+"' style='display:inline-block; width:100px'><button class='btn-editor-expand'>"+gap.lang.expand_editor+"</button></span></h3> ";
-					html += "<div class='wrap-editor-area' style='display:none; overflow:auto'>";
+					html += "<div class='wrap-editor-area ProseMirror' style='display:none; overflow:auto'>";
 					html += "					<p id='p_"+docid+"'>"+message+"</p>";
 					html += "</div>";
 					disopt = "none";
 				}else{
 					html += "<h3>"+item.title+"</h3>";
-					html += "<div class='wrap-editor-area' style='overflow:auto'>";
+					html += "<div class='wrap-editor-area ProseMirror' style='overflow:auto'>";
 					html += "					<p id='p_"+docid+"'>"+message+"</p>";
 					html += "</div>";
 				}			
@@ -4292,11 +4294,12 @@ gBodyFN3.prototype = {
 						  
 				      },
 				      success : function(file, json){				    	 
-				    	  var jj = JSON.parse(json);		    	 
-				    	  if (jj.result == "OK"){				    		  			    		  
+				    	  var jj = json;		    	 
+				    	//  if (jj.result == "OK"){				    		  			    		  
 				    		  this.res = jj;
 				    		  this.file_list = jj.file_infos;
-				    	  }	 			
+				    	//  }	 			
+						  gap.hide_loading();
 				      },
 				      addedfile :  function(file) {				    	
 						 gap.dropzone_upload_limit(this, file, "chat");
@@ -4324,7 +4327,7 @@ gBodyFN3.prototype = {
 					}					
 					////////////////////////////////////////					
 					var jj = this.res;
-					var id = jj.data.rid.split("_")[0];		    		  
+					var id = jj.data.data.rid.split("_")[0];		    		  
 		    		var data = JSON.stringify({
 		  				"content" : gBody3.temp_mentions_msg,	//content,
 		  				"mention" : gBody3.temp_mentions_data,
@@ -4856,7 +4859,7 @@ gBodyFN3.prototype = {
 	},
 	
 	"edit_channel_data" : function(id, ch_code){
-		var url = gap.channelserver + "/doc_info.km";
+		var url = gap.channelserver + "/api/channel/doc_info.km";
 		var data = JSON.stringify({
 			"id" : id
 		});		
@@ -4864,6 +4867,7 @@ gBodyFN3.prototype = {
 		$.ajax({
 			type : "POST",
 			dataType : "json",
+			contentType : "application/json; charset=utf-8",
 			url : url,
 			data : data,
 			success : function(res){			
@@ -4962,7 +4966,10 @@ gBodyFN3.prototype = {
 		message = message.replace(/&lt;/g, '<').replace(/&gt;/g, '>');		
 		gBody3.editor_html = message;
 		gBody3.change_editor_width();		
-		$("#editor_iframe").attr("src",root_path+"/page/kEditor.jsp?docmode=edit");			
+		$("#editor_iframe").attr("src",root_path+"/page/kEditor.jsp?docmode=edit");		
+		
+
+			
 		var list = "";	
 		list += '<optgroup label="'+gap.lang.sharechannel+'" id="share_channel_list_popup">';
 		list += "<option value=''>"+gap.lang.channelchoice+"</option>";		
@@ -4979,6 +4986,11 @@ gBodyFN3.prototype = {
 		$('#share_editor_list_popup').material_select();		
 		gBody3.select_channel_code = info.channel_code;
 		gBody3.select_channel_name = info.channel_name;	
+		
+		
+		
+		
+		
 		$('#share_editor_list_popup').on('change',function() {			
 	        var selectedid = $(this).val();
 	        var selectedText = $(".optgroup-option.active.selected").text();	       
@@ -5007,13 +5019,40 @@ gBodyFN3.prototype = {
 		
 		$("#message_txt_channel").attr("disabled", true);	
 		$("#editor_title").val(gap.textToHtmlBox(info.title));
-		$("#editor_title").focus();		
+		$("#editor_title").focus();	
+			
 		gBody3.delete_file_list = new Array();		
 		var html = "";
 		if (typeof(info.info) != "undefined"){			
 			gBody3.draw_temp_file_list(info.info);
 		}						
 		gBody3.Fileupload_init();		
+		
+		//웹 에디터 설정하기
+		if (typeof window.drawTiptapEditor === "function") {	       
+			//참석자 리스트 정리한다.		
+			var info = gap.cur_channel_info.member;
+			var list = [];
+			for (var i = 0 ; i < info.length; i++){
+				var item = info[i];
+				var obj = new Object();
+				obj.id = item.ky;
+				obj.name = item.nm;
+				obj.role = item.dp;
+				list.push(obj);
+			}
+			var owner = gap.cur_channel_info.owner;
+			var obj = new Object();
+			obj.id = owner.ky;
+			obj.name = owner.nm;
+			obj.role = owner.dp;
+			list.push(obj);			
+			window.drawTiptapEditor('editor_iframe', list);
+			$("#editor_iframe").css("border", "1px solid #e9e8e8");		
+			window.editor.setContent(message);	
+		} else {
+			console.error("에디터 로드 함수가 아직 준비되지 않았습니다.");
+		}
 	},
 	
 	"draw_temp_file_list" : function(info){
@@ -5973,14 +6012,14 @@ gBodyFN3.prototype = {
 			contents: msg,
 			callback: function(){
 			//확인을 클릭한 경우			 				
-			var url = gap.channelserver + "/channel_data_delete.km";
+			var url = gap.channelserver + "/api/channel/channel_data_delete.km";
 			var data = JSON.stringify({
 				"id" : id
 			});			
 			$.ajax({
 				type : "POST",
 				dataType : "json",
-				contenType : "application/json; charset=utf-8",
+				contentType : "application/json; charset=utf-8",
 				data : data,
 				beforeSend : function(xhr){
 					xhr.setRequestHeader("auth", gap.get_auth());
@@ -6065,7 +6104,7 @@ gBodyFN3.prototype = {
 			contents: msg,
 			callback: function(){
 				//해당 컨텐츠를 공지로 등록한다.
-				var url = gap.channelserver + "/channel_noticedata_save.km";		
+				var url = gap.channelserver + "/api/channel/channel_noticedata_save.km";		
 				var data = JSON.stringify({
 					"id" : id,
 					"key" : key,
@@ -6143,7 +6182,8 @@ gBodyFN3.prototype = {
 								}
 								smsg.sender = slist;						
 							}else{						
-								smsg.sender = gap.cur_room_search_info_member_ids2(item.channel_code);
+								//smsg.sender = gap.cur_room_search_info_member_ids2(item.channel_code);
+								smsg.sender = gap.cur_room_search_info_member_ids(item.channel_code);
 							}		
 							
 							var rid = item.channel_code;
@@ -10985,7 +11025,7 @@ gBodyFN3.prototype = {
 							}						
 							if ((info.editor != undefined) && (info.editor != "")){
 								html += '						<h3 class="ts-result-content">' + info.title + '</h3>';
-								html += '						<div class="wrap-editor-area ts-result-content">';
+								html += '						<div class="wrap-editor-area ts-result-content ProseMirror">';
 								html += '							<p>' + message + '</p>';
 								html += '						</div>';							
 							}else{

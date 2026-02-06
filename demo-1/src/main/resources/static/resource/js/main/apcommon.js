@@ -7127,13 +7127,13 @@ gapcommon.prototype = {
 	
 	"delete_notice" : function(key, opt){
 		//채팅방과 업무방의 공지사항을 제거한다.
-		var url = gap.channelserver + "/delete_notice.km";
+		var url = gap.channelserver + "/api/channel/delete_notice.km";
 		var data = JSON.stringify({
 			"key" : key
 		});
 		$.ajax({
 			type : "POST",
-			contentType : "application/json, charset=utf-8",
+			contentType : "application/json; charset=utf-8",
 			url : url,
 			data : data,
 			success : function(res){				
@@ -7143,7 +7143,7 @@ gapcommon.prototype = {
 				// 상세보기 열려있는 경우 닫아주기
 				$('#notice_ly .btn-close').click();
 				
-				if (res.isLast == "T"){
+				if (res.res3 == "T"){
 					if (opt == "chat" || opt == "quick_chat"){
 						
 						var list = gBody.cur_room_att_info_list;
@@ -8428,8 +8428,9 @@ gapcommon.prototype = {
 		var _self = this;
 		$.ajax({
 			type : "POST",
-			url : gap.channelserver + "/read_notice_by_key.km",
+			url : gap.channelserver + "/api/channel/read_notice_by_key.km",
 			dataType : "json",
+			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify({id:key}),
 			success : function(res){
 				if (res.result == 'NO') {
@@ -8903,7 +8904,7 @@ gapcommon.prototype = {
 	"hideNoticeWork" : function(){
 		$('#sub_channel_content').removeClass('show-notice');
 		$('#notice_top_work').removeClass('expand');
-		this.workRefreshHeight();
+		//this.workRefreshHeight(); //함수가 정의되지 않음
 	},
 	
 	"eventNoticeRead" : function(){

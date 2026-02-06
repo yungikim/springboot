@@ -20,6 +20,9 @@ public class ResInfo {
     @JsonProperty("message")
     private String message;
     
+    @JsonProperty("res3")
+    private String res3;
+    
     @JsonProperty("data")
     private Object data;  // 단일 객체
     
@@ -45,6 +48,14 @@ public class ResInfo {
         ResInfo res = new ResInfo();
         res.setResult("OK");
         res.setData(data);
+        return res;
+    }
+    
+    public static ResInfo success(Object data, String res3) {
+        ResInfo res = new ResInfo();
+        res.setResult("OK");
+        res.setData(data);
+        res.setData3(res3);
         return res;
     }
     
@@ -112,6 +123,10 @@ public class ResInfo {
     
     public void setData(Object data) {
         this.data = data;
+    }
+    
+    public void setData3(String data) {
+        this.res3 = data;
     }
     
     public List<Map<String, Object>> getList() {

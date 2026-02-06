@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
@@ -22,6 +23,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.kmslab.one.component.WriteLog;
 import com.kmslab.one.config.AppConfig;
+import com.kmslab.one.es.ClientApi;
+import com.kmslab.one.es.api.DocumentApi;
+import com.kmslab.one.es.api.SearchApi;
 import com.kmslab.one.service.ResInfo;
 import com.kmslab.one.util.DocumentConverter;
 import com.kmslab.one.util.Utils;
@@ -31,6 +35,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.Sorts;
+import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 
@@ -1412,29 +1417,29 @@ public class ChannelService {
 						/////////////////////////////////////////////////////////////////////////////////////////////////
 						///////////////////// 채널 삭제시 검색 관련 색인을 삭제한다. /////////////////////////////////////////////
 						//검색엔진에 색인 데이터를 삭제한다.
-//						if (!search_server.equals("")) {										
-//							String user = search_server_user;
-//							String pw = search_server_pw;						
-//							
-//							delete_searchengine_data("msg",  id, search_server, search_server_port, user, pw);						
-//							
-//							//댓글 검색 색인 삭제한다.
-//							if (doc.containsKey("reply")) {
-//								List<Document> replys = (List<Document>) doc.get("reply");	
-//								for (Document rep : replys) {
-//								//	System.out.println("채널 댓글 삭제 : " + rep.get("rid").toString());
-//									String rid = rep.get("rid").toString();
-//									delete_searchengine_data("reply",  rid, search_server, search_server_port, user, pw);	
-//								}
-//							}						
-//							
-//							//채널 File 검색 색인 삭제한다.					
-//							for (Document file : files) {
-//							//	System.out.println("채널 관련 파일 색인 삭제 : " + file.get("_id").toString());
-//								String fid = file.get("_id").toString();
-//								delete_searchengine_data("channel_file",  fid, search_server, search_server_port, user, pw);	
-//							}
-//						}
+						if (!search_server.equals("")) {										
+							String user = search_server_user;
+							String pw = search_server_pw;						
+							
+							delete_searchengine_data("msg",  id, search_server, search_server_port, user, pw);						
+							
+							//댓글 검색 색인 삭제한다.
+							if (doc.containsKey("reply")) {
+								List<Document> replys = (List<Document>) doc.get("reply");	
+								for (Document rep : replys) {
+								//	System.out.println("채널 댓글 삭제 : " + rep.get("rid").toString());
+									String rid = rep.get("rid").toString();
+									delete_searchengine_data("reply",  rid, search_server, search_server_port, user, pw);	
+								}
+							}						
+							
+							//채널 File 검색 색인 삭제한다.					
+							for (Document file : files) {
+							//	System.out.println("채널 관련 파일 색인 삭제 : " + file.get("_id").toString());
+								String fid = file.get("_id").toString();
+								delete_searchengine_data("channel_file",  fid, search_server, search_server_port, user, pw);	
+							}
+						}
 						///////////////////////////////////////////////////////////////////////////////////////////////////					
 						//mongodb에 원본 메시지를 삭제한다.
 						col.deleteOne(query);								
@@ -1453,5 +1458,274 @@ public class ChannelService {
 		item.put("res", res);
 		return ResInfo.success(item);
 		
+	}
+	
+	public void delete_searchengine_data(String type, String id, String server, int port, String user, String pw) {
+		ClientApi api = new ClientApi(server, port, user, pw);
+		DocumentApi docApi = api.getDocumentApi();
+		SearchApi schApi = api.getSearchApi();
+		
+		try {			
+			//기본 문서를 삭제한다.		
+			//일단 주석처리한다.검색엔진 색인이 안됨
+		//	docApi.deleteDocument("meet", "_doc", type + "_" + id);		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			api.close();
+		}
+		
+		
+	}
+	
+	public void delete_searchengine_data(String type, String id, String server, int port) {
+		ClientApi api = new ClientApi(server, port);
+		DocumentApi docApi = api.getDocumentApi();
+		SearchApi schApi = api.getSearchApi();
+		
+		try {			
+			//기본 문서를 삭제한다.			
+			docApi.deleteDocument("meet", "_doc", type + "_" + id);				
+//			//채널 데이터를 지우면 
+//			if (type.equals("msg")) {				
+//				//1. 댓글데이터 색인 삭제해야한다.
+//				BoolQueryBuilder query = QueryBuilders.boolQuery();
+//				query.must(QueryBuilders.termQuery("channel_data_id", id));
+//				SearchResponse response = schApi.search(query, 0,100, new String[] {"meet"}, null, true, new String[] {"GMT"});
+//				
+//				Object[] item = (Object[]) docApi.getBulkItem();
+//				BulkRequest request = (BulkRequest) item[0];
+//				SearchHit[] searchHits = response.getHits().getHits();
+//				
+//				while (searchHits != null && searchHits.length > 0) {
+//					
+//				}
+//				
+//				//메시지 색인 데이터 삭제
+//				
+//				
+//				//해당 파일 색인 데이터 삭제
+//				
+//				
+//			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			api.close();
+		}		
+	}
+	
+	public Object doc_info(Map<String, Object> requestData) {
+		try{
+			MongoCollection<Document> col = channel_data.getCollection("data");
+			
+			Document query = new Document();
+			query.put("_id", new ObjectId(requestData.get("id").toString()));
+			
+			Document sdoc = col.find(query).first();
+			if (sdoc != null){
+				return ResInfo.success(DocumentConverter.toCleanMap(sdoc));
+			}else {
+				return ResInfo.error("ERROR");
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}
+	}
+	
+	public Object channel_noticedata_save(Map<String, Object> requestData) {
+		try{
+			MongoCollection<Document> l_col = notice.getCollection("data");			
+			MongoCollection<Document> col = channel_data.getCollection("data");			
+			Document query = new Document();
+			String id = requestData.get("id").toString();
+			String key = requestData.get("key").toString();
+			query.put("_id", new ObjectId(id));			
+			Document doc = col.find(query).first();					
+			if (doc != null){										
+				Document xx = new Document();
+				doc.remove("reply");
+				xx.append("data", doc);				
+				xx.append("id", id);
+				xx.append("key", key);
+				//xx.append("owner", Document.parse(requestData.get("owner").toString()));
+				Map<String, Object> owner = (Map<String, Object>) requestData.get("owner");
+				xx.append("owner", new Document(owner));
+				xx.append("tyx", "channel");
+				xx.append("use", "T");
+				xx.append("GMT", Utils.GMTDate());						
+				//만약 파일이 있는 컨텐츠는 파일관련 폴더를 notice폴더로 이동시켜야 한다. 원본을 삭제 할 수 있기 때문에
+				if (doc.get("type").equals("file")) {
+					//System.out.println("파일을 포함하고 있다.");
+					String uploadpath = doc.get("upload_path").toString();
+					String email = doc.get("ky").toString();
+					String dir = appConfig.getFileDownloadPath();
+					String sourcePath = dir + File.separator + email + File.separator + uploadpath;
+					String targetPath = dir + File.separator + "notice" + File.separator +  email + File.separator + uploadpath;
+					File sf2 = new File(targetPath);
+                	if (!sf2.exists()){                        	
+                		sf2.mkdirs();
+                	}                  	
+                	File sf3 = new File(sourcePath);
+                	if (!sf3.exists()) {
+                		return ResInfo.error("ERROR");
+                	}       	
+                	FileUtils.copyDirectory(new File(sourcePath), new File(targetPath));
+				}				
+				l_col.insertOne(xx);				
+				//채널 데이터에 공지가 등록되었다는 내용을 기록 한다.				
+				Document newdoc = new Document();
+				doc.put("tyx", "notice");
+				doc.remove("_id");
+				newdoc = doc;
+			//	newdoc.append("owner", Document.parse(requestData.get("owner").toString()));
+				newdoc.append("owner", new Document(owner));
+				newdoc.put("GMT", Utils.GMTDate());
+				newdoc.put("GMT2", Utils.GMTDate());
+				newdoc.put("like_count", 0);				
+				Document qp = new Document();
+				qp.put("id", id);
+				Document sqp = l_col.find(qp).sort(Sorts.descending("GMT")).first();
+				if (sqp != null) {
+					newdoc.put("notice_id", sqp.get("_id").toString());
+				}			
+				col.insertOne(newdoc);			
+
+				return ResInfo.success(DocumentConverter.toCleanMap(newdoc), id);
+				
+			}else{
+				return ResInfo.error("ERROR");
+			}			
+		}catch(Exception e){
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}	
+	}
+	
+	public Object read_notice_by_key(Map<String, Object> requestData) {
+		try {
+			MongoCollection<Document> col = notice.getCollection("data");	
+			Document squery = new Document();
+			String key = requestData.get("id").toString();	
+			squery.put("_id", new ObjectId(key));			
+			Document user_select = col.find(squery).first();
+			if (user_select != null && user_select.get("use").equals("T")) {				
+				Map<String, Object> dx = new HashMap<>();
+				dx.put("response", DocumentConverter.toCleanMap(user_select));
+				return ResInfo.success(dx);
+			}else {
+				return ResInfo.error("NO");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}		
+	}
+	
+	public Object delete_notice(Map<String, Object> requestData) {
+		String isLast = "F";
+		try {
+			MongoCollection<Document> col = notice.getCollection("data");	
+			Document squery = new Document();
+			String key = requestData.get("key").toString();	
+			squery.put("_id", new ObjectId(key));			
+			Document data = new Document();
+			data.put("use", "F");			
+			Document se = new Document();
+			se.put("$set", data);			
+			//만약 공지 사항 관련 파일이 있는 경우 삭제해야 한다.
+			Document sdoc = col.find(squery).first();			
+			if (sdoc != null) {
+				String tkey = sdoc.get("_id").toString();
+				String pkey = sdoc.getString("key");				
+				Document xquery = new Document();
+				xquery.append("key", pkey);
+				Document last_doc = col.find(xquery).sort(new Document("GMT", -1)).first();
+				if (last_doc != null) {
+					String last_key = last_doc.get("_id").toString();
+					if (tkey.equals(last_key)) {
+						isLast = "T";
+					}
+				}				
+			}			
+			col.updateOne(squery, se);
+			Map<String, Object> item = new HashMap<>();
+			return ResInfo.success(item, isLast);			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}	
+	}
+	
+	public Object save_reply(Map<String, Object> requestData2) {
+		try{
+			Map<String, Object> requestData = Utils.convertOidToObjectId(requestData2);
+			MongoCollection<Document> col = channel_data.getCollection("data");			
+			String id = requestData.get("channel_data_id").toString();			
+			Document query = new Document();
+			query.put("_id", new ObjectId(id));			
+			Document odoc = col.find(query).first();			
+			String rid = "";
+			if (odoc != null){				
+				String key = "";
+	  			if (requestData.containsKey("rid")) {
+	  				key = requestData.get("rid").toString();
+	  				requestData.put("rid", key);
+	  				rid = key;
+	  			}else {
+	  				//System.out.println("rid가 없어서 다시 계산한다.");
+	  				String randomStr2 = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
+		  			key = Utils.curDay8() + "_" + randomStr2;
+		  			requestData.put("rid", id + "_" + key);
+		  			rid = id + "_" + key;
+	  			} 			  	
+	  			Document sdoc = new Document(requestData);	  	
+	  			Bson filter = Filters.eq( "_id", new ObjectId(id) ); //get the parent-document
+	  		    Bson setUpdate = Updates.push("reply", sdoc);
+	  		    col.updateOne(filter, setUpdate);  		  	  		    
+	  		    Document data = new Document();
+	  		    data.put("GMT", requestData.get("GMT2").toString());	  		    
+	  		    //재색인을 위해서 필드를 업데이트 해준다.
+	  		    data.put("main_index", "F");	
+	  		    if (!odoc.containsKey("upload_path")) {
+	  		    	//원본 문서에 upload_path 자체가 없는 경우 
+	  		    	//텍스트만 입력된 댓글에서는 그대로 패스 하지만 파일첨부가 포함된 댓글의 경우 해당 댓글을 등록한 upload_path가 원본의 upload_path로 등록되어야 같은 폴더에 저장되고 관리될 수 있다.
+	  		    	if (requestData.containsKey("upload_path")) {
+	  		    		data.put("upload_path", requestData.get("upload_path").toString());
+	  		    	}
+	  		    }	  		    
+	  		    Document se = new Document();
+	  		    se.put("$set", data);  		    
+	  		    col.updateOne(query, se);  		    
+				//채널정보에 마지막업데이트 정보를 업데이트 한다. /////////////////////////////////////////////////
+				String GMT = requestData.get("GMT2").toString();
+				String channel_code = odoc.getString("channel_code");
+				channel_info_update_lastupdate(GMT, channel_code);				
+//				Document owner = Document.parse(jj.get("owner").toString());
+				Map<String, Object> sowner = (Map<String, Object>) requestData.get("owner");
+				Document owner = new Document(sowner);
+				String email = owner.getString("ky");
+				//나의 최종읽음 시간을 업데이트 해야 한다.
+				JsonObject jp = new JsonObject();
+				jp.addProperty("email", email);
+				jp.addProperty("channel_code", channel_code);
+				jp.addProperty("GMT", GMT);
+				channel_read_update(jp);
+				///////////////////////////////////////////////////////////////////////////////////////  			
+				Map<String, Object> dx = new HashMap<>();
+	  			dx.put("GMT", requestData.get("GMT2").toString());
+	  			dx.put("GMT2", odoc.get("GMT2").toString());
+	  			dx.put("rid", rid);
+	  			return ResInfo.success(dx);
+	  			
+			}else{
+				return ResInfo.error("ERROR");				
+			}						
+		}catch(Exception e){
+			e.printStackTrace();
+			return ResInfo.error(e.getMessage());
+		}
 	}
 }

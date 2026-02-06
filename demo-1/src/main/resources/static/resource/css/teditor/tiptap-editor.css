@@ -82,7 +82,7 @@
 /* ProseMirror 기본 스타일 */
 .ProseMirror {
     outline: none;
-    min-height: 360px;
+    /*min-height: 360px;*/
 }
 
 .ProseMirror > * + * {

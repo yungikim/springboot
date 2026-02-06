@@ -1301,7 +1301,7 @@ gBodyM.prototype = {
 	 * 업무방 게시글을 공지로 등록
 	 */
 	"notice_channel_data" : function(key, id){
-		var url = gap.channelserver + "/channel_noticedata_save.km";		
+		var url = gap.channelserver + "/api/channel/channel_noticedata_save.km";		
 		var data = JSON.stringify({
 			"id" : id,
 			"key" : key,
@@ -4929,7 +4929,7 @@ gBodyM.prototype = {
 						btnClass : "btn-default",
 						action : function(){
 							//확인을 클릭한 경우			 				
-							var url = gap.channelserver + "/channel_data_delete.km";
+							var url = gap.channelserver + "/api/channel/channel_data_delete.km";
 							var data = JSON.stringify({
 								"id" : id
 							});
@@ -4938,7 +4938,7 @@ gBodyM.prototype = {
 							$.ajax({
 								type : "POST",
 								dataType : "json",
-								contenType : "application/json; charset=utf-8",
+								contentType : "application/json; charset=utf-8",
 								data : data,
 								beforeSend : function(xhr){
 									xhr.setRequestHeader("auth", gap.get_auth());
@@ -5013,19 +5013,16 @@ gBodyM.prototype = {
 		
 		gBodyM.tempData = data;
 		
-		var url = gap.channelserver + "/save_reply.km";
+		var url = gap.channelserver + "/api/channel/save_reply.km";
 		$.ajax({
 			type : "POST",
-			dataType : "text",
+			dataType : "json",
+			contentType : "application/json; charset=utf-8",
 			url : url,
 			data : data,
-			success : function(ress){
-			
-			
-			
-				var res = JSON.parse(ress);
-				if (res.result == "OK"){
-												
+			success : function(ress){		
+				var res = ress;
+				if (res.result == "OK"){							
 				
 					var GMT = res.data.GMT;
 					var GMT2 = res.data.GMT2;

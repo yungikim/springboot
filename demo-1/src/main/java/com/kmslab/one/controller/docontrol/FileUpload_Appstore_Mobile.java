@@ -63,7 +63,7 @@ public class FileUpload_Appstore_Mobile {
 			result.addProperty("result", "OK");
 			result.addProperty("filename", saveFilename);
 			
-			System.out.println("AppStore 파일 업로드 완료");
+			System.out.println("FileControl_mobile_appstore 파일 업로드 완료");
 			return ResponseEntity.ok(result.toString());
 			
 		}catch(Exception e) {

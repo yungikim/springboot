@@ -41,6 +41,7 @@ public class AppConfig {
 	//계산된 경로들을 저장할 변수
 	public String thumbnailPath;
 	public String fileDownloadPath;
+	public String fileDownloadPath2;
 	public String chatroomPath;
 	
 	/**
@@ -55,11 +56,16 @@ public class AppConfig {
 		}
 		this.thumbnailPath = realdrive + sepa + "download" + sepa + "thumbnail" + sepa;
 		this.fileDownloadPath = realdrive + sepa + "upload";
+		this.fileDownloadPath2 = tempdrive + sepa + "upload";
 		this.chatroomPath = realdrive + sepa + "vol_epchat" + sepa + "data" + sepa + "upload_root";
 	}
 	
 	public String getFileDownloadPath() {
 	    return this.fileDownloadPath;
+	}
+	
+	public String getFileDownloadPath2() {
+		return this.fileDownloadPath2;
 	}
 	
 	public String getChatroomPath() {

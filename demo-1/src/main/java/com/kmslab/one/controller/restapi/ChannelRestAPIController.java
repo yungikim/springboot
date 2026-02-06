@@ -139,8 +139,7 @@ public class ChannelRestAPIController {
 	@PostMapping("/send_msg.km")
 	public Object send_msg(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
 		requestData.put("email", userId);
-		requestData.put("depts", depts);
-		
+		requestData.put("depts", depts);		
 		if (requestData.containsKey("msg_edit")) {
 			String type = requestData.get("msg_edit").toString();
 			String type2 = requestData.get("edit").toString();
@@ -155,11 +154,45 @@ public class ChannelRestAPIController {
 	@PostMapping("/channel_data_delete.km")
 	public Object channel_data_delete(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
 		requestData.put("email", userId);
-		requestData.put("depts", depts);	
-		
+		requestData.put("depts", depts);			
 		return channelService.channel_data_delete(requestData);
 	}
 	
+	@PostMapping("/doc_info.km")
+	public Object doc_info(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);		
+		return channelService.doc_info(requestData);
+	}
+	
+	@PostMapping("/channel_noticedata_save.km")
+	public Object channel_noticedata_save(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);			
+		return channelService.channel_noticedata_save(requestData);
+	}
+	
+	@PostMapping("/read_notice_by_key.km")
+	public Object read_notice_by_key(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);			
+		return channelService.read_notice_by_key(requestData);
+	}
+
+	@PostMapping("/delete_notice.km")
+	public Object delete_notice(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);			
+		return channelService.delete_notice(requestData);
+	}
+	
+	@PostMapping("/save_reply.km")
+	public Object save_reply(@RequestBody Map<String, Object> requestData, @RequestAttribute("userId") String userId, @RequestAttribute("depts") String depts) {
+		requestData.put("email", userId);
+		requestData.put("depts", depts);			
+		requestData.put("GMT2", Utils.GMTDate());
+		return channelService.save_reply(requestData);
+	}
 	
 	
 }

@@ -6,10 +6,14 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.TimeZone;
 
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
@@ -317,6 +321,35 @@ public class Utils {
 		}		
 		
 		return res;
+	}
+	
+	
+	public static Map<String, Object> convertOidToObjectId(Map<String, Object> data) {
+	    Map<String, Object> result = new HashMap<>();
+	    
+	    for (Map.Entry<String, Object> entry : data.entrySet()) {
+	        String key = entry.getKey();
+	        Object value = entry.getValue();
+	        
+	        if (value instanceof Map) {
+	            Map<String, Object> mapValue = (Map<String, Object>) value;
+	            
+	            // {$oid: "..."} 형태를 ObjectId로 변환
+	            if (mapValue.containsKey("$oid")) {
+	                String oidString = (String) mapValue.get("$oid");
+	                result.put(key, new ObjectId(oidString));
+	            } else {
+	                // 중첩된 Map도 재귀적으로 처리
+	                result.put(key, convertOidToObjectId(mapValue));
+	            }
+	        } else if (value instanceof List) {
+	            result.put(key, value); // List는 그대로 유지
+	        } else {
+	            result.put(key, value);
+	        }
+	    }
+	    
+	    return result;
 	}
 	
 }
